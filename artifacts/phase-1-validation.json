@@ -52,5 +52,17 @@
       "ref": "v4",
       "commit": "ea165f8d65b6e75b540449e92b4886f43607fa02"
     }
-  ]
+  ],
+  "verifiedRevision": "fbd34359626fd9165334baef54c79ee88a0a62fa",
+  "reproducibility": {
+    "revision": "fbd34359626fd9165334baef54c79ee88a0a62fa",
+    "offlineNpmCiExitCode": 0,
+    "cleanBuildExitCode": 0,
+    "installedPackages": 283,
+    "lockHashMatches": true,
+    "cleanWorktreeTrackedChanges": "",
+    "cleanBuildId": "ONePHTOXqHCzQEKQ2JBlN",
+    "byteIdenticalBuildClaimed": false,
+    "recordedAt": "2026-10-19T12:45:56.276855+00:00"
+  }
 }
