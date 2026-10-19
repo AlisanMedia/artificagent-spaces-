@@ -1,0 +1,6 @@
+
+> artificagent-spaces@0.1.0 security:check
+> node scripts/security-check.mjs
+
+PASS: exact dependencies, lock integrity, no live SDKs, no runtime network/secret surfaces, layer boundaries and browser policy.
+Static guardrails only; this is not a penetration test or an authentication/RLS guarantee.

@@ -1,0 +1,23 @@
+
+> artificagent-spaces@0.1.0 licenses
+> node scripts/license-inventory.mjs
+
+{
+  "installedPackages": 283,
+  "licenses": {
+    "MIT": 213,
+    "MPL-2.0": 8,
+    "MIT-0": 2,
+    "Apache-2.0": 25,
+    "LGPL-3.0-or-later": 2,
+    "Apache-2.0 AND LGPL-3.0-or-later AND MIT": 1,
+    "CC-BY-4.0": 1,
+    "ISC": 14,
+    "BSD-2-Clause": 8,
+    "BSD-3-Clause": 3,
+    "BlueOak-1.0.0": 4,
+    "CC0-1.0": 1,
+    "0BSD": 1
+  },
+  "unknown": []
+}

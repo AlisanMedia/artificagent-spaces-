@@ -1,0 +1,56 @@
+{
+  "recordedAt": "2026-10-19T12:42:29.626928+00:00",
+  "phase": "1",
+  "scope": "local foundation; synthetic-only; no external services",
+  "runtime": {
+    "node": "v24.19.0",
+    "npm": "11.9.0",
+    "browser": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "branch": "phase-1/foundation",
+  "baseline": "a61eeb3d5c17d00af52ce9c3e08d5205e6d71618",
+  "packageLockSha256": "63df04a79c669bd5a3ef51a835e747061875f7d90d7ab60d3b8abc5971811386",
+  "e2eStats": {
+    "startTime": "2026-10-19T12:40:35.115Z",
+    "duration": 58720.587999999996,
+    "expected": 26,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "audit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "coverageScope": [
+    "src/domain",
+    "src/application",
+    "src/adapters/fake"
+  ],
+  "localBuildId": "sOeuoVfzhzAs-SxrHsk8j",
+  "externalResourceCreation": false,
+  "paidApiCalls": 0,
+  "phase2Started": false,
+  "ci": "configuration only; not executed on hosted CI",
+  "verifiedActionRefs": [
+    {
+      "action": "actions/checkout",
+      "ref": "v6",
+      "commit": "d23441a48e516b6c34aea4fa41551a30e30af803"
+    },
+    {
+      "action": "actions/setup-node",
+      "ref": "v6",
+      "commit": "249970729cb0ef3589644e2896645e5dc5ba9c38"
+    },
+    {
+      "action": "actions/upload-artifact",
+      "ref": "v4",
+      "commit": "ea165f8d65b6e75b540449e92b4886f43607fa02"
+    }
+  ]
+}
