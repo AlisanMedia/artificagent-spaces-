@@ -20,6 +20,9 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "security:check": "node scripts/security-check.mjs",
+    "security:secrets": "bash scripts/scan-secrets.sh",
+    "test:governance": "node --test --test-isolation=none tests/governance/*.test.mjs",
+    "ci:summary": "node scripts/ci-summary.mjs",
     "security:audit": "npm audit --audit-level=high",
     "licenses": "node scripts/license-inventory.mjs",
     "check": "npm run lint && npm run typecheck && npm run test:coverage && npm run security:check && npm run build"

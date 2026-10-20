@@ -18,11 +18,15 @@ jobs:
     timeout-minutes: 20
     env:
       NEXT_TELEMETRY_DISABLED: "1"
+      CI_REVIEW_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Check out review branch
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
+          fetch-depth: 0
+      - name: Scan complete Git history with pinned Gitleaks
+        run: bash scripts/scan-secrets.sh
       - name: Set up pinned Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
@@ -35,23 +39,27 @@ jobs:
       - name: Verify dependency compatibility
         run: npm ls --all
       - name: Lint, types, coverage, guardrails, production build
-        run: npm run check
+        run: |
+          npm run lint
+          npm run typecheck
+          npm run test:coverage -- --reporter=default --reporter=json --outputFile=artifacts/governance/unit.json
+          npm run test:governance
+          npm run security:check
+          npm run build
       - name: Dependency advisory check
-        run: npm run security:audit
+        run: npm audit --audit-level=high --json > artifacts/governance/audit.json
       - name: Record license inventory
         run: npm run licenses
       - name: Install test browser
         run: npx --no-install playwright install --with-deps chromium
       - name: Browser, accessibility and local-only network checks
         run: npm run test:e2e
-      - name: Retain review evidence
-        if: always()
+      - name: Validate and prepare public aggregate evidence
+        run: npm run ci:summary
+      - name: Retain reviewed aggregate evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: phase-1-acceptance-evidence
-          path: |
-            coverage/
-            playwright-report/
-            test-results/
-            artifacts/
+          path: artifacts/governance/public-ci-summary.json
+          if-no-files-found: error
           retention-days: 7
