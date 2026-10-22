@@ -1,21 +1,23 @@
-name: Phase 1 foundation
+name: Spaces foundation and local platform
 
 on:
   pull_request:
   workflow_dispatch:
+  push:
+    branches: [main]
 
 permissions:
   contents: read
 
 concurrency:
-  group: phase-1-${{ github.workflow }}-${{ github.ref }}
+  group: spaces-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   foundation:
     name: Foundation acceptance
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       NEXT_TELEMETRY_DISABLED: "1"
       CI_REVIEW_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -27,6 +29,13 @@ jobs:
           fetch-depth: 0
       - name: Scan complete Git history with pinned Gitleaks
         run: bash scripts/scan-secrets.sh
+      - name: Install CPU-only local media tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends --yes ffmpeg blender python3-numpy fonts-dejavu-core
+          ffmpeg -version | head -1
+          blender --version | head -1
+          blender --background --factory-startup --disable-autoexec --python-exit-code 1 --python-expr "import bpy, numpy; assert bpy.ops.export_scene.gltf.get_rna_type().identifier"
       - name: Set up pinned Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
@@ -38,6 +47,10 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Verify dependency compatibility
         run: npm ls --all
+      - name: Verify effective rules with read-only token; full merge gate stays separate
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node --use-env-proxy scripts/verify-repository.mjs --ci-visible
       - name: Lint, types, coverage, guardrails, production build
         run: |
           npm run lint
@@ -49,7 +62,7 @@ jobs:
       - name: Dependency advisory check
         run: npm audit --audit-level=high --json > artifacts/governance/audit.json
       - name: Record license inventory
-        run: npm run licenses
+        run: npm run sbom
       - name: Install test browser
         run: npx --no-install playwright install --with-deps chromium
       - name: Browser, accessibility and local-only network checks

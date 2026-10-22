@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "backend": "pixel-streaming-candidate-disabled",
+  "enabled": false,
+  "externalSpendLimitMicroUsd": 0,
+  "iceServers": [],
+  "turnCredentials": "SERVER_SECRET_MANAGER_AFTER_APPROVAL",
+  "maxGlobalSimulatedSessions": 8,
+  "maxTenantSimulatedSessions": 2,
+  "leaseTtlMs": 30000,
+  "actualGpuCapacity": null,
+  "actualTurnBandwidthCost": null,
+  "authorization": ["publication-current", "visitor-session", "tenant-budget", "ttl-fence"],
+  "unrealVersion": "NOT_INSTALLED_NOT_VERIFIED",
+  "legalApproval": "PENDING_OWNER_LEGAL"
+}

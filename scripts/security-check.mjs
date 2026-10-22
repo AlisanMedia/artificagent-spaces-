@@ -15,9 +15,6 @@ const manifest = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
 const dependencies = { ...manifest.dependencies, ...manifest.devDependencies };
 for (const [name, version] of Object.entries(dependencies)) {
   if (!/^\d+\.\d+\.\d+$/.test(version)) failures.push("Dependency is not exact-pinned: " + name);
-  if (/supabase|aws-sdk|anthropic|^openai$|^stripe$|^pg$|temporalio|vercel|firebase|runway|kling/i.test(name)) {
-    failures.push("External service SDK is outside Phase 1: " + name);
-  }
 }
 const lock = JSON.parse(await readFile(join(root, "package-lock.json"), "utf8"));
 if (lock.lockfileVersion !== 3) failures.push("Expected npm lockfile version 3");
@@ -31,14 +28,22 @@ for (const file of files) {
   if (!/\.(ts|tsx)$/.test(file)) continue;
   const source = await readFile(file, "utf8");
   const path = relative(root, file).replaceAll("\\", "/");
-  if (/\b(?:fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(source)) failures.push("Runtime network primitive: " + path);
+  if (/\b(?:fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(source) && path !== "src/features/platform/client.ts") failures.push("Network primitive outside reviewed same-origin boundary: " + path);
   if (/\b(?:eval|Function)\s*\(|dangerouslySetInnerHTML|service_role|NEXT_PUBLIC_.*(?:KEY|SECRET|TOKEN)/.test(source)) failures.push("Unsafe content, execution or secret surface: " + path);
   if (/(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}/.test(source)) failures.push("Potential credential: " + path);
-  if (/\/(?:route|proxy|middleware)\.ts$/.test(path)) failures.push("Server integration surface is not authorized in Phase 1: " + path);
+  if (source.includes('"use client"') && /from\s+["'](?:node:|@\/server\/|@electric-sql\/|jose["'])/.test(source)) failures.push("Private server dependency in browser module: " + path);
+  if (/\b(?:execSync|eval)\s*\(|(?<![.\w])exec\s*\(|shell:\s*true/.test(source)) failures.push("Shell or arbitrary code execution: " + path);
+  if (source.includes('from "node:child_process"') && path !== "src/server/media.ts") failures.push("Unexpected child process surface: " + path);
   if (path.startsWith("src/domain/") && /from\s+["'](?:react|next|@\/(?:features|components|fixtures|adapters|application|composition))/.test(source)) failures.push("Domain layer imports outward: " + path);
   if (path.startsWith("src/application/") && /from\s+["'](?:react|next|@\/(?:features|components|fixtures|adapters|composition))/.test(source)) failures.push("Application layer imports an implementation: " + path);
   if (path.startsWith("src/features/") && /from\s+["']@\/adapters\//.test(source)) failures.push("Feature bypasses composition boundary: " + path);
 }
+const client = await readFile(join(root, "src/features/platform/client.ts"), "utf8");
+if (!client.includes('fetch("/api/spaces" + path') || !client.includes('credentials: "same-origin"')) failures.push("Client boundary must be same-origin and session bound");
+const route = await readFile(join(root, "src/app/api/spaces/[...segments]/route.ts"), "utf8");
+if (!route.includes("verifyLocalRequest(request)") || !route.includes('"BLOCKED_EXTERNAL_APPROVAL"')) failures.push("Local/API enablement gates missing");
+const http = await readFile(join(root, "src/server/http.ts"), "utf8");
+if (!http.includes("origin") || !http.includes("localhost") || !http.includes("HttpOnly")) failures.push("Loopback, origin or HttpOnly policy missing");
 const nextConfig = await readFile(join(root, "next.config.ts"), "utf8");
 for (const required of ["connect-src 'self'", "frame-ancestors 'none'", "object-src 'none'", "payment=()", "remotePatterns: []"]) {
   if (!nextConfig.includes(required)) failures.push("Missing local-only browser policy: " + required);
@@ -47,6 +52,6 @@ if (failures.length > 0) {
   console.error(failures.join("\n"));
   process.exitCode = 1;
 } else {
-  console.log("PASS: exact dependencies, lock integrity, no live SDKs, no runtime network/secret surfaces, layer boundaries and browser policy.");
+  console.log("PASS: pinned dependencies, lock integrity, same-origin browser API, private server/layer boundaries, no arbitrary shell/code, loopback/session and browser policies.");
   console.log("Static guardrails only; this is not a penetration test or an authentication/RLS guarantee.");
 }

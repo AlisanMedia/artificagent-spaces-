@@ -9,6 +9,7 @@ export default defineConfig({
   reporter: [["list"], ["html", { open: "never" }], ["json", { outputFile: "test-results/e2e-results.json" }]],
   use: {
     baseURL: "http://127.0.0.1:3000",
+    launchOptions: { args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] },
     trace: "retain-on-failure",
     screenshot: "only-on-failure"
   },
@@ -19,7 +20,7 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         viewport: { width: 1440, height: 1000 },
         launchOptions: process.env["PLAYWRIGHT_CHROMIUM_EXECUTABLE"]
-          ? { executablePath: process.env["PLAYWRIGHT_CHROMIUM_EXECUTABLE"] } : {}
+          ? { executablePath: process.env["PLAYWRIGHT_CHROMIUM_EXECUTABLE"], args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] } : { args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] }
       }
     },
     {
@@ -27,13 +28,13 @@ export default defineConfig({
       use: {
         ...devices["Pixel 7"],
         launchOptions: process.env["PLAYWRIGHT_CHROMIUM_EXECUTABLE"]
-          ? { executablePath: process.env["PLAYWRIGHT_CHROMIUM_EXECUTABLE"] } : {}
+          ? { executablePath: process.env["PLAYWRIGHT_CHROMIUM_EXECUTABLE"], args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] } : { args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] }
       }
     }
   ],
   webServer: {
     command: "npm run start",
-    url: "http://127.0.0.1:3000",
+    url: "http://127.0.0.1:3000/api/spaces/bootstrap",
     reuseExistingServer: !process.env["CI"],
     timeout: 90_000
   }

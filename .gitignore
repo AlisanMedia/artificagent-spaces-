@@ -12,3 +12,6 @@ test-results/
 *.key
 .DS_Store
 /artifacts/governance/
+.spaces-local/
+*.local-backup
+supabase/.temp/

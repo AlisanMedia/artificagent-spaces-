@@ -1,0 +1,21 @@
+{
+  "scope": "Local headless in-viewport observation; not real phone/GPU capacity or percentile benchmark",
+  "measurements": [
+    {
+      "project": "desktop-chromium",
+      "renderer": "headless SwiftShader test",
+      "quality": "low",
+      "lastObservedFps": 14.9,
+      "physicalDeviceVerified": false,
+      "actualGpuConcurrency": null
+    },
+    {
+      "project": "mobile-chromium",
+      "renderer": "headless SwiftShader test",
+      "quality": "low",
+      "lastObservedFps": 54.1,
+      "physicalDeviceVerified": false,
+      "actualGpuConcurrency": null
+    }
+  ]
+}
