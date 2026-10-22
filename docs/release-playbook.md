@@ -51,3 +51,7 @@ Bu adımlar için secret değerleri talep edilmez. Bağımsız yerel geliştirme
 ## Yayın öncesi asgari güvenlik
 
 Production auth/session rotation, gerçek Postgres/Supabase RLS/cache/storage negative tests, object AV/sandbox, signed URL key rotation, worker container egress/FS/CPU/GPU quotas, durable queue multi-worker stress/restore, approved review/release separation, nonce CSP, webhook body/signature/dedup, consent/erasure/verified CRM conversion, partner/white-label pentest, gerçek Safari/audio latency ve measured capacity/cost olmadan üretim açılmaz. Fiyat ve performans bilinmiyorsa UNKNOWN kalır; testten kaçmak için gate düşürülmez.
+
+## CI okuma yetkisi ve merge kapısı
+
+Actions token `contents:read` kalır. GitHub bu token’dan repository merge setting / bypass listesini gizleyebilir. CI effective main rules endpoint’inden PR/approval/stale/conversations, strict Foundation acceptance+15368, deletion/force yasağını doğrular; gizli alanlar **NOT_VISIBLE_TO_READ_TOKEN / PARTIAL_READ_ONLY** olarak işaretlenir. Bu full governance PASS değildir. Merge öncesi yetkili owner integration ile varsayılan **full** `verify-repository.mjs` zorunludur; alanlar görünmüyorsa veya bypass boş değilse bloklar. İlk run 39817002455 eksik metadata’yı yanlışlıkla kapalı setting sayan assertion yüzünden başarısızdır; sonraki head/run ayrı kanıttır. Daha geniş token yetkisi veya repo koruma değişikliği yapılmadı.

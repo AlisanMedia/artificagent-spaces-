@@ -14,3 +14,5 @@ Owner'ın **2026-10-22 AUTONOMOUS END-TO-END BUILD AUTHORIZATION V2.0** talimat�
 - Required context **Foundation acceptance**, GitHub Actions integration **15368** sabit tutulur. PR + workflow_dispatch korunarak main push doğrulaması eklenebilir. Bağımsız review/check sağlanırsa ordinary merge commit önceden yetkilidir; aksi durumda PR'ı bekletip güvenli bağımsız işi sürdür.
 - Kullanıcı dosyaları ve untracked raporları koru; değişiklik öncesi durum/hash ve gerektiğinde yedek al. Secret, raw transcript, özel adres/medya veya debug trace public Git/CI artifactine giremez.
 - Phase 1B kabulü sonraki üretim harcaması/deployment/yasal onay yerine geçmez. Gerçek dış aksiyonlar dışında geliştirme için yeni faz onayı gerekmez.
+
+- Merge öncesi `node --use-env-proxy scripts/verify-repository.mjs` **full** modu zorunludur. Read-only Actions token gizli merge/bypass alanlarını göstermeyebilir; CI `--ci-visible` modu bunları `NOT_VISIBLE_TO_READ_TOKEN / PARTIAL_READ_ONLY` olarak raporlar, full doğrulama yerine geçmez. Eksik alan full gate'i geçiremez; write token yetkisi veya bypass ekleyerek çözme.

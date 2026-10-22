@@ -34,3 +34,11 @@ Two historical user reports remain untracked and unchanged: `PHASE_1B_FINAL_CLOS
 ## Next safe action
 
 Finish browser run; inspect actual media/screenshots/metadata; record local samples without tokens. Run full-history Gitleaks and staged/source public review, commit UI/API/docs, then normal feature-branch push and protected PR. Verify real hosted Foundation acceptance and independent review. If review is pending, queue PR and keep independent safe work; never bypass/self-approve. See `docs/release-playbook.md` for consolidated real external gates (all budget 0). Update this checkpoint with exact new SHA/PR/run evidence.
+
+## GitHub checkpoint — 2026-10-22
+
+Code HEAD `42d304bcaf028a4ed33e8777f1b9ba02f49eaf67`; normal source push succeeded after 6-commit Gitleaks + public staged export scans (both 0). PR #2: https://github.com/AlisanMedia/artificagent-spaces-/pull/2. Chesar55 (verified write role) requested; independent approval missing; main unchanged, no merge.
+
+First hosted run 39817002455 / job 119957987170 FAILED at the newly added governance metadata assertion: the read-only Actions token omitted `allow_merge_commit`, which the initial verifier treated as false. Tests/build/browser steps in that hosted run were SKIPPED, not PASS. Branch-specific correction keeps contents:read, asserts actual effective main PR/check/force/deletion rules in CI, explicitly marks hidden fields PARTIAL_READ_ONLY, and retains a strict full pre-merge mode that fails on missing/private fields. No repository rules/permissions/check context were changed. Full owner-integration API verification remains mandatory before any merge.
+
+This corrective checkpoint adds 5 governance negative tests. Next: run full verifier and tests, Gitleaks all history, normal push; require a fresh hosted run for the new head. Do not reuse failed/old run as current success.

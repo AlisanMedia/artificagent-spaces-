@@ -46,10 +46,10 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Verify dependency compatibility
         run: npm ls --all
-      - name: Verify protected target without changing governance
+      - name: Verify effective rules with read-only token; full merge gate stays separate
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node --use-env-proxy scripts/verify-repository.mjs
+        run: node --use-env-proxy scripts/verify-repository.mjs --ci-visible
       - name: Lint, types, coverage, guardrails, production build
         run: |
           npm run lint
