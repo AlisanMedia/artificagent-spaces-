@@ -27,6 +27,7 @@
     "ci:summary": "node scripts/ci-summary.mjs",
     "security:audit": "npm audit --audit-level=high",
     "licenses": "node scripts/license-inventory.mjs",
+    "sbom": "npm run licenses && node scripts/sbom.mjs",
     "check": "npm run lint && npm run typecheck && npm run test:coverage && npm run security:check && npm run build"
   },
   "dependencies": {

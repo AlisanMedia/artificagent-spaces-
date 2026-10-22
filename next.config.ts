@@ -7,8 +7,8 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  "connect-src 'self'",
-  "media-src 'none'",
+  "connect-src 'self' blob:",
+  "media-src 'self' blob:",
   "object-src 'none'",
   "frame-src 'none'",
   "frame-ancestors 'none'",
@@ -21,6 +21,7 @@ const config: NextConfig = {
   reactStrictMode: true,
   devIndicators: false,
   images: { remotePatterns: [] },
+  serverExternalPackages: ["@electric-sql/pglite", "sharp"],
   experimental: { cpus: 2 },
   async headers() {
     return [{
@@ -30,7 +31,7 @@ const config: NextConfig = {
         { key: "X-Content-Type-Options", value: "nosniff" },
         { key: "X-Frame-Options", value: "DENY" },
         { key: "Referrer-Policy", value: "no-referrer" },
-        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" }
+        { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=(), payment=()" }
       ]
     }];
   }

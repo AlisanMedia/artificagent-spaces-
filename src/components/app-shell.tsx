@@ -83,6 +83,8 @@ export function AppShell({ children }: { readonly children: ReactNode }) {
     if (typeof query === "string") router.push("/properties?q=" + encodeURIComponent(query.trim()));
   }
 
+  if (pathname.startsWith("/spaces") || pathname.startsWith("/tour/")) return <div className="spaces-shell"><a href="#main-content" className="skip-link">İçeriğe geç</a><header className="spaces-header"><Link href="/spaces" className="spaces-wordmark"><span aria-hidden="true">A↗</span> ArtificAgent <em>SPACES</em></Link><nav aria-label="Platform gezinme"><Link href="/spaces">Çalışma alanı</Link><Link href="/">Foundation arşivi</Link></nav><span className="spaces-pill">YEREL · SENTETİK · 0 USD</span></header><main id="main-content" tabIndex={-1}>{children}</main><footer className="spaces-footer">ARTIFICAGENT SPACES <span>Canlı servis / deployment / ödeme kapalı</span></footer></div>;
+
   return <div className="app-layout">
     <a href="#main-content" className="skip-link">İçeriğe geç</a>
     <aside className="desktop-sidebar" aria-label="Çalışma alanı menüsü"><SidebarContent /></aside>
@@ -104,7 +106,7 @@ export function AppShell({ children }: { readonly children: ReactNode }) {
         </div>
       </header>
       <main id="main-content" className="main-content" tabIndex={-1}>{children}</main>
-      <footer className="app-footer"><span>ARTIFICAGENT SPACES</span><span>Yerel önizleme · Tamamı sentetik veriler</span><span>PHASE 01 / FOUNDATION</span></footer>
+      <footer className="app-footer"><span>ARTIFICAGENT SPACES</span><Link href="/spaces">Çalışan yerel platformu aç ↗</Link><span>PHASE 01 / FOUNDATION ARŞİVİ</span></footer>
     </div>
     <dialog ref={updates} className="content-dialog" aria-labelledby="updates-title">
       <div className="dialog-heading"><h2 id="updates-title">Çalışma alanı notları</h2><Button variant="ghost" aria-label="Bildirimleri kapat" onClick={() => updates.current?.close()}><X size={20} /></Button></div>

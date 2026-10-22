@@ -192,6 +192,13 @@ export class VoiceService {
       recording: false,
     };
     await this.db.pg.transaction(async (tx) => {
+      const currentConsent = (
+        await tx.query<{ allowed: boolean }>(
+          "select coalesce((body->'consent'->>'voice')::boolean,false) as allowed from anonymous_sessions where organization_id=$1 and id=$2 for update",
+          [visitor.organizationId, visitor.id],
+        )
+      ).rows[0];
+      invariant(currentConsent?.allowed, "VOICE_CONSENT_REQUIRED", 403);
       const account = (
         await tx.query<{ available: number }>(
           "select available::float8 from credit_accounts where organization_id=$1 for update",
@@ -457,6 +464,25 @@ export class VoiceService {
         .filter((r) => r.truth === "E2")
         .map((r) => ({ id: r.id, label: r.label })),
       missingFactsAreUnknown: true,
+    };
+  }
+  async resume(
+    publicationToken: string,
+    visitorToken: string,
+    voiceToken: string,
+  ) {
+    const { body, grant } = await this.context(
+      publicationToken,
+      visitorToken,
+      voiceToken,
+    );
+    return {
+      id: grant.resourceId,
+      nextSequence: body.nextSequence,
+      currentRoom: body.currentRoom,
+      provider: "deterministic-local",
+      externalSpendMicroUsd: 0,
+      recording: false,
     };
   }
   async stop(

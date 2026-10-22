@@ -1,5 +1,10 @@
-import type { z } from "zod";
-import { GenerationInput, invariant, validateScene } from "@/domain/platform";
+import { z } from "zod";
+import {
+  GenerationInput,
+  Id,
+  invariant,
+  validateScene,
+} from "@/domain/platform";
 import type { OutputEvidence } from "@/contracts/platform-ports";
 import { digest, newId } from "./crypto";
 import type { Actor, Database } from "./database";
@@ -31,6 +36,7 @@ export interface JobRecord {
   output: OutputEvidence | null;
   error_code: string | null;
   created_by: string;
+  source_snapshot: unknown;
 }
 export class JobService {
   private readonly ledger = new Ledger();
@@ -113,9 +119,21 @@ export class JobService {
         [actor.organizationId],
       );
       invariant(active.rows[0]!.count < 3, "TENANT_JOB_LIMIT", 429);
+      const capacity = (
+        await tx.query<{ bytes: string }>(
+          "select coalesce(sum((output->>'bytes')::bigint),0)::text as bytes from jobs where organization_id=$1",
+          [actor.organizationId],
+        )
+      ).rows[0]!;
+      invariant(
+        Number(capacity.bytes) + (active.rows[0]!.count + 1) * 52428800 <=
+          524288000,
+        "TENANT_OUTPUT_QUOTA",
+        429,
+      );
       const id = newId();
       await tx.query(
-        "insert into jobs(organization_id,id,property_id,revision,command,command_hash,idempotency_key,state,created_by) values($1,$2,$3,$4,$5,$6,$7,'queued',$8)",
+        "insert into jobs(organization_id,id,property_id,revision,command,command_hash,idempotency_key,state,created_by,source_snapshot) values($1,$2,$3,$4,$5,$6,$7,'queued',$8,$9)",
         [
           actor.organizationId,
           id,
@@ -125,6 +143,13 @@ export class JobService {
           hash,
           command.idempotencyKey,
           actor.userId,
+          JSON.stringify(
+            sources.map((source) => ({
+              id: source.id,
+              clean_hash: source.clean_hash,
+              kind: source.kind,
+            })),
+          ),
         ],
       );
       await this.ledger.reserve(tx, actor.organizationId, id, 1000);
@@ -231,12 +256,41 @@ export class JobService {
           "STALE_JOB_REVISION",
         );
         const scene = validateScene(revision.manifest);
-        const sources = (
-          await this.db.pg.query<MediaSource>(
-            "select id,clean_hash from assets where organization_id=$1 and property_id=$2 and status='clean' and kind in ('photo','panorama') order by created_at",
-            [job.organization_id, job.property_id],
+        const sources: MediaSource[] = z
+          .array(
+            z
+              .object({
+                id: Id,
+                clean_hash: z.string().regex(/^[a-f0-9]{64}$/),
+                kind: z.enum(["photo", "panorama", "floor-plan"]),
+              })
+              .strict(),
+          )
+          .min(1)
+          .max(20)
+          .parse(job.source_snapshot);
+        const records = (
+          await this.db.pg.query<{
+            id: string;
+            clean_hash: string;
+            status: string;
+          }>(
+            "select id,clean_hash,status from assets where organization_id=$1 and property_id=$2 and id=any($3::text[])",
+            [job.organization_id, job.property_id, sources.map((s) => s.id)],
           )
         ).rows;
+        invariant(
+          records.length === sources.length &&
+            sources.every((s) =>
+              records.some(
+                (r) =>
+                  r.id === s.id &&
+                  r.clean_hash === s.clean_hash &&
+                  r.status === "clean",
+              ),
+            ),
+          "SOURCE_EVIDENCE_CHANGED",
+        );
         const output = await buildOutput(
           this.storage,
           job.id + "--" + job.fence,

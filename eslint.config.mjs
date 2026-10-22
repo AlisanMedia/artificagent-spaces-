@@ -18,10 +18,10 @@ export default defineConfig([
       "no-restricted-imports": ["error", {
         patterns: [{
           group: ["@supabase/*", "@aws-sdk/*", "openai", "@anthropic-ai/*", "stripe", "pg", "@temporalio/*"],
-          message: "Phase 1 is local-only. External adapters require a separately authorized phase."
+          message: "Use reviewed provider-neutral server ports; live service activation needs external approval."
         }]
       }]
     }
   },
-  globalIgnores([".next/**", "coverage/**", "playwright-report/**", "test-results/**", "artifacts/**"])
+  globalIgnores([".next/**", ".spaces-local/**", "coverage/**", "playwright-report/**", "test-results/**", "artifacts/**"])
 ]);

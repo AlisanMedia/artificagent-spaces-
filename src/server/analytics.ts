@@ -1,3 +1,4 @@
+import type { Transaction } from "@electric-sql/pglite";
 import { z } from "zod";
 import {
   EventInput,
@@ -43,6 +44,28 @@ export class AnalyticsService {
     readonly releases: ReleaseService,
     readonly secrets: Secrets,
   ) {}
+  private async lockedConsent(tx: Transaction, visitor: VisitorScope) {
+    const row = (
+      await tx.query<{ body: VisitorBody; expires_at: Date }>(
+        "select body,expires_at from anonymous_sessions where organization_id=$1 and id=$2 and property_id=$3 and revision=$4 for update",
+        [
+          visitor.organizationId,
+          visitor.id,
+          visitor.propertyId,
+          visitor.revision,
+        ],
+      )
+    ).rows[0];
+    invariant(
+      row &&
+        row.body.nonce === visitor.nonce &&
+        row.body.publicationId === visitor.publicationId &&
+        new Date(row.expires_at).getTime() > Date.now(),
+      "VISITOR_REVOKED",
+      403,
+    );
+    return Consent.parse(row.body.consent);
+  }
   async createVisitor(publicationToken: string, input: unknown) {
     const scope = await this.releases.resolve(publicationToken),
       consent = Consent.parse(input),
@@ -186,6 +209,12 @@ export class AnalyticsService {
         );
     }
     return this.db.pg.transaction(async (tx) => {
+      if (!(await this.lockedConsent(tx, visitor)).analytics)
+        return {
+          accepted: 0,
+          dropped: items.length,
+          reason: "NO_ANALYTICS_CONSENT",
+        };
       const count = (
         await tx.query<{ count: number }>(
           "select count(*)::int as count from analytics_events where organization_id=$1 and session_id=$2 and created_at>now()-interval '1 minute'",
@@ -214,6 +243,7 @@ export class AnalyticsService {
   async withdraw(publicationToken: string, visitorToken: string) {
     const { visitor } = await this.scope(publicationToken, visitorToken);
     await this.db.pg.transaction(async (tx) => {
+      await this.lockedConsent(tx, visitor);
       await tx.query(
         "delete from analytics_events where organization_id=$1 and session_id=$2",
         [visitor.organizationId, visitor.id],
@@ -243,6 +273,7 @@ export class AnalyticsService {
   async erase(publicationToken: string, visitorToken: string) {
     const { visitor } = await this.scope(publicationToken, visitorToken);
     await this.db.pg.transaction(async (tx) => {
+      await this.lockedConsent(tx, visitor);
       for (const table of [
         "analytics_events",
         "leads",
@@ -261,7 +292,7 @@ export class AnalyticsService {
     return {
       erased: true,
       retained:
-        "İsimsiz maliyet/audit kayıtları; raw transcript veya audio tutulmadı.",
+        "İletişim bilgisi içermeyen maliyet/audit kayıtları; raw transcript veya audio tutulmadı.",
     };
   }
   async lead(publicationToken: string, visitorToken: string, input: unknown) {
@@ -289,16 +320,14 @@ export class AnalyticsService {
     const id = value.idempotencyKey;
     const body = {
       requestHash: digest(JSON.stringify(value)),
-      encryptedContact: this.secrets
-        .tenant(visitor.organizationId)
-        .encrypt(
-          JSON.stringify({
-            name: value.name,
-            contactMethod: value.contactMethod,
-            contact: value.contact,
-            message: value.message,
-          }),
-        ),
+      encryptedContact: this.secrets.tenant(visitor.organizationId).encrypt(
+        JSON.stringify({
+          name: value.name,
+          contactMethod: value.contactMethod,
+          contact: value.contact,
+          message: value.message,
+        }),
+      ),
       status: "PENDING_INTEREST",
       consentVersion: value.consentVersion,
       consentAt: new Date().toISOString(),
@@ -306,6 +335,11 @@ export class AnalyticsService {
       simulated: true,
     };
     await this.db.pg.transaction(async (tx) => {
+      invariant(
+        (await this.lockedConsent(tx, visitor)).contact,
+        "CONTACT_CONSENT_REQUIRED",
+        403,
+      );
       const old = (
         await tx.query<{ session_id: string; body: { requestHash: string } }>(
           "select session_id,body from leads where organization_id=$1 and id=$2",
@@ -574,9 +608,18 @@ export class AnalyticsService {
     to: string,
   ) {
     const data = await this.rollup(actor, propertyId, from, to);
+    const brand =
+      (
+        await this.db.pg.query<{ body: { displayName: string } }>(
+          "select body from white_label_brands where organization_id=$1 and id='default'",
+          [actor.organizationId],
+        )
+      ).rows[0]?.body.displayName ?? "ArtificAgent Spaces";
     return [
-      "step,count",
-      ...data.steps.map((x) => [csvCell(x.label), csvCell(x.count)].join(",")),
+      "brand,step,count",
+      ...data.steps.map((x) =>
+        [csvCell(brand), csvCell(x.label), csvCell(x.count)].join(","),
+      ),
     ].join("\n");
   }
   async privateLead(actor: Actor, leadId: string) {

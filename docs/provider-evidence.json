@@ -1,0 +1,135 @@
+{
+  "checkedAtUtc": "2026-10-22",
+  "documentationReadOnly": true,
+  "externalInferenceCalls": 0,
+  "liveAgentMutation": false,
+  "sources": [
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/libraries/react",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/customization/authentication",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/workflows/post-call-webhooks",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/api-reference/conversations/get-signed-url",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/customization/personalization/dynamic-variables",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/customization/tools/client-tools",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/video",
+      "status": 200,
+      "sha256": "89610a5347164d5b8dfa22d14eaa9e39e37cc43d47e019b3c434907ff35ae1c3"
+    },
+    {
+      "url": "https://docs.worldlabs.ai/api",
+      "status": 200,
+      "sha256": "0859ca06d57c03db7c5586b7099d592f248a8f21d0a4d40a77ee7989c35a16f5"
+    },
+    {
+      "url": "https://api.elevenlabs.io/openapi.json",
+      "status": 200,
+      "sha256": "61de2e1f86c1fbaade757b37aad529207f6b829a968d7fce10049dc21decb860"
+    },
+    {
+      "url": "https://elevenlabs.io/pricing/agents-platform",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://docs.worldlabs.ai/pricing",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://docs.worldlabs.ai/api/rate-limits",
+      "status": 200,
+      "sha256": "02868072c81bd169c817d5fb62c93f98baac83d558807753c748795aa7dd68ab"
+    },
+    {
+      "url": "https://platform.openai.com/docs/models",
+      "status": 200,
+      "sha256": "d1d1461095f7547c493215e08c1ef747f9b17a34b7c99c4fe5b3cdba20f511fe"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "status": 200,
+      "sha256": "db548a5dda5931c9c41548e5a1d8aabc7e3fd3081e906504847525b69e67fdc2"
+    },
+    {
+      "url": "https://docs.byteplus.com/en/docs/ModelArk/Video_Generation_API",
+      "status": 200,
+      "sha256": "d912922103514d451968c383ee1ab0d2d1f08fb6645f8aa016cebadeeb642832"
+    },
+    {
+      "url": "https://app.klingai.com/global/dev/document-api/apiReference/model/omniVideo",
+      "status": 200,
+      "sha256": "81ed5c6b707c95832173ca76de42edb968f4da159cafdcce397c9fbd53da24e0"
+    },
+    {
+      "url": "https://docs.worldlabs.ai/api/pricing",
+      "status": 200,
+      "sha256": "9ae8cea8384350e8610a2671d1a610f3ba4e5922aeea3b0d64ae7495ace1fcc4"
+    },
+    {
+      "url": "https://platform.openai.com/docs/pricing",
+      "status": 200,
+      "sha256": "3f5d68c2c2f1f436af377e82e9f4e74e5f87b2e05e37164b32cdc1611a0f7dbd"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "status": 200,
+      "sha256": "0953b3d2b9f6ce2bb0f80c2a47694c72d5c8bb8b248ab85956083e8857d78a2e"
+    },
+    {
+      "url": "https://elevenlabs.io/pricing",
+      "status": 200,
+      "sha256": "507e305e8e455f6ff6ca7d14fbdc0fb1318dbf39d77d8cc4eaef9148ca7e0fca"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/workflows/post-call-webhooks.md",
+      "status": 200,
+      "sha256": "5a24745b428bf79a7d88d7647448fb01394b31cb9c99307548c1d03c66d2525c"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/libraries/react.md",
+      "status": 200,
+      "sha256": "9ddb72ac0a3851158d744ab06b25db90cd54d7e0a71eab43263bfde5724b7ab9"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/customization/personalization/dynamic-variables.md",
+      "status": 200,
+      "sha256": "72733952ce20ae7f820b9211971a9c55fa85d4689954956747c988f4f7aa8046"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/customization/authentication.md",
+      "status": 200,
+      "sha256": "7afdb89e17b0476671b99d3ea5ae68d94df01a99c7859201c0414bcd9ccbb7b4"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/customization/tools/client-tools.md",
+      "status": 200,
+      "sha256": "c65f3c2ee4be362d9c7596ad0e6be156a56d72341ccfe5f7bbc05483276eebbb"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/customization/tools/webhook-tools.md",
+      "status": 200,
+      "sha256": "35b467edc5a5767e57799cde01ec1d9da5c3eeadb4e9617125fe6a225c9e4ce5"
+    },
+    {
+      "url": "https://elevenlabs.io/docs/eleven-agents/customization/knowledge-base.md",
+      "status": 200,
+      "sha256": "8f5785e2e1c409f03c4c5bc7697cf5713be22fe693da1d589d277d51f858b8bb"
+    }
+  ]
+}

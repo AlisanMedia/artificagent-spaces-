@@ -56,6 +56,8 @@ export interface GuideReply {
 }
 export interface OutputEvidence {
   readonly artifactId?: string;
+  readonly manifestSha256?: string;
+  readonly colorSpace?: "bt709-sdr";
   readonly cameraPlan?: ShotPlan | null;
   readonly kind: "image-motion-demo" | "parametric-mesh";
   readonly mime: "video/mp4" | "model/gltf-binary";

@@ -45,6 +45,26 @@ describe("real local PostgreSQL RLS (PGlite)", () => {
     );
     expect(r.rows.map((x) => x.id)).toEqual(["property-a"]);
   });
+  it("keeps tenant GUC contexts separate across concurrent requests", async () => {
+    const a = await db.actor("demo-admin-a", "studio"),
+      b = await db.actor("demo-admin-b", "atelier");
+    const results = await Promise.all(
+      Array.from({ length: 20 }, async (_, i) => {
+        const actor = i % 2 ? a : b;
+        const rows = await db.as(actor, (tx) =>
+          tx.query<{ organization_id: string }>(
+            "select organization_id from properties",
+          ),
+        );
+        return (
+          rows.rows.every(
+            (row) => row.organization_id === actor.organizationId,
+          ) && rows.rows.length === 1
+        );
+      }),
+    );
+    expect(results.every(Boolean)).toBe(true);
+  });
   it("denies forged organization membership", async () => {
     await expect(db.actor("demo-admin-a", "atelier")).rejects.toMatchObject({
       code: "TENANT_ACCESS_DENIED",
@@ -111,6 +131,12 @@ describe("real local PostgreSQL RLS (PGlite)", () => {
         ),
       ),
     ).rejects.toThrow(/row.level security/i);
+  });
+  it("denies application-role job state manipulation independently of the API", async () => {
+    const actor = await db.actor("demo-admin-a", "studio");
+    await expect(
+      db.as(actor, (tx) => tx.query("update jobs set state='approved'")),
+    ).rejects.toThrow(/permission denied/);
   });
   it("composite foreign keys prevent linking a foreign property", async () => {
     await expect(

@@ -1,4 +1,5 @@
 // @vitest-environment node
+import { isolatedWorkerEnvironment } from "@/server/media";
 import { describe, beforeAll, afterAll, it, expect } from "vitest";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -18,6 +19,23 @@ describe("persistent property, file and identity boundary", () => {
   afterAll(async () => {
     await runtime.db.close();
     await rm(root, { recursive: true, force: true });
+  });
+  it("does not pass provider/host credentials into any local media worker", () => {
+    const previous = process.env["SPACES_DUMMY_SECRET"];
+    process.env["SPACES_DUMMY_SECRET"] = "synthetic-sentinel-only";
+    try {
+      const env = isolatedWorkerEnvironment();
+      expect(Object.keys(env).sort()).toEqual([
+        "LANG",
+        "NODE_ENV",
+        "PATH",
+        "PYTHONNOUSERSITE",
+      ]);
+      expect(env["SPACES_DUMMY_SECRET"]).toBeUndefined();
+    } finally {
+      if (previous === undefined) delete process.env["SPACES_DUMMY_SECRET"];
+      else process.env["SPACES_DUMMY_SECRET"] = previous;
+    }
   });
   it("creates separate properties with actual clean private plan/photo assets", async () => {
     const p = await runtime.properties.get(a, "property-a");

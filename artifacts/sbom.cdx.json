@@ -2,10 +2,8 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:2882dee5-45b9-45ef-bce4-355cc6d18c8e",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-19T12:35:33.049Z",
     "lifecycles": [
       {
         "phase": "build"
@@ -24,7 +22,7 @@
       "name": "artificagent-spaces",
       "version": "0.1.0",
       "scope": "required",
-      "description": "Local-first, synthetic-only ArtificAgent Spaces Phase 1 foundation.",
+      "description": "Synthetic local ArtificAgent Spaces platform with tenant RLS, actual media, 3D, scoped guide and analytics; live integrations disabled.",
       "purl": "pkg:npm/artificagent-spaces@0.1.0",
       "properties": [
         {
@@ -1079,6 +1077,37 @@
       ]
     },
     {
+      "bom-ref": "@bufbuild/protobuf@1.10.1",
+      "type": "library",
+      "name": "@bufbuild/protobuf",
+      "version": "1.10.1",
+      "scope": "required",
+      "description": "A complete implementation of Protocol Buffers in TypeScript, suitable for web browsers and Node.js.",
+      "purl": "pkg:npm/%40bufbuild/protobuf@1.10.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-1.10.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/bufbuild/protobuf-es.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "c09f117906c7c6c01f5e1adff62c65d1a61b668ad1b8e5a904dce6f292fc7ed992c50c7fc27243e4483ceb5370254fdccf2d955c521e6c27999d9ac8f6b92d21"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "(Apache-2.0 AND BSD-3-Clause)"
+        }
+      ]
+    },
+    {
       "bom-ref": "@cacheable/memory@2.2.0",
       "type": "library",
       "name": "@cacheable/memory",
@@ -1409,6 +1438,187 @@
       ]
     },
     {
+      "bom-ref": "@dimforge/rapier3d-compat@0.12.0",
+      "type": "library",
+      "name": "@dimforge/rapier3d-compat",
+      "version": "0.12.0",
+      "scope": "required",
+      "description": "3-dimensional physics engine in Rust - official JS bindings. Compatibility package with inlined webassembly as base64.",
+      "purl": "pkg:npm/%40dimforge/rapier3d-compat@0.12.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@dimforge/rapier3d-compat/-/rapier3d-compat-0.12.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/dimforge/rapier.js"
+        },
+        {
+          "type": "website",
+          "url": "https://rapier.rs"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b9e90819eb72c08828a5f0fdee80cbe4f7de7b3905a4d87097395a11834e03437a82176c3af87f1d88d231e9394363b53d8bd148315ca85549978af8641c0ea3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@electric-sql/pglite@0.5.11",
+      "type": "library",
+      "name": "@electric-sql/pglite",
+      "version": "0.5.11",
+      "scope": "required",
+      "author": "Electric DB Limited",
+      "description": "PGlite is a WASM Postgres build packaged into a TypeScript client library that enables you to run Postgres in the browser, Node.js and Bun, with no need to install any other dependencies. It is only 3.7mb gzipped.",
+      "purl": "pkg:npm/%40electric-sql/pglite@0.5.11",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@electric-sql/pglite/-/pglite-0.5.11.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/electric-sql/pglite"
+        },
+        {
+          "type": "website",
+          "url": "https://pglite.dev"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "496baab138c0e030d6aa0674e4f0b54496aaf1ed34a792800b16ea6a2903150f1d20603448b473b8f9e2932ec85beabf73944334c7445f0bfb985056231f47c7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@elevenlabs/client@1.30.0",
+      "type": "library",
+      "name": "@elevenlabs/client",
+      "version": "1.30.0",
+      "scope": "required",
+      "author": "ElevenLabs",
+      "description": "ElevenLabs JavaScript Client Library",
+      "purl": "pkg:npm/%40elevenlabs/client@1.30.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@elevenlabs/client/-/client-1.30.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git+https://github.com/elevenlabs/packages.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "dc90a66a761bfbf2fe647a30618547abf08606cf5a464f81268b4b51f74efddb4e05e891b5bc5c9274d611cb3df73e1619f4920fdc5ac06535bad1500d8ac8f9"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@elevenlabs/react@1.19.1",
+      "type": "library",
+      "name": "@elevenlabs/react",
+      "version": "1.19.1",
+      "scope": "required",
+      "author": "ElevenLabs",
+      "description": "ElevenLabs React Library",
+      "purl": "pkg:npm/%40elevenlabs/react@1.19.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@elevenlabs/react/-/react-1.19.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git+https://github.com/elevenlabs/packages.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "c0cf809fb8a2f23461cd8d898d5e4892d796d66c3871e66d43634dfdb5d01573ce624b3f70c7475388073712850d1cd4c7144b9931a66cdb5ab4abd85571a732"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@elevenlabs/types@0.25.0",
+      "type": "library",
+      "name": "@elevenlabs/types",
+      "version": "0.25.0",
+      "scope": "required",
+      "description": "AsyncAPI contracts and generated TypeScript types for ElevenLabs agent communication",
+      "purl": "pkg:npm/%40elevenlabs/types@0.25.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@elevenlabs/types/-/types-0.25.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git+https://github.com/elevenlabs/packages.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "68e65e2dbbe93264c774cedc8b3b8a8d99c59cac2b6eee720b7542e81dfb8b5b4593c51edee687e6c731cf5a533072c9cd71e73e8e58135b13b8d8ea46889146"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "@emnapi/runtime@1.11.3",
       "type": "library",
       "name": "@emnapi/runtime",
@@ -1449,6 +1659,44 @@
         {
           "alg": "SHA-512",
           "content": "5f3e13a72922ed7caba5b50ad6347502174075a5f2861638959de778ba1d9a1a6e59fcb63c040de41e3ab00894e2588e5c62e41f2a67fea53e8ef7d64826182c"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@esbuild/linux-x64@0.28.2",
+      "type": "library",
+      "name": "@esbuild/linux-x64",
+      "version": "0.28.2",
+      "scope": "optional",
+      "description": "The Linux 64-bit binary for esbuild, a JavaScript bundler.",
+      "purl": "pkg:npm/%40esbuild/linux-x64@0.28.2",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git+https://github.com/evanw/esbuild.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e314d9af5154992a105b85c85a68addedcd0ad44d933e3773f45d5f3144e298179d177c8ef178ef74fb56d9bcdc3122e7d0f610d0551247e588603d517c03f1d"
         }
       ],
       "licenses": [
@@ -2143,7 +2391,7 @@
       "type": "library",
       "name": "@img/colour",
       "version": "1.1.0",
-      "scope": "optional",
+      "scope": "required",
       "description": "The ESM-only 'color' package made compatible for use with CommonJS runtimes",
       "purl": "pkg:npm/%40img/colour@1.1.0",
       "properties": [],
@@ -2665,6 +2913,68 @@
         {
           "license": {
             "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@livekit/mutex@1.1.1",
+      "type": "library",
+      "name": "@livekit/mutex",
+      "version": "1.1.1",
+      "scope": "required",
+      "description": "Tiny mutex helper",
+      "purl": "pkg:npm/%40livekit/mutex@1.1.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@livekit/mutex/-/mutex-1.1.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "12cb2102e724966a6e5007e40013f124d8738fdbf6b06ec9bb31432f830bd68250495d78b2aae94d89ec68eb9d300c3dc8e696e77354dd041395442846ce1ccf"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@livekit/protocol@1.52.1",
+      "type": "library",
+      "name": "@livekit/protocol",
+      "version": "1.52.1",
+      "scope": "required",
+      "author": "LiveKit",
+      "purl": "pkg:npm/%40livekit/protocol@1.52.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@livekit/protocol/-/protocol-1.52.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/livekit/protocol"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "5fc0f12a535bce4e8b87ebfadf4fa68dd1474a8b5d005c08cb3c5245252a9760db4f10a79696bb26cbc519ce8d6b799789ec763858748a242d5b03813f4ac860"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
           }
         }
       ]
@@ -3450,6 +3760,53 @@
       ]
     },
     {
+      "bom-ref": "@tweenjs/tween.js@23.1.3",
+      "type": "library",
+      "name": "@tweenjs/tween.js",
+      "version": "23.1.3",
+      "scope": "required",
+      "author": "tween.js contributors (https://github.com/tweenjs/tween.js/graphs/contributors)",
+      "description": "Simple and fast tweening engine with optimised Robert Penner's equations.",
+      "purl": "pkg:npm/%40tweenjs/tween.js@23.1.3",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@tweenjs/tween.js/-/tween.js-23.1.3.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/tweenjs/tween.js.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/tweenjs/tween.js"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/tweenjs/tween.js/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "bc99afbf017162e1a71766b146d3d8a1c6a0e8295b6f9612ee42cbf923bf4de545cc7a83216acd298b5cb0f3226e30f1f4ef9bbbea6c032f4d29f5a495ab2c50"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "@types/aria-query@5.0.4",
       "type": "library",
       "name": "@types/aria-query",
@@ -3565,6 +3922,43 @@
         {
           "alg": "SHA-512",
           "content": "73d87d75554c8a030f7386f04ef0b9771aada8967040f78fb168cf96948e9e88dba2bea91aa764e78d657c0ec0a8542be6907505176ad23b98f5d6fcd41c3217"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/dom-mediacapture-record@1.0.22",
+      "type": "library",
+      "name": "@types/dom-mediacapture-record",
+      "version": "1.0.22",
+      "scope": "required",
+      "description": "TypeScript definitions for dom-mediacapture-record",
+      "purl": "pkg:npm/%40types/dom-mediacapture-record@1.0.22",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/dom-mediacapture-record/-/dom-mediacapture-record-1.0.22.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/dom-mediacapture-record"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "9943192cadcdbf044b700013f6a99c2bef69eeda54d851dd0ec9ed477608e3e198f3c5eb806e17884eeed50d8b00ddbf1593b3fed74c0c2dc64024784fc9c5bb"
         }
       ],
       "licenses": [
@@ -3812,6 +4206,132 @@
         {
           "alg": "SHA-512",
           "content": "648edb538da66575ca1e7fea34b130d88adb888354ed7e7ebdf81d8b10479023696165e32a07d0fcffaec866f90a338b07d51c9d37a0debca542d5768729b8e1"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/stats.js@0.17.4",
+      "type": "library",
+      "name": "@types/stats.js",
+      "version": "0.17.4",
+      "scope": "required",
+      "description": "TypeScript definitions for stats.js",
+      "purl": "pkg:npm/%40types/stats.js@0.17.4",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/stats.js"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "8c806f5964a10af941a8134866dd0a02c856a6f4a3864c2412ee1951c012a00be19ab800508dadd5d5eb8d22f8c5754b0781739cfac8b17de7297165fc3b78bc"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/three@0.186.0",
+      "type": "library",
+      "name": "@types/three",
+      "version": "0.186.0",
+      "scope": "required",
+      "description": "TypeScript definitions for three",
+      "purl": "pkg:npm/%40types/three@0.186.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/three/-/three-0.186.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/three"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "9b16120690c2f83d292df48feac5b85994dc4fe9ebb6665c8a632a9d59b2dfa1ed7b75e97984abbe08384d175a33519e986a20d405b3239a8bd95a087cc5db25"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/webxr@0.5.24",
+      "type": "library",
+      "name": "@types/webxr",
+      "version": "0.5.24",
+      "scope": "required",
+      "description": "TypeScript definitions for webxr",
+      "purl": "pkg:npm/%40types/webxr@0.5.24",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/webxr"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "87c7e011dfc3a684bd081ae31105d1f9d203adaa290047eee30615358dad10fc24eb4b2d3d686f64c7f8168a3915a92e43b1c56686bc59c79a5857abbcad8ebe"
         }
       ],
       "licenses": [
@@ -5730,7 +6250,7 @@
       "type": "library",
       "name": "detect-libc",
       "version": "2.1.2",
-      "scope": "optional",
+      "scope": "required",
       "author": "Lovell Fuller <npm@lovell.info>",
       "description": "Node.js module to detect the C standard library (libc) implementation family and version",
       "purl": "pkg:npm/detect-libc@2.1.2",
@@ -5955,6 +6475,44 @@
         {
           "alg": "SHA-512",
           "content": "a681c6a4e4400688c926e72757d29b39abc44d6f250559e98645bbec4479fc1439173ee85d2a0235e93b207def4799d18ddb04cfddba89b1585fc2ad2d099dcb"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "esbuild@0.28.2",
+      "type": "library",
+      "name": "esbuild",
+      "version": "0.28.2",
+      "scope": "required",
+      "description": "An extremely fast JavaScript and CSS bundler and minifier.",
+      "purl": "pkg:npm/esbuild@0.28.2",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/esbuild/-/esbuild-0.28.2.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git+https://github.com/evanw/esbuild.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "1ca54b4bc76f208fb1a0a5bd926ab16d12ab9d61177c926bfc56618499a2a880747b4e7740d605a8e068b9330efe4e6c203e0cbc28940afbfc6fd338877db020"
         }
       ],
       "licenses": [
@@ -6469,6 +7027,44 @@
       ]
     },
     {
+      "bom-ref": "events@3.3.0",
+      "type": "library",
+      "name": "events",
+      "version": "3.3.0",
+      "scope": "required",
+      "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
+      "description": "Node's event emitter for all engines.",
+      "purl": "pkg:npm/events@3.3.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/events/-/events-3.3.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git://github.com/Gozala/events.git"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "http://github.com/Gozala/events/issues/"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "990c3ed9f9106c02f343b574318d08a9d9d734e793b4fe2bd2537dcfb0006b009782a79aedb0e28b6d0062b201ac577f1f1d0cd8e733e92d75d4268591471bd1"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "expect-type@1.4.0",
       "type": "library",
       "name": "expect-type",
@@ -6628,6 +7224,49 @@
         {
           "alg": "SHA-512",
           "content": "0c25eee887e1a9c92ced364a6371f1a77cbaaa9858e522599ab58c0eb29c11148e5d641d32153d220fcf62bcf2c3fba5f63388ca1d0de0cd2d6c2e61a1d83c77"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "fflate@0.8.3",
+      "type": "library",
+      "name": "fflate",
+      "version": "0.8.3",
+      "scope": "required",
+      "author": "Arjun Barrett <arjunbarrett@gmail.com>",
+      "description": "High performance (de)compression in an 8kB package",
+      "purl": "pkg:npm/fflate@0.8.3",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/fflate/-/fflate-0.8.3.tgz"
+        },
+        {
+          "type": "website",
+          "url": "https://101arrowz.github.io/fflate"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/101arrowz/fflate/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b5b64db89acbc06529df3b2106d772e16f8e47166e221f1ae629722044030b9ad8d5fdd4db424caf2d0b977581cd4e7c1192ac12e2455e16f9830bfc0ac3ef80"
         }
       ],
       "licenses": [
@@ -7482,6 +8121,40 @@
       ]
     },
     {
+      "bom-ref": "jose@6.2.13",
+      "type": "library",
+      "name": "jose",
+      "version": "6.2.13",
+      "scope": "required",
+      "author": "Filip Skokan <panva.ip@gmail.com>",
+      "description": "JWA, JWS, JWE, JWT, JWK, JWKS for Node.js, Browser, Cloudflare Workers, Deno, Bun, and other Web-interoperable runtimes",
+      "purl": "pkg:npm/jose@6.2.13",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/jose/-/jose-6.2.13.tgz"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/panva/jose"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "ed3220d74644d71f3661e76237e95cacf36f18c2a07bdc851d00fe421a3f6fccb669d7ee814dc0b2fbc77f15747f3c859654fa97dc428dfe11598f60fd9f4f25"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "js-tokens@4.0.0",
       "type": "library",
       "name": "js-tokens",
@@ -7939,6 +8612,36 @@
       ]
     },
     {
+      "bom-ref": "livekit-client@2.23.0",
+      "type": "library",
+      "name": "livekit-client",
+      "version": "2.23.0",
+      "scope": "required",
+      "author": "LiveKit <hello@livekit.io>",
+      "description": "JavaScript/TypeScript client SDK for LiveKit",
+      "purl": "pkg:npm/livekit-client@2.23.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/livekit-client/-/livekit-client-2.23.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "8fd2a0f3a9c98c18cd1540feba4a768f030219ad24f980f9814fff47300cf99637a5b1badf5402b5eedf423c2a58c9ad07384324bf67298b8e2ccbfff486c0c6"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "locate-path@6.0.0",
       "type": "library",
       "name": "locate-path",
@@ -7963,6 +8666,48 @@
         {
           "alg": "SHA-512",
           "content": "88f64ae9e6236f146edee078fd667712c10830914ca80a28a65dd1fb3baad148dc026fcc3ba282c1e0e03df3f77a54f3b6828fdcab67547c539f63470520d553"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "loglevel@1.9.2",
+      "type": "library",
+      "name": "loglevel",
+      "version": "1.9.2",
+      "scope": "required",
+      "author": "Tim Perry",
+      "description": "Minimal lightweight logging for JavaScript, adding reliable log level methods to any available console.log methods",
+      "purl": "pkg:npm/loglevel@1.9.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/loglevel/-/loglevel-1.9.2.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git://github.com/pimterry/loglevel.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/pimterry/loglevel"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/pimterry/loglevel/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "1e03260aa2094802aaa3af25d2b4b601a9c459f931699e703621056f98209b4f250ecf579762b10655f73d371a0f672104cd605c061fe3dd7f33646ff09c1aca"
         }
       ],
       "licenses": [
@@ -8094,6 +8839,48 @@
       ]
     },
     {
+      "bom-ref": "machina@7.0.1",
+      "type": "library",
+      "name": "machina",
+      "version": "7.0.1",
+      "scope": "required",
+      "author": "Jim Cowart (http://ifandelse.com)",
+      "description": "Focused finite state machines for JavaScript and TypeScript. States in, states out.",
+      "purl": "pkg:npm/machina@7.0.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/machina/-/machina-7.0.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git://github.com/ifandelse/machina.js.git"
+        },
+        {
+          "type": "website",
+          "url": "https://machina-js.org/"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "http://github.com/ifandelse/machina.js/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d17920b3c35e06f3b6856e9b8c94fc7b02d6acc7e1d6168c3ecb5a821a404968d790b8d186d0e26891b529bee6b2568e1f1658c691fb3c88e99a2ad15586cc30"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "magic-string@0.30.21",
       "type": "library",
       "name": "magic-string",
@@ -8213,6 +9000,49 @@
         {
           "license": {
             "id": "CC0-1.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "meshoptimizer@1.1.1",
+      "type": "library",
+      "name": "meshoptimizer",
+      "version": "1.1.1",
+      "scope": "required",
+      "author": "Arseny Kapoulkine",
+      "description": "Mesh optimization library that makes meshes smaller and faster to render",
+      "purl": "pkg:npm/meshoptimizer@1.1.1",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.1.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/zeux/meshoptimizer"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/zeux/meshoptimizer"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a1114d58944303f593ad58fb356bea6b91ea135b7d3180e3d956968ab402cc20ab01dd861eba91fec41ecc2c625804cf36529371168f4473c9c084683c1029e6"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
           }
         }
       ]
@@ -8970,6 +9800,45 @@
       ]
     },
     {
+      "bom-ref": "prettier@3.6.2",
+      "type": "library",
+      "name": "prettier",
+      "version": "3.6.2",
+      "scope": "required",
+      "author": "James Long",
+      "description": "Prettier is an opinionated code formatter",
+      "purl": "pkg:npm/prettier@3.6.2",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/prettier/-/prettier-3.6.2.tgz"
+        },
+        {
+          "type": "website",
+          "url": "https://prettier.io"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "23b0088396e802be51d0516d27aac27c3f8b16c587a7cd5da25ac50fc4bbf54f6d6fc033da71ab2677273129f2b3e6e94097d1533aacf619c0f35380037842b9"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "pretty-format@27.5.1",
       "type": "library",
       "name": "pretty-format",
@@ -9421,6 +10290,48 @@
       ]
     },
     {
+      "bom-ref": "rxjs@7.8.2",
+      "type": "library",
+      "name": "rxjs",
+      "version": "7.8.2",
+      "scope": "optional",
+      "author": "Ben Lesh <ben@benlesh.com>",
+      "description": "Reactive Extensions for modern JavaScript",
+      "purl": "pkg:npm/rxjs@7.8.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/rxjs/-/rxjs-7.8.2.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/reactivex/rxjs.git"
+        },
+        {
+          "type": "website",
+          "url": "https://rxjs.dev"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/ReactiveX/RxJS/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "76129ff74dd4fcf41963a6e834db4019d59b1bce5601b8d3ff5c58a19202ec5018d3259aa4e05056c56b0e5e7c5bcebffded55a4c341b5157831a5df74cc9214"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "saxes@6.0.0",
       "type": "library",
       "name": "saxes",
@@ -9497,6 +10408,78 @@
       ]
     },
     {
+      "bom-ref": "sdp@3.2.2",
+      "type": "library",
+      "name": "sdp",
+      "version": "3.2.2",
+      "scope": "required",
+      "author": "Philipp Hancke",
+      "description": "SDP parsing and serialization utilities",
+      "purl": "pkg:npm/sdp@3.2.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/sdp/-/sdp-3.2.2.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git+https://github.com/fippo/sdp.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "c59a1c5b07f2a788646cde212d6c4c8e6bf643c68d6bd32198e67b2fd68264f4fe759b2046beb0651ad2604dc74ddca4ff6a5928f4a0a88ee7b3b11e9f5c4c48"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "sdp-transform@2.15.0",
+      "type": "library",
+      "name": "sdp-transform",
+      "version": "2.15.0",
+      "scope": "required",
+      "author": "Eirik Albrigtsen <sszynrae@gmail.com>",
+      "description": "A simple parser/writer for the Session Description Protocol",
+      "purl": "pkg:npm/sdp-transform@2.15.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/sdp-transform/-/sdp-transform-2.15.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "clux/sdp-transform"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/clux/sdp-transform/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2ab387f3673f5be1984342c7aadaf771a469337213825ab796319421bf0b4e48bb07269c259f73fa98921a2c190ec4728506d804e04982bda4e97e016578b72b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "semver@6.3.1",
       "type": "library",
       "name": "semver",
@@ -9540,7 +10523,7 @@
       "type": "library",
       "name": "sharp",
       "version": "0.35.5",
-      "scope": "optional",
+      "scope": "required",
       "author": "Lovell Fuller <npm@lovell.info>",
       "description": "High performance Node.js image processing, the fastest module to resize JPEG, PNG, WebP, GIF, AVIF and TIFF images",
       "purl": "pkg:npm/sharp@0.35.5",
@@ -9854,6 +10837,48 @@
         {
           "alg": "SHA-512",
           "content": "bb173fce9a8583ac7b0bcbce13b961e8b6dd6bc7842fdce6566fcf2de4cf051861d710a0756690f89d42522786a487e6d8776db14a51bfe1ec8626ac04c71ce8"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "three@0.186.1",
+      "type": "library",
+      "name": "three",
+      "version": "0.186.1",
+      "scope": "required",
+      "author": "mrdoob",
+      "description": "JavaScript 3D library",
+      "purl": "pkg:npm/three@0.186.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/three/-/three-0.186.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/mrdoob/three.js"
+        },
+        {
+          "type": "website",
+          "url": "https://threejs.org/"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/mrdoob/three.js/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6e515ea9be3dc110921941a3ee0b697e74861f2da5c0393de11854992d5cfe14dbcbbd24bc285b5a9909e0f9b5dfdd0bab3cef4e6ce05ca1cf11a7c9c026fc8c"
         }
       ],
       "licenses": [
@@ -10402,6 +11427,45 @@
       ]
     },
     {
+      "bom-ref": "tsx@4.23.15",
+      "type": "library",
+      "name": "tsx",
+      "version": "4.23.15",
+      "scope": "required",
+      "author": "Hiroki Osame",
+      "description": "TypeScript Execute (tsx): Node.js enhanced with esbuild to run TypeScript & ESM files",
+      "purl": "pkg:npm/tsx@4.23.15",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/tsx/-/tsx-4.23.15.tgz"
+        },
+        {
+          "type": "website",
+          "url": "https://tsx.hirok.io"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6227b1d4ebe7f33db13e9396724222cac575492c91318f4190b17efaad322a20f10aa461a2c29f320de36a72a488b07067973f62bca5a0ac0665cac49adc312b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "type-check@0.4.0",
       "type": "library",
       "name": "type-check",
@@ -10434,6 +11498,36 @@
         {
           "alg": "SHA-512",
           "content": "5e5794a1cf6ec065ea8d6c176944d9026ccc705679f39f10036befc7552be7121c8b15c83fef0b9c50e0469954df4bacead7aa765b2415fbbe69ee0aefd3a87b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "typed-emitter@2.1.0",
+      "type": "library",
+      "name": "typed-emitter",
+      "version": "2.1.0",
+      "scope": "required",
+      "author": "Andy Wermke (https://github.com/andywer)",
+      "description": "Strictly typed event emitter interface for TypeScript 3.",
+      "purl": "pkg:npm/typed-emitter@2.1.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/typed-emitter/-/typed-emitter-2.1.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "83f2b36d829b1f90b6bcf91a5c6bbc0c9947ac62872ec336e5983d5ae0bda4c19fbaf4fe5f6e6d6505a8e5f2b5063066f3e52b544f4b0c2bda63409093e7d70c"
         }
       ],
       "licenses": [
@@ -10997,6 +12091,39 @@
       ]
     },
     {
+      "bom-ref": "webrtc-adapter@9.0.6",
+      "type": "library",
+      "name": "webrtc-adapter",
+      "version": "9.0.6",
+      "scope": "required",
+      "description": "A shim to insulate apps from WebRTC spec changes and browser prefix differences",
+      "purl": "pkg:npm/webrtc-adapter@9.0.6",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/webrtc-adapter/-/webrtc-adapter-9.0.6.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/webrtchacks/adapter.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0876e5d9941bc71d7ae08816460cc99e8e215ad338b456d16a6d507c8dd8c61b37c3f0efaa5b95c5559e5ecde82f9fdf6c691234b2a8d13cb932051671e361a2"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "whatwg-mimetype@5.0.0",
       "type": "library",
       "name": "whatwg-mimetype",
@@ -11352,12 +12479,7 @@
       "author": "Colin McDonnell <zod@colinhacks.com>",
       "description": "TypeScript-first schema declaration and validation library with static type inference",
       "purl": "pkg:npm/zod@4.6.7",
-      "properties": [
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ],
+      "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
@@ -11434,10 +12556,16 @@
     {
       "ref": "artificagent-spaces@0.1.0",
       "dependsOn": [
+        "@electric-sql/pglite@0.5.11",
+        "@elevenlabs/react@1.19.1",
+        "jose@6.2.13",
         "lucide-react@1.59.0",
         "next@16.4.2",
         "react@19.3.1",
         "react-dom@19.3.1",
+        "sharp@0.35.5",
+        "three@0.186.1",
+        "zod@4.6.7",
         "@axe-core/playwright@4.14.0",
         "@eslint/js@10.0.1",
         "@playwright/test@1.64.1",
@@ -11449,12 +12577,15 @@
         "@types/node@24.10.0",
         "@types/react@19.3.0",
         "@types/react-dom@19.3.0",
+        "@types/three@0.186.0",
         "@vitest/coverage-v8@5.0.5",
         "eslint@10.13.0",
         "eslint-plugin-react-hooks@7.1.1",
         "globals@17.13.0",
         "jsdom@30.1.3",
+        "prettier@3.6.2",
         "tailwindcss@4.3.3",
+        "tsx@4.23.15",
         "typescript@5.9.3",
         "typescript-eslint@8.71.2",
         "vitest@5.0.5"
@@ -11637,6 +12768,10 @@
       ]
     },
     {
+      "ref": "@bufbuild/protobuf@1.10.1",
+      "dependsOn": []
+    },
+    {
       "ref": "@cacheable/memory@2.2.0",
       "dependsOn": [
         "@keyv/bigmap@1.3.1",
@@ -11689,10 +12824,40 @@
       "dependsOn": []
     },
     {
+      "ref": "@dimforge/rapier3d-compat@0.12.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "@electric-sql/pglite@0.5.11",
+      "dependsOn": []
+    },
+    {
+      "ref": "@elevenlabs/client@1.30.0",
+      "dependsOn": [
+        "livekit-client@2.23.0",
+        "@elevenlabs/types@0.25.0"
+      ]
+    },
+    {
+      "ref": "@elevenlabs/react@1.19.1",
+      "dependsOn": [
+        "react@19.3.1",
+        "@elevenlabs/client@1.30.0"
+      ]
+    },
+    {
+      "ref": "@elevenlabs/types@0.25.0",
+      "dependsOn": []
+    },
+    {
       "ref": "@emnapi/runtime@1.11.3",
       "dependsOn": [
         "tslib@2.8.1"
       ]
+    },
+    {
+      "ref": "@esbuild/linux-x64@0.28.2",
+      "dependsOn": []
     },
     {
       "ref": "@eslint-community/eslint-utils@4.10.1",
@@ -11848,6 +13013,16 @@
       "dependsOn": []
     },
     {
+      "ref": "@livekit/mutex@1.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "@livekit/protocol@1.52.1",
+      "dependsOn": [
+        "@bufbuild/protobuf@1.10.1"
+      ]
+    },
+    {
       "ref": "@next/env@16.4.2",
       "dependsOn": []
     },
@@ -11972,6 +13147,10 @@
       ]
     },
     {
+      "ref": "@tweenjs/tween.js@23.1.3",
+      "dependsOn": []
+    },
+    {
       "ref": "@types/aria-query@5.0.4",
       "dependsOn": []
     },
@@ -11984,6 +13163,10 @@
     },
     {
       "ref": "@types/deep-eql@4.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "@types/dom-mediacapture-record@1.0.22",
       "dependsOn": []
     },
     {
@@ -12015,6 +13198,25 @@
       "dependsOn": [
         "@types/react@19.3.0"
       ]
+    },
+    {
+      "ref": "@types/stats.js@0.17.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "@types/three@0.186.0",
+      "dependsOn": [
+        "@dimforge/rapier3d-compat@0.12.0",
+        "@tweenjs/tween.js@23.1.3",
+        "@types/stats.js@0.17.4",
+        "@types/webxr@0.5.24",
+        "fflate@0.8.3",
+        "meshoptimizer@1.1.1"
+      ]
+    },
+    {
+      "ref": "@types/webxr@0.5.24",
+      "dependsOn": []
     },
     {
       "ref": "@typescript-eslint/eslint-plugin@8.71.2",
@@ -12348,6 +13550,12 @@
       "dependsOn": []
     },
     {
+      "ref": "esbuild@0.28.2",
+      "dependsOn": [
+        "@esbuild/linux-x64@0.28.2"
+      ]
+    },
+    {
       "ref": "escalade@3.2.0",
       "dependsOn": []
     },
@@ -12450,6 +13658,10 @@
       "dependsOn": []
     },
     {
+      "ref": "events@3.3.0",
+      "dependsOn": []
+    },
+    {
       "ref": "expect-type@1.4.0",
       "dependsOn": []
     },
@@ -12463,6 +13675,10 @@
     },
     {
       "ref": "fast-levenshtein@2.0.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "fflate@0.8.3",
       "dependsOn": []
     },
     {
@@ -12569,6 +13785,10 @@
       "dependsOn": []
     },
     {
+      "ref": "jose@6.2.13",
+      "dependsOn": []
+    },
+    {
       "ref": "js-tokens@4.0.0",
       "dependsOn": []
     },
@@ -12643,10 +13863,30 @@
       "dependsOn": []
     },
     {
+      "ref": "livekit-client@2.23.0",
+      "dependsOn": [
+        "@types/dom-mediacapture-record@1.0.22",
+        "@livekit/mutex@1.1.1",
+        "@livekit/protocol@1.52.1",
+        "events@3.3.0",
+        "jose@6.2.13",
+        "loglevel@1.9.2",
+        "machina@7.0.1",
+        "sdp-transform@2.15.0",
+        "tslib@2.8.1",
+        "typed-emitter@2.1.0",
+        "webrtc-adapter@9.0.6"
+      ]
+    },
+    {
       "ref": "locate-path@6.0.0",
       "dependsOn": [
         "p-locate@5.0.0"
       ]
+    },
+    {
+      "ref": "loglevel@1.9.2",
+      "dependsOn": []
     },
     {
       "ref": "lru-cache@5.1.1",
@@ -12666,6 +13906,10 @@
       "dependsOn": []
     },
     {
+      "ref": "machina@7.0.1",
+      "dependsOn": []
+    },
+    {
       "ref": "magic-string@0.30.21",
       "dependsOn": [
         "@jridgewell/sourcemap-codec@1.6.0"
@@ -12681,6 +13925,10 @@
     },
     {
       "ref": "mdn-data@2.27.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "meshoptimizer@1.1.1",
       "dependsOn": []
     },
     {
@@ -12802,6 +14050,10 @@
       "dependsOn": []
     },
     {
+      "ref": "prettier@3.6.2",
+      "dependsOn": []
+    },
+    {
       "ref": "pretty-format@27.5.1",
       "dependsOn": [
         "ansi-regex@5.0.1",
@@ -12863,6 +14115,12 @@
       ]
     },
     {
+      "ref": "rxjs@7.8.2",
+      "dependsOn": [
+        "tslib@2.8.1"
+      ]
+    },
+    {
       "ref": "saxes@6.0.0",
       "dependsOn": [
         "xmlchars@2.2.0"
@@ -12870,6 +14128,14 @@
     },
     {
       "ref": "scheduler@0.28.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "sdp@3.2.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "sdp-transform@2.15.0",
       "dependsOn": []
     },
     {
@@ -12925,6 +14191,10 @@
     },
     {
       "ref": "tapable@2.3.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "three@0.186.1",
       "dependsOn": []
     },
     {
@@ -12989,9 +14259,21 @@
       "dependsOn": []
     },
     {
+      "ref": "tsx@4.23.15",
+      "dependsOn": [
+        "esbuild@0.28.2"
+      ]
+    },
+    {
       "ref": "type-check@0.4.0",
       "dependsOn": [
         "prelude-ls@1.2.1"
+      ]
+    },
+    {
+      "ref": "typed-emitter@2.1.0",
+      "dependsOn": [
+        "rxjs@7.8.2"
       ]
     },
     {
@@ -13035,7 +14317,9 @@
       "ref": "vite@8.3.4",
       "dependsOn": [
         "@types/node@24.10.0",
+        "esbuild@0.28.2",
         "jiti@2.7.0",
+        "tsx@4.23.15",
         "lightningcss@1.33.0",
         "picomatch@4.0.7",
         "postcss@8.5.31",
@@ -13090,6 +14374,12 @@
     {
       "ref": "webidl-conversions@8.0.1",
       "dependsOn": []
+    },
+    {
+      "ref": "webrtc-adapter@9.0.6",
+      "dependsOn": [
+        "sdp@3.2.2"
+      ]
     },
     {
       "ref": "whatwg-mimetype@5.0.0",

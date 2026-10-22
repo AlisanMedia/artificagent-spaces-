@@ -1,11 +1,12 @@
 // @vitest-environment node
-import { beforeAll, afterAll, describe, it, expect } from "vitest";
-import { mkdtemp, rm } from "node:fs/promises";
+import { beforeAll, afterAll, describe, it, expect, vi } from "vitest";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { PlatformRuntime } from "@/server/runtime";
 import type { Actor } from "@/server/database";
 import type { JobRecord } from "@/server/jobs";
+import * as media from "@/server/media";
 import { digest } from "@/server/crypto";
 
 describe("actual local media → independent review → scoped guide", () => {
@@ -56,11 +57,17 @@ describe("actual local media → independent review → scoped guide", () => {
       expect(done.output).toMatchObject({
         kind: "image-motion-demo",
         codec: "h264",
+        colorSpace: "bt709-sdr",
         mime: "video/mp4",
         actualExternalCostMicroUsd: 0,
       });
       expect(done.output?.width).toBe(aspectRatio === "16:9" ? 640 : 360);
-      const bytes = await rt.storage.read("studio", done.output!.artifactId ?? job.id, "output", "mp4");
+      const bytes = await rt.storage.read(
+        "studio",
+        done.output!.artifactId ?? job.id,
+        "output",
+        "mp4",
+      );
       expect(bytes.subarray(4, 8).toString()).toBe("ftyp");
       expect(digest(bytes)).toBe(done.output?.sha256);
       await expect(
@@ -85,9 +92,57 @@ describe("actual local media → independent review → scoped guide", () => {
       mime: "model/gltf-binary",
       actualExternalCostMicroUsd: 0,
     });
-    const bytes = await rt.storage.read("studio", mesh.output!.artifactId ?? job.id, "output", "glb");
+    const bytes = await rt.storage.read(
+      "studio",
+      mesh.output!.artifactId ?? job.id,
+      "output",
+      "glb",
+    );
     expect(bytes.subarray(0, 4).toString()).toBe("glTF");
     expect(bytes.readUInt32LE(8)).toBe(bytes.length);
+    const gltf = JSON.parse(
+      bytes
+        .subarray(20, 20 + bytes.readUInt32LE(12))
+        .toString()
+        .trim(),
+    ) as {
+      nodes: {
+        name: string;
+        mesh: number;
+        translation: [number, number, number];
+      }[];
+      meshes: { primitives: { attributes: { POSITION: number } }[] }[];
+      accessors: {
+        min: [number, number, number];
+        max: [number, number, number];
+      }[];
+    };
+    const bounds = (node: (typeof gltf.nodes)[number]) => {
+      const accessor =
+        gltf.accessors[
+          gltf.meshes[node.mesh]!.primitives[0]!.attributes.POSITION
+        ]!;
+      return {
+        min: accessor.min.map((v, i) => v + node.translation[i]!),
+        max: accessor.max.map((v, i) => v + node.translation[i]!),
+      };
+    };
+    const floor = bounds(gltf.nodes.find((n) => n.name === "floor_living")!);
+    expect(floor.max[0]! - floor.min[0]!).toBeCloseTo(6, 4);
+    expect(floor.max[2]! - floor.min[2]!).toBeCloseTo(5, 4);
+    expect(floor.max[1]).toBeCloseTo(0, 4);
+    const walls = gltf.nodes.filter((n) => n.name.startsWith("wall_"));
+    for (const point of [
+      [6, 1.65, 2.5],
+      [3, 1.65, 5],
+    ])
+      expect(
+        walls.some((node) => {
+          const b = bounds(node);
+          return point.every((n, i) => n > b.min[i]! && n < b.max[i]!);
+        }),
+      ).toBe(false);
+    expect(gltf.nodes.some((n) => /balcony|window/i.test(n.name))).toBe(false);
   }, 120000);
   it("blocks self approval, incomplete QA and unapproved publication", async () => {
     await expect(
@@ -240,6 +295,82 @@ describe("actual local media → independent review → scoped guide", () => {
     await expect(
       rt.analytics.privateLead(admin, "lead-pipeline"),
     ).rejects.toMatchObject({ code: "LEAD_NOT_FOUND" });
+  });
+  it("cancels a running CPU worker with epoch fencing, leaving no publishable late output", async () => {
+    const job = await rt.jobs.submit(admin, {
+      propertyId: "property-a",
+      revision: 2,
+      mode: "pov",
+      idempotencyKey: "cancel-fenced-worker",
+    });
+    const original = media.buildOutput;
+    let begin!: () => void, finish!: () => void;
+    const started = new Promise<void>((resolve) => {
+        begin = resolve;
+      }),
+      gate = new Promise<void>((resolve) => {
+        finish = resolve;
+      });
+    const spy = vi
+      .spyOn(media, "buildOutput")
+      .mockImplementation(async (...args) => {
+        begin();
+        await gate;
+        return original(...args);
+      });
+    try {
+      const processing = rt.jobs.processNext();
+      await started;
+      await rt.jobs.cancel(admin, job.id);
+      finish();
+      await processing;
+      const cancelled = await rt.jobs.get(admin, job.id);
+      expect(cancelled.state).toBe("cancelled");
+      expect(cancelled.output).toBeNull();
+      const attempts = (
+        await rt.db.pg.query<{ state: string }>(
+          "select state from job_attempts where organization_id='studio' and job_id=$1",
+          [job.id],
+        )
+      ).rows;
+      expect(attempts[0]!.state).toBe("fenced");
+      await expect(rt.releases.publish(admin, job.id)).rejects.toThrow();
+    } finally {
+      finish();
+      spy.mockRestore();
+    }
+  }, 30000);
+  it("fails source-hash tampering closed and releases the entire credit reserve", async () => {
+    const asset = (await rt.properties.assets(admin, "property-a")).find(
+      (a) => a.kind === "photo",
+    )!;
+    const job = await rt.jobs.submit(admin, {
+      propertyId: "property-a",
+      revision: 2,
+      mode: "pov",
+      idempotencyKey: "tamper-source-hash",
+    });
+    const original = await rt.storage.read("studio", asset.id, "source");
+    try {
+      await writeFile(
+        rt.storage.path("studio", asset.id, "source"),
+        Buffer.from("tampered synthetic bytes"),
+      );
+      await rt.jobs.processNext();
+      expect((await rt.jobs.get(admin, job.id)).error_code).toBe(
+        "SOURCE_HASH_MISMATCH",
+      );
+      expect(
+        (
+          await rt.db.pg.query<{ status: string }>(
+            "select status from credit_reservations where organization_id='studio' and job_id=$1",
+            [job.id],
+          )
+        ).rows[0]!.status,
+      ).toBe("released");
+    } finally {
+      await writeFile(rt.storage.path("studio", asset.id, "source"), original);
+    }
   });
   it("invalidates publication and guide scope after a new immutable property revision", async () => {
     await rt.properties.revise(admin, "property-a", 2, {

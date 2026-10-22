@@ -1,5 +1,13 @@
 import sharp from "sharp";
-import { mkdir, readFile, writeFile, rename, stat } from "node:fs/promises";
+import {
+  mkdir,
+  readFile,
+  writeFile,
+  rename,
+  stat,
+  rm,
+  chmod,
+} from "node:fs/promises";
 import { join, resolve, sep } from "node:path";
 import { Id, invariant } from "@/domain/platform";
 import { digest } from "./crypto";
@@ -85,6 +93,7 @@ export class LocalPrivateStorage {
     invariant(!sanitized.exif && !sanitized.xmp, "METADATA_STRIP_FAILED", 422);
     const path = this.path(organizationId, assetId, "source");
     await this.put(path, clean);
+    await rm(quarantine); // The sanitized source replaces its metadata-bearing temporary original.
     return {
       originalHash,
       cleanHash: digest(clean),
@@ -124,9 +133,10 @@ export class LocalPrivateStorage {
       recursive: true,
       mode: 0o700,
     });
+    const size = (await stat(temporaryPath)).size;
+    invariant(size > 0 && size <= 52428800, "OUTPUT_SIZE_LIMIT");
     await rename(temporaryPath, path);
-    const size = (await stat(path)).size;
-    invariant(size > 0, "EMPTY_OUTPUT");
+    await chmod(path, 0o600);
     return { bytes: size, hash: digest(await readFile(path)) };
   }
 }

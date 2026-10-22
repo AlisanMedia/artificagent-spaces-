@@ -14,3 +14,4 @@ test-results/
 /artifacts/governance/
 .spaces-local/
 *.local-backup
+supabase/.temp/

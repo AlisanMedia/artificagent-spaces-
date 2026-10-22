@@ -389,6 +389,27 @@ describe("two-property voice / analytics / reseller adversarial boundaries", () 
       code: "INVALID_ANALYTICS_WINDOW",
     });
   });
+  it("serializes consent withdrawal against concurrent event writes", async () => {
+    const visit = await rt.analytics.createVisitor(pubA.token, consent);
+    await Promise.all([
+      rt.analytics.ingest(pubA.token, visit.token, [
+        {
+          eventId: newId(),
+          name: "listing_viewed",
+          timestamp: new Date().toISOString(),
+        },
+      ]),
+      rt.analytics.withdraw(pubA.token, visit.token),
+    ]);
+    expect(
+      (
+        await rt.db.pg.query(
+          "select id from analytics_events where organization_id='studio' and session_id=$1",
+          [visit.id],
+        )
+      ).rows,
+    ).toHaveLength(0);
+  });
   it("retention deletes expired rows and retrospective consent withdrawal removes events", async () => {
     await rt.db.pg.query(
       "update analytics_events set expires_at=now()-interval '1 second' where organization_id='studio'",
