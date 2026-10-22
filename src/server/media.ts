@@ -64,6 +64,8 @@ export async function buildOutput(
           "--background",
           "--factory-startup",
           "--disable-autoexec",
+          "--python-exit-code",
+          "1",
           "--python",
           join(process.cwd(), "scripts/blender-scene.py"),
           "--",

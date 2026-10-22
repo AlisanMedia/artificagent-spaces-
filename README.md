@@ -6,7 +6,7 @@ Bu sürüm gerçek PostgreSQL/PGlite RLS, özel dosya saklama, kalıcı işler, 
 
 ## Çalıştırma
 
-Gereksinimler: Node **24.19.0**, npm **11.9.0**, FFmpeg/ffprobe, Blender 4.x, Python 3, DejaVu Sans. Bu makinede FFmpeg **7.1.5** ve Blender **4.3.2** test edildi. CI kendi araç sürümünü loglar; platformlar arası bit eşitliği iddia edilmez.
+Gereksinimler: Node **24.19.0**, npm **11.9.0**, FFmpeg/ffprobe, Blender 4.x ve glTF exporter'ın NumPy bağımlılığı, Python 3, DejaVu Sans. Ubuntu paketlerinde `--no-install-recommends` kullanılıyorsa `python3-numpy` açıkça kurulmalıdır. Bu makinede FFmpeg **7.1.5** ve Blender **4.3.2** test edildi. CI kendi araç sürümünü loglar ve NumPy/glTF exporter preflight'ı çalıştırır; platformlar arası bit eşitliği iddia edilmez.
 
 ```bash
 npm ci --ignore-scripts

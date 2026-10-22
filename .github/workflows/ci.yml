@@ -32,9 +32,10 @@ jobs:
       - name: Install CPU-only local media tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install --no-install-recommends --yes ffmpeg blender fonts-dejavu-core
+          sudo apt-get install --no-install-recommends --yes ffmpeg blender python3-numpy fonts-dejavu-core
           ffmpeg -version | head -1
           blender --version | head -1
+          blender --background --factory-startup --disable-autoexec --python-exit-code 1 --python-expr "import bpy, numpy; assert bpy.ops.export_scene.gltf.get_rna_type().identifier"
       - name: Set up pinned Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
