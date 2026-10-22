@@ -1,0 +1,29 @@
+
+> artificagent-spaces@0.1.0 test:coverage
+> vitest run --coverage
+
+
+ RUN  v5.0.5 /workspace/artificagent-spaces
+      Coverage enabled with v8
+
+
+ Test Files  3 passed (3)
+      Tests  59 passed (59)
+   Start at  12:30:18
+   Duration  16.09s (environment 60%, tests 25%, transform 5%, import 4%, setup 4%, worker 1%)
+
+Environment  jsdom was created 3 times · 14.22s total, 60% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+ % Coverage report from v8
+No files with missing coverage.
+5 files fully covered.
+1 empty file skipped.
+
+=============================== Coverage summary ===============================
+Statements   : 100% ( 80/80 )
+Branches     : 100% ( 70/70 )
+Functions    : 100% ( 23/23 )
+Lines        : 100% ( 66/66 )
+================================================================================

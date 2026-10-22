@@ -1,0 +1,52 @@
+
+> artificagent-spaces@0.1.0 test:e2e
+> playwright test
+
+[WebServer] (node:6609) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6629) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 26 tests using 2 workers
+
+(node:6646) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6645) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop-chromium] › tests/e2e/foundation.spec.ts:57:1 › portfolio supports filtering, search, empty recovery and list layout (2.7s)
+  ✓   2 [desktop-chromium] › tests/e2e/foundation.spec.ts:28:1 › dashboard has the four modes and makes no external requests (3.8s)
+  ✓   3 [desktop-chromium] › tests/e2e/foundation.spec.ts:70:1 › property sources open an accessible dialog and Escape restores focus (1.9s)
+  ✓   4 [desktop-chromium] › tests/e2e/foundation.spec.ts:82:3 › POV settings survive review and produce only a local JSON plan (2.7s)
+  ✓   5 [desktop-chromium] › tests/e2e/foundation.spec.ts:82:3 › Cinematic settings survive review and produce only a local JSON plan (2.6s)
+  ✓   6 [desktop-chromium] › tests/e2e/foundation.spec.ts:82:3 › Hybrid settings survive review and produce only a local JSON plan (2.8s)
+  ✓   7 [desktop-chromium] › tests/e2e/foundation.spec.ts:82:3 › Interactive 3D settings survive review and produce only a local JSON plan (2.3s)
+  ✓   9 [desktop-chromium] › tests/e2e/foundation.spec.ts:148:1 › workspace selection filters fixtures and a direct foreign-property view (1.9s)
+  ✓   8 [desktop-chromium] › tests/e2e/foundation.spec.ts:134:1 › 3D cannot bypass missing or deselected plan evidence (2.8s)
+  ✓  10 [desktop-chromium] › tests/e2e/foundation.spec.ts:160:1 › review requires all checks and does not publish (2.8s)
+  ✓  12 [desktop-chromium] › tests/e2e/foundation.spec.ts:181:1 › narrow layouts do not overflow and navigation is keyboard accessible (3.0s)
+  ✓  13 [desktop-chromium] › tests/e2e/foundation.spec.ts:200:1 › UI preferences reset without storage, accounts or upload endpoints (1.8s)
+(node:7328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  14 [mobile-chromium] › tests/e2e/foundation.spec.ts:28:1 › dashboard has the four modes and makes no external requests (3.1s)
+  ✓  15 [mobile-chromium] › tests/e2e/foundation.spec.ts:57:1 › portfolio supports filtering, search, empty recovery and list layout (1.9s)
+  ✓  16 [mobile-chromium] › tests/e2e/foundation.spec.ts:70:1 › property sources open an accessible dialog and Escape restores focus (2.6s)
+  ✓  11 [desktop-chromium] › tests/e2e/foundation.spec.ts:172:1 › all primary screens meet the automated WCAG A/AA checks (16.7s)
+(node:7628) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  17 [mobile-chromium] › tests/e2e/foundation.spec.ts:82:3 › POV settings survive review and produce only a local JSON plan (4.1s)
+  ✓  18 [mobile-chromium] › tests/e2e/foundation.spec.ts:82:3 › Cinematic settings survive review and produce only a local JSON plan (5.0s)
+  ✓  19 [mobile-chromium] › tests/e2e/foundation.spec.ts:82:3 › Hybrid settings survive review and produce only a local JSON plan (7.5s)
+  ✓  20 [mobile-chromium] › tests/e2e/foundation.spec.ts:82:3 › Interactive 3D settings survive review and produce only a local JSON plan (4.7s)
+  ✓  22 [mobile-chromium] › tests/e2e/foundation.spec.ts:148:1 › workspace selection filters fixtures and a direct foreign-property view (2.0s)
+  ✓  21 [mobile-chromium] › tests/e2e/foundation.spec.ts:134:1 › 3D cannot bypass missing or deselected plan evidence (3.2s)
+  ✓  23 [mobile-chromium] › tests/e2e/foundation.spec.ts:160:1 › review requires all checks and does not publish (2.0s)
+  ✓  25 [mobile-chromium] › tests/e2e/foundation.spec.ts:181:1 › narrow layouts do not overflow and navigation is keyboard accessible (2.9s)
+  ✓  26 [mobile-chromium] › tests/e2e/foundation.spec.ts:200:1 › UI preferences reset without storage, accounts or upload endpoints (1.6s)
+  ✓  24 [mobile-chromium] › tests/e2e/foundation.spec.ts:172:1 › all primary screens meet the automated WCAG A/AA checks (11.9s)
+
+  26 passed (58.7s)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

@@ -1,0 +1,116 @@
+
+> artificagent-spaces@0.1.0 check
+> npm run lint && npm run typecheck && npm run test:coverage && npm run security:check && npm run build
+
+
+> artificagent-spaces@0.1.0 lint
+> eslint . --max-warnings=0
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> artificagent-spaces@0.1.0 typecheck
+> node scripts/next.mjs typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> artificagent-spaces@0.1.0 test:coverage
+> vitest run --coverage
+
+
+ RUN  v5.0.5 /workspace/artificagent-spaces
+      Coverage enabled with v8
+
+
+ Test Files  3 passed (3)
+      Tests  59 passed (59)
+   Start at  12:39:38
+   Duration  4.25s (environment 53%, tests 27%, setup 9%, import 4%, worker 3%, transform 3%)
+
+Environment  jsdom was created 3 times · 3.80s total, 53% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+ % Coverage report from v8
+No files with missing coverage.
+5 files fully covered.
+1 empty file skipped.
+
+=============================== Coverage summary ===============================
+Statements   : 100% ( 80/80 )
+Branches     : 100% ( 70/70 )
+Functions    : 100% ( 23/23 )
+Lines        : 100% ( 66/66 )
+================================================================================
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> artificagent-spaces@0.1.0 security:check
+> node scripts/security-check.mjs
+
+PASS: exact dependencies, lock integrity, no live SDKs, no runtime network/secret surfaces, layer boundaries and browser policy.
+Static guardrails only; this is not a penetration test or an authentication/RLS guarantee.
+
+> artificagent-spaces@0.1.0 build
+> node scripts/next.mjs build
+
+▲ Next.js 16.4.2 (Turbopack)
+✓ Running next.config.ts took 28ms
+- Experiments (use with caution):
+  · cpus: 2
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 660ms
+  Running TypeScript ...
+  Finished TypeScript in 3.8s ...
+  Collecting page data using 2 workers ...
+  Generating static pages using 2 workers (0/14) ...
+  Generating static pages using 2 workers (3/14)
+  Generating static pages using 2 workers (6/14)
+  Generating static pages using 2 workers (10/14)
+✓ Generating static pages using 2 workers (14/14) in 759ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /activity
+├ ○ /icon.svg
+├ ○ /library
+├ ƒ /properties
+├   /properties/[propertyId]
+│ ├ ● /properties/atrium
+│ ├ ● /properties/avlu
+│ ├ ● /properties/linea
+│ └ ● /properties/suite
+├ ○ /reviews
+├ ○ /settings
+└ ƒ /studio
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

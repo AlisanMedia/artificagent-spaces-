@@ -1,0 +1,48 @@
+{
+  "id": "preview-13d159d8",
+  "organizationId": "org-studio",
+  "propertyId": "atrium",
+  "mode": "pov",
+  "configuration": {
+    "mode": "pov",
+    "durationSeconds": 60,
+    "aspectRatio": "9:16",
+    "cameraPace": "balanced"
+  },
+  "kind": "storyboard",
+  "adapter": "deterministic-local-fake",
+  "syntheticOnly": true,
+  "actualCostMicroUsd": 0,
+  "disclosure": "Yalnız sentetik verilerle hazırlanan yerel akış önizlemesi. Video veya gezilebilir 3D üretilmemiştir.",
+  "shots": [
+    {
+      "sequence": 1,
+      "roomLabel": "Yaşam alanı",
+      "direction": "Göz hizasında sakin giriş",
+      "sourceAssetId": "atrium-image-1"
+    },
+    {
+      "sequence": 2,
+      "roomLabel": "Mutfak",
+      "direction": "Kaynak görsel içinde yavaş yaklaşma",
+      "sourceAssetId": "atrium-image-2"
+    },
+    {
+      "sequence": 3,
+      "roomLabel": "Yatak odası",
+      "direction": "Mekân detayına sabit bakış",
+      "sourceAssetId": "atrium-image-3"
+    },
+    {
+      "sequence": 4,
+      "roomLabel": "Antre",
+      "direction": "Giriş kadrajına dönüş",
+      "sourceAssetId": "atrium-image-1"
+    }
+  ],
+  "checks": [
+    "Sentetik kaynaklar eşleştirildi",
+    "Seçenekler yerel olarak doğrulandı",
+    "İnceleme taslağı hazır"
+  ]
+}

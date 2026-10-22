@@ -1,0 +1,103 @@
+
+> artificagent-spaces@0.1.0 test:e2e
+> playwright test --grep dashboard has
+
+[WebServer] (node:3107) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:3139) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 2 workers
+
+(node:3161) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [desktop-chromium] › tests/e2e/foundation.spec.ts:28:1 › dashboard has the four modes and makes no external requests (3.0s)
+  ✘  1 [mobile-chromium] › tests/e2e/foundation.spec.ts:28:1 › dashboard has the four modes and makes no external requests (3.1s)
+
+
+  1) [desktop-chromium] › tests/e2e/foundation.spec.ts:28:1 › dashboard has the four modes and makes no external requests
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('main').getByRole('link', { name: /POV/ })
+    Expected: visible
+    Error: strict mode violation: getByRole('main').getByRole('link', { name: /POV/ }) resolved to 2 elements:
+        1) <a class="mode-card" href="/studio?mode=pov">…</a> aka getByRole('link', { name: 'POV Birinci şahıs keşif Video planı' })
+        2) <a class="mode-card" href="/studio?mode=hybrid">…</a> aka getByRole('link', { name: '03 Hybrid POV + sinematik' })
+
+    Call log:
+      - Expect "toBeVisible" getByRole('main').getByRole('link', { name: /POV/ }) with timeout 5000ms
+      - waiting for getByRole('main').getByRole('link', { name: /POV/ })
+
+
+      40 |   await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Her mekânınbir hikâyesi var/);
+      41 |   const main = page.getByRole("main");
+    > 42 |   for (const mode of MODES) await expect(main.getByRole("link", { name: new RegExp(mode.name.replace("3D", "3D")) })).toBeVisible();
+         |                                                                                                                       ^
+      43 |   await expect(main.locator(".property-card")).toHaveCount(3);
+      44 |   expect(response?.headers()["content-security-policy"]).toContain("connect-src 'self'");
+      45 |   expect(response?.headers()["content-security-policy"]).toContain("frame-ancestors 'none'");
+        at /workspace/artificagent-spaces/tests/e2e/foundation.spec.ts:42:119
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/foundation-dashboard-has-t-1e1f6--makes-no-external-requests-desktop-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/foundation-dashboard-has-t-1e1f6--makes-no-external-requests-desktop-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/foundation-dashboard-has-t-1e1f6--makes-no-external-requests-desktop-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/foundation-dashboard-has-t-1e1f6--makes-no-external-requests-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile-chromium] › tests/e2e/foundation.spec.ts:28:1 › dashboard has the four modes and makes no external requests
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('main').getByRole('link', { name: /POV/ })
+    Expected: visible
+    Error: strict mode violation: getByRole('main').getByRole('link', { name: /POV/ }) resolved to 2 elements:
+        1) <a class="mode-card" href="/studio?mode=pov">…</a> aka getByRole('link', { name: 'POV Birinci şahıs keşif Video planı' })
+        2) <a class="mode-card" href="/studio?mode=hybrid">…</a> aka getByRole('link', { name: '03 Hybrid POV + sinematik' })
+
+    Call log:
+      - Expect "toBeVisible" getByRole('main').getByRole('link', { name: /POV/ }) with timeout 5000ms
+      - waiting for getByRole('main').getByRole('link', { name: /POV/ })
+
+
+      40 |   await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Her mekânınbir hikâyesi var/);
+      41 |   const main = page.getByRole("main");
+    > 42 |   for (const mode of MODES) await expect(main.getByRole("link", { name: new RegExp(mode.name.replace("3D", "3D")) })).toBeVisible();
+         |                                                                                                                       ^
+      43 |   await expect(main.locator(".property-card")).toHaveCount(3);
+      44 |   expect(response?.headers()["content-security-policy"]).toContain("connect-src 'self'");
+      45 |   expect(response?.headers()["content-security-policy"]).toContain("frame-ancestors 'none'");
+        at /workspace/artificagent-spaces/tests/e2e/foundation.spec.ts:42:119
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/foundation-dashboard-has-t-1e1f6--makes-no-external-requests-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/foundation-dashboard-has-t-1e1f6--makes-no-external-requests-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/foundation-dashboard-has-t-1e1f6--makes-no-external-requests-mobile-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/foundation-dashboard-has-t-1e1f6--makes-no-external-requests-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop-chromium] › tests/e2e/foundation.spec.ts:28:1 › dashboard has the four modes and makes no external requests
+    [mobile-chromium] › tests/e2e/foundation.spec.ts:28:1 › dashboard has the four modes and makes no external requests
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
