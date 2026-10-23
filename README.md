@@ -97,11 +97,13 @@ npm run benchmark:plan # yalnız gelecekteki envelope; NO_NETWORK / spend0
 V5.1 owner yetkisi yalnız doğrulanmış ArtificAgent hesabında, mevcut ücretsiz/non-billable sınır içinde **sentetik Vercel Preview** içindir. Production ve gerçek müşteri backend'i kapalı kalır. Gold Revenue OS hedef değildir. Yayın başarıyla doğrulanmadan HTTPS bağlantısı var denmez.
 
 ```bash
-npm run golden:verify  # commitli CAD/GLB/PNG/MP4 hash ve gerçek decode kontrolü
+npm run golden:verify  # commitli CAD/GLB/PNG/MP4 source/generator/dosya hash kontrolü
 npm run preview:build  # ayrı statik browser paketi; Next API/auth/DB içermez
 npm run preview:test   # kendi loopback sunucusuyla 8 Chromium/axe kontrolü
 npm run preview:serve  # yalnız yerel inceleme, canlı internet bağlantısı değil
 ```
+
+Gerçek ffprobe/tam MP4 decode ve GLB geometri denetimi `npm run test:coverage` içindeki Golden fixture testlerindedir; `golden:verify` tek başına decode yapmaz.
 
 `npm run golden:build` sadece allowlisted sentetik CAD'den sınırlı CPU Blender/FFmpeg örneklerini üretir; fixture'lar zaten varsa hash doğrular. Yeni gerçek müşteri görüntüsü kabul etmez. [Golden kaynak ve ölçüler](docs/golden-property-v5.md), [statik yayın güvenlik sınırı](docs/isolated-preview-v5.md), [güncel sağlayıcı hakları](docs/provider-rights-v5.md).
 
