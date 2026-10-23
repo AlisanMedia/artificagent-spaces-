@@ -256,17 +256,51 @@ export function routeToRoom(
             : null;
       if (id && !seen.has(id)) {
         seen.add(id);
+        const fromRoom = scene.rooms.find((r) => r.id === next.id)!,
+          toRoom = scene.rooms.find((r) => r.id === id)!;
+        const direction =
+          door.axis === "x"
+            ? Math.sign(toRoom.x - fromRoom.x)
+            : Math.sign(toRoom.z - fromRoom.z);
+        const before: Position =
+          door.axis === "x"
+            ? [door.at - direction * 0.3, door.center]
+            : [door.center, door.at - direction * 0.3];
+        const after: Position =
+          door.axis === "x"
+            ? [door.at + direction * 0.3, door.center]
+            : [door.center, door.at + direction * 0.3];
         queue.push({
           id,
           points: [
             ...next.points,
+            before,
             door.axis === "x" ? [door.at, door.center] : [door.center, door.at],
+            after,
           ],
         });
       }
     }
   }
   throw new PlatformError("NO_VERIFIED_ROUTE");
+}
+/** Leave a traversable doorway perpendicular to its wall before changing room routes. */
+export function navigationLeadIn(scene: Scene, position: Position): Position[] {
+  const room = roomAt(scene, position);
+  invariant(room, "UNKNOWN_NAVIGATION_POSITION");
+  if (contains(room, position)) return [];
+  return [
+    [
+      Math.max(
+        room.x + 0.24,
+        Math.min(room.x + room.width - 0.24, position[0]),
+      ),
+      Math.max(
+        room.z + 0.24,
+        Math.min(room.z + room.depth - 0.24, position[1]),
+      ),
+    ],
+  ];
 }
 export const ViewerCommand = z.discriminatedUnion("type", [
   z.object({ type: z.literal("focus_room"), roomId: Id }).strict(),
@@ -311,7 +345,9 @@ export const GenerationInput = z
     captions: z.boolean().default(true),
     localSource: z.literal("image-motion").default("image-motion"),
     sourceAssetIds: z.array(Id).min(1).max(12).optional(),
-    template: z.enum(["modern","luxury","warm","hotel","investment"]).default("modern"),
+    template: z
+      .enum(["modern", "luxury", "warm", "hotel", "investment"])
+      .default("modern"),
     branding: z.boolean().default(false),
   })
   .strict();

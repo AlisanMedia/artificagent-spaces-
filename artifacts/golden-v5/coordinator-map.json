@@ -1,0 +1,32 @@
+[
+  {
+    "blindId": "sample-01",
+    "file": "hybrid-landscape.mp4",
+    "sha256": "861fc21af6b697f55ade09c44fe7a1ad9e7fca59421eecbdf49a455e9e436348"
+  },
+  {
+    "blindId": "sample-02",
+    "file": "cinematic-portrait.mp4",
+    "sha256": "53e0b0744a25dc92bdcf4a4e1399c3f39ab93e7b587fcc6602694c0e9c08b2d6"
+  },
+  {
+    "blindId": "sample-03",
+    "file": "hybrid-portrait.mp4",
+    "sha256": "d0eaa6ed721487072d7add9260c2e5330566b602cca55901cdf936519240fec2"
+  },
+  {
+    "blindId": "sample-04",
+    "file": "cinematic-landscape.mp4",
+    "sha256": "1084327f06479aa726b5253c78ef9df45c4a76f48eed685c50f30f261b8548ed"
+  },
+  {
+    "blindId": "sample-05",
+    "file": "pov-landscape.mp4",
+    "sha256": "de46b7ee6782110d90a5782272c99907a4a06d96fa16211162749a9c91465fe5"
+  },
+  {
+    "blindId": "sample-06",
+    "file": "pov-portrait.mp4",
+    "sha256": "517d3d30277d92ec7d4666b294b9369d96ed757165f0f2089032d0fdcde1382d"
+  }
+]

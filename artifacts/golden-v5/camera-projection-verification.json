@@ -1,0 +1,15 @@
+{
+  "kind": "REPRESENTATIVE_NATIVE_CAMERA_PROJECTION_TEST_NOT_HUMAN_REVIEW",
+  "blenderVersion": "4.3.2",
+  "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+  "sensorFit": "VERTICAL",
+  "renderDimensions": [
+    640,
+    360
+  ],
+  "requestedVerticalFovDegrees": 65,
+  "projectionMatrixMeasuredVerticalFovDegrees": 65.00000390297737,
+  "toleranceDegrees": 0.0001,
+  "passed": true,
+  "externalSpendMicroUsd": 0
+}

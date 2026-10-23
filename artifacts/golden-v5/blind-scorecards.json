@@ -1,0 +1,230 @@
+{
+  "version": 1,
+  "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+  "modelInferenceExecuted": false,
+  "coordinatorMappingSuppliedToReviewers": false,
+  "outputs": [
+    {
+      "blindId": "sample-01",
+      "artifactSha256": "861fc21af6b697f55ade09c44fe7a1ad9e7fca59421eecbdf49a455e9e436348",
+      "reviewers": [
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        },
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        }
+      ],
+      "decision": "AWAITING_INDEPENDENT_HUMAN_REVIEW"
+    },
+    {
+      "blindId": "sample-02",
+      "artifactSha256": "53e0b0744a25dc92bdcf4a4e1399c3f39ab93e7b587fcc6602694c0e9c08b2d6",
+      "reviewers": [
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        },
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        }
+      ],
+      "decision": "AWAITING_INDEPENDENT_HUMAN_REVIEW"
+    },
+    {
+      "blindId": "sample-03",
+      "artifactSha256": "d0eaa6ed721487072d7add9260c2e5330566b602cca55901cdf936519240fec2",
+      "reviewers": [
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        },
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        }
+      ],
+      "decision": "AWAITING_INDEPENDENT_HUMAN_REVIEW"
+    },
+    {
+      "blindId": "sample-04",
+      "artifactSha256": "1084327f06479aa726b5253c78ef9df45c4a76f48eed685c50f30f261b8548ed",
+      "reviewers": [
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        },
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        }
+      ],
+      "decision": "AWAITING_INDEPENDENT_HUMAN_REVIEW"
+    },
+    {
+      "blindId": "sample-05",
+      "artifactSha256": "de46b7ee6782110d90a5782272c99907a4a06d96fa16211162749a9c91465fe5",
+      "reviewers": [
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        },
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        }
+      ],
+      "decision": "AWAITING_INDEPENDENT_HUMAN_REVIEW"
+    },
+    {
+      "blindId": "sample-06",
+      "artifactSha256": "517d3d30277d92ec7d4666b294b9369d96ed757165f0f2089032d0fdcde1382d",
+      "reviewers": [
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        },
+        {
+          "reviewer": null,
+          "scores": {
+            "firstThreeSeconds": null,
+            "sharpness": null,
+            "continuity": null,
+            "sourceFidelity": null,
+            "readability": null,
+            "propertyTruthfulness": null,
+            "channelSuitability": null,
+            "branding": null,
+            "salesUsability": null
+          },
+          "criticalFabricatedArchitecture": null
+        }
+      ],
+      "decision": "AWAITING_INDEPENDENT_HUMAN_REVIEW"
+    }
+  ]
+}

@@ -1,0 +1,1264 @@
+{
+  "version": 1,
+  "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+  "generatorSha256": "2076e1535da9e5bd895737aef8d429f3aa97e611d8cb716bcdbbdeb66aab0925",
+  "rawRenderHashes": {
+    "entrance.png": "1bb6c07c663e5a1e590ad920468567c385ea83939a20d38fb17e92591d56ae19",
+    "corridor.png": "3bfd71740ee4c741674119376a5acf8b6adb13957f6d6c10e4ccfcdff30227b5",
+    "living.png": "7781988451d08539c6fa9ac8aab494978b83bf0102aa46dfbcc6506d2bb7d95c",
+    "kitchen.png": "672ad62c3d1adca8aeacd09115f3db230d8e92efcf7393b50b207921914858c4",
+    "bedroom.png": "a2d5673843a53d451ecfccc7027a21c940de65a6121135629248efd650b5fa56"
+  },
+  "sourceClass": "AUTHORED_SYNTHETIC_CAD_NOT_REAL_RECONSTRUCTION",
+  "files": [
+    {
+      "file": "property.glb",
+      "sha256": "1b3cee01fcf18d55a12bdbd5cf62ffba7f2a225ad870cbc6c967eb6a0e77cf10",
+      "bytes": 64152
+    },
+    {
+      "file": "entrance.png",
+      "sha256": "0691082cba9ccab745d0070a62442b064bbdee75f8708dcebaf67a2ba90ccc1d",
+      "bytes": 474082
+    },
+    {
+      "file": "corridor.png",
+      "sha256": "3e1999d4c39be5a07058f44fe140f2a0a1c77703f1e3138fed381552c88503f8",
+      "bytes": 366186
+    },
+    {
+      "file": "living.png",
+      "sha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791",
+      "bytes": 312426
+    },
+    {
+      "file": "kitchen.png",
+      "sha256": "008c672ac1e0f159855b19bbe37c68760252e0b03f75027650b41554cbc3ac0b",
+      "bytes": 302158
+    },
+    {
+      "file": "bedroom.png",
+      "sha256": "27897fc75ce5470fd7b721de2e66b102727d927d941e0444a942a918fb80a14e",
+      "bytes": 308589
+    },
+    {
+      "file": "blender-observations.json",
+      "sha256": "750bf6de9a71cc00e7f12b9c6fda71288927a95e52c2a84bb98bd16d51fe599d",
+      "bytes": 2139
+    },
+    {
+      "file": "floor-plan.svg",
+      "sha256": "8bd7e5e19881bac6f01629555c6366c1c80624f0a6eb5436c1ad6ea1497cdb11",
+      "bytes": 2212
+    },
+    {
+      "file": "pov-landscape.mp4",
+      "sha256": "de46b7ee6782110d90a5782272c99907a4a06d96fa16211162749a9c91465fe5",
+      "bytes": 179304
+    },
+    {
+      "file": "pov-portrait.mp4",
+      "sha256": "517d3d30277d92ec7d4666b294b9369d96ed757165f0f2089032d0fdcde1382d",
+      "bytes": 119952
+    },
+    {
+      "file": "cinematic-landscape.mp4",
+      "sha256": "1084327f06479aa726b5253c78ef9df45c4a76f48eed685c50f30f261b8548ed",
+      "bytes": 194416
+    },
+    {
+      "file": "cinematic-portrait.mp4",
+      "sha256": "53e0b0744a25dc92bdcf4a4e1399c3f39ab93e7b587fcc6602694c0e9c08b2d6",
+      "bytes": 132935
+    },
+    {
+      "file": "hybrid-landscape.mp4",
+      "sha256": "861fc21af6b697f55ade09c44fe7a1ad9e7fca59421eecbdf49a455e9e436348",
+      "bytes": 186002
+    },
+    {
+      "file": "hybrid-portrait.mp4",
+      "sha256": "d0eaa6ed721487072d7add9260c2e5330566b602cca55901cdf936519240fec2",
+      "bytes": 125058
+    },
+    {
+      "file": "scene-manifest.json",
+      "sha256": "1bb67cd56b115f50cb75e8e457eefb8588c93e84caa12bcbe467285750e81ea8",
+      "bytes": 3847
+    }
+  ],
+  "clips": [
+    {
+      "file": "pov-landscape.mp4",
+      "mode": "pov",
+      "aspect": "16:9",
+      "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+      "manifestRevision": 2,
+      "sourceImages": [
+        {
+          "roomId": "entrance",
+          "id": "687cb947-83fc-4312-bb65-2f44db709953",
+          "normalizedSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "renderSha256": "0691082cba9ccab745d0070a62442b064bbdee75f8708dcebaf67a2ba90ccc1d"
+        },
+        {
+          "roomId": "living",
+          "id": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+          "normalizedSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "renderSha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791"
+        },
+        {
+          "roomId": "kitchen",
+          "id": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+          "normalizedSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "renderSha256": "008c672ac1e0f159855b19bbe37c68760252e0b03f75027650b41554cbc3ac0b"
+        },
+        {
+          "roomId": "bedroom",
+          "id": "c9fff830-ad75-4102-9844-52096590b72a",
+          "normalizedSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+          "renderSha256": "27897fc75ce5470fd7b721de2e66b102727d927d941e0444a942a918fb80a14e"
+        }
+      ],
+      "output": {
+        "qa": {
+          "integrity": true,
+          "disclosure": "Gerçek MP4; yerel kaynak-görsel / yüklenen sessiz görüntü hareketi ve kesme demosu. Fotogerçekçi AI POV veya gerçek mekânda kamera yürüyüşü değildir. Müzik/voiceover yok.",
+          "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+        },
+        "kind": "image-motion-demo",
+        "mime": "video/mp4",
+        "bytes": 179304,
+        "codec": "h264",
+        "width": 640,
+        "height": 360,
+        "sha256": "de46b7ee6782110d90a5782272c99907a4a06d96fa16211162749a9c91465fe5",
+        "extension": "mp4",
+        "artifactId": "55539406-e1f9-4628-b85e-c9c3937b1aa9--d2d7fe59-9415-4ffa-a781-56848b133c11",
+        "cameraPlan": {
+          "mode": "pov",
+          "shots": [
+            {
+              "id": "shot-1",
+              "look": "forward",
+              "hands": "DISABLED_EXPERIMENTAL",
+              "style": "first-person",
+              "roomId": "entrance",
+              "seconds": 4,
+              "cameraRoute": [
+                [
+                  1.5,
+                  1
+                ]
+              ],
+              "evidenceIds": [
+                "cad-plan-v5"
+              ],
+              "eyeHeightMeters": 1.65,
+              "firstPersonPrompt": "First-person eye-level view at 1.65 m: viewer is the person looking. No other person walking in front of camera. No invented doors, rooms, windows or views.",
+              "physicallyCalibratedLighting": false
+            }
+          ],
+          "continuity": {
+            "daypart": "noon",
+            "roomIds": [
+              "entrance"
+            ],
+            "staging": "NO_UNVERIFIED_FURNITURE",
+            "unknownRegions": [
+              "Balkon yok; dış çevre ve manzara modellenmedi",
+              "Mobilya, tesisat ve gerçek güneş kalibrasyonu kapsam dışında"
+            ]
+          },
+          "planningOnly": true,
+          "schemaVersion": 1,
+          "manifestRevision": 2,
+          "actualProviderGeneratedVideo": false
+        },
+        "colorSpace": "bt709-sdr",
+        "wallTimeMs": 1297,
+        "sourceHashes": [
+          "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10"
+        ],
+        "brandSnapshot": null,
+        "captionLayout": {
+          "x": 32,
+          "y": 291,
+          "width": 255,
+          "height": 33,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        },
+        "renderProfile": {
+          "id": "local-preview-v3",
+          "width": 640,
+          "height": 360,
+          "labOnly": false,
+          "timeoutMs": 90000,
+          "maxOutputBytes": 52428800,
+          "durationSeconds": 4
+        },
+        "manifestSha256": "2899cfe1a7730bd6ad889b9a2082f7c9a0784e550a27c523cc1d8d5bb60962a5",
+        "shotProvenance": [
+          {
+            "sourceId": "687cb947-83fc-4312-bb65-2f44db709953",
+            "operation": "still-pan-zoom",
+            "endSeconds": 1,
+            "sourceSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+            "operation": "still-pan-zoom",
+            "endSeconds": 2,
+            "sourceSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+            "startSeconds": 1
+          },
+          {
+            "sourceId": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+            "operation": "still-pan-zoom",
+            "endSeconds": 3,
+            "sourceSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+            "startSeconds": 2
+          },
+          {
+            "sourceId": "c9fff830-ad75-4102-9844-52096590b72a",
+            "operation": "still-pan-zoom",
+            "endSeconds": 4,
+            "sourceSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+            "startSeconds": 3
+          }
+        ],
+        "durationSeconds": 3.96,
+        "manifestRevision": 2,
+        "nativeRenderMetrics": {
+          "ffmpegExitCode": 0,
+          "ffmpegWallTimeMs": 1148
+        },
+        "actualExternalCostMicroUsd": 0
+      },
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "yuv420p",
+            "color_space": "bt709"
+          }
+        ],
+        "format": {
+          "duration": "3.960000"
+        }
+      },
+      "fullDecodeExit": 0,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "publicUse": "OWNER_AUTHORIZED_SYNTHETIC_FIXTURE_NOT_A_TENANT_PUBLICATION"
+    },
+    {
+      "file": "pov-portrait.mp4",
+      "mode": "pov",
+      "aspect": "9:16",
+      "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+      "manifestRevision": 2,
+      "sourceImages": [
+        {
+          "roomId": "entrance",
+          "id": "687cb947-83fc-4312-bb65-2f44db709953",
+          "normalizedSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "renderSha256": "0691082cba9ccab745d0070a62442b064bbdee75f8708dcebaf67a2ba90ccc1d"
+        },
+        {
+          "roomId": "living",
+          "id": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+          "normalizedSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "renderSha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791"
+        },
+        {
+          "roomId": "kitchen",
+          "id": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+          "normalizedSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "renderSha256": "008c672ac1e0f159855b19bbe37c68760252e0b03f75027650b41554cbc3ac0b"
+        },
+        {
+          "roomId": "bedroom",
+          "id": "c9fff830-ad75-4102-9844-52096590b72a",
+          "normalizedSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+          "renderSha256": "27897fc75ce5470fd7b721de2e66b102727d927d941e0444a942a918fb80a14e"
+        }
+      ],
+      "output": {
+        "qa": {
+          "integrity": true,
+          "disclosure": "Gerçek MP4; yerel kaynak-görsel / yüklenen sessiz görüntü hareketi ve kesme demosu. Fotogerçekçi AI POV veya gerçek mekânda kamera yürüyüşü değildir. Müzik/voiceover yok.",
+          "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+        },
+        "kind": "image-motion-demo",
+        "mime": "video/mp4",
+        "bytes": 119952,
+        "codec": "h264",
+        "width": 360,
+        "height": 640,
+        "sha256": "517d3d30277d92ec7d4666b294b9369d96ed757165f0f2089032d0fdcde1382d",
+        "extension": "mp4",
+        "artifactId": "e3c2f23f-a0af-4a4d-82a3-431d9cd9adcf--ad5fd717-8759-4c09-8df3-d5ecc39c9752",
+        "cameraPlan": {
+          "mode": "pov",
+          "shots": [
+            {
+              "id": "shot-1",
+              "look": "forward",
+              "hands": "DISABLED_EXPERIMENTAL",
+              "style": "first-person",
+              "roomId": "entrance",
+              "seconds": 4,
+              "cameraRoute": [
+                [
+                  1.5,
+                  1
+                ]
+              ],
+              "evidenceIds": [
+                "cad-plan-v5"
+              ],
+              "eyeHeightMeters": 1.65,
+              "firstPersonPrompt": "First-person eye-level view at 1.65 m: viewer is the person looking. No other person walking in front of camera. No invented doors, rooms, windows or views.",
+              "physicallyCalibratedLighting": false
+            }
+          ],
+          "continuity": {
+            "daypart": "noon",
+            "roomIds": [
+              "entrance"
+            ],
+            "staging": "NO_UNVERIFIED_FURNITURE",
+            "unknownRegions": [
+              "Balkon yok; dış çevre ve manzara modellenmedi",
+              "Mobilya, tesisat ve gerçek güneş kalibrasyonu kapsam dışında"
+            ]
+          },
+          "planningOnly": true,
+          "schemaVersion": 1,
+          "manifestRevision": 2,
+          "actualProviderGeneratedVideo": false
+        },
+        "colorSpace": "bt709-sdr",
+        "wallTimeMs": 1538,
+        "sourceHashes": [
+          "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10"
+        ],
+        "brandSnapshot": null,
+        "captionLayout": {
+          "x": 18,
+          "y": 543,
+          "width": 255,
+          "height": 33,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        },
+        "renderProfile": {
+          "id": "local-preview-v3",
+          "width": 360,
+          "height": 640,
+          "labOnly": false,
+          "timeoutMs": 90000,
+          "maxOutputBytes": 52428800,
+          "durationSeconds": 4
+        },
+        "manifestSha256": "2899cfe1a7730bd6ad889b9a2082f7c9a0784e550a27c523cc1d8d5bb60962a5",
+        "shotProvenance": [
+          {
+            "sourceId": "687cb947-83fc-4312-bb65-2f44db709953",
+            "operation": "still-pan-zoom",
+            "endSeconds": 1,
+            "sourceSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+            "operation": "still-pan-zoom",
+            "endSeconds": 2,
+            "sourceSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+            "startSeconds": 1
+          },
+          {
+            "sourceId": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+            "operation": "still-pan-zoom",
+            "endSeconds": 3,
+            "sourceSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+            "startSeconds": 2
+          },
+          {
+            "sourceId": "c9fff830-ad75-4102-9844-52096590b72a",
+            "operation": "still-pan-zoom",
+            "endSeconds": 4,
+            "sourceSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+            "startSeconds": 3
+          }
+        ],
+        "durationSeconds": 3.96,
+        "manifestRevision": 2,
+        "nativeRenderMetrics": {
+          "ffmpegExitCode": 0,
+          "ffmpegWallTimeMs": 1414
+        },
+        "actualExternalCostMicroUsd": 0
+      },
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 360,
+            "height": 640,
+            "pix_fmt": "yuv420p",
+            "color_space": "bt709"
+          }
+        ],
+        "format": {
+          "duration": "3.960000"
+        }
+      },
+      "fullDecodeExit": 0,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "publicUse": "OWNER_AUTHORIZED_SYNTHETIC_FIXTURE_NOT_A_TENANT_PUBLICATION"
+    },
+    {
+      "file": "cinematic-landscape.mp4",
+      "mode": "cinematic",
+      "aspect": "16:9",
+      "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+      "manifestRevision": 2,
+      "sourceImages": [
+        {
+          "roomId": "entrance",
+          "id": "687cb947-83fc-4312-bb65-2f44db709953",
+          "normalizedSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "renderSha256": "0691082cba9ccab745d0070a62442b064bbdee75f8708dcebaf67a2ba90ccc1d"
+        },
+        {
+          "roomId": "living",
+          "id": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+          "normalizedSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "renderSha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791"
+        },
+        {
+          "roomId": "kitchen",
+          "id": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+          "normalizedSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "renderSha256": "008c672ac1e0f159855b19bbe37c68760252e0b03f75027650b41554cbc3ac0b"
+        },
+        {
+          "roomId": "bedroom",
+          "id": "c9fff830-ad75-4102-9844-52096590b72a",
+          "normalizedSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+          "renderSha256": "27897fc75ce5470fd7b721de2e66b102727d927d941e0444a942a918fb80a14e"
+        }
+      ],
+      "output": {
+        "qa": {
+          "integrity": true,
+          "disclosure": "Gerçek MP4; yerel kaynak-görsel / yüklenen sessiz görüntü hareketi ve kesme demosu. Fotogerçekçi AI POV veya gerçek mekânda kamera yürüyüşü değildir. Müzik/voiceover yok.",
+          "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+        },
+        "kind": "image-motion-demo",
+        "mime": "video/mp4",
+        "bytes": 194416,
+        "codec": "h264",
+        "width": 640,
+        "height": 360,
+        "sha256": "1084327f06479aa726b5253c78ef9df45c4a76f48eed685c50f30f261b8548ed",
+        "extension": "mp4",
+        "artifactId": "d6fd1b3c-7283-47c6-8b70-28a2d7aef418--e6683ec4-f258-44f5-b464-238a4106f9e6",
+        "cameraPlan": {
+          "mode": "cinematic",
+          "shots": [
+            {
+              "id": "shot-1",
+              "look": "forward",
+              "hands": "DISABLED_EXPERIMENTAL",
+              "style": "cinematic",
+              "roomId": "entrance",
+              "seconds": 4,
+              "cameraRoute": [
+                [
+                  1.5,
+                  1
+                ]
+              ],
+              "evidenceIds": [
+                "cad-plan-v5"
+              ],
+              "eyeHeightMeters": 1.65,
+              "firstPersonPrompt": "Composed real-estate camera shot, maintain verified room, material and light continuity.",
+              "physicallyCalibratedLighting": false
+            }
+          ],
+          "continuity": {
+            "daypart": "noon",
+            "roomIds": [
+              "entrance"
+            ],
+            "staging": "NO_UNVERIFIED_FURNITURE",
+            "unknownRegions": [
+              "Balkon yok; dış çevre ve manzara modellenmedi",
+              "Mobilya, tesisat ve gerçek güneş kalibrasyonu kapsam dışında"
+            ]
+          },
+          "planningOnly": true,
+          "schemaVersion": 1,
+          "manifestRevision": 2,
+          "actualProviderGeneratedVideo": false
+        },
+        "colorSpace": "bt709-sdr",
+        "wallTimeMs": 1928,
+        "sourceHashes": [
+          "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10"
+        ],
+        "brandSnapshot": null,
+        "captionLayout": {
+          "x": 32,
+          "y": 291,
+          "width": 255,
+          "height": 33,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        },
+        "renderProfile": {
+          "id": "local-preview-v3",
+          "width": 640,
+          "height": 360,
+          "labOnly": false,
+          "timeoutMs": 90000,
+          "maxOutputBytes": 52428800,
+          "durationSeconds": 4
+        },
+        "manifestSha256": "2899cfe1a7730bd6ad889b9a2082f7c9a0784e550a27c523cc1d8d5bb60962a5",
+        "shotProvenance": [
+          {
+            "sourceId": "687cb947-83fc-4312-bb65-2f44db709953",
+            "operation": "still-pan-zoom",
+            "endSeconds": 1,
+            "sourceSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+            "operation": "still-pan-zoom",
+            "endSeconds": 2,
+            "sourceSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+            "startSeconds": 1
+          },
+          {
+            "sourceId": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+            "operation": "still-pan-zoom",
+            "endSeconds": 3,
+            "sourceSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+            "startSeconds": 2
+          },
+          {
+            "sourceId": "c9fff830-ad75-4102-9844-52096590b72a",
+            "operation": "still-pan-zoom",
+            "endSeconds": 4,
+            "sourceSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+            "startSeconds": 3
+          }
+        ],
+        "durationSeconds": 3.96,
+        "manifestRevision": 2,
+        "nativeRenderMetrics": {
+          "ffmpegExitCode": 0,
+          "ffmpegWallTimeMs": 1787
+        },
+        "actualExternalCostMicroUsd": 0
+      },
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "yuv420p",
+            "color_space": "bt709"
+          }
+        ],
+        "format": {
+          "duration": "3.960000"
+        }
+      },
+      "fullDecodeExit": 0,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "publicUse": "OWNER_AUTHORIZED_SYNTHETIC_FIXTURE_NOT_A_TENANT_PUBLICATION"
+    },
+    {
+      "file": "cinematic-portrait.mp4",
+      "mode": "cinematic",
+      "aspect": "9:16",
+      "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+      "manifestRevision": 2,
+      "sourceImages": [
+        {
+          "roomId": "entrance",
+          "id": "687cb947-83fc-4312-bb65-2f44db709953",
+          "normalizedSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "renderSha256": "0691082cba9ccab745d0070a62442b064bbdee75f8708dcebaf67a2ba90ccc1d"
+        },
+        {
+          "roomId": "living",
+          "id": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+          "normalizedSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "renderSha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791"
+        },
+        {
+          "roomId": "kitchen",
+          "id": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+          "normalizedSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "renderSha256": "008c672ac1e0f159855b19bbe37c68760252e0b03f75027650b41554cbc3ac0b"
+        },
+        {
+          "roomId": "bedroom",
+          "id": "c9fff830-ad75-4102-9844-52096590b72a",
+          "normalizedSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+          "renderSha256": "27897fc75ce5470fd7b721de2e66b102727d927d941e0444a942a918fb80a14e"
+        }
+      ],
+      "output": {
+        "qa": {
+          "integrity": true,
+          "disclosure": "Gerçek MP4; yerel kaynak-görsel / yüklenen sessiz görüntü hareketi ve kesme demosu. Fotogerçekçi AI POV veya gerçek mekânda kamera yürüyüşü değildir. Müzik/voiceover yok.",
+          "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+        },
+        "kind": "image-motion-demo",
+        "mime": "video/mp4",
+        "bytes": 132935,
+        "codec": "h264",
+        "width": 360,
+        "height": 640,
+        "sha256": "53e0b0744a25dc92bdcf4a4e1399c3f39ab93e7b587fcc6602694c0e9c08b2d6",
+        "extension": "mp4",
+        "artifactId": "65073401-4b3c-47c0-969f-72126ff5476c--2e59630a-96e0-4348-be03-74bc1e41047e",
+        "cameraPlan": {
+          "mode": "cinematic",
+          "shots": [
+            {
+              "id": "shot-1",
+              "look": "forward",
+              "hands": "DISABLED_EXPERIMENTAL",
+              "style": "cinematic",
+              "roomId": "entrance",
+              "seconds": 4,
+              "cameraRoute": [
+                [
+                  1.5,
+                  1
+                ]
+              ],
+              "evidenceIds": [
+                "cad-plan-v5"
+              ],
+              "eyeHeightMeters": 1.65,
+              "firstPersonPrompt": "Composed real-estate camera shot, maintain verified room, material and light continuity.",
+              "physicallyCalibratedLighting": false
+            }
+          ],
+          "continuity": {
+            "daypart": "noon",
+            "roomIds": [
+              "entrance"
+            ],
+            "staging": "NO_UNVERIFIED_FURNITURE",
+            "unknownRegions": [
+              "Balkon yok; dış çevre ve manzara modellenmedi",
+              "Mobilya, tesisat ve gerçek güneş kalibrasyonu kapsam dışında"
+            ]
+          },
+          "planningOnly": true,
+          "schemaVersion": 1,
+          "manifestRevision": 2,
+          "actualProviderGeneratedVideo": false
+        },
+        "colorSpace": "bt709-sdr",
+        "wallTimeMs": 1286,
+        "sourceHashes": [
+          "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10"
+        ],
+        "brandSnapshot": null,
+        "captionLayout": {
+          "x": 18,
+          "y": 543,
+          "width": 255,
+          "height": 33,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        },
+        "renderProfile": {
+          "id": "local-preview-v3",
+          "width": 360,
+          "height": 640,
+          "labOnly": false,
+          "timeoutMs": 90000,
+          "maxOutputBytes": 52428800,
+          "durationSeconds": 4
+        },
+        "manifestSha256": "2899cfe1a7730bd6ad889b9a2082f7c9a0784e550a27c523cc1d8d5bb60962a5",
+        "shotProvenance": [
+          {
+            "sourceId": "687cb947-83fc-4312-bb65-2f44db709953",
+            "operation": "still-pan-zoom",
+            "endSeconds": 1,
+            "sourceSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+            "operation": "still-pan-zoom",
+            "endSeconds": 2,
+            "sourceSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+            "startSeconds": 1
+          },
+          {
+            "sourceId": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+            "operation": "still-pan-zoom",
+            "endSeconds": 3,
+            "sourceSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+            "startSeconds": 2
+          },
+          {
+            "sourceId": "c9fff830-ad75-4102-9844-52096590b72a",
+            "operation": "still-pan-zoom",
+            "endSeconds": 4,
+            "sourceSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+            "startSeconds": 3
+          }
+        ],
+        "durationSeconds": 3.96,
+        "manifestRevision": 2,
+        "nativeRenderMetrics": {
+          "ffmpegExitCode": 0,
+          "ffmpegWallTimeMs": 1158
+        },
+        "actualExternalCostMicroUsd": 0
+      },
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 360,
+            "height": 640,
+            "pix_fmt": "yuv420p",
+            "color_space": "bt709"
+          }
+        ],
+        "format": {
+          "duration": "3.960000"
+        }
+      },
+      "fullDecodeExit": 0,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "publicUse": "OWNER_AUTHORIZED_SYNTHETIC_FIXTURE_NOT_A_TENANT_PUBLICATION"
+    },
+    {
+      "file": "hybrid-landscape.mp4",
+      "mode": "hybrid",
+      "aspect": "16:9",
+      "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+      "manifestRevision": 2,
+      "sourceImages": [
+        {
+          "roomId": "entrance",
+          "id": "687cb947-83fc-4312-bb65-2f44db709953",
+          "normalizedSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "renderSha256": "0691082cba9ccab745d0070a62442b064bbdee75f8708dcebaf67a2ba90ccc1d"
+        },
+        {
+          "roomId": "living",
+          "id": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+          "normalizedSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "renderSha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791"
+        },
+        {
+          "roomId": "kitchen",
+          "id": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+          "normalizedSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "renderSha256": "008c672ac1e0f159855b19bbe37c68760252e0b03f75027650b41554cbc3ac0b"
+        },
+        {
+          "roomId": "bedroom",
+          "id": "c9fff830-ad75-4102-9844-52096590b72a",
+          "normalizedSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+          "renderSha256": "27897fc75ce5470fd7b721de2e66b102727d927d941e0444a942a918fb80a14e"
+        }
+      ],
+      "output": {
+        "qa": {
+          "integrity": true,
+          "disclosure": "Gerçek MP4; yerel kaynak-görsel / yüklenen sessiz görüntü hareketi ve kesme demosu. Fotogerçekçi AI POV veya gerçek mekânda kamera yürüyüşü değildir. Müzik/voiceover yok.",
+          "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+        },
+        "kind": "image-motion-demo",
+        "mime": "video/mp4",
+        "bytes": 186002,
+        "codec": "h264",
+        "width": 640,
+        "height": 360,
+        "sha256": "861fc21af6b697f55ade09c44fe7a1ad9e7fca59421eecbdf49a455e9e436348",
+        "extension": "mp4",
+        "artifactId": "d85716a9-8c81-4dff-a7a0-6798b0ea9374--ca2d72bb-c28d-4515-9d88-747bc04e28ce",
+        "cameraPlan": {
+          "mode": "hybrid",
+          "shots": [
+            {
+              "id": "shot-1",
+              "look": "forward",
+              "hands": "DISABLED_EXPERIMENTAL",
+              "style": "first-person",
+              "roomId": "entrance",
+              "seconds": 2,
+              "cameraRoute": [
+                [
+                  1.5,
+                  1
+                ]
+              ],
+              "evidenceIds": [
+                "cad-plan-v5"
+              ],
+              "eyeHeightMeters": 1.65,
+              "firstPersonPrompt": "First-person eye-level view at 1.65 m: viewer is the person looking. No other person walking in front of camera. No invented doors, rooms, windows or views.",
+              "physicallyCalibratedLighting": false
+            },
+            {
+              "id": "shot-2",
+              "look": "glance-right",
+              "hands": "DISABLED_EXPERIMENTAL",
+              "style": "cinematic",
+              "roomId": "entrance",
+              "seconds": 2,
+              "cameraRoute": [
+                [
+                  1.5,
+                  1
+                ]
+              ],
+              "evidenceIds": [
+                "cad-plan-v5"
+              ],
+              "eyeHeightMeters": 1.65,
+              "firstPersonPrompt": "Composed real-estate camera shot, maintain verified room, material and light continuity.",
+              "physicallyCalibratedLighting": false
+            }
+          ],
+          "continuity": {
+            "daypart": "noon",
+            "roomIds": [
+              "entrance",
+              "entrance"
+            ],
+            "staging": "NO_UNVERIFIED_FURNITURE",
+            "unknownRegions": [
+              "Balkon yok; dış çevre ve manzara modellenmedi",
+              "Mobilya, tesisat ve gerçek güneş kalibrasyonu kapsam dışında"
+            ]
+          },
+          "planningOnly": true,
+          "schemaVersion": 1,
+          "manifestRevision": 2,
+          "actualProviderGeneratedVideo": false
+        },
+        "colorSpace": "bt709-sdr",
+        "wallTimeMs": 1197,
+        "sourceHashes": [
+          "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10"
+        ],
+        "brandSnapshot": null,
+        "captionLayout": {
+          "x": 32,
+          "y": 291,
+          "width": 255,
+          "height": 33,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        },
+        "renderProfile": {
+          "id": "local-preview-v3",
+          "width": 640,
+          "height": 360,
+          "labOnly": false,
+          "timeoutMs": 90000,
+          "maxOutputBytes": 52428800,
+          "durationSeconds": 4
+        },
+        "manifestSha256": "2899cfe1a7730bd6ad889b9a2082f7c9a0784e550a27c523cc1d8d5bb60962a5",
+        "shotProvenance": [
+          {
+            "sourceId": "687cb947-83fc-4312-bb65-2f44db709953",
+            "operation": "still-pan-zoom",
+            "endSeconds": 1,
+            "sourceSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+            "operation": "still-pan-zoom",
+            "endSeconds": 2,
+            "sourceSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+            "startSeconds": 1
+          },
+          {
+            "sourceId": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+            "operation": "still-pan-zoom",
+            "endSeconds": 3,
+            "sourceSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+            "startSeconds": 2
+          },
+          {
+            "sourceId": "c9fff830-ad75-4102-9844-52096590b72a",
+            "operation": "still-pan-zoom",
+            "endSeconds": 4,
+            "sourceSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+            "startSeconds": 3
+          }
+        ],
+        "durationSeconds": 3.96,
+        "manifestRevision": 2,
+        "nativeRenderMetrics": {
+          "ffmpegExitCode": 0,
+          "ffmpegWallTimeMs": 1054
+        },
+        "actualExternalCostMicroUsd": 0
+      },
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "yuv420p",
+            "color_space": "bt709"
+          }
+        ],
+        "format": {
+          "duration": "3.960000"
+        }
+      },
+      "fullDecodeExit": 0,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "publicUse": "OWNER_AUTHORIZED_SYNTHETIC_FIXTURE_NOT_A_TENANT_PUBLICATION"
+    },
+    {
+      "file": "hybrid-portrait.mp4",
+      "mode": "hybrid",
+      "aspect": "9:16",
+      "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+      "manifestRevision": 2,
+      "sourceImages": [
+        {
+          "roomId": "entrance",
+          "id": "687cb947-83fc-4312-bb65-2f44db709953",
+          "normalizedSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "renderSha256": "0691082cba9ccab745d0070a62442b064bbdee75f8708dcebaf67a2ba90ccc1d"
+        },
+        {
+          "roomId": "living",
+          "id": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+          "normalizedSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "renderSha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791"
+        },
+        {
+          "roomId": "kitchen",
+          "id": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+          "normalizedSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "renderSha256": "008c672ac1e0f159855b19bbe37c68760252e0b03f75027650b41554cbc3ac0b"
+        },
+        {
+          "roomId": "bedroom",
+          "id": "c9fff830-ad75-4102-9844-52096590b72a",
+          "normalizedSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+          "renderSha256": "27897fc75ce5470fd7b721de2e66b102727d927d941e0444a942a918fb80a14e"
+        }
+      ],
+      "output": {
+        "qa": {
+          "integrity": true,
+          "disclosure": "Gerçek MP4; yerel kaynak-görsel / yüklenen sessiz görüntü hareketi ve kesme demosu. Fotogerçekçi AI POV veya gerçek mekânda kamera yürüyüşü değildir. Müzik/voiceover yok.",
+          "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+        },
+        "kind": "image-motion-demo",
+        "mime": "video/mp4",
+        "bytes": 125058,
+        "codec": "h264",
+        "width": 360,
+        "height": 640,
+        "sha256": "d0eaa6ed721487072d7add9260c2e5330566b602cca55901cdf936519240fec2",
+        "extension": "mp4",
+        "artifactId": "7f6b2c99-2f69-4c77-8646-31af91900298--5b880193-1c7d-4a67-b7b2-48d45ca9205e",
+        "cameraPlan": {
+          "mode": "hybrid",
+          "shots": [
+            {
+              "id": "shot-1",
+              "look": "forward",
+              "hands": "DISABLED_EXPERIMENTAL",
+              "style": "first-person",
+              "roomId": "entrance",
+              "seconds": 2,
+              "cameraRoute": [
+                [
+                  1.5,
+                  1
+                ]
+              ],
+              "evidenceIds": [
+                "cad-plan-v5"
+              ],
+              "eyeHeightMeters": 1.65,
+              "firstPersonPrompt": "First-person eye-level view at 1.65 m: viewer is the person looking. No other person walking in front of camera. No invented doors, rooms, windows or views.",
+              "physicallyCalibratedLighting": false
+            },
+            {
+              "id": "shot-2",
+              "look": "glance-right",
+              "hands": "DISABLED_EXPERIMENTAL",
+              "style": "cinematic",
+              "roomId": "entrance",
+              "seconds": 2,
+              "cameraRoute": [
+                [
+                  1.5,
+                  1
+                ]
+              ],
+              "evidenceIds": [
+                "cad-plan-v5"
+              ],
+              "eyeHeightMeters": 1.65,
+              "firstPersonPrompt": "Composed real-estate camera shot, maintain verified room, material and light continuity.",
+              "physicallyCalibratedLighting": false
+            }
+          ],
+          "continuity": {
+            "daypart": "noon",
+            "roomIds": [
+              "entrance",
+              "entrance"
+            ],
+            "staging": "NO_UNVERIFIED_FURNITURE",
+            "unknownRegions": [
+              "Balkon yok; dış çevre ve manzara modellenmedi",
+              "Mobilya, tesisat ve gerçek güneş kalibrasyonu kapsam dışında"
+            ]
+          },
+          "planningOnly": true,
+          "schemaVersion": 1,
+          "manifestRevision": 2,
+          "actualProviderGeneratedVideo": false
+        },
+        "colorSpace": "bt709-sdr",
+        "wallTimeMs": 1330,
+        "sourceHashes": [
+          "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+          "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+          "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+          "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10"
+        ],
+        "brandSnapshot": null,
+        "captionLayout": {
+          "x": 18,
+          "y": 543,
+          "width": 255,
+          "height": 33,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        },
+        "renderProfile": {
+          "id": "local-preview-v3",
+          "width": 360,
+          "height": 640,
+          "labOnly": false,
+          "timeoutMs": 90000,
+          "maxOutputBytes": 52428800,
+          "durationSeconds": 4
+        },
+        "manifestSha256": "2899cfe1a7730bd6ad889b9a2082f7c9a0784e550a27c523cc1d8d5bb60962a5",
+        "shotProvenance": [
+          {
+            "sourceId": "687cb947-83fc-4312-bb65-2f44db709953",
+            "operation": "still-pan-zoom",
+            "endSeconds": 1,
+            "sourceSha256": "42b114f82649b60d9c6a4eaaf8a00efa4547f273385bdf5408ed9d7a612485ed",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "c4ed47c5-6154-4401-bbf5-65f9678be219",
+            "operation": "still-pan-zoom",
+            "endSeconds": 2,
+            "sourceSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0",
+            "startSeconds": 1
+          },
+          {
+            "sourceId": "2fdf6685-9582-4554-b3a8-ceb0a695bae9",
+            "operation": "still-pan-zoom",
+            "endSeconds": 3,
+            "sourceSha256": "3e811472baa198529d93b26c89d9c774238063497c9e4ac9808fceefdf75581b",
+            "startSeconds": 2
+          },
+          {
+            "sourceId": "c9fff830-ad75-4102-9844-52096590b72a",
+            "operation": "still-pan-zoom",
+            "endSeconds": 4,
+            "sourceSha256": "bc5a712ede77d54c88387341bc76b03431e0aab3c26eb3205fc1290aad481a10",
+            "startSeconds": 3
+          }
+        ],
+        "durationSeconds": 3.96,
+        "manifestRevision": 2,
+        "nativeRenderMetrics": {
+          "ffmpegExitCode": 0,
+          "ffmpegWallTimeMs": 1199
+        },
+        "actualExternalCostMicroUsd": 0
+      },
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 360,
+            "height": 640,
+            "pix_fmt": "yuv420p",
+            "color_space": "bt709"
+          }
+        ],
+        "format": {
+          "duration": "3.960000"
+        }
+      },
+      "fullDecodeExit": 0,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "publicUse": "OWNER_AUTHORIZED_SYNTHETIC_FIXTURE_NOT_A_TENANT_PUBLICATION"
+    }
+  ],
+  "geometricFidelity": {
+    "status": "PASS",
+    "errors": [],
+    "photographicRealism": "NOT_VERIFIED"
+  },
+  "cameraVisibility": [
+    {
+      "cameraId": "camera-entrance",
+      "windowId": "window-living",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-entrance",
+      "windowId": "window-kitchen",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-entrance",
+      "windowId": "window-bedroom",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-corridor",
+      "windowId": "window-living",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-corridor",
+      "windowId": "window-kitchen",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-corridor",
+      "windowId": "window-bedroom",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-living",
+      "windowId": "window-living",
+      "visibleWithinSameRoomFov": true
+    },
+    {
+      "cameraId": "camera-living",
+      "windowId": "window-kitchen",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-living",
+      "windowId": "window-bedroom",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-kitchen",
+      "windowId": "window-living",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-kitchen",
+      "windowId": "window-kitchen",
+      "visibleWithinSameRoomFov": true
+    },
+    {
+      "cameraId": "camera-kitchen",
+      "windowId": "window-bedroom",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-bedroom",
+      "windowId": "window-living",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-bedroom",
+      "windowId": "window-kitchen",
+      "visibleWithinSameRoomFov": false
+    },
+    {
+      "cameraId": "camera-bedroom",
+      "windowId": "window-bedroom",
+      "visibleWithinSameRoomFov": true
+    }
+  ],
+  "wallTimeMs": 68346,
+  "actualExternalSpendMicroUsd": 0,
+  "humanAccepted": 0,
+  "photographicRealism": "NOT_VERIFIED"
+}

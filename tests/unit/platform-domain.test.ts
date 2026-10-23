@@ -139,8 +139,12 @@ describe("evidence and metric navigation contract", () => {
   it("finds paths only through verified doors, including reverse and already-current routes", () => {
     const s = fixture();
     expect(routeToRoom(s, "kitchen", "bedroom")).toEqual([
+      [6.3, 2.5],
       [6, 2.5],
+      [5.7, 2.5],
+      [3, 4.7],
       [3, 5],
+      [3, 5.3],
       [3, 7],
     ]);
     expect(routeToRoom(s, "living", "living")).toEqual([[3, 2.5]]);
@@ -160,7 +164,12 @@ describe("evidence and metric navigation contract", () => {
         { type: "focus_room", roomId: "kitchen" },
         "living",
       ).route,
-    ).toHaveLength(2);
+    ).toEqual([
+      [5.7, 2.5],
+      [6, 2.5],
+      [6.3, 2.5],
+      [8, 2.5],
+    ]);
     for (const c of [
       { type: "highlight_feature", poiId: "material-oak" },
       { type: "show_property_fact", factId: "living-area" },

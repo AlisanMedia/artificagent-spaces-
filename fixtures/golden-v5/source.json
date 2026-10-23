@@ -1,0 +1,389 @@
+{
+  "version": 1,
+  "rights": "PROJECT_AUTHORED_SYNTHETIC",
+  "realProperty": false,
+  "scene": {
+    "schemaVersion": 1,
+    "organizationId": "golden-demo",
+    "propertyId": "golden-v5",
+    "revision": 1,
+    "source": "synthetic",
+    "measuredBy": "synthetic-cad-author-v5",
+    "evidenceIds": [
+      "cad-plan-v5",
+      "camera-layout-v5"
+    ],
+    "rooms": [
+      {
+        "id": "entrance",
+        "label": "Giriş",
+        "x": 0,
+        "z": 0,
+        "width": 3,
+        "depth": 2,
+        "height": 2.8,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "material": "stone"
+      },
+      {
+        "id": "corridor",
+        "label": "Koridor",
+        "x": 3,
+        "z": 0,
+        "width": 1.6,
+        "depth": 8,
+        "height": 2.8,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "material": "oak"
+      },
+      {
+        "id": "living",
+        "label": "Salon",
+        "x": 4.6,
+        "z": 0,
+        "width": 5.4,
+        "depth": 4.2,
+        "height": 2.8,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "material": "oak"
+      },
+      {
+        "id": "kitchen",
+        "label": "Mutfak",
+        "x": 4.6,
+        "z": 4.2,
+        "width": 3.4,
+        "depth": 3.8,
+        "height": 2.8,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "material": "stone"
+      },
+      {
+        "id": "bedroom",
+        "label": "Yatak odası",
+        "x": -1,
+        "z": 2,
+        "width": 4,
+        "depth": 6,
+        "height": 2.8,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "material": "oak"
+      }
+    ],
+    "doors": [
+      {
+        "id": "door-entry",
+        "to": "corridor",
+        "axis": "x",
+        "at": 3,
+        "center": 1,
+        "width": 1,
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "from": "entrance"
+      },
+      {
+        "id": "door-living",
+        "to": "living",
+        "axis": "x",
+        "at": 4.6,
+        "center": 2,
+        "width": 1,
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "from": "corridor"
+      },
+      {
+        "id": "door-kitchen",
+        "to": "kitchen",
+        "axis": "x",
+        "at": 4.6,
+        "center": 6,
+        "width": 1,
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "from": "corridor"
+      },
+      {
+        "id": "door-bedroom",
+        "to": "bedroom",
+        "axis": "x",
+        "at": 3,
+        "center": 5,
+        "width": 1,
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "from": "corridor"
+      }
+    ],
+    "facts": [
+      {
+        "id": "area-entrance",
+        "roomId": "entrance",
+        "label": "Giriş tasarım alanı (m²)",
+        "value": 6,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "staged": false
+      },
+      {
+        "id": "area-corridor",
+        "roomId": "corridor",
+        "label": "Koridor tasarım alanı (m²)",
+        "value": 12.8,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "staged": false
+      },
+      {
+        "id": "area-living",
+        "roomId": "living",
+        "label": "Salon tasarım alanı (m²)",
+        "value": 22.68,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "staged": false
+      },
+      {
+        "id": "area-kitchen",
+        "roomId": "kitchen",
+        "label": "Mutfak tasarım alanı (m²)",
+        "value": 12.92,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "staged": false
+      },
+      {
+        "id": "area-bedroom",
+        "roomId": "bedroom",
+        "label": "Yatak odası tasarım alanı (m²)",
+        "value": 24,
+        "truth": "E2",
+        "evidenceIds": [
+          "cad-plan-v5"
+        ],
+        "staged": false
+      }
+    ],
+    "pois": [],
+    "unknownRegions": [
+      "Balkon yok; dış çevre ve manzara modellenmedi",
+      "Mobilya, tesisat ve gerçek güneş kalibrasyonu kapsam dışında"
+    ],
+    "dayparts": [
+      "morning",
+      "noon",
+      "evening",
+      "night"
+    ],
+    "calibratedLighting": false
+  },
+  "windows": [
+    {
+      "id": "window-living",
+      "roomId": "living",
+      "axis": "x",
+      "at": 10,
+      "center": 2,
+      "width": 1.8,
+      "sill": 0.9,
+      "height": 1.3,
+      "evidenceIds": [
+        "cad-plan-v5"
+      ]
+    },
+    {
+      "id": "window-kitchen",
+      "roomId": "kitchen",
+      "axis": "x",
+      "at": 8,
+      "center": 6.1,
+      "width": 1.2,
+      "sill": 1,
+      "height": 1.2,
+      "evidenceIds": [
+        "cad-plan-v5"
+      ]
+    },
+    {
+      "id": "window-bedroom",
+      "roomId": "bedroom",
+      "axis": "x",
+      "at": -1,
+      "center": 5.1,
+      "width": 1.8,
+      "sill": 0.9,
+      "height": 1.3,
+      "evidenceIds": [
+        "cad-plan-v5"
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "id": "camera-entrance",
+      "roomId": "entrance",
+      "position": [
+        1.5,
+        1.65,
+        1
+      ],
+      "target": [
+        3,
+        1.65,
+        1
+      ],
+      "verticalFovDegrees": 65,
+      "aspect": 1.7777777777777777,
+      "evidenceIds": [
+        "camera-layout-v5"
+      ]
+    },
+    {
+      "id": "camera-corridor",
+      "roomId": "corridor",
+      "position": [
+        3.8,
+        1.65,
+        3.8
+      ],
+      "target": [
+        4.6,
+        1.65,
+        2
+      ],
+      "verticalFovDegrees": 65,
+      "aspect": 1.7777777777777777,
+      "evidenceIds": [
+        "camera-layout-v5"
+      ]
+    },
+    {
+      "id": "camera-living",
+      "roomId": "living",
+      "position": [
+        6.9,
+        1.65,
+        2.8
+      ],
+      "target": [
+        10,
+        1.55,
+        2
+      ],
+      "verticalFovDegrees": 65,
+      "aspect": 1.7777777777777777,
+      "evidenceIds": [
+        "camera-layout-v5"
+      ]
+    },
+    {
+      "id": "camera-kitchen",
+      "roomId": "kitchen",
+      "position": [
+        6.2,
+        1.65,
+        6.9
+      ],
+      "target": [
+        8,
+        1.6,
+        6.1
+      ],
+      "verticalFovDegrees": 65,
+      "aspect": 1.7777777777777777,
+      "evidenceIds": [
+        "camera-layout-v5"
+      ]
+    },
+    {
+      "id": "camera-bedroom",
+      "roomId": "bedroom",
+      "position": [
+        1,
+        1.65,
+        6.2
+      ],
+      "target": [
+        -1,
+        1.55,
+        5.1
+      ],
+      "verticalFovDegrees": 65,
+      "aspect": 1.7777777777777777,
+      "evidenceIds": [
+        "camera-layout-v5"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": "plaster",
+      "rgb": [
+        0.77,
+        0.74,
+        0.68
+      ],
+      "roughness": 0.86
+    },
+    {
+      "id": "oak",
+      "rgb": [
+        0.43,
+        0.29,
+        0.17
+      ],
+      "roughness": 0.55
+    },
+    {
+      "id": "stone",
+      "rgb": [
+        0.45,
+        0.46,
+        0.45
+      ],
+      "roughness": 0.55
+    }
+  ],
+  "lighting": {
+    "renderer": "CYCLES_CPU",
+    "samples": 16,
+    "seed": 51,
+    "exposure": 0
+  },
+  "unknownClaims": [
+    "balcony",
+    "exterior-view",
+    "physically-calibrated-sun",
+    "furniture-included",
+    "ownership",
+    "sale-price"
+  ]
+}
