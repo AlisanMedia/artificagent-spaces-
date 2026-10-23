@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "syntheticOnly": true,
+  "source": "ACTUAL_PLAYWRIGHT_UI_SNAPSHOT",
+  "snapshot": {
+    "version": "synthetic-studio-funnel-v4",
+    "enabled": true,
+    "total": 5,
+    "counts": {
+      "studio_entered": 1,
+      "picker_opened": 1,
+      "selection_unsupported": 3
+    },
+    "persistent": false,
+    "networkRequests": 0,
+    "purpose": "OPT_IN_LOCAL_SYNTHETIC_UX_DEBUG_ONLY",
+    "conversionUplift": null
+  },
+  "uploadOrQuoteOrJobPosts": 0
+}

@@ -1,0 +1,10 @@
+{
+  "tool": "Python3 resource.getrusage RUSAGE_CHILDREN, Linux",
+  "scope": "whole npm lab command including reaped descendants; peak reported process RSS, not sum of simultaneous processes or per-encoder metrics",
+  "concurrentHeavyTask": false,
+  "wallSeconds": 27.33,
+  "userCpuSeconds": 38.258,
+  "systemCpuSeconds": 6.634,
+  "reportedPeakRssBytes": 1207947264,
+  "exitStatus": 0
+}

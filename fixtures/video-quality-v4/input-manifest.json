@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "version": "golden-v4.1",
+  "syntheticOnly": true,
+  "sourceSvgSha256": "1e0e98f4cb8919d0b3d586ffc6d08e330a25d35dd6c70dcb022b847d16762e09",
+  "sourceSvg": "public/spaces-examples/interior.svg",
+  "photoreal": false,
+  "measuredGeometry": false,
+  "inputs": [
+    {
+      "file": "photo-a.jpg",
+      "sha256": "54a30f96a49f0f2c1178c1f79ee69d5821bd573d4add20c80ab29ae19a4efa8e",
+      "bytes": 91664,
+      "rights": "Project-authored synthetic illustration/derived FFmpeg footage; no real property; no new legal license grant"
+    },
+    {
+      "file": "photo-b.webp",
+      "sha256": "450bc85bdd38b9a901abadd04851eaa4b320839befe183ba54f3080cf21f976f",
+      "bytes": 34194,
+      "rights": "Project-authored synthetic illustration/derived FFmpeg footage; no real property; no new legal license grant"
+    },
+    {
+      "file": "footage.mp4",
+      "sha256": "34be2f5ae796ed7d2cd705e07243fdabee892efee84353f147253df92c3ab4b9",
+      "bytes": 135381,
+      "rights": "Project-authored synthetic illustration/derived FFmpeg footage; no real property; no new legal license grant"
+    },
+    {
+      "file": "unsupported.heic",
+      "sha256": "7e6a0968ccd99cca0f4a1ad2bf51f781745a9aef80120402d8d34a855f00597d",
+      "bytes": 52,
+      "rights": "Project-authored synthetic illustration/derived FFmpeg footage; no real property; no new legal license grant"
+    },
+    {
+      "file": "blank-negative.mp4",
+      "sha256": "60f2950dc4b29068a840d0485b2a994edf625a7c396805d019e88a735b8ccd9d",
+      "bytes": 4792,
+      "rights": "Project-authored synthetic illustration/derived FFmpeg footage; no real property; no new legal license grant"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "syntheticOnly": true,
+  "source": "ACTUAL_PLAYWRIGHT_UI_SNAPSHOT",
+  "snapshot": {
+    "version": "synthetic-studio-funnel-v4",
+    "enabled": false,
+    "total": 0,
+    "counts": {},
+    "persistent": false,
+    "networkRequests": 0,
+    "purpose": "OPT_IN_LOCAL_SYNTHETIC_UX_DEBUG_ONLY",
+    "conversionUplift": null
+  }
+}

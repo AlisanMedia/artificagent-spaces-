@@ -1,4 +1,5 @@
 import sharp from "sharp";
+import { MEDIA_CAPABILITIES } from "@/domain/media-capabilities";
 import { sanitizeVideo } from "./video-ingestion";
 import {
   mkdir,
@@ -40,7 +41,8 @@ export class LocalPrivateStorage {
   }
   async ingest(organizationId: string, assetId: string, bytes: Uint8Array) {
     invariant(
-      bytes.byteLength > 0 && bytes.byteLength <= 5_242_880,
+      bytes.byteLength > 0 &&
+        bytes.byteLength <= MEDIA_CAPABILITIES.photo.maxBytes,
       "UPLOAD_SIZE_LIMIT",
       413,
     );
@@ -67,7 +69,7 @@ export class LocalPrivateStorage {
         415,
       );
       const image = sharp(b, {
-        limitInputPixels: 24_000_000,
+        limitInputPixels: MEDIA_CAPABILITIES.photo.maxPixels,
         failOn: "warning",
         animated: false,
       });
@@ -75,17 +77,17 @@ export class LocalPrivateStorage {
       invariant(
         metadata.width &&
           metadata.height &&
-          metadata.width >= 64 &&
-          metadata.height >= 64 &&
-          (metadata.pages ?? 1) === 1,
+          metadata.width >= MEDIA_CAPABILITIES.photo.minSide &&
+          metadata.height >= MEDIA_CAPABILITIES.photo.minSide &&
+          (metadata.pages ?? 1) === MEDIA_CAPABILITIES.photo.pages,
         "INVALID_IMAGE_DIMENSIONS",
         422,
       );
       const clean = await image
         .rotate()
         .resize({
-          width: 1600,
-          height: 1600,
+          width: MEDIA_CAPABILITIES.photo.normalizedMaxSide,
+          height: MEDIA_CAPABILITIES.photo.normalizedMaxSide,
           fit: "inside",
           withoutEnlargement: true,
         })

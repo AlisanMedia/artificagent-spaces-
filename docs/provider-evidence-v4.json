@@ -1,0 +1,424 @@
+{
+  "checkedAtUtc": "2026-10-23",
+  "readOnlyOfficialDocs": true,
+  "inferenceCalls": 0,
+  "credentialsReadOrCreated": false,
+  "liveElevenLabsMutation": false,
+  "sources": [
+    {
+      "key": "kling",
+      "url": "https://app.klingai.com/global/dev/document-api/apiReference/model/omniVideo",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://kling.ai/document-api/apiReference/model/omniVideo",
+      "sha256": "423bdb2d7ef75879bca7a45e0d4377a721703deab60731e330ece51566d8be5d",
+      "bytes": 76458,
+      "readableCharacters": 45
+    },
+    {
+      "key": "seedance",
+      "url": "https://docs.byteplus.com/en/docs/ModelArk/Video_Generation_API",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://docs.byteplus.com/en/docs/ModelArk/Video_Generation_API",
+      "sha256": "82239b86c0e1a55be5b1cd66eeb3e161c45e52f621a0177ebd98786aa63ffbc6",
+      "bytes": 394646,
+      "readableCharacters": 5521
+    },
+    {
+      "key": "veo",
+      "url": "https://ai.google.dev/gemini-api/docs/video",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://ai.google.dev/gemini-api/docs/video",
+      "sha256": "57996031257945c2d11f95e9183a7d3841dc668e9a2a35eb531eca24d245b86b",
+      "bytes": 90660,
+      "readableCharacters": 5027
+    },
+    {
+      "key": "veo-pricing",
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+      "sha256": "6de40ca7552705536c64800ef7c8722b190df7701087ebaa3c86f98c08a704c9",
+      "bytes": 253703,
+      "readableCharacters": 63359
+    },
+    {
+      "key": "veo-terms",
+      "url": "https://ai.google.dev/gemini-api/terms",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://ai.google.dev/gemini-api/terms",
+      "sha256": "8f25835e4858bbe7a9f35b9a4a72fb4c339fa222e0f575224547b4670d908bd3",
+      "bytes": 113282,
+      "readableCharacters": 23698
+    },
+    {
+      "key": "veo-regions",
+      "url": "https://ai.google.dev/gemini-api/docs/available-regions",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://ai.google.dev/gemini-api/docs/available-regions",
+      "sha256": "e660ff83bf7cb915d6a087b2d2184aceed6e2088a52f89bcdbe55753199d163e",
+      "bytes": 94762,
+      "readableCharacters": 7131
+    },
+    {
+      "key": "runway",
+      "url": "https://docs.dev.runwayml.com/api",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://docs.dev.runwayml.com/api/",
+      "sha256": "cf8feb0f1125df943905b37360a5af098ba6308be1722f2f578f30c721d14af7",
+      "bytes": 2562358,
+      "readableCharacters": 1906
+    },
+    {
+      "key": "runway-pricing",
+      "url": "https://docs.dev.runwayml.com/guides/pricing/",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://docs.dev.runwayml.com/guides/pricing/",
+      "sha256": "be2f35a12222a1dd04265c11c850c454a158852e52c316e70a25e8a88fe641af",
+      "bytes": 88974,
+      "readableCharacters": 15281
+    },
+    {
+      "key": "runway-terms",
+      "url": "https://runwayml.com/terms-of-use",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://runway.com/terms-of-use",
+      "sha256": "57ad9419132a751f7e0cbcbe778b5afaef6595c4dcb4a25d7c674bec99ab3d8f",
+      "bytes": 744800,
+      "readableCharacters": 79227
+    },
+    {
+      "key": "worldlabs",
+      "url": "https://docs.worldlabs.ai/api",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://docs.worldlabs.ai/api",
+      "sha256": "fcc429e92508f6b3c982c98446e5c7c07c1e5edde662e99a557cc0905a04e396",
+      "bytes": 1024030,
+      "readableCharacters": 28421
+    },
+    {
+      "key": "worldlabs-pricing",
+      "url": "https://docs.worldlabs.ai/api/pricing",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://docs.worldlabs.ai/api/pricing",
+      "sha256": "7831e2248721c5a49da83bdc424b23f0df82a200202a7473b54d8e5173b5ab7a",
+      "bytes": 351248,
+      "readableCharacters": 9010
+    },
+    {
+      "key": "worldlabs-rate",
+      "url": "https://docs.worldlabs.ai/api/rate-limits",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://docs.worldlabs.ai/api/rate-limits",
+      "sha256": "7c4fdf9035060053bab7dc3f3de52f636e4faeefa7df940c8c52009aee478a32",
+      "bytes": 301806,
+      "readableCharacters": 4254
+    },
+    {
+      "key": "worldlabs-terms",
+      "url": "https://www.worldlabs.ai/terms-of-service",
+      "retrievedAtUtc": "2026-10-23",
+      "authenticated": false,
+      "inferenceCalls": 0,
+      "status": 200,
+      "finalUrl": "https://www.worldlabs.ai/terms-of-service",
+      "sha256": "fdd3625ebf968308ad2d7859b850593b91e07c9ff37953eae952f0887e4f6dfa",
+      "bytes": 367682,
+      "readableCharacters": 92519
+    },
+    {
+      "key": "runway-tiers",
+      "url": "https://docs.dev.runwayml.com/usage/tiers/",
+      "finalUrl": "https://docs.dev.runwayml.com/usage/tiers/",
+      "retrievedAtUtc": "2026-10-23",
+      "status": 200,
+      "sha256": "0e8c9a6dd13d80f3766a90e40478f39a0cfceb70401dbd30b12a9337ef0862b5",
+      "bytes": 71713,
+      "readableCharacters": 6858,
+      "authenticated": false,
+      "inferenceCalls": 0
+    },
+    {
+      "key": "runway-autobilling",
+      "url": "https://docs.dev.runwayml.com/usage/autobilling/",
+      "finalUrl": "https://docs.dev.runwayml.com/usage/autobilling/",
+      "retrievedAtUtc": "2026-10-23",
+      "status": 200,
+      "sha256": "8ff27fb95698fe83eb24525483c7a70140730c72500ae606c9a9fe27910524c9",
+      "bytes": 53513,
+      "readableCharacters": 4168,
+      "authenticated": false,
+      "inferenceCalls": 0
+    }
+  ],
+  "runwaySchemaSubset": [
+    {
+      "modelId": "gen4.5",
+      "enabled": false,
+      "source": "runway",
+      "verification": "DOCUMENTED_SCHEMA_ONLY_NOT_ACCOUNT_ACCESS",
+      "duration": {
+        "description": "The number of seconds of duration for the output video. Must be an integer from 2 to 10.",
+        "type": "integer",
+        "minimum": 2,
+        "maximum": 10
+      },
+      "ratio": {
+        "description": "The resolution of the output video.",
+        "type": "string",
+        "enum": [
+          "1280:720",
+          "720:1280",
+          "1104:832",
+          "960:960",
+          "832:1104",
+          "1584:672"
+        ]
+      },
+      "audioDefault": null,
+      "promptImageMode": "Documented HTTPS/Runway/data URI forms; app disabled builder accepts only data URI, never arbitrary URL"
+    },
+    {
+      "modelId": "gen4_turbo",
+      "enabled": false,
+      "source": "runway",
+      "verification": "DOCUMENTED_SCHEMA_ONLY_NOT_ACCOUNT_ACCESS",
+      "duration": {
+        "description": "The number of seconds of duration for the output video.",
+        "type": "integer",
+        "minimum": 2,
+        "maximum": 10
+      },
+      "ratio": {
+        "description": "The resolution of the output video.",
+        "type": "string",
+        "enum": [
+          "1280:720",
+          "720:1280",
+          "1104:832",
+          "832:1104",
+          "960:960",
+          "1584:672"
+        ]
+      },
+      "audioDefault": null,
+      "promptImageMode": "Documented HTTPS/Runway/data URI forms; app disabled builder accepts only data URI, never arbitrary URL"
+    },
+    {
+      "modelId": "veo3.1",
+      "enabled": false,
+      "source": "runway",
+      "verification": "DOCUMENTED_SCHEMA_ONLY_NOT_ACCOUNT_ACCESS",
+      "duration": {
+        "description": "The number of seconds of duration for the output video.",
+        "type": "number",
+        "enum": [
+          4,
+          6,
+          8
+        ]
+      },
+      "ratio": {
+        "description": "The resolution of the output video.",
+        "type": "string",
+        "enum": [
+          "1280:720",
+          "720:1280",
+          "1080:1920",
+          "1920:1080"
+        ]
+      },
+      "audioDefault": true,
+      "promptImageMode": "Documented HTTPS/Runway/data URI forms; app disabled builder accepts only data URI, never arbitrary URL"
+    },
+    {
+      "modelId": "klingO3_pro",
+      "enabled": false,
+      "source": "runway",
+      "verification": "DOCUMENTED_SCHEMA_ONLY_NOT_ACCOUNT_ACCESS",
+      "duration": {
+        "description": "The number of seconds of duration for the output video.",
+        "type": "integer",
+        "minimum": 3,
+        "maximum": 15
+      },
+      "ratio": {
+        "description": "The resolution of the output video.",
+        "type": "string",
+        "enum": [
+          "1920:1080",
+          "1080:1920",
+          "1440:1440"
+        ]
+      },
+      "audioDefault": true,
+      "promptImageMode": "Documented HTTPS/Runway/data URI forms; app disabled builder accepts only data URI, never arbitrary URL"
+    },
+    {
+      "modelId": "klingO3_standard",
+      "enabled": false,
+      "source": "runway",
+      "verification": "DOCUMENTED_SCHEMA_ONLY_NOT_ACCOUNT_ACCESS",
+      "duration": {
+        "description": "The number of seconds of duration for the output video.",
+        "type": "integer",
+        "minimum": 3,
+        "maximum": 15
+      },
+      "ratio": {
+        "description": "The resolution of the output video.",
+        "type": "string",
+        "enum": [
+          "1280:720",
+          "720:1280",
+          "960:960"
+        ]
+      },
+      "audioDefault": true,
+      "promptImageMode": "Documented HTTPS/Runway/data URI forms; app disabled builder accepts only data URI, never arbitrary URL"
+    },
+    {
+      "modelId": "seedance2_5",
+      "enabled": false,
+      "source": "runway",
+      "verification": "DOCUMENTED_SCHEMA_ONLY_NOT_ACCOUNT_ACCESS",
+      "duration": {
+        "description": "Seconds of video to generate, or `auto` to let the model choose. `auto` is billed at the variant maximum up front; unused credits are refunded after the generation finishes.",
+        "anyOf": [
+          {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 30
+          },
+          {
+            "type": "string",
+            "const": "auto"
+          }
+        ]
+      },
+      "ratio": {
+        "description": "The resolution of the output video. Seedance 2.5 supports 480p, 720p, and 1080p.",
+        "type": "string",
+        "enum": [
+          "992:432",
+          "854:480",
+          "752:560",
+          "640:640",
+          "560:752",
+          "480:854",
+          "1470:630",
+          "1280:720",
+          "1112:834",
+          "960:960",
+          "834:1112",
+          "720:1280",
+          "2206:946",
+          "1920:1080",
+          "1664:1248",
+          "1440:1440",
+          "1248:1664",
+          "1080:1920"
+        ]
+      },
+      "audioDefault": true,
+      "promptImageMode": "Documented HTTPS/Runway/data URI forms; app disabled builder accepts only data URI, never arbitrary URL"
+    }
+  ],
+  "runwayPublishedTariffs": {
+    "creditMicroUsd": 10000,
+    "sourceUrl": "https://docs.dev.runwayml.com/guides/pricing/",
+    "notAccountQuote": true,
+    "taxesMinimumPurchaseRefundsAndFailedTasks": "NOT_VERIFIED",
+    "models": [
+      {
+        "modelId": "gen4_turbo",
+        "outputSecondCredits": 5,
+        "outputSecondMicroUsd": 50000
+      },
+      {
+        "modelId": "gen4.5",
+        "outputSecondCredits": 12,
+        "outputSecondMicroUsd": 120000
+      },
+      {
+        "modelId": "klingO3_standard",
+        "outputSecondCredits": 13,
+        "outputSecondMicroUsd": 130000
+      },
+      {
+        "modelId": "klingO3_pro",
+        "outputSecondCredits": 17,
+        "outputSecondMicroUsd": 170000
+      },
+      {
+        "modelId": "seedance2_5",
+        "outputSecondCreditsByResolution": {
+          "480p": 20,
+          "720p": 30,
+          "1080p": 68
+        },
+        "referenceInputSecondCreditsByResolution": {
+          "480p": 10,
+          "720p": 15,
+          "1080p": 34
+        },
+        "referenceVideoCapSeconds": 30,
+        "minimumCredits": 80
+      },
+      {
+        "modelId": "veo3.1",
+        "outputSecondCreditsNoAudio": 20,
+        "outputSecondCreditsAudio": 40
+      }
+    ]
+  },
+  "globalUnclosedGates": {
+    "accountEntitlement": "NOT_VERIFIED",
+    "exactBackendModelRevision": "NOT_VERIFIED",
+    "commercialContractApproval": "NOT_VERIFIED",
+    "dpaRegionRetention": "NOT_VERIFIED",
+    "hardSpendCap": "NOT_VERIFIED",
+    "realPropertyFidelity": "NOT_VERIFIED"
+  },
+  "separate3d": {
+    "marble": "DOCUMENTED_DISABLED_LEGAL_BENCHMARK_PERMISSION_REQUIRED",
+    "atlas": "NOT_VERIFIED_R_AND_D_ONLY",
+    "blenderThree": "LOCAL_SYNTHETIC_BASELINE",
+    "unreal": "ENGINE_NOT_TESTED"
+  }
+}

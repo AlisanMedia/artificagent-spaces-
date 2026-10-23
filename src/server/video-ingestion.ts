@@ -9,6 +9,11 @@ import {
   validateMp4Magic,
 } from "@/domain/media-intake";
 import { isolatedWorkerEnvironment } from "./media";
+import {
+  MEDIA_CAPABILITIES,
+  validateProbedVideo,
+  type ProbedVideo,
+} from "@/domain/media-capabilities";
 const run = promisify(execFile);
 let active = 0;
 export async function sanitizeVideo(
@@ -48,78 +53,15 @@ export async function sanitizeVideo(
         "-analyzeduration",
         "3000000",
         "-show_entries",
-        "stream=codec_type,codec_name,width,height,r_frame_rate,pix_fmt,color_primaries,color_transfer,color_space:format=duration",
+        "stream=codec_type,codec_name,width,height,r_frame_rate,sample_aspect_ratio,pix_fmt,color_primaries,color_transfer,color_space:format=duration",
         "-of",
         "json",
         input,
       ],
       { timeout: 10000, maxBuffer: 131072, env, signal },
     );
-    const meta = JSON.parse(probe.stdout) as {
-      streams: {
-        codec_type: string;
-        codec_name: string;
-        pix_fmt?: string;
-        color_primaries?: string;
-        color_transfer?: string;
-        color_space?: string;
-        width?: number;
-        height?: number;
-        r_frame_rate?: string;
-      }[];
-      format: { duration: string };
-    };
-    const video = meta.streams.filter((s) => s.codec_type === "video");
-    const v = video[0];
-    const duration = Number(meta.format.duration);
-    invariant(
-      video.length === 1 &&
-        meta.streams.length <= 2 &&
-        meta.streams.every(
-          (s) =>
-            s.codec_type === "video" ||
-            (s.codec_type === "audio" && s.codec_name === "aac"),
-        ),
-      "UNSUPPORTED_VIDEO_STREAMS",
-      415,
-    );
-    invariant(v?.codec_name === "h264", "UNSUPPORTED_VIDEO_CODEC", 415);
-    invariant(
-      ["yuv420p", "yuvj420p"].includes(v.pix_fmt ?? "") &&
-        [v.color_primaries, v.color_transfer].every(
-          (c) => c === undefined || c === "unknown" || c === "bt709",
-        ) &&
-        [undefined, "unknown", "bt709", "smpte170m", "bt470bg"].includes(
-          v.color_space,
-        ),
-      "UNSUPPORTED_VIDEO_COLOR",
-      415,
-    );
-    invariant(
-      Number.isFinite(duration) &&
-        duration >= 0.25 &&
-        duration <= VIDEO_MAX_SECONDS,
-      "VIDEO_DURATION_LIMIT",
-      422,
-    );
-    invariant(
-      v.width &&
-        v.height &&
-        v.width >= 64 &&
-        v.height >= 64 &&
-        v.width <= 1920 &&
-        v.height <= 1920 &&
-        v.width * v.height <= 2073600,
-      "VIDEO_DIMENSION_LIMIT",
-      422,
-    );
-    const [n, d] = (v.r_frame_rate ?? "0/1").split("/").map(Number);
-    const fps = n! / d!;
-    invariant(
-      Number.isFinite(fps) && fps > 0 && fps <= 60,
-      "VIDEO_FRAME_RATE_LIMIT",
-      422,
-    );
+    const meta = JSON.parse(probe.stdout) as ProbedVideo;
+    const { duration } = validateProbedVideo(meta);
     await run(
       "ffmpeg",
       [
@@ -140,7 +82,7 @@ export async function sanitizeVideo(
         "-max_alloc",
         "67108864",
         "-max_pixels",
-        "2073600",
+        String(MEDIA_CAPABILITIES.video.maxPixels),
         "-i",
         input,
         "-map",
@@ -155,7 +97,7 @@ export async function sanitizeVideo(
         "-t",
         String(VIDEO_MAX_SECONDS),
         "-vf",
-        "scale='min(720,iw)':'min(720,ih)':force_original_aspect_ratio=decrease:force_divisible_by=2:out_color_matrix=bt709:out_range=tv,fps=24,setsar=1,format=yuv420p",
+        `scale='min(${MEDIA_CAPABILITIES.video.normalizedMaxSide},iw)':'min(${MEDIA_CAPABILITIES.video.normalizedMaxSide},ih)':force_original_aspect_ratio=decrease:force_divisible_by=2:out_color_matrix=bt709:out_range=tv,fps=${MEDIA_CAPABILITIES.video.normalizedFps},setsar=1,format=yuv420p`,
         "-c:v",
         "libx264",
         "-threads",
@@ -175,14 +117,15 @@ export async function sanitizeVideo(
         "-movflags",
         "+faststart",
         "-fs",
-        "8388608",
+        String(MEDIA_CAPABILITIES.video.normalizedMaxBytes),
         output,
       ],
       { timeout: 60000, maxBuffer: 262144, env, signal },
     );
     const clean = await readFile(output);
     invariant(
-      clean.length > 0 && clean.length <= 8388608,
+      clean.length > 0 &&
+        clean.length <= MEDIA_CAPABILITIES.video.normalizedMaxBytes,
       "VIDEO_NORMALIZATION_LIMIT",
       422,
     );

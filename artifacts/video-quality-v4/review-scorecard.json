@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "scale": {
+    "0": "Kullanılamaz veya kritik gerçeklik/hak ihlali var.",
+    "1": "Belirgin sorun; yeniden üretim gerekiyor.",
+    "2": "Büyük düzenleme olmadan teslim edilemez.",
+    "3": "Sınırda; belirtilen düzeltmeler ve insan onayı gerekli.",
+    "4": "Bu ölçüt için iyi; küçük düzeltme olabilir.",
+    "5": "Bu ölçüt için çok iyi; bağımsız inceleme yerine geçmez."
+  },
+  "reviewer": null,
+  "blind": false,
+  "independentHumanApproval": false,
+  "outputs": [
+    {
+      "id": "photo-pov-horizontal-4",
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": null,
+        "continuity": null,
+        "sourceFidelity": null,
+        "readability": null,
+        "propertyTruthfulness": null,
+        "channelSuitability": null,
+        "branding": null,
+        "salesUsability": null
+      },
+      "notes": [],
+      "status": "NOT_REVIEWED"
+    },
+    {
+      "id": "footage-pov-vertical-8",
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": null,
+        "continuity": null,
+        "sourceFidelity": null,
+        "readability": null,
+        "propertyTruthfulness": null,
+        "channelSuitability": null,
+        "branding": null,
+        "salesUsability": null
+      },
+      "notes": [],
+      "status": "NOT_REVIEWED"
+    },
+    {
+      "id": "mixed-cinematic-horizontal-16",
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": null,
+        "continuity": null,
+        "sourceFidelity": null,
+        "readability": null,
+        "propertyTruthfulness": null,
+        "channelSuitability": null,
+        "branding": null,
+        "salesUsability": null
+      },
+      "notes": [],
+      "status": "NOT_REVIEWED"
+    },
+    {
+      "id": "photo-cinematic-vertical-4",
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": null,
+        "continuity": null,
+        "sourceFidelity": null,
+        "readability": null,
+        "propertyTruthfulness": null,
+        "channelSuitability": null,
+        "branding": null,
+        "salesUsability": null
+      },
+      "notes": [],
+      "status": "NOT_REVIEWED"
+    },
+    {
+      "id": "footage-hybrid-horizontal-8",
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": null,
+        "continuity": null,
+        "sourceFidelity": null,
+        "readability": null,
+        "propertyTruthfulness": null,
+        "channelSuitability": null,
+        "branding": null,
+        "salesUsability": null
+      },
+      "notes": [],
+      "status": "NOT_REVIEWED"
+    },
+    {
+      "id": "mixed-hybrid-vertical-16",
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": null,
+        "continuity": null,
+        "sourceFidelity": null,
+        "readability": null,
+        "propertyTruthfulness": null,
+        "channelSuitability": null,
+        "branding": null,
+        "salesUsability": null
+      },
+      "notes": [],
+      "status": "NOT_REVIEWED"
+    },
+    {
+      "id": "candidate-720p-15",
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": null,
+        "continuity": null,
+        "sourceFidelity": null,
+        "readability": null,
+        "propertyTruthfulness": null,
+        "channelSuitability": null,
+        "branding": null,
+        "salesUsability": null
+      },
+      "notes": [],
+      "status": "NOT_REVIEWED"
+    },
+    {
+      "id": "candidate-1080p-30",
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": null,
+        "continuity": null,
+        "sourceFidelity": null,
+        "readability": null,
+        "propertyTruthfulness": null,
+        "channelSuitability": null,
+        "branding": null,
+        "salesUsability": null
+      },
+      "notes": [],
+      "status": "NOT_REVIEWED"
+    }
+  ]
+}

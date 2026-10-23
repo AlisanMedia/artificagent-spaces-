@@ -1,12 +1,13 @@
 import { z } from "zod";
 import { Id, invariant } from "./platform";
+import { MEDIA_CAPABILITIES, SUPPORTED_MIMES } from "./media-capabilities";
 
-export const PHOTO_MAX_BYTES = 5_242_880;
-export const VIDEO_MAX_BYTES = 20_971_520;
-export const VIDEO_MAX_SECONDS = 30;
+export const PHOTO_MAX_BYTES = MEDIA_CAPABILITIES.photo.maxBytes;
+export const VIDEO_MAX_BYTES = MEDIA_CAPABILITIES.video.maxBytes;
+export const VIDEO_MAX_SECONDS = MEDIA_CAPABILITIES.video.maxSeconds;
 export const IntakeMetadata = z
   .object({
-    mime: z.enum(["image/jpeg", "image/png", "image/webp", "video/mp4"]),
+    mime: z.enum(SUPPORTED_MIMES),
     byteLength: z.number().int().positive().max(VIDEO_MAX_BYTES),
   })
   .strict()

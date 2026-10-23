@@ -37,7 +37,6 @@ import {
   EXPORT_PRESETS,
   TEMPLATE_LABELS,
   VIDEO_STYLES,
-  UploadSelection,
 } from "@/domain/media-intake";
 import {
   DISCLOSURE,
@@ -46,13 +45,20 @@ import {
   friendlyMediaError as friendly,
 } from "./studio-copy";
 import { api, localRequest, saveBlob } from "./client";
+import {
+  MEDIA_CAPABILITIES,
+  MEDIA_PICKER_ACCEPT,
+  MEDIA_UPLOAD_HELP_TR,
+} from "@/domain/media-capabilities";
+import { preflightSelection } from "./media-preflight";
+import { useStudioFunnel } from "./use-studio-funnel";
 
 type Draft = { property: PropertyView; assets: AssetView[] };
 type Pending = {
   key: string;
   file: File;
   url: string;
-  state: "ready" | "uploading" | "error";
+  state: "ready" | "uploading" | "error" | "blocked";
   error?: string | undefined;
   replaceId?: string | undefined;
 };
@@ -80,6 +86,14 @@ function MediaThumbnail({
 }
 
 export function CreationStudio() {
+  const {
+    record: recordFunnel,
+    consent: consentFunnel,
+    enabled: funnelEnabled,
+    snapshot: funnelSnapshot,
+  } = useStudioFunnel();
+  const funnelJobState = useRef("");
+  const funnelOrg = useRef<string | null>(null);
   const [bootstrap, setBootstrap] = useState<Bootstrap | null>(null),
     [workspace, setWorkspace] = useState<WorkspaceView | null>(null);
   const [view, setView] = useState<"create" | "projects" | "shares">("create"),
@@ -207,8 +221,21 @@ export function CreationStudio() {
       }
     };
   }, [draft, objectUrl]);
+  useEffect(() => {
+    const org = workspace?.actor.organizationId ?? null;
+    if (funnelOrg.current !== null && funnelOrg.current !== org)
+      consentFunnel(false);
+    funnelOrg.current = org;
+  }, [workspace?.actor.organizationId, consentFunnel]);
   const jobId = job?.id,
     jobState = job?.state;
+  useEffect(() => {
+    const marker = `${jobId ?? ""}:${jobState ?? ""}`;
+    if (funnelJobState.current === marker) return;
+    funnelJobState.current = marker;
+    if (jobState === "awaiting-review") recordFunnel("review_pending");
+    if (jobState === "approved") recordFunnel("approval_observed");
+  }, [jobId, jobState, recordFunnel]);
   useEffect(() => {
     if (
       !jobId ||
@@ -216,11 +243,17 @@ export function CreationStudio() {
       !["queued", "processing", "awaiting-review"].includes(jobState)
     )
       return;
-    let active = true;
-    const timer = setInterval(() => {
+    let active = true,
+      sequence = 0,
+      lastApplied = 0;
+    const sync = () => {
+      const requested = ++sequence;
       void api<JobView>(`/jobs/${jobId}`)
         .then((j) => {
-          if (active) setJob(j);
+          if (active && requested > lastApplied) {
+            lastApplied = requested;
+            setJob(j);
+          }
         })
         .catch(() => {
           if (active)
@@ -228,10 +261,19 @@ export function CreationStudio() {
               "Durum alınamadı. Projen kaydedildi; bağlantını kontrol et.",
             );
         });
-    }, 1800);
+    };
+    const resume = () => {
+      if (document.visibilityState === "visible") sync();
+    };
+    const timer = setInterval(sync, 1800);
+    window.addEventListener("focus", resume);
+    document.addEventListener("visibilitychange", resume);
+    sync();
     return () => {
       active = false;
       clearInterval(timer);
+      window.removeEventListener("focus", resume);
+      document.removeEventListener("visibilitychange", resume);
     };
   }, [jobId, jobState]);
   useEffect(() => {
@@ -253,7 +295,10 @@ export function CreationStudio() {
       )
       .then((r) => r.blob())
       .then((b) => {
-        if (active) setPreview(objectUrl(b));
+        if (active) {
+          setPreview(objectUrl(b));
+          recordFunnel("preview_opened");
+        }
       })
       .catch(() => {
         if (active)
@@ -262,7 +307,7 @@ export function CreationStudio() {
     return () => {
       active = false;
     };
-  }, [jobId, jobState, objectUrl]);
+  }, [jobId, jobState, objectUrl, recordFunnel]);
   const run = async (fn: () => Promise<void>) => {
     setBusy(true);
     setError("");
@@ -293,36 +338,51 @@ export function CreationStudio() {
     setDraft(d);
     return d;
   }
-  function selectFiles(files: File[]) {
+  async function selectFiles(files: File[]) {
     setError("");
     setNotice("");
     const target = replaceTarget.current;
     replaceTarget.current = null;
     if (target) files = files.slice(0, 1);
     const list: Pending[] = [];
-    for (const file of files) {
-      const checked = UploadSelection.safeParse({
-        filename: file.name,
-        mime: file.type,
-        byteLength: file.size,
-        revision: 1,
-      });
-      if (!checked.success) {
-        setError(
-          "JPEG, PNG veya WebP fotoğraf (5 MB) ya da MP4 video (20 MB) seç. MOV/WebM desteklenmiyor; dosya adında klasör işareti olmasın.",
-        );
-        continue;
+    // Sequential bounded header inspection; no network, transcoder, storage or quote.
+    for (const file of files.slice(0, MEDIA_CAPABILITIES.maxSelection)) {
+      let advice;
+      try {
+        advice = await preflightSelection(file);
+      } catch {
+        advice = {
+          supported: false,
+          message:
+            "Dosya cihazından okunamadı. Başka bir kopyayı seç; yükleme başlamadı.",
+        };
       }
+      if (
+        !advice.supported &&
+        ["video/quicktime", "video/webm"].includes(file.type)
+      )
+        setError(
+          "MOV/WebM desteklenmiyor. Desteklenmeyen seçimin korunuyor; dosya kartındaki dönüşüm önerisini izleyebilirsin.",
+        );
+      recordFunnel(
+        advice.supported ? "selection_supported" : "selection_unsupported",
+      );
       list.push({
         key: crypto.randomUUID(),
         file,
-        url: objectUrl(file),
-        state: "ready",
+        url: advice.supported ? objectUrl(file) : "",
+        state: advice.supported ? "ready" : "blocked",
+        error: advice.supported ? undefined : advice.message,
         replaceId: target ?? undefined,
       });
     }
     setPending((v) =>
-      [...v, ...list].slice(0, target ? 1 : 12 - (draft?.assets.length ?? 0)),
+      [...v, ...list].slice(
+        0,
+        target
+          ? 1
+          : MEDIA_CAPABILITIES.maxSelection - (draft?.assets.length ?? 0),
+      ),
     );
     setStep(1);
     setView("create");
@@ -343,6 +403,7 @@ export function CreationStudio() {
       const ctl = new AbortController();
       controller.current = ctl;
       for (const item of pending) {
+        if (item.state === "blocked") continue;
         if (ctl.signal.aborted) break;
         setPending((v) =>
           v.map((p) =>
@@ -373,8 +434,10 @@ export function CreationStudio() {
               "x-spaces-rights": "synthetic-owned-metadata-v1",
             },
           });
+          recordFunnel("upload_succeeded");
           setPending((v) => v.filter((p) => p.key !== item.key));
         } catch (e) {
+          recordFunnel("upload_failed");
           setPending((v) =>
             v.map((p) =>
               p.key === item.key
@@ -435,7 +498,9 @@ export function CreationStudio() {
         submission.current = { fingerprint, key: crypto.randomUUID() };
       const command = { ...value, idempotencyKey: submission.current.key };
       await api("/quote", command);
+      recordFunnel("quote_returned");
       const j = await api<JobView>("/jobs", command);
+      recordFunnel("job_started");
       setJob(j);
       setStep(3);
       setPreview("");
@@ -453,6 +518,7 @@ export function CreationStudio() {
       const r = await localRequest(`/jobs/${job.id}/output`, {
         headers: { "x-spaces-grant": g.token },
       });
+      recordFunnel("download_completed");
       saveBlob(
         await r.blob(),
         `spaces-${job.command.aspectRatio === "9:16" ? "dikey" : "yatay"}.${job.output?.extension ?? "mp4"}`,
@@ -522,7 +588,10 @@ export function CreationStudio() {
               <button
                 className="ux-primary"
                 disabled={!bootstrap || busy || !canEdit}
-                onClick={() => fileInput.current?.click()}
+                onClick={() => (
+                  recordFunnel("picker_opened"),
+                  fileInput.current?.click()
+                )}
               >
                 <Upload size={19} aria-hidden="true" />
                 {STUDIO_TR.upload}
@@ -594,11 +663,11 @@ export function CreationStudio() {
               className="ux-file-input"
               type="file"
               multiple
-              accept="image/jpeg,image/png,image/webp,video/mp4,.mp4"
+              accept={MEDIA_PICKER_ACCEPT}
               aria-label="Fotoğraf veya video seç"
               tabIndex={-1}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                selectFiles(Array.from(e.target.files ?? []));
+                void selectFiles(Array.from(e.target.files ?? []));
                 e.target.value = "";
               }}
             />
@@ -616,7 +685,10 @@ export function CreationStudio() {
                   <button
                     className="subtle"
                     disabled={busy || !canEdit}
-                    onClick={() => fileInput.current?.click()}
+                    onClick={() => (
+                      recordFunnel("picker_opened"),
+                      fileInput.current?.click()
+                    )}
                   >
                     <Plus size={17} aria-hidden="true" />
                     Dosya ekle
@@ -625,12 +697,15 @@ export function CreationStudio() {
                 <button
                   className="ux-dropzone"
                   disabled={busy || !canEdit}
-                  onClick={() => fileInput.current?.click()}
+                  onClick={() => (
+                    recordFunnel("picker_opened"),
+                    fileInput.current?.click()
+                  )}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => {
                     e.preventDefault();
                     if (!busy && canEdit)
-                      selectFiles(Array.from(e.dataTransfer.files));
+                      void selectFiles(Array.from(e.dataTransfer.files));
                   }}
                 >
                   <span className="ux-upload-symbol">
@@ -639,14 +714,19 @@ export function CreationStudio() {
                   <strong>Dosyalarını buraya bırak veya seç</strong>
                   <span>Galerinden ya da cihazından fotoğraf / MP4 seç</span>
                   <small>
-                    Fotoğraf: JPEG, PNG, WebP · 5 MB
+                    {MEDIA_UPLOAD_HELP_TR.photos}
                     <br />
-                    Video: H.264 MP4 · 20 MB · 30 sn · En fazla 1080p (dikey /
-                    yatay)
+                    {MEDIA_UPLOAD_HELP_TR.videos}
                     <br />
-                    MOV ve WebM şu anda desteklenmiyor. En fazla 12 dosya.
+                    En fazla {MEDIA_CAPABILITIES.maxSelection} dosya. MOV / WebM
+                    desteklenmiyor.
                   </small>
                 </button>
+                <details className="ux-property-details">
+                  <summary>iPhone ve video biçimleri hakkında</summary>
+                  <p>{MEDIA_UPLOAD_HELP_TR.iphone}</p>
+                  <p>{MEDIA_UPLOAD_HELP_TR.caveat}</p>
+                </details>
                 <div
                   className="ux-media-grid"
                   role="group"
@@ -700,6 +780,7 @@ export function CreationStudio() {
                           aria-label={`Kaynak ${i + 1} değiştir`}
                           onClick={() => {
                             replaceTarget.current = a.id;
+                            recordFunnel("picker_opened");
                             fileInput.current?.click();
                           }}
                         >
@@ -734,9 +815,11 @@ export function CreationStudio() {
                         <span>
                           {p.state === "uploading"
                             ? "Yükleniyor ve kontrol ediliyor…"
-                            : p.state === "error"
-                              ? "Tekrar denenebilir"
-                              : "Yüklemeye hazır"}
+                            : p.state === "blocked"
+                              ? "Bu biçim yüklenmeyecek"
+                              : p.state === "error"
+                                ? "Tekrar denenebilir"
+                                : "Yüklemeye hazır"}
                         </span>
                         {p.error && <p role="status">{p.error}</p>}
                       </div>
@@ -759,7 +842,10 @@ export function CreationStudio() {
                       <input
                         type="checkbox"
                         checked={rights}
-                        onChange={(e) => setRights(e.target.checked)}
+                        onChange={(e) => {
+                          setRights(e.target.checked);
+                          if (e.target.checked) recordFunnel("rights_accepted");
+                        }}
                         disabled={busy}
                       />
                       <span>{RIGHTS}</span>
@@ -767,7 +853,12 @@ export function CreationStudio() {
                     <div className="ux-actions">
                       <button
                         className="ux-primary"
-                        disabled={!rights || busy || !canEdit}
+                        disabled={
+                          !rights ||
+                          busy ||
+                          !canEdit ||
+                          !pending.some((p) => p.state !== "blocked")
+                        }
                         onClick={() => void uploadAll()}
                       >
                         {busy ? (
@@ -882,7 +973,10 @@ export function CreationStudio() {
                           type="radio"
                           name="video-style"
                           checked={mode === s.id}
-                          onChange={() => setMode(s.id)}
+                          onChange={() => {
+                            setMode(s.id);
+                            recordFunnel("style_selected");
+                          }}
                         />
                         <span>
                           <strong>{s.label}</strong>
@@ -1288,8 +1382,38 @@ export function CreationStudio() {
           Tercihleri kaydet
         </button>
       </dialog>
+      <details className="ux-property-details">
+        <summary>Gizlilik ve demo ölçümü</summary>
+        <label className="ux-checkbox">
+          <input
+            type="checkbox"
+            checked={funnelEnabled}
+            onChange={(e) => consentFunnel(e.target.checked)}
+          />
+          <span>
+            Yalnız bu sekmede anonim demo adım sayılarını ölçmeyi kabul ediyorum
+            (isteğe bağlı).
+          </span>
+        </label>
+        <p>
+          Dosya adı, mülk bilgisi, kişi bilgisi veya ses kaydedilmez; sayılar
+          sunucuya gönderilmez. İzni kapatınca veya sayfayı yenileyince silinir.
+          Satış ve gerçek dönüşüm kanıtı değildir.
+        </p>
+        <output aria-label="Yerel demo adım sayısı">
+          {funnelSnapshot.total} yerel adım
+        </output>
+      </details>
       <details className="ux-developer">
         <summary>Yerel demo ve gelişmiş araçlar</summary>
+        <p>
+          Opt-in UX sayıları yalnız bu sekmeye aittir; sunucu/CRM dönüşümü
+          değildir.
+        </p>
+        <pre aria-label="Yerel sentetik huni özeti">
+          {JSON.stringify(funnelSnapshot, null, 2)}
+        </pre>
+
         <p>
           Bu deneyim yalnız bu makinede, sentetik dosyalarla çalışır. İlk
           yüklemede hazır demo hesabıyla açılır; gerçek giriş sistemi değildir.
