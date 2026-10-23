@@ -9,10 +9,13 @@ export const friendlyMediaError = (error: unknown) => {
     UPLOAD_SIZE_LIMIT:
       "Dosya fazla büyük. Fotoğrafı 5 MB, MP4 videoyu 20 MB altında seç.",
     VIDEO_DURATION_LIMIT: "En fazla 30 saniyelik bir video seç.",
-    VIDEO_DIMENSION_LIMIT: "Video en fazla 1920 × 1080 piksel olmalı.",
+    VIDEO_DIMENSION_LIMIT:
+      "Video yatay 1920 × 1080 veya dikey 1080 × 1920 sınırında olmalı; HDR/4K yerine standart renkli H.264 MP4 seç.",
     VIDEO_FRAME_RATE_LIMIT: "Saniyede en fazla 60 kare içeren bir video seç.",
     UNSUPPORTED_VIDEO_COLOR:
       "Bu videonun renk biçimi desteklenmiyor. Standart renkli (SDR), 8-bit H.264 MP4 olarak dışa aktarıp yeniden dene.",
+    UNSUPPORTED_VIDEO_PIXEL_ASPECT:
+      "Bu videonun görüntü oranı standart değil. En-boy oranını koruyarak standart H.264 MP4 olarak yeniden dışa aktar.",
     UNSUPPORTED_VIDEO_CODEC:
       "Bu video işlenemiyor. H.264 olarak kaydedilmiş MP4 seç.",
     UNSUPPORTED_VIDEO_CONTAINER:

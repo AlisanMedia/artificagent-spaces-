@@ -3,6 +3,7 @@ import { z } from "zod";
 import { Id, invariant } from "@/domain/platform";
 import { getRuntime } from "@/server/runtime";
 import { DEMO_IDENTITIES } from "@/server/seed";
+import { MEDIA_CAPABILITIES } from "@/domain/media-capabilities";
 import { MediaGrantMetadata, UploadSelection } from "@/domain/media-intake";
 import { authorize } from "@/server/properties";
 import {
@@ -371,7 +372,8 @@ async function handler(request: Request, context: RouteContext) {
                 ? { replaceAssetId: data.replaceAssetId }
                 : {}),
             }),
-            expiresAt: Date.now() + 60_000,
+            expiresAt:
+              Date.now() + MEDIA_CAPABILITIES.uploadGrantSeconds * 1000,
           }),
         });
       }
@@ -443,9 +445,10 @@ async function handler(request: Request, context: RouteContext) {
             resourceId: crypto.randomUUID(),
             sessionId: actor.sessionId,
             nonce: crypto.randomUUID(),
-            expiresAt: Date.now() + 60_000,
+            expiresAt:
+              Date.now() + MEDIA_CAPABILITIES.uploadGrantSeconds * 1000,
           }),
-          maxBytes: 5_242_880,
+          maxBytes: MEDIA_CAPABILITIES.photo.maxBytes,
           accepted: ["image/jpeg", "image/png", "image/webp"],
         });
       }
@@ -476,7 +479,7 @@ async function handler(request: Request, context: RouteContext) {
           await platform.properties.upload(
             actor,
             propertyId,
-            await limitedBody(request, 5_242_880),
+            await limitedBody(request, MEDIA_CAPABILITIES.photo.maxBytes),
             kind,
             {
               syntheticOnly: true,
@@ -546,7 +549,8 @@ async function handler(request: Request, context: RouteContext) {
             resourceId: id,
             sessionId: actor.sessionId,
             nonce: "author-preview",
-            expiresAt: Date.now() + 60_000,
+            expiresAt:
+              Date.now() + MEDIA_CAPABILITIES.uploadGrantSeconds * 1000,
           }),
         });
       }
@@ -570,7 +574,8 @@ async function handler(request: Request, context: RouteContext) {
             resourceId: id,
             sessionId: actor.sessionId,
             nonce: "review-candidate",
-            expiresAt: Date.now() + 60_000,
+            expiresAt:
+              Date.now() + MEDIA_CAPABILITIES.uploadGrantSeconds * 1000,
           }),
         });
       }
@@ -659,7 +664,8 @@ async function handler(request: Request, context: RouteContext) {
             resourceId: assetId,
             sessionId: actor.sessionId,
             nonce: crypto.randomUUID(),
-            expiresAt: Date.now() + 60_000,
+            expiresAt:
+              Date.now() + MEDIA_CAPABILITIES.uploadGrantSeconds * 1000,
           }),
         });
       if (segments.length === 2 && method === "GET") {

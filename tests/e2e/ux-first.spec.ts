@@ -199,6 +199,9 @@ test("nontechnical upload → real video → independent review → download wit
       exact: true,
     }),
   ).toBeVisible();
+  // A visitor returns to the creator tab after reviewing in another context.
+  // Real visibility/focus refresh avoids relying on throttled background timers.
+  await page.bringToFront();
   await expect(
     page.getByRole("button", { name: "İndir", exact: true }),
   ).toBeEnabled({ timeout: 10000 });

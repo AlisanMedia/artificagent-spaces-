@@ -1635,3 +1635,8 @@
   }
 }
 .ux-media-tools { flex-wrap: wrap; }
+
+/* V4 diagnostics and non-destructive format guidance remain inside the viewport. */
+.ux-studio pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; }
+.ux-developer > * { min-width: 0; }
+.ux-media-card p { overflow-wrap: anywhere; }
