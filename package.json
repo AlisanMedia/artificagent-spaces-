@@ -33,7 +33,12 @@
     "lab:fixtures": "tsx scripts/v4-fixtures.ts",
     "lab:video": "tsx scripts/video-quality-lab.ts",
     "economics": "tsx scripts/unit-economics.ts",
-    "benchmark:plan": "tsx scripts/provider-benchmark-plan.ts"
+    "benchmark:plan": "tsx scripts/provider-benchmark-plan.ts",
+    "golden:build": "tsx scripts/golden-property.ts",
+    "golden:verify": "tsx scripts/golden-property.ts --verify",
+    "preview:build": "tsx scripts/build-owner-preview.ts",
+    "preview:serve": "node scripts/serve-owner-preview.mjs",
+    "preview:test": "playwright test -c playwright.preview.config.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.11",
@@ -70,6 +75,7 @@
     "tsx": "4.23.15",
     "typescript": "5.9.3",
     "typescript-eslint": "8.71.2",
-    "vitest": "5.0.5"
+    "vitest": "5.0.5",
+    "esbuild": "0.28.2"
   }
 }

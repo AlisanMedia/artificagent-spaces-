@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "observer": "AI_VISUAL_OBSERVATION_NOT_HUMAN",
+  "sourceSha256": "ff04bf1b34623655d6c7161c616ee63abb632fe4db90279b50d67ce0a9364731",
+  "inspected": [
+    "public/golden-v5/living.png",
+    "artifacts/screenshots/v5-desktop-1280-studio.png",
+    "artifacts/screenshots/v5-mobile-390-studio.png"
+  ],
+  "clipFrames": [
+    {
+      "file": "pov-landscape.mp4",
+      "sha256": "de46b7ee6782110d90a5782272c99907a4a06d96fa16211162749a9c91465fe5",
+      "seconds": [
+        0.15,
+        2,
+        3.7
+      ]
+    },
+    {
+      "file": "pov-portrait.mp4",
+      "sha256": "517d3d30277d92ec7d4666b294b9369d96ed757165f0f2089032d0fdcde1382d",
+      "seconds": [
+        0.15,
+        2,
+        3.7
+      ]
+    },
+    {
+      "file": "cinematic-landscape.mp4",
+      "sha256": "1084327f06479aa726b5253c78ef9df45c4a76f48eed685c50f30f261b8548ed",
+      "seconds": [
+        0.15,
+        2,
+        3.7
+      ]
+    },
+    {
+      "file": "cinematic-portrait.mp4",
+      "sha256": "53e0b0744a25dc92bdcf4a4e1399c3f39ab93e7b587fcc6602694c0e9c08b2d6",
+      "seconds": [
+        0.15,
+        2,
+        3.7
+      ]
+    },
+    {
+      "file": "hybrid-landscape.mp4",
+      "sha256": "861fc21af6b697f55ade09c44fe7a1ad9e7fca59421eecbdf49a455e9e436348",
+      "seconds": [
+        0.15,
+        2,
+        3.7
+      ]
+    },
+    {
+      "file": "hybrid-portrait.mp4",
+      "sha256": "d0eaa6ed721487072d7add9260c2e5330566b602cca55901cdf936519240fec2",
+      "seconds": [
+        0.15,
+        2,
+        3.7
+      ]
+    }
+  ],
+  "contactSheetSha256": "1bab9a55b1c81d66bcfb182b4a77d0cf6bcbc8e320d244a56479e0869b89e0a7",
+  "observationsTr": [
+    "Oda görüntüleri mobilyasız, düşük sample grenli sentetik mimari yüzeylerdir.",
+    "Pencerelerin dışında sahne/manzara modellenmemiştir; koyu boşluklar dış çevre kanıtı değildir.",
+    "Örneklerde hareketli kaynak görseller ve görünür YEREL ÖRNEK başlığı bulunur.",
+    "Dikey kadraj kaynak sahnenin bir bölümünü gösterir; yeni oda geometrisi üretmez.",
+    "Stüdyo ilk eylemi ve sentetik/cihazda kalır açıklaması desktop ve dar mobilde görünür."
+  ],
+  "photorealism": "NOT_VERIFIED",
+  "independentHumanReviews": 0,
+  "humanScores": null,
+  "acceptedOutputUnitCost": null,
+  "productionMargin": null
+}

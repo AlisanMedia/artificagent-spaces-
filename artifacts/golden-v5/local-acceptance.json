@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T19:09:21.641360+00:00",
+  "baseSha": "c43f5fb8dfd6314f434ca62682b56c32253462c7",
+  "binding": "UNCOMMITTED_V5_WORKING_TREE; current committed SHA and hosted proof recorded separately",
+  "unit": {
+    "total": 203,
+    "passed": 203,
+    "failed": 0,
+    "skipped": 0
+  },
+  "governance": {
+    "total": 12,
+    "passed": 12,
+    "skipped": 0
+  },
+  "platformBrowser": {
+    "expected": 46,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "staticPreviewBrowser": {
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "installedLicenseInventory": 313,
+  "unknownLicenses": 0,
+  "realGoldenSourceAndMediaVerified": true,
+  "historicalScreenshotsPreserved": 24,
+  "originalOwnerFilesPreserved": 6,
+  "realHumanReviews": 0,
+  "paidInferenceMicroUsd": 0,
+  "deploymentExecuted": false,
+  "nativeSafariTested": false
+}

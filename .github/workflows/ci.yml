@@ -72,6 +72,11 @@ jobs:
         run: npx --no-install playwright install --with-deps chromium
       - name: Browser, accessibility and local-only network checks
         run: npm run test:e2e
+      - name: Verify synthetic Golden Property and isolated static product preview
+        run: |
+          npm run golden:verify
+          npm run preview:build
+          npm run preview:test
       - name: Validate and prepare public aggregate evidence
         run: npm run ci:summary
       - name: Retain reviewed aggregate evidence

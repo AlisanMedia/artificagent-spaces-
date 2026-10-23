@@ -1,0 +1,42 @@
+{
+  "observedAt": "2026-10-23T18:51:16.915119+00:00",
+  "repository": "AlisanMedia/artificagent-spaces-",
+  "pullRequests": [
+    {
+      "number": 2,
+      "url": "https://github.com/AlisanMedia/artificagent-spaces-/pull/2",
+      "state": "open",
+      "merged": false,
+      "base": "main",
+      "head": "db01ef3ae53ab4cd6e2e38f3d348a0470ff4ab6e",
+      "requestedReviewers": [
+        "Chesar55"
+      ],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "url": "https://github.com/AlisanMedia/artificagent-spaces-/pull/3",
+      "state": "open",
+      "merged": false,
+      "base": "build/autonomous-v2-local-platform",
+      "head": "b1eb3acc7dbe8084d9d48cd00ddfe64dc9b9b510",
+      "requestedReviewers": [
+        "Chesar55"
+      ],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "url": "https://github.com/AlisanMedia/artificagent-spaces-/pull/4",
+      "state": "open",
+      "merged": false,
+      "base": "build/ux-first-v3",
+      "head": "c43f5fb8dfd6314f434ca62682b56c32253462c7",
+      "requestedReviewers": [
+        "Chesar55"
+      ],
+      "reviews": []
+    }
+  ]
+}

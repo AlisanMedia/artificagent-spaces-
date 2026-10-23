@@ -85,3 +85,8 @@ Partner yalnız atanmış/izinli aggregate alır; child membership/raw medya/lea
 ## Açılış engelleri
 
 Statik hydration için CSP `unsafe-inline` istisnası bulunur; arbitrary HTML render yoktur; production nonce CSP ayrıca gerekir. Safari, bağımsız pentest, full AV/OS sandbox, external DB/queue restore, DPA/KVKK/GDPR/Unreal/World Labs hakları ve gerçek pilot test edilmedi. Bu sürüm üretime açılamaz. Güncel test/CI/PR kanıtı kapanış raporu/checkpoint içindedir.
+# V5.1 izole sentetik yayın sınırı — 23 Ekim 2026
+
+Mevcut yerel platform/API/RLS/private-storage/independent-release yapısına ek, `src/preview` ayrı bir browser girişidir. `scripts/build-owner-preview.ts` yalnız allowlisted public sentetik CAD/render/MP4/GLB ile statik Build Output API v3 paketi üretir. Dependency graph'ta server/PGlite/jose/Next import'u derlemeyi durdurur. Hiçbir API function, test identity, grant, signing secret, private runtime, hosted auth veya müşteri dosyası deploy girdisine girmez. SceneViewer ve domain navigation kuralları yeniden kullanılır; ayrı bir sahte tenant backend'i kurulmaz.
+
+Dosya seçimi memory-only Blob önizlemesidir; gerçek source ingestion/jobs/review/release ancak mevcut loopback uygulamadadır. Sentetik public örneklerin indirilmesi owner'ın açık demo iznine dayanır, normal private publication gate'ini kaldırmaz. Canlı AI/voice/ödeme kapalıdır. Vercel Preview ayrı hesap/plan/erişim doğrulaması gerektirir; production/git auto-deploy/Gold Revenue OS yasaktır. Ayrıntı: [izole önizleme](isolated-preview-v5.md), [CAD kanıtı](golden-property-v5.md).

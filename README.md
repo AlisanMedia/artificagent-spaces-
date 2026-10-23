@@ -91,3 +91,20 @@ npm run benchmark:plan # yalnız gelecekteki envelope; NO_NETWORK / spend0
 - [Medya uyumluluğu ve gizli olmayan yerel huni](docs/media-compatibility-v4.md)
 - [Güncel resmî provider kanıtları ve gated bake-off](docs/provider-readiness-v4.md)
 - [Çalıştırılabilir birim ekonomi ve review kapasitesi](docs/unit-economics-v4.md)
+
+## V5 Golden Property ve izole ürün önizlemesi
+
+V5.1 owner yetkisi yalnız doğrulanmış ArtificAgent hesabında, mevcut ücretsiz/non-billable sınır içinde **sentetik Vercel Preview** içindir. Production ve gerçek müşteri backend'i kapalı kalır. Gold Revenue OS hedef değildir. Yayın başarıyla doğrulanmadan HTTPS bağlantısı var denmez.
+
+```bash
+npm run golden:verify  # commitli CAD/GLB/PNG/MP4 hash ve gerçek decode kontrolü
+npm run preview:build  # ayrı statik browser paketi; Next API/auth/DB içermez
+npm run preview:test   # kendi loopback sunucusuyla 8 Chromium/axe kontrolü
+npm run preview:serve  # yalnız yerel inceleme, canlı internet bağlantısı değil
+```
+
+`npm run golden:build` sadece allowlisted sentetik CAD'den sınırlı CPU Blender/FFmpeg örneklerini üretir; fixture'lar zaten varsa hash doğrular. Yeni gerçek müşteri görüntüsü kabul etmez. [Golden kaynak ve ölçüler](docs/golden-property-v5.md), [statik yayın güvenlik sınırı](docs/isolated-preview-v5.md), [güncel sağlayıcı hakları](docs/provider-rights-v5.md).
+
+Önizlemede Oluştur / Projelerim / Sonuçlar, üç video tarzı, gerçek hazır MP4 indirmesi, ölçülü plan/oda görünümleri ve GLB serbest gezinme vardır. Ziyaretçinin seçtiği dosya sadece cihazdaki geçici Blob ile gösterilir; uzak sunucuya yüklenmez ve hazır videonun ondan üretildiği söylenmez. Örnek dosyalar owner tarafından izin verilmiş sentetik tasarımdır; private tenant yayın/bağımsız release onayını geçersiz kılmaz. Ayrı backend uygulamasının RLS, sesli rehber simülasyonu, analitik ve partner özellikleri korunur; statik yayına taşınmaz.
+
+V5'te beş oda / dört kapı / üç pencere, 78.4m² **sentetik tasarım** alanı; fotogerçekçi veya gerçek ev rekonstrüksiyonu değildir. İki gerçek bağımsız insan incelemesi henüz yoktur; puanlar NULL, gerçek accepted-output maliyeti ve üretim kârı UNKNOWN kalır. Gerçek AI/ElevenLabs çağrısı ve önceki önerilen $10 benchmark onaysızdır. PR2–4 review beklerken beşinci stacked PR açılmaz; hiçbir PR bu görevde merge edilmez.

@@ -1,0 +1,129 @@
+{
+  "readOnlyOfficialDocs": true,
+  "providerCalls": 0,
+  "legalApproval": false,
+  "documents": [
+    {
+      "url": "https://runwayml.com/terms-of-use",
+      "finalUrl": "https://runway.com/terms-of-use",
+      "retrievedAt": "2026-10-23T18:27:48.522461+00:00",
+      "httpStatus": 200,
+      "sha256": "0d3b41aadd7855dc706de74091affb5fdb358aee6b3e592930c693cec92348df",
+      "snippets": [
+        {
+          "term": "attribution",
+          "text": "Your Applications made available to end users must prominently display “Powered by Runway” and link to runway.com"
+        },
+        {
+          "term": "training",
+          "text": "Inputs and Outputs may be used by the Company to train and improve its AI models"
+        },
+        {
+          "term": "commercial",
+          "text": "Subject to your compliance with the Agreement, the Company does not restrict your commercial use of your Outputs."
+        }
+      ]
+    },
+    {
+      "url": "https://docs.dev.runwayml.com/guides/pricing/",
+      "finalUrl": "https://docs.dev.runwayml.com/guides/pricing/",
+      "retrievedAt": "2026-10-23T18:27:48.155671+00:00",
+      "httpStatus": 200,
+      "sha256": "be2f35a12222a1dd04265c11c850c454a158852e52c316e70a25e8a88fe641af",
+      "snippets": []
+    },
+    {
+      "url": "https://docs.dev.runwayml.com/usage/tiers/",
+      "finalUrl": "https://docs.dev.runwayml.com/usage/tiers/",
+      "retrievedAt": "2026-10-23T18:27:48.301117+00:00",
+      "httpStatus": 200,
+      "sha256": "0e8c9a6dd13d80f3766a90e40478f39a0cfceb70401dbd30b12a9337ef0862b5",
+      "snippets": [
+        {
+          "term": "spend",
+          "text": "You will be prevented from purchasing more than this amount, and autobilling will cap any automatic recharges at your remaining monthly spend."
+        }
+      ]
+    },
+    {
+      "url": "https://docs.dev.runwayml.com/usage/autobilling/",
+      "finalUrl": "https://docs.dev.runwayml.com/usage/autobilling/",
+      "retrievedAt": "2026-10-23T18:27:48.246235+00:00",
+      "httpStatus": 200,
+      "sha256": "8ff27fb95698fe83eb24525483c7a70140730c72500ae606c9a9fe27910524c9",
+      "snippets": [
+        {
+          "term": "recharge",
+          "text": "This must be at least 1000 credits (or $10)."
+        }
+      ]
+    },
+    {
+      "url": "https://www.worldlabs.ai/terms-of-service",
+      "finalUrl": "https://www.worldlabs.ai/terms-of-service",
+      "retrievedAt": "2026-10-23T18:27:48.652883+00:00",
+      "httpStatus": 200,
+      "sha256": "fdd3625ebf968308ad2d7859b850593b91e07c9ff37953eae952f0887e4f6dfa",
+      "snippets": [
+        {
+          "term": "benchmark",
+          "text": "engage in competitive analysis or benchmarking"
+        },
+        {
+          "term": "commercial",
+          "text": "solely for personal, Non-Commercial Use"
+        },
+        {
+          "term": "paid output",
+          "text": "Paid Account Users own all rights, title, and interest in and to Outputs"
+        },
+        {
+          "term": "retention",
+          "text": "caching mechanisms that exceed the retention periods specified in the applicable Order Form"
+        },
+        {
+          "term": "training opt-out",
+          "text": "you may opt out from World Labs' use of your User Content"
+        }
+      ]
+    },
+    {
+      "url": "https://docs.worldlabs.ai/api/pricing",
+      "finalUrl": "https://docs.worldlabs.ai/api/pricing",
+      "retrievedAt": "2026-10-23T18:27:48.778030+00:00",
+      "httpStatus": 200,
+      "sha256": "7831e2248721c5a49da83bdc424b23f0df82a200202a7473b54d8e5173b5ab7a",
+      "snippets": []
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/terms",
+      "finalUrl": "https://ai.google.dev/gemini-api/terms",
+      "retrievedAt": "2026-10-23T18:27:49.144341+00:00",
+      "httpStatus": 200,
+      "sha256": "f5430e174664c62d6dacef99309a966b2cc7720ba50d6450e00c1959e86dfe05",
+      "snippets": [
+        {
+          "term": "responsibility",
+          "text": "You're responsible for your use of generated content"
+        },
+        {
+          "term": "attribution",
+          "text": "which may require the provision of attribution to your users when returned as part of an API call"
+        }
+      ]
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/video",
+      "finalUrl": "https://ai.google.dev/gemini-api/docs/video",
+      "retrievedAt": "2026-10-23T18:27:49.369446+00:00",
+      "httpStatus": 200,
+      "sha256": "382804579de832269e7c985aedf164ff212bddabef9722bfb364f3466c8b2940",
+      "snippets": [
+        {
+          "term": "shut down",
+          "text": "The Veo 3.1 Preview in the Gemini API has been shut down."
+        }
+      ]
+    }
+  ]
+}

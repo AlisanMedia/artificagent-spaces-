@@ -1,5 +1,6 @@
 "use client";
 
+import { advanceRoute } from "@/domain/navigation-route";
 import {
   forwardRef,
   useCallback,
@@ -13,6 +14,7 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import {
   canMove,
+  navigationLeadIn,
   roomAt,
   validateViewerCommand,
   type DaypartState,
@@ -29,6 +31,7 @@ export interface SceneController {
 interface SceneProps {
   scene: Scene;
   modelUrl?: string;
+  initialQuality?: "balanced" | "low";
   onRoom?: (id: string) => void;
   onDaypart?: (value: DaypartState) => void;
   onTool?: (accepted: boolean) => void;
@@ -143,7 +146,10 @@ function addGeometry(world: THREE.Scene, scene: Scene) {
 }
 
 export const SceneViewer = forwardRef<SceneController, SceneProps>(
-  function SceneViewer({ scene, modelUrl, onRoom, onDaypart, onTool }, ref) {
+  function SceneViewer(
+    { scene, modelUrl, initialQuality, onRoom, onDaypart, onTool },
+    ref,
+  ) {
     const host = useRef<HTMLDivElement>(null),
       engine = useRef<Engine | null>(null);
     const callbacks = useRef({ onRoom, onDaypart, onTool });
@@ -154,10 +160,12 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
       yaw: number;
       pitch: number;
     } | null>(null);
-    const [quality, setQuality] = useState<"balanced" | "low">(() =>
-        typeof window !== "undefined" && window.innerWidth < 760
-          ? "low"
-          : "balanced",
+    const [quality, setQuality] = useState<"balanced" | "low">(
+        () =>
+          initialQuality ??
+          (typeof window !== "undefined" && window.innerWidth < 760
+            ? "low"
+            : "balanced"),
       ),
       [status, setStatus] = useState("3D motoru yükleniyor"),
       [fps, setFps] = useState<number | null>(null),
@@ -228,7 +236,10 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
                 behavior: "auto",
               });
               active.rejectRoute?.(new Error("ROUTE_SUPERSEDED"));
-              active.route = route;
+              active.route = [
+                ...navigationLeadIn(scene, active.position),
+                ...route,
+              ];
               return await new Promise<{ completed: true; roomId: string }>(
                 (resolve, reject) => {
                   active.resolveRoute = resolve;
@@ -279,6 +290,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
       if (!element) return;
       let disposed = false,
         frame = 0;
+      let modelReady = !modelUrl;
       let renderer: THREE.WebGLRenderer | null = null,
         world: THREE.Scene | null = null,
         observer: ResizeObserver | null = null,
@@ -375,6 +387,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
                   }
                 });
                 world.add(gltf.scene);
+                modelReady = true;
                 setStatus("Blender mesh · serbest gezinme hazır");
               },
               undefined,
@@ -495,22 +508,27 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
             frames = 0;
           const tick = (now: number) => {
             if (disposed || !renderer || !world) return;
-            const dt = Math.min(0.05, (now - last) / 1000);
+            const dt = Math.min(0.5, Math.max(0, (now - last) / 1000));
             last = now;
             frames++;
             let dx = 0,
               dz = 0;
             const goal = active.route[0];
             if (goal) {
-              const distance = Math.hypot(
-                goal[0] - active.position[0],
-                goal[1] - active.position[1],
+              const motion = advanceRoute(
+                scene,
+                active.position,
+                active.route,
+                dt,
               );
-              if (distance < 0.06) active.route.shift();
-              else {
-                dx = ((goal[0] - active.position[0]) / distance) * dt * 1.4;
-                dz = ((goal[1] - active.position[1]) / distance) * dt * 1.4;
-                active.yaw = Math.atan2(-dx, -dz);
+              active.position = motion.position;
+              active.route = motion.remaining;
+              if (motion.yaw !== null) active.yaw = motion.yaw;
+              if (motion.blocked) {
+                active.rejectRoute?.(new Error("COLLISION_ROUTE_REJECTED"));
+                active.resolveRoute = null;
+                active.rejectRoute = null;
+                callbacks.current.onTool?.(false);
               }
             } else {
               const forward =
@@ -543,14 +561,8 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
               active.position[0] + dx,
               active.position[1] + dz,
             ];
-            if (canMove(scene, active.position, end)) active.position = end;
-            else if (goal) {
-              active.route = [];
-              active.rejectRoute?.(new Error("COLLISION_ROUTE_REJECTED"));
-              active.resolveRoute = null;
-              active.rejectRoute = null;
-              callbacks.current.onTool?.(false);
-            }
+            if (!goal && canMove(scene, active.position, end))
+              active.position = end;
             const current = roomAt(scene, active.position);
             if (current && current.id !== active.currentRoom) {
               active.currentRoom = current.id;
@@ -564,7 +576,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
             element.dataset["position"] = active.position
               .map((x) => x.toFixed(2))
               .join(",");
-            element.dataset["ready"] = "true";
+            element.dataset["ready"] = String(modelReady);
             if (now - fpsStart > 2000) {
               const measuredFps =
                 Math.round((frames * 10000) / (now - fpsStart)) / 10;
@@ -638,7 +650,11 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
           active.currentRoom,
         );
         if (value.type === "set_daypart") applyDaypart(value.daypart, active);
-        if (value.type === "focus_room") active.route = validated.route;
+        if (value.type === "focus_room")
+          active.route = [
+            ...navigationLeadIn(scene, active.position),
+            ...validated.route,
+          ];
         callbacks.current.onTool?.(true);
       } catch {
         callbacks.current.onTool?.(false);

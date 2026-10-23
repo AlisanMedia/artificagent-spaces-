@@ -19,7 +19,7 @@
     "component": {
       "bom-ref": "artificagent-spaces@0.1.0",
       "type": "library",
-      "name": "artificagent-spaces",
+      "name": "artificagent-spaces-v5",
       "version": "0.1.0",
       "scope": "required",
       "description": "Synthetic local ArtificAgent Spaces platform with tenant RLS, actual media, 3D, scoped guide and analytics; live integrations disabled.",
@@ -12588,7 +12588,8 @@
         "tsx@4.23.15",
         "typescript@5.9.3",
         "typescript-eslint@8.71.2",
-        "vitest@5.0.5"
+        "vitest@5.0.5",
+        "esbuild@0.28.2"
       ]
     },
     {
