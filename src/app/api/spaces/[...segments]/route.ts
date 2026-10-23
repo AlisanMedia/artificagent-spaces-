@@ -3,6 +3,7 @@ import { z } from "zod";
 import { Id, invariant } from "@/domain/platform";
 import { getRuntime } from "@/server/runtime";
 import { DEMO_IDENTITIES } from "@/server/seed";
+import { MediaGrantMetadata, UploadSelection } from "@/domain/media-intake";
 import { authorize } from "@/server/properties";
 import {
   cookie,
@@ -333,6 +334,103 @@ async function handler(request: Request, context: RouteContext) {
         return responseJson(
           await platform.properties.applySyntheticPlan(actor, propertyId),
         );
+      if (segments[2] === "media" && method === "PATCH") {
+        const data = z
+          .object({
+            revision: z.number().int().positive(),
+            assetIds: z.array(Id).max(20),
+          })
+          .strict()
+          .parse(await jsonBody(request));
+        return responseJson(
+          await platform.properties.reorderMedia(
+            actor,
+            propertyId,
+            data.revision,
+            data.assetIds,
+          ),
+        );
+      }
+      if (segments[2] === "media-grant" && method === "POST") {
+        await authorize(platform.db, actor, "edit");
+        const data = UploadSelection.parse(await jsonBody(request));
+        const property = await platform.properties.get(actor, propertyId);
+        invariant(property.revision === data.revision, "STALE_REVISION", 409);
+        return responseJson({
+          token: platform.secrets.sign({
+            purpose: "upload",
+            organizationId: actor.organizationId,
+            propertyId,
+            revision: property.revision,
+            resourceId: crypto.randomUUID(),
+            sessionId: actor.sessionId,
+            nonce: JSON.stringify({
+              mime: data.mime,
+              byteLength: data.byteLength,
+              ...(data.replaceAssetId
+                ? { replaceAssetId: data.replaceAssetId }
+                : {}),
+            }),
+            expiresAt: Date.now() + 60_000,
+          }),
+        });
+      }
+      if (segments[2] === "media-upload" && method === "POST") {
+        const grant = platform.secrets.verify(
+          request.headers.get("x-spaces-grant") ?? "",
+          "upload",
+        );
+        const property = await platform.properties.get(actor, propertyId);
+        invariant(
+          grant.organizationId === actor.organizationId &&
+            grant.propertyId === propertyId &&
+            grant.revision === property.revision &&
+            grant.sessionId === actor.sessionId,
+          "UPLOAD_GRANT_SCOPE_DENIED",
+          403,
+        );
+        invariant(
+          request.headers.get("x-spaces-rights") ===
+            "synthetic-owned-metadata-v1",
+          "RIGHTS_ATTESTATION_REQUIRED",
+          403,
+        );
+        const meta = MediaGrantMetadata.parse(JSON.parse(grant.nonce));
+        invariant(
+          request.headers.get("content-type") === meta.mime,
+          "MEDIA_TYPE_MISMATCH",
+          415,
+        );
+        const bytes = await limitedBody(request, meta.byteLength);
+        invariant(
+          bytes.length === meta.byteLength,
+          "MEDIA_LENGTH_MISMATCH",
+          422,
+        );
+        return responseJson(
+          await platform.properties.upload(
+            actor,
+            propertyId,
+            bytes,
+            meta.mime === "video/mp4" ? "walkthrough" : "photo",
+            {
+              syntheticOnly: true,
+              ownedOrLicensed: true,
+              metadataRemovalAccepted: true,
+            },
+            grant.resourceId,
+            {
+              revision: grant.revision,
+              mime: meta.mime,
+              signal: request.signal,
+              ...(meta.replaceAssetId
+                ? { replaceAssetId: meta.replaceAssetId }
+                : {}),
+            },
+          ),
+          201,
+        );
+      }
       if (segments[2] === "upload-grant" && method === "POST") {
         await authorize(platform.db, actor, "edit");
         const property = await platform.properties.get(actor, propertyId);
@@ -428,6 +526,30 @@ async function handler(request: Request, context: RouteContext) {
         return responseJson({
           token: await platform.releases.outputGrant(actor, id),
         });
+      if (segments[2] === "preview-grant" && method === "POST") {
+        await authorize(platform.db, actor, "edit");
+        const job = await platform.jobs.get(actor, id);
+        const property = await platform.properties.get(actor, job.property_id);
+        invariant(
+          job.created_by === actor.userId &&
+            job.state === "awaiting-review" &&
+            job.revision === property.revision,
+          "PREVIEW_SCOPE_DENIED",
+          403,
+        );
+        return responseJson({
+          token: platform.secrets.sign({
+            purpose: "output",
+            organizationId: actor.organizationId,
+            propertyId: job.property_id,
+            revision: job.revision,
+            resourceId: id,
+            sessionId: actor.sessionId,
+            nonce: "author-preview",
+            expiresAt: Date.now() + 60_000,
+          }),
+        });
+      }
       if (segments[2] === "review-grant" && method === "POST") {
         await authorize(platform.db, actor, "review");
         const job = await platform.jobs.get(actor, id);
@@ -471,7 +593,14 @@ async function handler(request: Request, context: RouteContext) {
           "OUTPUT_GRANT_SCOPE_DENIED",
           403,
         );
-        if (grant.nonce === "review-candidate") {
+        if (grant.nonce === "author-preview") {
+          await authorize(platform.db, actor, "edit");
+          invariant(
+            job.state === "awaiting-review" && job.created_by === actor.userId,
+            "PREVIEW_SCOPE_DENIED",
+            403,
+          );
+        } else if (grant.nonce === "review-candidate") {
           await authorize(platform.db, actor, "review");
           invariant(
             job.state === "awaiting-review",
@@ -501,14 +630,25 @@ async function handler(request: Request, context: RouteContext) {
       const assetId = Id.parse(segments[1]);
       const asset = (
         await platform.db.as(actor, (tx) =>
-          tx.query<{ property_id: string; clean_hash: string }>(
-            "select property_id,clean_hash from assets where organization_id=$1 and id=$2 and status='clean'",
+          tx.query<{ property_id: string; clean_hash: string; mime: string }>(
+            "select property_id,clean_hash,mime from assets where organization_id=$1 and id=$2 and status='clean'",
             [actor.organizationId, assetId],
           ),
         )
       ).rows[0];
       invariant(asset, "ASSET_NOT_FOUND", 404);
       const property = await platform.properties.get(actor, asset.property_id);
+      const currentMedia = await platform.db.as(actor, (tx) =>
+        tx.query(
+          "select asset_id from property_media_revisions where organization_id=$1 and property_id=$2 and revision=$3 and asset_id=$4",
+          [actor.organizationId, property.id, property.revision, assetId],
+        ),
+      );
+      invariant(
+        currentMedia.rows.length > 0,
+        "ASSET_NOT_IN_CURRENT_REVISION",
+        403,
+      );
       if (segments[2] === "grant" && method === "POST")
         return responseJson({
           token: platform.secrets.sign({
@@ -545,11 +685,12 @@ async function handler(request: Request, context: RouteContext) {
               assetId,
               asset.clean_hash,
               "source",
+              asset.mime === "video/mp4" ? "mp4" : "jpg",
             ),
           ),
           {
             headers: {
-              "Content-Type": "image/jpeg",
+              "Content-Type": asset.mime,
               "Cache-Control": "private, no-store",
               "X-Content-Type-Options": "nosniff",
             },

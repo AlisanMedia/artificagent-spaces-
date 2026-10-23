@@ -16,3 +16,7 @@ Owner'ın **2026-10-22 AUTONOMOUS END-TO-END BUILD AUTHORIZATION V2.0** talimat�
 - Phase 1B kabulü sonraki üretim harcaması/deployment/yasal onay yerine geçmez. Gerçek dış aksiyonlar dışında geliştirme için yeni faz onayı gerekmez.
 
 - Merge öncesi `node --use-env-proxy scripts/verify-repository.mjs` **full** modu zorunludur. Read-only Actions token gizli merge/bypass alanlarını göstermeyebilir; CI `--ci-visible` modu bunları `NOT_VISIBLE_TO_READ_TOKEN / PARTIAL_READ_ONLY` olarak raporlar, full doğrulama yerine geçmez. Eksik alan full gate'i geçiremez; write token yetkisi veya bypass ekleyerek çözme.
+
+## V3.0 UX-first continuation — 2026-10-23
+
+En güncel owner talimatı V2 güvenlik/harcama/GitHub sınırlarını korur; öncelik teknik bilgisi olmayan emlakçı için **Mülk medyasını yükle → tarz → gerçek önizleme/inceleme → indir** akışıdır. PR #2 aynen korunur. V3 ayrı `build/ux-first-v3` branch ve PR #2 branch’ine hedeflenen stacked PR üzerinde geliştirilir; bağımsız approval/check olmadan merge yoktur. Teknik yönetim ayrı sessiz alanda, 3D/voice/analytics/white-label/RLS ve review kapıları korunur. Yeni teslim `SPACES_UX_FIRST_V3_REPORT.md`; USD0 ve canlı servis yasakları aynen sürer. Video formatları yalnız gerçek decode/security/E2E testinden sonra desteklenir; üretim yürüyüşü/AI sadakati uydurulmaz.

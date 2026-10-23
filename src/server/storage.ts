@@ -1,4 +1,5 @@
 import sharp from "sharp";
+import { sanitizeVideo } from "./video-ingestion";
 import {
   mkdir,
   readFile,
@@ -46,61 +47,90 @@ export class LocalPrivateStorage {
     const originalHash = digest(bytes);
     const quarantine = this.path(organizationId, assetId, "quarantine");
     await this.put(quarantine, bytes);
-    invariant(
-      !Buffer.from(bytes).includes(
-        Buffer.from("EICAR-STANDARD-ANTIVIRUS-TEST-FILE"),
-      ),
-      "QUARANTINED_SIGNATURE",
-      422,
+    try {
+      invariant(
+        !Buffer.from(bytes).includes(
+          Buffer.from("EICAR-STANDARD-ANTIVIRUS-TEST-FILE"),
+        ),
+        "QUARANTINED_SIGNATURE",
+        422,
+      );
+      const b = Buffer.from(bytes);
+      invariant(
+        (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) ||
+          b
+            .subarray(0, 8)
+            .equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) ||
+          (b.subarray(0, 4).toString() === "RIFF" &&
+            b.subarray(8, 12).toString() === "WEBP"),
+        "UNSUPPORTED_MAGIC_BYTES",
+        415,
+      );
+      const image = sharp(b, {
+        limitInputPixels: 24_000_000,
+        failOn: "warning",
+        animated: false,
+      });
+      const metadata = await image.metadata();
+      invariant(
+        metadata.width &&
+          metadata.height &&
+          metadata.width >= 64 &&
+          metadata.height >= 64 &&
+          (metadata.pages ?? 1) === 1,
+        "INVALID_IMAGE_DIMENSIONS",
+        422,
+      );
+      const clean = await image
+        .rotate()
+        .resize({
+          width: 1600,
+          height: 1600,
+          fit: "inside",
+          withoutEnlargement: true,
+        })
+        .jpeg({ quality: 88 })
+        .toBuffer();
+      const sanitized = await sharp(clean).metadata();
+      invariant(
+        !sanitized.exif && !sanitized.xmp,
+        "METADATA_STRIP_FAILED",
+        422,
+      );
+      const path = this.path(organizationId, assetId, "source");
+      await this.put(path, clean);
+      return {
+        originalHash,
+        cleanHash: digest(clean),
+        bytes: clean.byteLength,
+        width: sanitized.width!,
+        height: sanitized.height!,
+        mime: "image/jpeg" as const,
+      };
+    } finally {
+      await rm(quarantine, { force: true });
+    }
+  }
+  async ingestVideo(
+    organizationId: string,
+    assetId: string,
+    bytes: Uint8Array,
+    signal?: AbortSignal,
+  ) {
+    const result = await sanitizeVideo(this.root, bytes, signal);
+    signal?.throwIfAborted();
+    await this.put(
+      this.path(organizationId, assetId, "source", "mp4"),
+      result.clean,
     );
-    const b = Buffer.from(bytes);
-    invariant(
-      (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) ||
-        b
-          .subarray(0, 8)
-          .equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) ||
-        (b.subarray(0, 4).toString() === "RIFF" &&
-          b.subarray(8, 12).toString() === "WEBP"),
-      "UNSUPPORTED_MAGIC_BYTES",
-      415,
-    );
-    const image = sharp(b, {
-      limitInputPixels: 24_000_000,
-      failOn: "warning",
-      animated: false,
-    });
-    const metadata = await image.metadata();
-    invariant(
-      metadata.width &&
-        metadata.height &&
-        metadata.width >= 64 &&
-        metadata.height >= 64 &&
-        (metadata.pages ?? 1) === 1,
-      "INVALID_IMAGE_DIMENSIONS",
-      422,
-    );
-    const clean = await image
-      .rotate()
-      .resize({
-        width: 1600,
-        height: 1600,
-        fit: "inside",
-        withoutEnlargement: true,
-      })
-      .jpeg({ quality: 88 })
-      .toBuffer();
-    const sanitized = await sharp(clean).metadata();
-    invariant(!sanitized.exif && !sanitized.xmp, "METADATA_STRIP_FAILED", 422);
-    const path = this.path(organizationId, assetId, "source");
-    await this.put(path, clean);
-    await rm(quarantine); // The sanitized source replaces its metadata-bearing temporary original.
     return {
-      originalHash,
-      cleanHash: digest(clean),
-      bytes: clean.byteLength,
-      width: sanitized.width!,
-      height: sanitized.height!,
-      mime: "image/jpeg" as const,
+      originalHash: digest(bytes),
+      cleanHash: digest(result.clean),
+      bytes: result.clean.length,
+      width: result.width,
+      height: result.height,
+      durationSeconds: result.durationSeconds,
+      mime: "video/mp4" as const,
     };
   }
   async read(

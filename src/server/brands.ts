@@ -130,7 +130,7 @@ export class BrandService {
       const asset = (
         await this.db.as(actor, (tx) =>
           tx.query(
-            "select id from assets where organization_id=$1 and id=$2 and status='clean'",
+            "select id from assets where organization_id=$1 and id=$2 and status='clean' and mime='image/jpeg'",
             [actor.organizationId, theme.logoAssetId],
           ),
         )

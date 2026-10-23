@@ -34,6 +34,9 @@ export interface AssetView {
   width: number;
   height: number;
   clean_hash: string;
+  mime: string;
+  duration_seconds?: number | null;
+  position?: number;
 }
 export interface JobView {
   id: string;

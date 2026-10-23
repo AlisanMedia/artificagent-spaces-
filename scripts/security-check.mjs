@@ -33,7 +33,7 @@ for (const file of files) {
   if (/(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}/.test(source)) failures.push("Potential credential: " + path);
   if (source.includes('"use client"') && /from\s+["'](?:node:|@\/server\/|@electric-sql\/|jose["'])/.test(source)) failures.push("Private server dependency in browser module: " + path);
   if (/\b(?:execSync|eval)\s*\(|(?<![.\w])exec\s*\(|shell:\s*true/.test(source)) failures.push("Shell or arbitrary code execution: " + path);
-  if (source.includes('from "node:child_process"') && path !== "src/server/media.ts") failures.push("Unexpected child process surface: " + path);
+  if (source.includes('from "node:child_process"') && !["src/server/media.ts", "src/server/video-ingestion.ts"].includes(path)) failures.push("Unexpected child process surface: " + path);
   if (path.startsWith("src/domain/") && /from\s+["'](?:react|next|@\/(?:features|components|fixtures|adapters|application|composition))/.test(source)) failures.push("Domain layer imports outward: " + path);
   if (path.startsWith("src/application/") && /from\s+["'](?:react|next|@\/(?:features|components|fixtures|adapters|composition))/.test(source)) failures.push("Application layer imports an implementation: " + path);
   if (path.startsWith("src/features/") && /from\s+["']@\/adapters\//.test(source)) failures.push("Feature bypasses composition boundary: " + path);
