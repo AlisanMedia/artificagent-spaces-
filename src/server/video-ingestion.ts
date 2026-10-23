@@ -48,7 +48,7 @@ export async function sanitizeVideo(
         "-analyzeduration",
         "3000000",
         "-show_entries",
-        "stream=codec_type,codec_name,width,height,r_frame_rate:format=duration",
+        "stream=codec_type,codec_name,width,height,r_frame_rate,pix_fmt,color_primaries,color_transfer,color_space:format=duration",
         "-of",
         "json",
         input,
@@ -59,6 +59,10 @@ export async function sanitizeVideo(
       streams: {
         codec_type: string;
         codec_name: string;
+        pix_fmt?: string;
+        color_primaries?: string;
+        color_transfer?: string;
+        color_space?: string;
         width?: number;
         height?: number;
         r_frame_rate?: string;
@@ -80,6 +84,17 @@ export async function sanitizeVideo(
       415,
     );
     invariant(v?.codec_name === "h264", "UNSUPPORTED_VIDEO_CODEC", 415);
+    invariant(
+      ["yuv420p", "yuvj420p"].includes(v.pix_fmt ?? "") &&
+        [v.color_primaries, v.color_transfer].every(
+          (c) => c === undefined || c === "unknown" || c === "bt709",
+        ) &&
+        [undefined, "unknown", "bt709", "smpte170m", "bt470bg"].includes(
+          v.color_space,
+        ),
+      "UNSUPPORTED_VIDEO_COLOR",
+      415,
+    );
     invariant(
       Number.isFinite(duration) &&
         duration >= 0.25 &&
@@ -140,7 +155,7 @@ export async function sanitizeVideo(
         "-t",
         String(VIDEO_MAX_SECONDS),
         "-vf",
-        "scale='min(720,iw)':'min(720,ih)':force_original_aspect_ratio=decrease:force_divisible_by=2,fps=24,setsar=1,format=yuv420p",
+        "scale='min(720,iw)':'min(720,ih)':force_original_aspect_ratio=decrease:force_divisible_by=2:out_color_matrix=bt709:out_range=tv,fps=24,setsar=1,format=yuv420p",
         "-c:v",
         "libx264",
         "-threads",
@@ -149,6 +164,14 @@ export async function sanitizeVideo(
         "fast",
         "-crf",
         "26",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
         "-movflags",
         "+faststart",
         "-fs",

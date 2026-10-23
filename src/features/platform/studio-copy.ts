@@ -11,6 +11,8 @@ export const friendlyMediaError = (error: unknown) => {
     VIDEO_DURATION_LIMIT: "En fazla 30 saniyelik bir video seç.",
     VIDEO_DIMENSION_LIMIT: "Video en fazla 1920 × 1080 piksel olmalı.",
     VIDEO_FRAME_RATE_LIMIT: "Saniyede en fazla 60 kare içeren bir video seç.",
+    UNSUPPORTED_VIDEO_COLOR:
+      "Bu videonun renk biçimi desteklenmiyor. Standart renkli (SDR), 8-bit H.264 MP4 olarak dışa aktarıp yeniden dene.",
     UNSUPPORTED_VIDEO_CODEC:
       "Bu video işlenemiyor. H.264 olarak kaydedilmiş MP4 seç.",
     UNSUPPORTED_VIDEO_CONTAINER:

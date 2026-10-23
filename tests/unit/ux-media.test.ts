@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import sharp from "sharp";
 import { PlatformRuntime } from "@/server/runtime";
 import { UploadSelection, validateMp4Magic } from "@/domain/media-intake";
 import { sanitizeVideo } from "@/server/video-ingestion";
@@ -287,6 +288,100 @@ describe("UX first video intake and immutable media editing", () => {
         { revision: 1, mime: "video/mp4" },
       ),
     ).rejects.toMatchObject({ code: "STALE_REVISION" });
+  }, 30000);
+  it("checks real photo MIME and rejects high pixel pressure while clearing raw quarantine", async () => {
+    const p = await rt.properties.create(actor, {
+      title: "Fotoğraf güvenlik örneği",
+      syntheticOnly: true,
+    });
+    const png = await sharp({
+      create: { width: 80, height: 80, channels: 3, background: "#aaa" },
+    })
+      .png()
+      .toBuffer();
+    await expect(
+      rt.properties.upload(actor, p.id, png, "photo", rights, undefined, {
+        mime: "image/jpeg",
+      }),
+    ).rejects.toMatchObject({ code: "MEDIA_TYPE_MISMATCH" });
+    for (const mime of ["image/png", "image/jpeg", "image/webp"]) {
+      const bytes = await sharp(png)
+        .toFormat(
+          mime === "image/png"
+            ? "png"
+            : mime === "image/jpeg"
+              ? "jpeg"
+              : "webp",
+        )
+        .toBuffer();
+      expect(
+        (
+          await rt.properties.upload(
+            actor,
+            p.id,
+            bytes,
+            "photo",
+            rights,
+            undefined,
+            { mime },
+          )
+        ).mime,
+      ).toBe("image/jpeg");
+    }
+    const pressure = await sharp({
+      create: { width: 6000, height: 5000, channels: 3, background: "#aaa" },
+    })
+      .png()
+      .toBuffer();
+    await expect(
+      rt.properties.upload(actor, p.id, pressure, "photo", rights),
+    ).rejects.toThrow(/pixel limit/i);
+    expect(
+      await readdir(join(rt.storage.root, actor.organizationId, "quarantine")),
+    ).toHaveLength(0);
+  }, 30000);
+  it("refuses HDR metadata and 10-bit H264 instead of pretending to tone map them", async () => {
+    for (const [name, options] of [
+      [
+        "hdr",
+        [
+          "-color_primaries",
+          "bt2020",
+          "-color_trc",
+          "smpte2084",
+          "-colorspace",
+          "bt2020nc",
+        ],
+      ],
+      ["tenbit", ["-pix_fmt", "yuv420p10le"]],
+    ] as const) {
+      const path = join(root, name + ".mp4");
+      await run(
+        "ffmpeg",
+        [
+          "-v",
+          "error",
+          "-nostdin",
+          "-y",
+          "-f",
+          "lavfi",
+          "-i",
+          "testsrc2=size=128x128:rate=24",
+          "-t",
+          "0.5",
+          "-c:v",
+          "libx264",
+          "-threads",
+          "1",
+          ...options,
+          path,
+        ],
+        { timeout: 15000 },
+      );
+      await expect(
+        sanitizeVideo(rt.storage.root, await readFile(path)),
+      ).rejects.toMatchObject({ code: "UNSUPPORTED_VIDEO_COLOR" });
+    }
   }, 30000);
   it("cancels decoder work and removes private temporary files without a publishable source", async () => {
     const c = new AbortController();
