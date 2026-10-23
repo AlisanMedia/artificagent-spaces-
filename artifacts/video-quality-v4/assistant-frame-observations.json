@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "scale": "0-5; NULL=NOT_INSPECTED_FOR_THAT_CRITERION",
+  "approvedForCustomerRelease": false,
+  "observations": [
+    {
+      "id": "photo-pov-horizontal-4",
+      "outputSha256": "681bd76e881ffbb748656bea6c5ff32dafd71610ff5b2b4d74b86eba1170862d",
+      "inspected": "ACTUAL_DECODED_FIRST_MIDDLE_LAST_FRAMES",
+      "assessor": "CODEX_AI_ASSISTANT_FRAME_ONLY_NOT_HUMAN_APPROVAL",
+      "blind": false,
+      "independentHumanApproval": false,
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": 2,
+        "continuity": null,
+        "sourceFidelity": 3,
+        "readability": 4,
+        "propertyTruthfulness": null,
+        "channelSuitability": 2,
+        "branding": 3,
+        "salesUsability": 1
+      },
+      "notes": [
+        "Kaynak özgün sentetik çizim; gerçek emlak fotoğrafı veya fotogerçekçi tur değildir.",
+        "Karelerde başlık ve marka metni sınır içinde; orientation doğru. Fotoğraf ayrıntısı ve yüksek çözünürlük/sosyal platform kalitesi kanıtlanmadı.",
+        "İç cut orta karesinde eski siyah fade görülmüyor; tam temporal/ilk3sn değerlendirmesi yapılmadığı için ilgili puanlarNULL.",
+        "Source crop değişebilir; unseen mimari/gerçek mülk doğruluğu değerlendirilmedi. Satış kullanılabilirliği yalnız bu çizim demo çıktısı için1/5, genelleme değil."
+      ]
+    },
+    {
+      "id": "footage-pov-vertical-8",
+      "outputSha256": "e288e2acf5fc67301f87d7dc10f7220415e630251657475758e10c7467350cbb",
+      "inspected": "ACTUAL_DECODED_FIRST_MIDDLE_LAST_FRAMES",
+      "assessor": "CODEX_AI_ASSISTANT_FRAME_ONLY_NOT_HUMAN_APPROVAL",
+      "blind": false,
+      "independentHumanApproval": false,
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": 2,
+        "continuity": null,
+        "sourceFidelity": 3,
+        "readability": 4,
+        "propertyTruthfulness": null,
+        "channelSuitability": 2,
+        "branding": 3,
+        "salesUsability": 1
+      },
+      "notes": [
+        "Kaynak özgün sentetik çizim; gerçek emlak fotoğrafı veya fotogerçekçi tur değildir.",
+        "Karelerde başlık ve marka metni sınır içinde; orientation doğru. Fotoğraf ayrıntısı ve yüksek çözünürlük/sosyal platform kalitesi kanıtlanmadı.",
+        "İç cut orta karesinde eski siyah fade görülmüyor; tam temporal/ilk3sn değerlendirmesi yapılmadığı için ilgili puanlarNULL.",
+        "Source crop değişebilir; unseen mimari/gerçek mülk doğruluğu değerlendirilmedi. Satış kullanılabilirliği yalnız bu çizim demo çıktısı için1/5, genelleme değil."
+      ]
+    },
+    {
+      "id": "mixed-cinematic-horizontal-16",
+      "outputSha256": "7d844976d3f67133991de1aefbf3f6583cd77c3edcac8cc76eb1b80c14b01e03",
+      "inspected": "ACTUAL_DECODED_FIRST_MIDDLE_LAST_FRAMES",
+      "assessor": "CODEX_AI_ASSISTANT_FRAME_ONLY_NOT_HUMAN_APPROVAL",
+      "blind": false,
+      "independentHumanApproval": false,
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": 2,
+        "continuity": null,
+        "sourceFidelity": 3,
+        "readability": 4,
+        "propertyTruthfulness": null,
+        "channelSuitability": 2,
+        "branding": 3,
+        "salesUsability": 1
+      },
+      "notes": [
+        "Kaynak özgün sentetik çizim; gerçek emlak fotoğrafı veya fotogerçekçi tur değildir.",
+        "Karelerde başlık ve marka metni sınır içinde; orientation doğru. Fotoğraf ayrıntısı ve yüksek çözünürlük/sosyal platform kalitesi kanıtlanmadı.",
+        "İç cut orta karesinde eski siyah fade görülmüyor; tam temporal/ilk3sn değerlendirmesi yapılmadığı için ilgili puanlarNULL.",
+        "Source crop değişebilir; unseen mimari/gerçek mülk doğruluğu değerlendirilmedi. Satış kullanılabilirliği yalnız bu çizim demo çıktısı için1/5, genelleme değil."
+      ]
+    },
+    {
+      "id": "photo-cinematic-vertical-4",
+      "outputSha256": "3748563eec0864685ae9b49ca3f6f21375deacb139aa768d8ce6fa786c79ad7a",
+      "inspected": "ACTUAL_DECODED_FIRST_MIDDLE_LAST_FRAMES",
+      "assessor": "CODEX_AI_ASSISTANT_FRAME_ONLY_NOT_HUMAN_APPROVAL",
+      "blind": false,
+      "independentHumanApproval": false,
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": 2,
+        "continuity": null,
+        "sourceFidelity": 3,
+        "readability": 4,
+        "propertyTruthfulness": null,
+        "channelSuitability": 2,
+        "branding": 3,
+        "salesUsability": 1
+      },
+      "notes": [
+        "Kaynak özgün sentetik çizim; gerçek emlak fotoğrafı veya fotogerçekçi tur değildir.",
+        "Karelerde başlık ve marka metni sınır içinde; orientation doğru. Fotoğraf ayrıntısı ve yüksek çözünürlük/sosyal platform kalitesi kanıtlanmadı.",
+        "İç cut orta karesinde eski siyah fade görülmüyor; tam temporal/ilk3sn değerlendirmesi yapılmadığı için ilgili puanlarNULL.",
+        "Source crop değişebilir; unseen mimari/gerçek mülk doğruluğu değerlendirilmedi. Satış kullanılabilirliği yalnız bu çizim demo çıktısı için1/5, genelleme değil."
+      ]
+    },
+    {
+      "id": "footage-hybrid-horizontal-8",
+      "outputSha256": "4fa0c29a965ea0ebe088ea176b9fa05b9c2a8fe590f8d1ff31f1f17423693c34",
+      "inspected": "ACTUAL_DECODED_FIRST_MIDDLE_LAST_FRAMES",
+      "assessor": "CODEX_AI_ASSISTANT_FRAME_ONLY_NOT_HUMAN_APPROVAL",
+      "blind": false,
+      "independentHumanApproval": false,
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": 2,
+        "continuity": null,
+        "sourceFidelity": 3,
+        "readability": 4,
+        "propertyTruthfulness": null,
+        "channelSuitability": 2,
+        "branding": 3,
+        "salesUsability": 1
+      },
+      "notes": [
+        "Kaynak özgün sentetik çizim; gerçek emlak fotoğrafı veya fotogerçekçi tur değildir.",
+        "Karelerde başlık ve marka metni sınır içinde; orientation doğru. Fotoğraf ayrıntısı ve yüksek çözünürlük/sosyal platform kalitesi kanıtlanmadı.",
+        "İç cut orta karesinde eski siyah fade görülmüyor; tam temporal/ilk3sn değerlendirmesi yapılmadığı için ilgili puanlarNULL.",
+        "Source crop değişebilir; unseen mimari/gerçek mülk doğruluğu değerlendirilmedi. Satış kullanılabilirliği yalnız bu çizim demo çıktısı için1/5, genelleme değil."
+      ]
+    },
+    {
+      "id": "mixed-hybrid-vertical-16",
+      "outputSha256": "0c8fa24c5289b606bd39724bddefc2d80f55a6bd431e2e38610c2ba5f3809443",
+      "inspected": "ACTUAL_DECODED_FIRST_MIDDLE_LAST_FRAMES",
+      "assessor": "CODEX_AI_ASSISTANT_FRAME_ONLY_NOT_HUMAN_APPROVAL",
+      "blind": false,
+      "independentHumanApproval": false,
+      "scores": {
+        "firstThreeSeconds": null,
+        "sharpness": 2,
+        "continuity": null,
+        "sourceFidelity": 3,
+        "readability": 4,
+        "propertyTruthfulness": null,
+        "channelSuitability": 2,
+        "branding": 3,
+        "salesUsability": 1
+      },
+      "notes": [
+        "Kaynak özgün sentetik çizim; gerçek emlak fotoğrafı veya fotogerçekçi tur değildir.",
+        "Karelerde başlık ve marka metni sınır içinde; orientation doğru. Fotoğraf ayrıntısı ve yüksek çözünürlük/sosyal platform kalitesi kanıtlanmadı.",
+        "İç cut orta karesinde eski siyah fade görülmüyor; tam temporal/ilk3sn değerlendirmesi yapılmadığı için ilgili puanlarNULL.",
+        "Source crop değişebilir; unseen mimari/gerçek mülk doğruluğu değerlendirilmedi. Satış kullanılabilirliği yalnız bu çizim demo çıktısı için1/5, genelleme değil."
+      ]
+    }
+  ]
+}

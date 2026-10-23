@@ -73,3 +73,21 @@ Browser testleri desktop/mobile Chromium ve axe içerir; SwiftShader test render
 ## V3 tekrar üretilebilir örnekler
 
 `npm run demo:ux` yalnız özgün sentetik SVG'den üç gerçek örnek MP4 üretir; `.spaces-local/ux-demo/measurements.json` hash/codec/süre/wall-time içerir. Başka bir sentetik kimlik ile review akışı denenir; gerçek bağımsız insan/GitHub review sayılmaz. Public örneklerin incelenmiş kopyası `public/spaces-examples/`, güvenli ölçümü `artifacts/ux-v3/example-measurements.json` içindedir. Kaynak hakları ve şema: [V3 uygulama notları](docs/ux-first-v3.md).
+
+## V4 çıktı kalitesi ve ticari hazırlık
+
+V3 upload-first akış ve V2 3D/voice/analytics/white-label korunur. V4, uzun fotoğraf planının erken donmasını ve dikey caption taşmasını düzeltir; gerçek çıktı kalite laboratuvarı, tek medya capability sözleşmesi, seçimi koruyan iPhone/unsupported format yardımı, opt-in memory-only sentetik UX sayımları, kapalı neutral provider/artifact contract ve conditional unit economics ekler. Yeni decoder/dependency veya canlı entegrasyon yoktur.
+
+```bash
+npm run lab:fixtures    # mevcut immutable input hash'lerini doğrular
+npm run lab:video       # 6 gerçek baseline + 2 isolated candidate; private .spaces-local
+npm run economics      # gerçek local ölçüm + açık varsayım/UNKNOWN + sensitivity
+npm run benchmark:plan # yalnız gelecekteki envelope; NO_NETWORK / spend0
+```
+
+720p/15sn ve1080p/30sn laboratuvar sonuçları kullanıcı profili değildir; başarısız veya incelenmemiş aday açılmaz. Mevcut UI4/8/16sn,640×360/360×640 kalır. Bu ürünün ticari, fotogerçekçi AI turu tekrarlanabilir ve kârlı oluşturduğu **kanıtlanmadı**.
+
+- [Video QA/scorecard](docs/video-quality-benchmark-v4.md)
+- [Medya uyumluluğu ve gizli olmayan yerel huni](docs/media-compatibility-v4.md)
+- [Güncel resmî provider kanıtları ve gated bake-off](docs/provider-readiness-v4.md)
+- [Çalıştırılabilir birim ekonomi ve review kapasitesi](docs/unit-economics-v4.md)

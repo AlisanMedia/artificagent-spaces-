@@ -1,6 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { readFile, mkdir } from "node:fs/promises";
+import { readFile, mkdir, writeFile } from "node:fs/promises";
 async function pick(
   page: Page,
   files: { name: string; mimeType: string; buffer: Buffer }[],
@@ -70,6 +70,21 @@ test("unsupported device formats are retained with Turkish advice before upload,
     total: number;
   };
   expect(data.counts["selection_unsupported"]).toBe(3);
+  await mkdir("artifacts/ux-funnel-v4", { recursive: true });
+  await writeFile(
+    `artifacts/ux-funnel-v4/${info.project.name}-selection.json`,
+    JSON.stringify(
+      {
+        schemaVersion: 1,
+        syntheticOnly: true,
+        source: "ACTUAL_PLAYWRIGHT_UI_SNAPSHOT",
+        snapshot: data,
+        uploadOrQuoteOrJobPosts: posts.length,
+      },
+      null,
+      2,
+    ) + "\n",
+  );
   expect(data.counts["picker_opened"]).toBe(1);
   expect(await aggregate.innerText()).not.toContain("telefon");
   await mkdir("artifacts/screenshots", { recursive: true });
@@ -93,6 +108,19 @@ test("unsupported device formats are retained with Turkish advice before upload,
     "0 yerel adım",
   );
   expect(JSON.parse(await aggregate.innerText()).counts).toEqual({});
+  await writeFile(
+    `artifacts/ux-funnel-v4/${info.project.name}-withdrawal.json`,
+    JSON.stringify(
+      {
+        schemaVersion: 1,
+        syntheticOnly: true,
+        source: "ACTUAL_PLAYWRIGHT_UI_SNAPSHOT",
+        snapshot: JSON.parse(await aggregate.innerText()),
+      },
+      null,
+      2,
+    ) + "\n",
+  );
   await page.reload();
   await page.getByText("Gizlilik ve demo ölçümü", { exact: true }).click();
   await expect(
@@ -180,6 +208,20 @@ test("JPEG/WebP and MP4 upload remain scoped, preview is real and download stays
   const aggregate = JSON.parse(
     await page.getByLabel("Yerel sentetik huni özeti").innerText(),
   ) as { counts: Record<string, number> };
+  await mkdir("artifacts/ux-funnel-v4", { recursive: true });
+  await writeFile(
+    `artifacts/ux-funnel-v4/${info.project.name}-preview.json`,
+    JSON.stringify(
+      {
+        schemaVersion: 1,
+        syntheticOnly: true,
+        source: "ACTUAL_PLAYWRIGHT_UI_SNAPSHOT",
+        snapshot: aggregate,
+      },
+      null,
+      2,
+    ) + "\n",
+  );
   for (const name of [
     "rights_accepted",
     "upload_succeeded",

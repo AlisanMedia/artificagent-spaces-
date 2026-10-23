@@ -59,6 +59,11 @@ jobs:
           npm run test:governance
           npm run security:check
           npm run build
+      - name: Bounded synthetic video quality lab and conditional economics
+        run: |
+          npm run lab:fixtures
+          npm run lab:video
+          npm run economics
       - name: Dependency advisory check
         run: npm audit --audit-level=high --json > artifacts/governance/audit.json
       - name: Record license inventory

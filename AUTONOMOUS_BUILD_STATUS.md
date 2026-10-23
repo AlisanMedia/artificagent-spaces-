@@ -1,5 +1,21 @@
 # ArtificAgent Spaces — V3 UX-first checkpoint
 
+## Latest verified V3 delivery — 2026-10-23 10:48 UTC
+
+- Actual local/remote source HEAD: `b1eb3acc7dbe8084d9d48cd00ddfe64dc9b9b510`; branch `build/ux-first-v3`. Additive commits: `72e466c` media/security, `bdeacab` upload-first UI, `b1eb3ac` strict SDR/HDR/10-bit boundary. Normal pushes only.
+- Stacked PR #3: https://github.com/AlisanMedia/artificagent-spaces-/pull/3; base `build/autonomous-v2-local-platform`. Preserve PR #2 intact. Do NOT merge V3 into the feature base. PR2 is OPEN/unmerged at `db01ef3ae53ab4cd6e2e38f3d348a0470ff4ab6e`; main stays `9a3df78f33de833a718c8fe0b2e3bc7ea37da735`.
+- Both PR2 and PR3 reviews=[]; Chesar55 requested. No independent approval, no main merge, no post-merge main run. After a genuinely protected PR2 merge, retarget V3 to main, use a normal main merge commit if needed, and refresh CI/current-head independent approval. No rebase/force/squash/bypass/ruleset mutation.
+- Current hosted run 39940671824 / job+check 120371034466 / suite 108254783611 on actual V3 head: SUCCESS. Foundation acceptance from app15368. All steps passed: lint/strict TS, 161 unit/integration (12 files), 12 governance, 42 browser/axe, real FFmpeg/Blender fixtures, build, audit0, licenses313/unknown0, SBOM307, Gitleaks0. No skipped/flaky/failed tests. Checked SHA `281f943e78d76cf085d28bc51cc5f5a0c588edd5` is a temporary PR test merge, not an actual merge.
+- Downloaded artifact 12496112495: ZIP SHA256 `5e551e3fbe068e209844aa61bdb53cfda423a3f2a2e539c9c30b88f9f3a84e3c` verified; sole entry public-ci-summary.json, no raw logs/trace/media/tokens. Previous V3 run39940076190 succeeded on older bdeacab; not reused as current proof.
+- Full effective main ruleset25460908 read verification FULLY_VERIFIED; bypass0, strict Foundation acceptance/15368, PR+independent/stale/conversation controls, merge-only, no force/deletion. CI's read-only PARTIAL_READ_ONLY mode is not the full merge gate. Settings unchanged.
+- Implemented: upload-first three-step Turkish customer studio, original V2 role-gated management, JPEG/PNG/WebP + bounded 8-bit SDR H264 MP4, immutable private collection edits, source footage in actual MP4, creator preview + separate release review, three actual owned synthetic sample clips, responsive/axe screenshots. HDR/10-bit/MOV/WebM/4K/music unsupported. Local demo identity is not real auth; media is private files, not application-encrypted at rest; full AV/OS sandbox and actual Safari/iOS remain NOT VERIFIED.
+- V2 3D/free-walk/voice/facts/consent/analytics/leads/brand/partner/virtual accounting preserved. Existing live ElevenLabs agent untouched. External spend USD0; no provider/voice session/cloud/deploy/DNS/payment/customer-data transfer.
+- One Turkish owner artifact SPACES_UX_FIRST_V3_REPORT.md is local/untracked. This final checkpoint is a local documentation change after the tested source HEAD, not a hidden code change or a claimed additional hosted result. Three pre-existing untracked owner reports retain initial SHA256. Private runtime/raw artifacts stay ignored.
+
+Next safe command: `git status --short --branch`; re-read PR2/PR3 head/reviews/checks and `node --use-env-proxy scripts/verify-repository.mjs` before any later merge decision. Current required independent reviewer remains pending: no merge. Independent safe local work may continue without routine phase approval. See the Turkish report for actual run evidence, supported formats, remaining P2–P12 engineering/external gates and non-destructive restore plan. No unattended work is implied.
+
+---
+
 ## Latest V3 checkpoint — 2026-10-23 (pre-commit)
 
 Owner V3 continuation read in full from the supplied message. Separate attachment was not present in the workspace. V2 authorization/privacy/spend/GitHub controls continue; no routine phase approval required.
@@ -85,3 +101,31 @@ First hosted run 39817002455 / job 119957987170 FAILED at the newly added govern
 This corrective checkpoint adds 5 governance negative tests. Next: run full verifier and tests, Gitleaks all history, normal push; require a fresh hosted run for the new head. Do not reuse failed/old run as current success.
 
 Second hosted run 39819860939 / job 119967967228 / head 2ffb28a057855bc582dacabc46a517b0c86e88af passed effective governance, lint/typegen, but FAILED unit pipeline: Blender 4.0.2 produced no GLB (ENOENT), causing dependent fixture setup failures (131 passed, 5 failed, 17 skipped). Later audit/build/browser/artifact steps did not execute. Runner apt used --no-install-recommends; investigate explicit NumPy exporter dependency. Add fail-fast Blender Python exit code and NumPy/glTF preflight, never skip the real geometry tests. Fresh hosted verification required after the correction. Main remains baseline; no approval/merge.
+
+---
+
+## V4 implementation checkpoint — 2026-10-23 (before reviewed commit/push)
+
+Owner V4 directive read in full. Verified V3/base `b1eb3acc7dbe8084d9d48cd00ddfe64dc9b9b510`; PR2/db01ef3 and PR3/b1eb3ac still OPEN/unmerged/reviews empty. Main9a3df78 unchanged; full ruleset25460908 verification FULLY_VERIFIED, Foundation acceptance/app15368 unchanged. No PR merge is authorized in this V4 task.
+
+New branch `build/v4-output-readiness` from exact V3; intended ONE stacked PR targeting `build/ux-first-v3`. Existing four untracked owner reports backed up/hash recorded and unchanged. Initial modified V3 status preserved before this additive V4 checkpoint; reports never staged.
+
+Implemented code: SSOT intake+bounded BMFF advisory, retained blocked selections/plain Turkish guidance, opt-in512-event in-memory aggregate funnel; real raster safe caption and shot-duration motion fix; 6-case JobService/FFmpeg/full-decode/objective quality lab plus 2 resource-capped experimental tiers; strict scope/capability/spend/idempotency/cancel/unknown provider harness with real local artifact verification, disabled Runway request builder; reproducible conditional economics/partner/benchmark-envelope scripts and official read-only evidence. Existing 3D/voice/analytics/brand/RLS/reviewer/release preserved. Higher profiles remain lab-only, failed candidates NOT_IMPLEMENTED; no native1080 claim.
+
+Observed so far: baseline161 existing tests preserved; first full V4 run180 PASS plus12 governance/guard/lint. Latest targeted new23/23 PASS after benchmark/partner/AAC/HEVC additions; full current suite and final CI still pending. First V4 browser run3pass/1failed (desktop narrow diagnostic overflow); fixed wrapping, fresh V4-only4/4 PASS,0skipped/flaky. Lab found real long-shot freeze (FAIL), fixed motion rather than lowering threshold; 6baseline objectivePASS, candidate failures explicit. Per-encoder CPU/RSS UNKNOWN. GNU time absent; Python OS resource measurement used where available; not production compute billing.
+
+Official docs read 2026-10-23: direct Kling SPA/direct Seedance exact wire still NOT_VERIFIED; Runway documented own/KlingO3/Seedance2_5/Veo routes and tariffs do not prove account/right/retention. Gemini Veo3.1 preview shutdown preserved; World Labs legal benchmark restriction/overage gate retained. No inference or workspace call; no existing live ElevenLabs agent change. External spendUSD0, no cloud/deploy/payment/DNS/customer action.
+
+Next safe action: finish full current tests/build/browser, inspect actual clips/frames/metadata, public+Gitleaks scan; additive commits and normal push only V4; create one stacked PR and request independent review. Verify actual hosted head/check/artifact; no merge. Final Turkish report SPACES_V4_OUTPUT_READINESS_OWNER_REPORT.md must answer NO unless real commercially accepted provider output and actual accepted-cost evidence exist; presently they do not. No unattended work implied.
+
+### V4 pre-PR acceptance update — 2026-10-23
+
+- Core commit795e9a6da22f591092ffdf101f81b08b79262fbc, aspect fixccb7137f63446a781ddcdb712daab0c647d34ece, UX5c640f3adc292beba9c5b8ccb3f5b4042f912fbd are additive; no old branch changed.
+- Current local186 unit/integration,14files,0skip;12governance,lint/strict types/security guard/build passed. Full local browser46/46passed,0skip/flaky, then final aspect fix verified with actual pixel geometry tests and V4-only4/4fresh browser. Export-only test evidence added after that; current run must pass separately before push.
+- Corrected freeze, clipped caption, internal black fade and square intermediate aspect distortion without reducing thresholds; actual red-circle proportion check both orientations. Standard video sample-aspect-ratio restrictions are now explicit.
+- Final lab6baselinePASS;720p15s/1080p30s both NOT_IMPLEMENTED under fixed1GiBAS/75CPU-s/90s/50MiB cap,encoderExit244. No user profile enabled. Runtime26074ms; whole command27.33s,user/systemCPU38.258/6.634s,reported peak processRSS1207947264byte includesJS/PGlite,not perencoderorOSsandbox.
+- Actual frame/hash/scorecard/economics and privacy-safe test snapshots recorded separately. Only AI frame observations of inspected files; human scoresNULL,no approval. Actual external spend0,human accepted0,production cost/marginUNKNOWN.
+- First failed full browser43pass/2fail/1flaky (old general warning/background tab poll) is not PASS; general warning retained, focus/visibility refresh+out-of-order response fencing added, test explicitly returns to creator tab. Environment restart left one own orphan server, identified by cwd andPID and stopped; port-conflict attempt not PASS. Fresh46success is separate. Historical16screenshots restored to base bytes;4originalreports unchanged/untracked.
+- Next: finish export-only4browser checks, staged/public/history Gitleaks, docs/evidencecommit, one normal V4push and one stacked PR to V3. Hosted head/run/reviewer evidence remains pending; do not reuse V3run or merge anyPR.
+
+Export-only evidence run completed4/4PASS,0skipped/flaky; safe snapshots actually captured. Final lint/types/governance12/guard/audit0/SBOM313unknown0passed after all source changes. Final unit186/14files,domain/application/fake coverage lines99.26/statements98.99/functions100/branches98.30; not whole server/UI coverage. Ready for public scan and ONE V4 stacked PR; hosted evidence still pending.

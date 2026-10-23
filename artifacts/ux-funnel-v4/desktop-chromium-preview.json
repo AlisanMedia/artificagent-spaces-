@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "syntheticOnly": true,
+  "source": "ACTUAL_PLAYWRIGHT_UI_SNAPSHOT",
+  "snapshot": {
+    "version": "synthetic-studio-funnel-v4",
+    "enabled": true,
+    "total": 16,
+    "counts": {
+      "studio_entered": 1,
+      "picker_opened": 2,
+      "selection_unsupported": 1,
+      "selection_supported": 3,
+      "rights_accepted": 1,
+      "upload_succeeded": 3,
+      "style_selected": 1,
+      "quote_returned": 1,
+      "job_started": 1,
+      "review_pending": 1,
+      "preview_opened": 1
+    },
+    "persistent": false,
+    "networkRequests": 0,
+    "purpose": "OPT_IN_LOCAL_SYNTHETIC_UX_DEBUG_ONLY",
+    "conversionUplift": null
+  }
+}

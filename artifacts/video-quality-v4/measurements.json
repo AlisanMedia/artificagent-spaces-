@@ -1,0 +1,583 @@
+{
+  "schemaVersion": 1,
+  "syntheticOnly": true,
+  "externalInferenceCalls": 0,
+  "actualExternalSpendMicroUsd": 0,
+  "goldenManifestSha256": "cd7b74363901023f4702fafa35c103478edf5318e74b0af677fd9d725c55f6eb",
+  "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "totalWallTimeMs": 26074,
+  "humanAcceptedExports": 0,
+  "automatedObjectivePasses": 6,
+  "subjectiveCommercialAcceptance": "NOT_VERIFIED",
+  "higherTierPolicy": "ISOLATED_LAB_ONLY_NOT_USER_SELECTABLE; 1080p involves upscaling normalized <=1600px sources; never native1080 or generative",
+  "outputs": [
+    {
+      "id": "photo-pov-horizontal-4",
+      "inputSet": "photo",
+      "mode": "pov",
+      "aspect": "16:9",
+      "profile": "local-preview-v3",
+      "userSelectable": true,
+      "requestedSeconds": 4,
+      "encodeWallTimeMs": 807,
+      "rendererWallTimeMs": 941,
+      "measurementWallTimeMs": 2003,
+      "encoderExit": 0,
+      "quality": {
+        "schemaVersion": 1,
+        "status": "PASS",
+        "checks": {
+          "hashAndMedia": true,
+          "dimensionsAndAspect": true,
+          "duration": true,
+          "codecAndColor": true,
+          "metadataAudioPrivacy": true,
+          "revision": true,
+          "provenance": true,
+          "captionBoundsAndContrast": true,
+          "fullDecode": true,
+          "sampledBlankFrames": true,
+          "sampledFrozenFrames": true
+        },
+        "metadata": {
+          "width": 640,
+          "height": 360,
+          "durationSeconds": 3.96,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "colorSpace": "bt709",
+          "bytes": 65866,
+          "sha256": "681bd76e881ffbb748656bea6c5ff32dafd71610ff5b2b4d74b86eba1170862d"
+        },
+        "samples": {
+          "count": 24,
+          "rateFps": 6,
+          "longestBlankSeconds": 0,
+          "longestFrozenSeconds": 0
+        },
+        "fullDecodeExit": 0,
+        "ffprobeExit": 0,
+        "reason": null,
+        "subjectiveCreativeQuality": "NOT_MEASURED",
+        "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+      },
+      "provenance": {
+        "manifestSha256": "8437852898b9526b500311dec9699eaf47280db50cd15c9205315da944901da2",
+        "manifestRevision": 1,
+        "sourceHashes": [
+          "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+          "8d1d0c40d080fcfcc1cb213ee8176bca2b334a2ac5815d7c941fd4ba47a59a31"
+        ],
+        "shots": [
+          {
+            "sourceId": "quality-photo-0",
+            "operation": "still-pan-zoom",
+            "endSeconds": 2,
+            "sourceSha256": "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "quality-photo-1",
+            "operation": "still-pan-zoom",
+            "endSeconds": 4,
+            "sourceSha256": "8d1d0c40d080fcfcc1cb213ee8176bca2b334a2ac5815d7c941fd4ba47a59a31",
+            "startSeconds": 2
+          }
+        ],
+        "captionLayout": {
+          "x": 32,
+          "y": 288,
+          "width": 423,
+          "height": 36,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        }
+      },
+      "cpuSeconds": null,
+      "peakRssBytes": null,
+      "resourceObservation": "Per-encoder CPU/RSS UNKNOWN; isolated candidates use CPU/address-space/time/output caps; wall time measured",
+      "nativeDetailClaim": false,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "actualExternalCostMicroUsd": 0
+    },
+    {
+      "id": "footage-pov-vertical-8",
+      "inputSet": "footage",
+      "mode": "pov",
+      "aspect": "9:16",
+      "profile": "local-preview-v3",
+      "userSelectable": true,
+      "requestedSeconds": 8,
+      "encodeWallTimeMs": 2019,
+      "rendererWallTimeMs": 2134,
+      "measurementWallTimeMs": 3499,
+      "encoderExit": 0,
+      "quality": {
+        "schemaVersion": 1,
+        "status": "PASS",
+        "checks": {
+          "hashAndMedia": true,
+          "dimensionsAndAspect": true,
+          "duration": true,
+          "codecAndColor": true,
+          "metadataAudioPrivacy": true,
+          "revision": true,
+          "provenance": true,
+          "captionBoundsAndContrast": true,
+          "fullDecode": true,
+          "sampledBlankFrames": true,
+          "sampledFrozenFrames": true
+        },
+        "metadata": {
+          "width": 360,
+          "height": 640,
+          "durationSeconds": 8,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "colorSpace": "bt709",
+          "bytes": 211955,
+          "sha256": "e288e2acf5fc67301f87d7dc10f7220415e630251657475758e10c7467350cbb"
+        },
+        "samples": {
+          "count": 48,
+          "rateFps": 6,
+          "longestBlankSeconds": 0,
+          "longestFrozenSeconds": 0
+        },
+        "fullDecodeExit": 0,
+        "ffprobeExit": 0,
+        "reason": null,
+        "subjectiveCreativeQuality": "NOT_MEASURED",
+        "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+      },
+      "provenance": {
+        "manifestSha256": "29654fc451c6b0ef73fec6b03e8143180b750db68fc652e48ea597fa5897510d",
+        "manifestRevision": 1,
+        "sourceHashes": [
+          "cdb35165930b948af74ca7696a787bfbb8c0ff7ec7a09f073c584c7730e57c4a"
+        ],
+        "shots": [
+          {
+            "sourceId": "quality-footage-0",
+            "operation": "footage-loop-cut",
+            "endSeconds": 8,
+            "sourceSha256": "cdb35165930b948af74ca7696a787bfbb8c0ff7ec7a09f073c584c7730e57c4a",
+            "startSeconds": 0
+          }
+        ],
+        "captionLayout": {
+          "x": 18,
+          "y": 521,
+          "width": 269,
+          "height": 55,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        }
+      },
+      "cpuSeconds": null,
+      "peakRssBytes": null,
+      "resourceObservation": "Per-encoder CPU/RSS UNKNOWN; isolated candidates use CPU/address-space/time/output caps; wall time measured",
+      "nativeDetailClaim": false,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "actualExternalCostMicroUsd": 0
+    },
+    {
+      "id": "mixed-cinematic-horizontal-16",
+      "inputSet": "mixed",
+      "mode": "cinematic",
+      "aspect": "16:9",
+      "profile": "local-preview-v3",
+      "userSelectable": true,
+      "requestedSeconds": 16,
+      "encodeWallTimeMs": 1894,
+      "rendererWallTimeMs": 2015,
+      "measurementWallTimeMs": 3457,
+      "encoderExit": 0,
+      "quality": {
+        "schemaVersion": 1,
+        "status": "PASS",
+        "checks": {
+          "hashAndMedia": true,
+          "dimensionsAndAspect": true,
+          "duration": true,
+          "codecAndColor": true,
+          "metadataAudioPrivacy": true,
+          "revision": true,
+          "provenance": true,
+          "captionBoundsAndContrast": true,
+          "fullDecode": true,
+          "sampledBlankFrames": true,
+          "sampledFrozenFrames": true
+        },
+        "metadata": {
+          "width": 640,
+          "height": 360,
+          "durationSeconds": 16.001667,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "colorSpace": "bt709",
+          "bytes": 297108,
+          "sha256": "7d844976d3f67133991de1aefbf3f6583cd77c3edcac8cc76eb1b80c14b01e03"
+        },
+        "samples": {
+          "count": 96,
+          "rateFps": 6,
+          "longestBlankSeconds": 0,
+          "longestFrozenSeconds": 0
+        },
+        "fullDecodeExit": 0,
+        "ffprobeExit": 0,
+        "reason": null,
+        "subjectiveCreativeQuality": "NOT_MEASURED",
+        "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+      },
+      "provenance": {
+        "manifestSha256": "f77b3aba41a1890895b1d1a2d905f426ec0646dd7f1c0f121c766cff95871ec7",
+        "manifestRevision": 1,
+        "sourceHashes": [
+          "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+          "cdb35165930b948af74ca7696a787bfbb8c0ff7ec7a09f073c584c7730e57c4a"
+        ],
+        "shots": [
+          {
+            "sourceId": "quality-mixed-0",
+            "operation": "still-pan-zoom",
+            "endSeconds": 8,
+            "sourceSha256": "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "quality-mixed-1",
+            "operation": "footage-loop-cut",
+            "endSeconds": 16,
+            "sourceSha256": "cdb35165930b948af74ca7696a787bfbb8c0ff7ec7a09f073c584c7730e57c4a",
+            "startSeconds": 8
+          }
+        ],
+        "captionLayout": {
+          "x": 32,
+          "y": 288,
+          "width": 423,
+          "height": 36,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        }
+      },
+      "cpuSeconds": null,
+      "peakRssBytes": null,
+      "resourceObservation": "Per-encoder CPU/RSS UNKNOWN; isolated candidates use CPU/address-space/time/output caps; wall time measured",
+      "nativeDetailClaim": false,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "actualExternalCostMicroUsd": 0
+    },
+    {
+      "id": "photo-cinematic-vertical-4",
+      "inputSet": "photo",
+      "mode": "cinematic",
+      "aspect": "9:16",
+      "profile": "local-preview-v3",
+      "userSelectable": true,
+      "requestedSeconds": 4,
+      "encodeWallTimeMs": 1057,
+      "rendererWallTimeMs": 1167,
+      "measurementWallTimeMs": 2193,
+      "encoderExit": 0,
+      "quality": {
+        "schemaVersion": 1,
+        "status": "PASS",
+        "checks": {
+          "hashAndMedia": true,
+          "dimensionsAndAspect": true,
+          "duration": true,
+          "codecAndColor": true,
+          "metadataAudioPrivacy": true,
+          "revision": true,
+          "provenance": true,
+          "captionBoundsAndContrast": true,
+          "fullDecode": true,
+          "sampledBlankFrames": true,
+          "sampledFrozenFrames": true
+        },
+        "metadata": {
+          "width": 360,
+          "height": 640,
+          "durationSeconds": 3.96,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "colorSpace": "bt709",
+          "bytes": 80636,
+          "sha256": "3748563eec0864685ae9b49ca3f6f21375deacb139aa768d8ce6fa786c79ad7a"
+        },
+        "samples": {
+          "count": 24,
+          "rateFps": 6,
+          "longestBlankSeconds": 0,
+          "longestFrozenSeconds": 0
+        },
+        "fullDecodeExit": 0,
+        "ffprobeExit": 0,
+        "reason": null,
+        "subjectiveCreativeQuality": "NOT_MEASURED",
+        "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+      },
+      "provenance": {
+        "manifestSha256": "8437852898b9526b500311dec9699eaf47280db50cd15c9205315da944901da2",
+        "manifestRevision": 1,
+        "sourceHashes": [
+          "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+          "8d1d0c40d080fcfcc1cb213ee8176bca2b334a2ac5815d7c941fd4ba47a59a31"
+        ],
+        "shots": [
+          {
+            "sourceId": "quality-photo-0",
+            "operation": "still-pan-zoom",
+            "endSeconds": 2,
+            "sourceSha256": "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "quality-photo-1",
+            "operation": "still-pan-zoom",
+            "endSeconds": 4,
+            "sourceSha256": "8d1d0c40d080fcfcc1cb213ee8176bca2b334a2ac5815d7c941fd4ba47a59a31",
+            "startSeconds": 2
+          }
+        ],
+        "captionLayout": {
+          "x": 18,
+          "y": 521,
+          "width": 269,
+          "height": 55,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        }
+      },
+      "cpuSeconds": null,
+      "peakRssBytes": null,
+      "resourceObservation": "Per-encoder CPU/RSS UNKNOWN; isolated candidates use CPU/address-space/time/output caps; wall time measured",
+      "nativeDetailClaim": false,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "actualExternalCostMicroUsd": 0
+    },
+    {
+      "id": "footage-hybrid-horizontal-8",
+      "inputSet": "footage",
+      "mode": "hybrid",
+      "aspect": "16:9",
+      "profile": "local-preview-v3",
+      "userSelectable": true,
+      "requestedSeconds": 8,
+      "encodeWallTimeMs": 1348,
+      "rendererWallTimeMs": 1473,
+      "measurementWallTimeMs": 2755,
+      "encoderExit": 0,
+      "quality": {
+        "schemaVersion": 1,
+        "status": "PASS",
+        "checks": {
+          "hashAndMedia": true,
+          "dimensionsAndAspect": true,
+          "duration": true,
+          "codecAndColor": true,
+          "metadataAudioPrivacy": true,
+          "revision": true,
+          "provenance": true,
+          "captionBoundsAndContrast": true,
+          "fullDecode": true,
+          "sampledBlankFrames": true,
+          "sampledFrozenFrames": true
+        },
+        "metadata": {
+          "width": 640,
+          "height": 360,
+          "durationSeconds": 8,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "colorSpace": "bt709",
+          "bytes": 172247,
+          "sha256": "4fa0c29a965ea0ebe088ea176b9fa05b9c2a8fe590f8d1ff31f1f17423693c34"
+        },
+        "samples": {
+          "count": 48,
+          "rateFps": 6,
+          "longestBlankSeconds": 0,
+          "longestFrozenSeconds": 0
+        },
+        "fullDecodeExit": 0,
+        "ffprobeExit": 0,
+        "reason": null,
+        "subjectiveCreativeQuality": "NOT_MEASURED",
+        "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+      },
+      "provenance": {
+        "manifestSha256": "29654fc451c6b0ef73fec6b03e8143180b750db68fc652e48ea597fa5897510d",
+        "manifestRevision": 1,
+        "sourceHashes": [
+          "cdb35165930b948af74ca7696a787bfbb8c0ff7ec7a09f073c584c7730e57c4a"
+        ],
+        "shots": [
+          {
+            "sourceId": "quality-footage-0",
+            "operation": "footage-loop-cut",
+            "endSeconds": 8,
+            "sourceSha256": "cdb35165930b948af74ca7696a787bfbb8c0ff7ec7a09f073c584c7730e57c4a",
+            "startSeconds": 0
+          }
+        ],
+        "captionLayout": {
+          "x": 32,
+          "y": 288,
+          "width": 423,
+          "height": 36,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        }
+      },
+      "cpuSeconds": null,
+      "peakRssBytes": null,
+      "resourceObservation": "Per-encoder CPU/RSS UNKNOWN; isolated candidates use CPU/address-space/time/output caps; wall time measured",
+      "nativeDetailClaim": false,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "actualExternalCostMicroUsd": 0
+    },
+    {
+      "id": "mixed-hybrid-vertical-16",
+      "inputSet": "mixed",
+      "mode": "hybrid",
+      "aspect": "9:16",
+      "profile": "local-preview-v3",
+      "userSelectable": true,
+      "requestedSeconds": 16,
+      "encodeWallTimeMs": 2565,
+      "rendererWallTimeMs": 2688,
+      "measurementWallTimeMs": 4207,
+      "encoderExit": 0,
+      "quality": {
+        "schemaVersion": 1,
+        "status": "PASS",
+        "checks": {
+          "hashAndMedia": true,
+          "dimensionsAndAspect": true,
+          "duration": true,
+          "codecAndColor": true,
+          "metadataAudioPrivacy": true,
+          "revision": true,
+          "provenance": true,
+          "captionBoundsAndContrast": true,
+          "fullDecode": true,
+          "sampledBlankFrames": true,
+          "sampledFrozenFrames": true
+        },
+        "metadata": {
+          "width": 360,
+          "height": 640,
+          "durationSeconds": 16.001667,
+          "codec": "h264",
+          "pixelFormat": "yuv420p",
+          "colorSpace": "bt709",
+          "bytes": 317845,
+          "sha256": "0c8fa24c5289b606bd39724bddefc2d80f55a6bd431e2e38610c2ba5f3809443"
+        },
+        "samples": {
+          "count": 96,
+          "rateFps": 6,
+          "longestBlankSeconds": 0,
+          "longestFrozenSeconds": 0
+        },
+        "fullDecodeExit": 0,
+        "ffprobeExit": 0,
+        "reason": null,
+        "subjectiveCreativeQuality": "NOT_MEASURED",
+        "architecturalFidelity": "HUMAN_REVIEW_REQUIRED"
+      },
+      "provenance": {
+        "manifestSha256": "f77b3aba41a1890895b1d1a2d905f426ec0646dd7f1c0f121c766cff95871ec7",
+        "manifestRevision": 1,
+        "sourceHashes": [
+          "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+          "cdb35165930b948af74ca7696a787bfbb8c0ff7ec7a09f073c584c7730e57c4a"
+        ],
+        "shots": [
+          {
+            "sourceId": "quality-mixed-0",
+            "operation": "still-pan-zoom",
+            "endSeconds": 8,
+            "sourceSha256": "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+            "startSeconds": 0
+          },
+          {
+            "sourceId": "quality-mixed-1",
+            "operation": "footage-loop-cut",
+            "endSeconds": 16,
+            "sourceSha256": "cdb35165930b948af74ca7696a787bfbb8c0ff7ec7a09f073c584c7730e57c4a",
+            "startSeconds": 8
+          }
+        ],
+        "captionLayout": {
+          "x": 18,
+          "y": 521,
+          "width": 269,
+          "height": 55,
+          "fontPixels": 16,
+          "rasterized": true,
+          "contrastRatio": 21
+        }
+      },
+      "cpuSeconds": null,
+      "peakRssBytes": null,
+      "resourceObservation": "Per-encoder CPU/RSS UNKNOWN; isolated candidates use CPU/address-space/time/output caps; wall time measured",
+      "nativeDetailClaim": false,
+      "release": "AWAITING_DIFFERENT_HUMAN_REVIEW",
+      "actualExternalCostMicroUsd": 0
+    },
+    {
+      "id": "candidate-720p-15",
+      "profile": "lab-720p-15s",
+      "requestedSeconds": 15,
+      "userSelectable": false,
+      "status": "NOT_IMPLEMENTED",
+      "reason": "BOUNDED_CANDIDATE_FAILED",
+      "encoderExit": 244,
+      "failureCategory": "MEMORY_OR_ENCODER_LIMIT",
+      "enforcedLimits": {
+        "addressSpaceBytes": 1073741824,
+        "cpuSeconds": 75,
+        "wallMilliseconds": 90000,
+        "outputBytes": 52428800
+      },
+      "wallTimeMs": 603,
+      "actualExternalCostMicroUsd": 0
+    },
+    {
+      "id": "candidate-1080p-30",
+      "profile": "lab-1080p-30s",
+      "requestedSeconds": 30,
+      "userSelectable": false,
+      "status": "NOT_IMPLEMENTED",
+      "reason": "BOUNDED_CANDIDATE_FAILED",
+      "encoderExit": 187,
+      "failureCategory": "MEMORY_OR_ENCODER_LIMIT",
+      "enforcedLimits": {
+        "addressSpaceBytes": 1073741824,
+        "cpuSeconds": 75,
+        "wallMilliseconds": 90000,
+        "outputBytes": 52428800
+      },
+      "wallTimeMs": 471,
+      "actualExternalCostMicroUsd": 0
+    }
+  ],
+  "negativeCases": {
+    "blank": "FAIL",
+    "frozen": "FAIL_EXPECTED",
+    "stale": "FAIL",
+    "missingProvenance": "FAIL",
+    "corrupt": "FAIL",
+    "mismatchedMedia": "FAIL"
+  }
+}
