@@ -122,6 +122,7 @@ describe("single source intake capability and non-destructive guidance", () => {
     expect(validateProbedVideo(video).fps).toBe(24);
     for (const patch of [
       { codec_name: "hevc" },
+      { sample_aspect_ratio: "2:1" },
       { pix_fmt: "yuv420p10le" },
       { color_primaries: "bt2020" },
       { color_transfer: "smpte2084" },

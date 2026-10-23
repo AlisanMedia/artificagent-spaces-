@@ -26,6 +26,7 @@ export const MEDIA_CAPABILITIES = Object.freeze({
     maxPixels: 2_073_600,
     maxFps: 60,
     maxStreams: 2,
+    squarePixelsOnly: true,
     normalizedFps: 24,
     normalizedMaxSide: 720,
     normalizedMaxBytes: 8_388_608,
@@ -139,6 +140,7 @@ export interface ProbedVideo {
     width?: number;
     height?: number;
     r_frame_rate?: string;
+    sample_aspect_ratio?: string;
     color_primaries?: string;
     color_transfer?: string;
     color_space?: string;
@@ -170,6 +172,11 @@ export function validateProbedVideo(meta: ProbedVideo) {
         v.color_space,
       ),
     "UNSUPPORTED_VIDEO_COLOR",
+    415,
+  );
+  invariant(
+    !v.sample_aspect_ratio || ["1:1", "N/A"].includes(v.sample_aspect_ratio),
+    "UNSUPPORTED_VIDEO_PIXEL_ASPECT",
     415,
   );
   const duration = Number(meta.format.duration);

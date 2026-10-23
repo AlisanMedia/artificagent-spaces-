@@ -53,7 +53,7 @@ export async function sanitizeVideo(
         "-analyzeduration",
         "3000000",
         "-show_entries",
-        "stream=codec_type,codec_name,width,height,r_frame_rate,pix_fmt,color_primaries,color_transfer,color_space:format=duration",
+        "stream=codec_type,codec_name,width,height,r_frame_rate,sample_aspect_ratio,pix_fmt,color_primaries,color_transfer,color_space:format=duration",
         "-of",
         "json",
         input,

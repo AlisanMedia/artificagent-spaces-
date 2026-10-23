@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { beforeAll, afterAll, describe, it, expect, vi } from "vitest";
+import sharp from "sharp";
 import { mkdtemp, readFile, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -654,5 +655,94 @@ describe("assembled reel has no internal fade-to-black flash", () => {
       { timeout: 10000, encoding: "buffer", maxBuffer: 65536 },
     );
     expect(sampleStatistics(decoded.stdout)[0]!.mean).toBeGreaterThan(20);
+  }, 30000);
+});
+
+describe("source geometry proportions survive photo-motion framing", () => {
+  it("keeps a circular source feature circular in both actual export orientations", async () => {
+    const p = await rt.properties.create(
+      actor,
+      { title: "Synthetic ratio calibration", syntheticOnly: true },
+      "v4-ratio-calibration",
+    );
+    const image = await sharp(
+      Buffer.from(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000"><rect width="1000" height="1000" fill="#ddd"/><circle cx="500" cy="500" r="100" fill="#f00000"/></svg>',
+      ),
+    )
+      .png()
+      .toBuffer();
+    await rt.properties.upload(actor, p.id, image, "photo", {
+      syntheticOnly: true,
+      ownedOrLicensed: true,
+      metadataRemovalAccepted: true,
+    });
+    for (const aspect of ["16:9", "9:16"] as const) {
+      const job = await rt.jobs.submit(actor, {
+        propertyId: p.id,
+        revision: 1,
+        mode: "pov",
+        aspectRatio: aspect,
+        durationSeconds: 4,
+        captions: false,
+        idempotencyKey: "ratio-frame-" + aspect,
+      });
+      await rt.jobs.processNext();
+      const done = await rt.jobs.get(actor, job.id);
+      expect(done.state).toBe("awaiting-review");
+      const file = rt.storage.path(
+        actor.organizationId,
+        done.output!.artifactId!,
+        "output",
+        "mp4",
+      );
+      const decoded = await promisify(execFile)(
+        "ffmpeg",
+        [
+          "-v",
+          "error",
+          "-nostdin",
+          "-ss",
+          "1",
+          "-threads",
+          "1",
+          "-i",
+          file,
+          "-frames:v",
+          "1",
+          "-pix_fmt",
+          "rgb24",
+          "-threads",
+          "1",
+          "-f",
+          "rawvideo",
+          "pipe:1",
+        ],
+        { timeout: 10000, encoding: "buffer", maxBuffer: 2_000_000 },
+      );
+      let minX = 9999,
+        maxX = 0,
+        minY = 9999,
+        maxY = 0;
+      const width = done.output!.width!,
+        height = done.output!.height!;
+      for (let y = 0; y < height; y++)
+        for (let x = 0; x < width; x++) {
+          const offset = (y * width + x) * 3;
+          if (
+            decoded.stdout[offset]! > 150 &&
+            decoded.stdout[offset + 1]! < 100 &&
+            decoded.stdout[offset + 2]! < 100
+          ) {
+            minX = Math.min(minX, x);
+            maxX = Math.max(maxX, x);
+            minY = Math.min(minY, y);
+            maxY = Math.max(maxY, y);
+          }
+        }
+      expect(maxX - minX).toBeGreaterThan(50);
+      expect((maxX - minX) / (maxY - minY)).toBeGreaterThan(0.95);
+      expect((maxX - minX) / (maxY - minY)).toBeLessThan(1.05);
+    }
   }, 30000);
 });

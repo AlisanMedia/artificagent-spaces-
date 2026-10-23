@@ -213,6 +213,8 @@ export async function buildOutput(
         "-i",
         storage.path(scene.organizationId, logo, "source"),
       );
+    const workingWidth = input.aspectRatio === "16:9" ? 1600 : 900;
+    const workingHeight = input.aspectRatio === "16:9" ? 900 : 1600;
     const frames = Math.round((spec.durationSeconds * 24) / selected.length);
     // Spread bounded motion over the entire shot; the old fixed step plateaued on long shots.
     const zoomRate =
@@ -243,7 +245,7 @@ export async function buildOutput(
     const filters = selected.map((source, i) =>
       source.kind === "walkthrough"
         ? `[${i}:v]trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height},fps=24,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`
-        : `[${i}:v]scale=1600:1600:force_original_aspect_ratio=increase:out_color_matrix=bt709:out_range=tv,crop=1600:1600,zoompan=z='min(1.0+on*${zoomRate},1.08)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=${frames}:s=${width}x${height}:fps=24,trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`,
+        : `[${i}:v]scale=${workingWidth}:${workingHeight}:force_original_aspect_ratio=increase:out_color_matrix=bt709:out_range=tv,crop=${workingWidth}:${workingHeight},zoompan=z='min(1.0+on*${zoomRate},1.08)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=${frames}:s=${width}x${height}:fps=24,trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`,
     );
     const labels = {
       modern: "Modern Daire",
