@@ -1,4 +1,4 @@
-import { PlatformDashboard } from "@/features/platform/dashboard";
+import { CreationStudio } from "@/features/platform/creation-studio";
 export default function SpacesPage() {
-  return <PlatformDashboard />;
+  return <CreationStudio />;
 }

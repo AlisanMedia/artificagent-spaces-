@@ -52,7 +52,7 @@ async function generatedTour(page: Page, mode: string) {
 test("new platform has accessible responsive roles, CRUD and private source controls", async ({
   page,
 }, info) => {
-  await page.goto("/spaces");
+  await page.goto("/spaces/manage");
   await expect(
     page.getByRole("button", { name: "Yerel oturumu aç" }),
   ).toBeEnabled();

@@ -54,7 +54,9 @@ const modeIcons = {
   "interactive-3d": Box,
 };
 
-export function PlatformDashboard() {
+export function ManagementDashboard({
+  initialPropertyId,
+}: { initialPropertyId?: string | undefined } = {}) {
   const [bootstrap, setBootstrap] = useState<Bootstrap | null>(null),
     [workspace, setWorkspace] = useState<WorkspaceView | null>(null),
     [tab, setTab] = useState<Tab>("properties"),
@@ -80,6 +82,7 @@ export function PlatformDashboard() {
     [reviewJob, setReviewJob] = useState<JobView | null>(null),
     [preview, setPreview] = useState(""),
     [sourcePreview, setSourcePreview] = useState(""),
+    [sourceVideo, setSourceVideo] = useState(false),
     [publication, setPublication] = useState(""),
     [checks, setChecks] = useState({
       rights: false,
@@ -114,6 +117,27 @@ export function PlatformDashboard() {
       active = false;
     };
   }, [load]);
+  const managementUser = bootstrap?.actor?.userId,
+    managementOrg = bootstrap?.actor?.organizationId;
+  useEffect(() => {
+    if (!managementUser || !initialPropertyId) return;
+    let active = true;
+    void api<{ property: PropertyView; assets: AssetView[] }>(
+      "/properties/" + encodeURIComponent(initialPropertyId),
+    )
+      .then((d) => {
+        if (active) {
+          setSelected(d);
+          setTab("review");
+        }
+      })
+      .catch(() => {
+        if (active) setError("Proje bulunamadı veya erişim yetkiniz yok.");
+      });
+    return () => {
+      active = false;
+    };
+  }, [managementUser, managementOrg, initialPropertyId]);
   useEffect(
     () => () => urls.current.forEach((url) => URL.revokeObjectURL(url)),
     [],
@@ -376,22 +400,32 @@ export function PlatformDashboard() {
             </div>
           </div>
           <nav className="spaces-tabs" aria-label="Çalışma alanı bölümleri">
-            {tabs.map((item) => (
-              <button
-                key={item.id}
-                aria-current={tab === item.id ? "page" : undefined}
-                onClick={() => {
-                  setTab(item.id);
-                  if (item.id === "analytics") void action(loadAnalytics);
-                  if (item.id === "partner")
-                    void action(async () =>
-                      setPartner(await api<PartnerView>("/partner")),
-                    );
-                }}
-              >
-                {item.label}
-              </button>
-            ))}
+            {tabs
+              .filter(
+                (item) =>
+                  item.id === "properties" ||
+                  (item.id === "studio" && canEdit) ||
+                  (item.id === "review" && canReview) ||
+                  (item.id === "analytics" && canEdit) ||
+                  (["brand", "partner", "operations"].includes(item.id) &&
+                    workspace.actor.role === "admin"),
+              )
+              .map((item) => (
+                <button
+                  key={item.id}
+                  aria-current={tab === item.id ? "page" : undefined}
+                  onClick={() => {
+                    setTab(item.id);
+                    if (item.id === "analytics") void action(loadAnalytics);
+                    if (item.id === "partner")
+                      void action(async () =>
+                        setPartner(await api<PartnerView>("/partner")),
+                      );
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
           </nav>
           {(tab === "properties" || tab === "studio" || tab === "review") && (
             <div className="spaces-two-column">
@@ -577,6 +611,9 @@ export function PlatformDashboard() {
                                           },
                                         },
                                       );
+                                      setSourceVideo(
+                                        asset.mime === "video/mp4",
+                                      );
                                       setSourcePreview(
                                         objectUrl(await response.blob()),
                                       );
@@ -591,10 +628,18 @@ export function PlatformDashboard() {
                         </ul>
                         {sourcePreview && (
                           <div className="spaces-source">
-                            <img
-                              src={sourcePreview}
-                              alt="Yetkili özel sentetik kaynak görseli"
-                            />
+                            {sourceVideo ? (
+                              <video
+                                src={sourcePreview}
+                                controls
+                                aria-label="Özel kaynak videosu"
+                              />
+                            ) : (
+                              <img
+                                src={sourcePreview}
+                                alt="Yetkili özel sentetik kaynak görseli"
+                              />
+                            )}
                           </div>
                         )}
                         {canEdit && (
@@ -897,6 +942,9 @@ export function PlatformDashboard() {
                                         const grant = await api<{
                                           token: string;
                                         }>(`/assets/${asset.id}/grant`, {});
+                                        setSourceVideo(
+                                          asset.mime === "video/mp4",
+                                        );
                                         setSourcePreview(
                                           objectUrl(
                                             await (
@@ -921,10 +969,18 @@ export function PlatformDashboard() {
                             </div>
                             {sourcePreview && (
                               <div className="spaces-source">
-                                <img
-                                  src={sourcePreview}
-                                  alt="İnceleme için sentetik kaynak; çıktı ile karşılaştırın"
-                                />
+                                {sourceVideo ? (
+                                  <video
+                                    src={sourcePreview}
+                                    controls
+                                    aria-label="İnceleme kaynak videosu"
+                                  />
+                                ) : (
+                                  <img
+                                    src={sourcePreview}
+                                    alt="İnceleme için sentetik kaynak; çıktı ile karşılaştırın"
+                                  />
+                                )}
                               </div>
                             )}
                             {reviewJob.state === "awaiting-review" &&
@@ -1492,3 +1548,5 @@ export function PlatformDashboard() {
     </div>
   );
 }
+
+export { CreationStudio as PlatformDashboard } from "./creation-studio";

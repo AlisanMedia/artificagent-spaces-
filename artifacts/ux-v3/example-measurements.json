@@ -1,0 +1,46 @@
+{
+  "syntheticOnly": true,
+  "actualProviderCalls": 0,
+  "review": "Second local synthetic identity; not a real human or GitHub review",
+  "outputs": [
+    {
+      "filename": "natural.mp4",
+      "mode": "pov",
+      "template": "modern",
+      "sha256": "cf32c65539d15d828492b39a0075bda06f021e17841ddcf4e73196f4b51e3a87",
+      "width": 640,
+      "height": 360,
+      "durationSeconds": 3.958333,
+      "codec": "h264",
+      "wallTimeMs": 1206,
+      "bytes": 63531,
+      "externalCostMicroUsd": 0
+    },
+    {
+      "filename": "cinematic.mp4",
+      "mode": "cinematic",
+      "template": "luxury",
+      "sha256": "666956df2c9f67f1c3da4b13d66a49a55a343ea66879c0c3d706711c9cb6278d",
+      "width": 640,
+      "height": 360,
+      "durationSeconds": 3.958333,
+      "codec": "h264",
+      "wallTimeMs": 1176,
+      "bytes": 72378,
+      "externalCostMicroUsd": 0
+    },
+    {
+      "filename": "hybrid.mp4",
+      "mode": "hybrid",
+      "template": "warm",
+      "sha256": "1e083a85abd6eddd570858b0ec7eb20349697512504359717c2b815e9d0f6498",
+      "width": 640,
+      "height": 360,
+      "durationSeconds": 3.958333,
+      "codec": "h264",
+      "wallTimeMs": 1235,
+      "bytes": 75480,
+      "externalCostMicroUsd": 0
+    }
+  ]
+}
