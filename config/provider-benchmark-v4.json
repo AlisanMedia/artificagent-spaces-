@@ -1,0 +1,50 @@
+{
+  "version": "rights-cleared-screen-v4.1",
+  "externalApprovalMicroUsd": 0,
+  "ownerSelectedHardCapMicroUsd": null,
+  "accountHardCapVerified": false,
+  "termsAndDpaApproved": false,
+  "syntheticRightsApprovedForVendor": false,
+  "minimumCreditPurchaseMicroUsd": null,
+  "publishedTariffSource": "https://docs.dev.runwayml.com/guides/pricing/",
+  "candidates": [
+    {
+      "modelId": "gen4_turbo",
+      "revision": "DOCUMENTED_ALIAS_NOT_IMMUTABLE_WEIGHTS",
+      "perOutputSecondMicroUsd": 50000
+    },
+    {
+      "modelId": "gen4.5",
+      "revision": "DOCUMENTED_ALIAS_NOT_IMMUTABLE_WEIGHTS",
+      "perOutputSecondMicroUsd": 120000
+    }
+  ],
+  "screen": {
+    "shotsPerModel": 2,
+    "secondsPerShot": 5,
+    "maxAttemptsPerShot": 2,
+    "aspect": "16:9",
+    "resolution": "1280:720",
+    "audio": false
+  },
+  "references": [
+    {
+      "file": "photo-a.jpg",
+      "sha256": "54a30f96a49f0f2c1178c1f79ee69d5821bd573d4add20c80ab29ae19a4efa8e",
+      "bytes": 91664,
+      "rights": "Project-authored synthetic illustration/derived FFmpeg footage; no real property; no new legal license grant"
+    },
+    {
+      "file": "photo-b.webp",
+      "sha256": "450bc85bdd38b9a901abadd04851eaa4b320839befe183ba54f3080cf21f976f",
+      "bytes": 34194,
+      "rights": "Project-authored synthetic illustration/derived FFmpeg footage; no real property; no new legal license grant"
+    }
+  ],
+  "acceptanceDeliverablesSeconds": [
+    30,
+    60
+  ],
+  "execution": "DISABLED_NO_NETWORK_PATH",
+  "worldLabsExcludedUntilWrittenBenchmarkRights": true
+}

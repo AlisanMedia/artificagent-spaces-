@@ -15,6 +15,7 @@ import { newId, digest } from "./crypto";
 import type { Actor, Database } from "./database";
 import type { LocalPrivateStorage } from "./storage";
 import { validatePhotoMagic } from "@/domain/media-intake";
+import { MEDIA_CAPABILITIES } from "@/domain/media-capabilities";
 import { emptyManifest, measuredFixture } from "./seed";
 
 export interface PropertyRecord {
@@ -229,7 +230,10 @@ export class PropertyService {
       .parse(rights);
     invariant(
       bytes.byteLength > 0 &&
-        bytes.byteLength <= (kind === "walkthrough" ? 20_971_520 : 5_242_880),
+        bytes.byteLength <=
+          (kind === "walkthrough"
+            ? MEDIA_CAPABILITIES.video.maxBytes
+            : MEDIA_CAPABILITIES.photo.maxBytes),
       "UPLOAD_SIZE_LIMIT",
       413,
     );
@@ -256,8 +260,9 @@ export class PropertyService {
         [actor.organizationId, propertyId],
       );
       invariant(
-        Number(usage.rows[0]!.bytes) + bytes.byteLength <= 52_428_800 &&
-          Number(usage.rows[0]!.count) < 20,
+        Number(usage.rows[0]!.bytes) + bytes.byteLength <=
+          MEDIA_CAPABILITIES.propertyMaxBytes &&
+          Number(usage.rows[0]!.count) < MEDIA_CAPABILITIES.propertyMaxRecords,
         "PROPERTY_UPLOAD_QUOTA",
         429,
       );

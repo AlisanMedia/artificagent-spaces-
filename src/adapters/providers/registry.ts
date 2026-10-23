@@ -12,6 +12,7 @@ const candidate = (
   name: string,
   sourceUrls: string[],
   officialModelId: string | null = null,
+  verificationDate: string = checked,
 ): ProviderEvidence => ({
   provider,
   candidate: name,
@@ -20,7 +21,7 @@ const candidate = (
   region: null,
   termsReviewed: false,
   pricingMicroUsd: null,
-  verifiedAt: officialModelId ? checked : null,
+  verifiedAt: officialModelId ? verificationDate : null,
   sourceUrls,
   enabled: false,
 });
@@ -61,6 +62,16 @@ export const PROVIDERS = Object.freeze({
     "Marble 1.1 candidate",
     ["https://docs.worldlabs.ai/api"],
     "marble-1.1",
+  ),
+  runway: candidate(
+    "Runway",
+    "Gen-4.5 via Runway — documented, disabled and rights/account unverified",
+    [
+      "https://docs.dev.runwayml.com/api/",
+      "https://docs.dev.runwayml.com/guides/pricing/",
+    ],
+    "gen4.5",
+    "2026-10-23",
   ),
   atlas: candidate("World Labs", "Atlas — R&D, general API/rights unverified", [
     "https://docs.worldlabs.ai/api",

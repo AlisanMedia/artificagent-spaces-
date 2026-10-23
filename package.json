@@ -29,7 +29,11 @@
     "licenses": "node scripts/license-inventory.mjs",
     "sbom": "npm run licenses && node scripts/sbom.mjs",
     "check": "npm run lint && npm run typecheck && npm run test:coverage && npm run security:check && npm run build",
-    "demo:ux": "tsx scripts/ux-samples.ts"
+    "demo:ux": "tsx scripts/ux-samples.ts",
+    "lab:fixtures": "tsx scripts/v4-fixtures.ts",
+    "lab:video": "tsx scripts/video-quality-lab.ts",
+    "economics": "tsx scripts/unit-economics.ts",
+    "benchmark:plan": "tsx scripts/provider-benchmark-plan.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.11",

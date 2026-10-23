@@ -1,0 +1,25 @@
+{
+  "version": "proposal-2026-10-23-v4.1",
+  "currency": "USD",
+  "externalApprovalMicroUsd": 0,
+  "productionProviderOutputSecondMicroUsd": null,
+  "productionProviderReferenceSecondMicroUsd": null,
+  "usdTryExchangeRate": null,
+  "assumptionsOnlyNotVendorQuotes": {
+    "workerHour": 150000,
+    "storageGibMonth": 23000,
+    "egressGib": 100000,
+    "humanHour": 20000000,
+    "supportPerAccepted": 500000,
+    "abusePerAccepted": 250000,
+    "paymentFixed": 300000,
+    "paymentBps": 290,
+    "taxBps": 0
+  },
+  "proposedPackagesNotForSale": [
+    {"id":"entry-video","priceMicroUsd":19000000,"unit":"export","state":"LOCAL_SOURCE_MOTION_ONLY_NOT_AI_TOUR"},
+    {"id":"priority-video","priceMicroUsd":39000000,"unit":"export","state":"QUALITY_AND_PROVIDER_DEPENDENT_NOT_ENABLED"},
+    {"id":"premium-3d-guide","priceMicroUsd":199000000,"unit":"property","state":"SYNTHETIC_3D_GUIDE_DEMO_LIVE_COST_UNKNOWN"},
+    {"id":"white-label-partner","priceMicroUsd":299000000,"unit":"month","includedAcceptedExportsHypothesis":10,"resellerCommissionBps":null,"state":"LOCAL_THEMING_AGGREGATE_ONLY_CONTRACT_BILLING_GATED"}
+  ]
+}

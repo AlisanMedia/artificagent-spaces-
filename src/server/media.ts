@@ -9,6 +9,12 @@ import { invariant, type Scene } from "@/domain/platform";
 import type { OutputEvidence } from "@/contracts/platform-ports";
 import type { LocalPrivateStorage } from "./storage";
 import { digest } from "./crypto";
+import {
+  renderProfile,
+  validateCaption,
+  type LabProfile,
+} from "@/domain/video-quality";
+import { renderCaption } from "./captions";
 
 const run = promisify(execFile);
 export function isolatedWorkerEnvironment(): NodeJS.ProcessEnv {
@@ -36,8 +42,21 @@ export async function buildOutput(
     logoAssetId: string | null;
     logoHash?: string | undefined;
   },
+  laboratory?: {
+    readonly profile: LabProfile;
+    readonly purpose: "isolated-quality-lab-v4";
+  },
 ): Promise<OutputEvidence> {
   const started = performance.now();
+  invariant(
+    !laboratory || laboratory.purpose === "isolated-quality-lab-v4",
+    "LAB_PROFILE_NOT_AUTHORIZED",
+  );
+  const spec = renderProfile(
+    input.aspectRatio,
+    input.durationSeconds,
+    laboratory?.profile,
+  );
   const dir = await mkdtemp(join(storage.root, "worker-"));
   try {
     const common = {
@@ -158,8 +177,8 @@ export async function buildOutput(
             source.kind === "walkthrough",
         )
         .slice(0, input.sourceAssetIds ? 12 : 3),
-      width = input.aspectRatio === "16:9" ? 640 : 360,
-      height = input.aspectRatio === "16:9" ? 360 : 640;
+      width = spec.width,
+      height = spec.height;
     invariant(selected.length > 0, "CLEAN_IMAGE_REQUIRED");
     const args = ["-hide_banner", "-loglevel", "error", "-nostdin", "-y"];
     for (const source of selected) {
@@ -174,6 +193,8 @@ export async function buildOutput(
         "SOURCE_HASH_MISMATCH",
       );
       args.push(
+        "-threads",
+        "1",
         ...(source.kind === "walkthrough"
           ? ["-stream_loop", "-1"]
           : ["-loop", "1"]),
@@ -185,18 +206,18 @@ export async function buildOutput(
       input.branding && brand?.logoAssetId ? brand.logoAssetId : null;
     if (logo)
       args.push(
+        "-threads",
+        "1",
         "-loop",
         "1",
         "-i",
         storage.path(scene.organizationId, logo, "source"),
       );
-    const frames = Math.round((input.durationSeconds * 24) / selected.length);
+    const frames = Math.round((spec.durationSeconds * 24) / selected.length);
+    // Spread bounded motion over the entire shot; the old fixed step plateaued on long shots.
     const zoomRate =
-      input.mode === "pov"
-        ? 0.0005
-        : input.mode === "cinematic"
-          ? 0.0012
-          : 0.0008;
+      (input.mode === "pov" ? 0.04 : input.mode === "cinematic" ? 0.08 : 0.06) /
+      Math.max(1, frames - 1);
     const grades = {
       modern: "eq=contrast=1.02:saturation=0.95",
       luxury: "eq=contrast=1.05:saturation=0.88:brightness=-0.005",
@@ -204,25 +225,26 @@ export async function buildOutput(
       hotel: "eq=contrast=1.01:saturation=1.03",
       investment: "eq=saturation=0.9",
     };
-    const shotDuration = input.durationSeconds / selected.length;
+    const shotDuration = spec.durationSeconds / selected.length;
     const fade =
       input.mode === "cinematic"
         ? Math.min(0.18, shotDuration / 3)
         : input.mode === "hybrid"
           ? Math.min(0.08, shotDuration / 4)
           : 0;
-    const tail =
+    // Fade only at the start/end of the assembled reel; never flash to black at internal cuts.
+    const tail = (index: number) =>
       "," +
       grades[input.template] +
-      (fade
-        ? `,fade=t=in:st=0:d=${fade},fade=t=out:st=${shotDuration - fade}:d=${fade}`
+      (fade && index === 0 ? `,fade=t=in:st=0:d=${fade}` : "") +
+      (fade && index === selected.length - 1
+        ? `,fade=t=out:st=${shotDuration - fade}:d=${fade}`
         : "");
     const filters = selected.map((source, i) =>
       source.kind === "walkthrough"
-        ? `[${i}:v]trim=duration=${input.durationSeconds / selected.length},setpts=PTS-STARTPTS,scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height},fps=24,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail}[v${i}]`
-        : `[${i}:v]scale=1600:1600:force_original_aspect_ratio=increase:out_color_matrix=bt709:out_range=tv,crop=1600:1600,zoompan=z='min(1.0+on*${zoomRate},1.08)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=${frames}:s=${width}x${height}:fps=24,trim=duration=${input.durationSeconds / selected.length},setpts=PTS-STARTPTS,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail}[v${i}]`,
+        ? `[${i}:v]trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height},fps=24,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`
+        : `[${i}:v]scale=1600:1600:force_original_aspect_ratio=increase:out_color_matrix=bt709:out_range=tv,crop=1600:1600,zoompan=z='min(1.0+on*${zoomRate},1.08)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=${frames}:s=${width}x${height}:fps=24,trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`,
     );
-    const caption = join(dir, "caption.txt");
     const labels = {
       modern: "Modern Daire",
       luxury: "Lüks Konut",
@@ -230,22 +252,38 @@ export async function buildOutput(
       hotel: "Otel / Konaklama",
       investment: "Yatırım Sunumu",
     };
-    await writeFile(
-      caption,
-      `YEREL ÖRNEK • ${labels[input.template]}${input.branding && brand ? " • " + brand.displayName : ""}`,
-      { mode: 0o600 },
+    const caption =
+      input.captions || input.branding
+        ? await renderCaption(
+            `YEREL ÖRNEK • ${labels[input.template]}${input.branding && brand ? " • " + brand.displayName : ""}`,
+            width,
+            height,
+          )
+        : null;
+    if (caption) {
+      const captionPath = join(dir, "caption.png");
+      await writeFile(captionPath, caption.bitmap, { mode: 0o600 });
+      args.push("-threads", "1", "-loop", "1", "-i", captionPath);
+    }
+    invariant(
+      validateCaption(
+        caption?.layout,
+        width,
+        height,
+        !!(input.captions || input.branding),
+      ),
+      "CAPTION_LAYOUT_LIMIT",
     );
     const concat =
       selected.map((_, i) => `[v${i}]`).join("") +
       `concat=n=${selected.length}:v=1:a=0`;
     filters.push(
-      concat +
-        (input.captions || input.branding
-          ? `,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:textfile=${caption}:fontsize=18:fontcolor=white:box=1:boxcolor=black@0.7:x=16:y=h-th-18${logo ? "[captioned]" : "[out]"}`
-          : logo
-            ? "[captioned]"
-            : "[out]"),
+      concat + (caption ? "[uncaptioned]" : logo ? "[captioned]" : "[out]"),
     );
+    if (caption)
+      filters.push(
+        `[uncaptioned][${selected.length + (logo ? 1 : 0)}:v]overlay=x=${caption.layout.x}:y=${caption.layout.y}${logo ? "[captioned]" : "[out]"}`,
+      );
     if (logo) {
       filters.push(
         `[${selected.length}:v]scale=80:80:force_original_aspect_ratio=decrease,format=yuva420p[brandlogo]`,
@@ -253,9 +291,11 @@ export async function buildOutput(
       filters.push("[captioned][brandlogo]overlay=x=W-w-14:y=14[out]");
     }
     const output = join(dir, "output.mp4");
+    const encodeStarted = performance.now();
     await run(
-      "ffmpeg",
+      laboratory ? "prlimit" : "ffmpeg",
       [
+        ...(laboratory ? ["--as=1073741824", "--cpu=75", "--", "ffmpeg"] : []),
         ...args,
         "-filter_complex_threads",
         "1",
@@ -264,8 +304,12 @@ export async function buildOutput(
         "-map",
         "[out]",
         "-t",
-        String(input.durationSeconds),
+        String(spec.durationSeconds),
         "-an",
+        "-sn",
+        "-dn",
+        "-map_chapters",
+        "-1",
         "-c:v",
         "libx264",
         "-preset",
@@ -290,10 +334,17 @@ export async function buildOutput(
         "+faststart+write_colr",
         "-map_metadata",
         "-1",
+        "-fs",
+        String(spec.maxOutputBytes),
         output,
       ],
-      { timeout: 90_000, maxBuffer: 262_144, env: isolatedWorkerEnvironment() },
+      {
+        timeout: spec.timeoutMs,
+        maxBuffer: 262_144,
+        env: isolatedWorkerEnvironment(),
+      },
     );
+    const ffmpegWallTimeMs = Math.round(performance.now() - encodeStarted);
     const probe = await run(
       "ffprobe",
       ["-v", "error", "-show_streams", "-show_format", "-of", "json", output],
@@ -320,7 +371,7 @@ export async function buildOutput(
         video.color_space === "bt709" &&
         video.color_primaries === "bt709" &&
         video.color_transfer === "bt709" &&
-        Math.abs(duration - input.durationSeconds) < 0.15,
+        Math.abs(duration - spec.durationSeconds) < 0.15,
       "MEDIA_QA_FAILED",
     );
     const stored = await storage.finalizeOutput(
@@ -331,6 +382,17 @@ export async function buildOutput(
     );
     return {
       ...common,
+      nativeRenderMetrics: { ffmpegExitCode: 0, ffmpegWallTimeMs },
+      renderProfile: spec,
+      captionLayout: caption?.layout ?? null,
+      shotProvenance: selected.map((source, i) => ({
+        sourceId: source.id,
+        sourceSha256: source.clean_hash,
+        startSeconds: i * shotDuration,
+        endSeconds: (i + 1) * shotDuration,
+        operation:
+          source.kind === "walkthrough" ? "footage-loop-cut" : "still-pan-zoom",
+      })),
       cameraPlan: scene.rooms.some((r) => r.truth === "E2")
         ? planShots(scene, input.mode, input.durationSeconds)
         : null,

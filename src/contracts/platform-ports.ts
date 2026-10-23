@@ -1,3 +1,4 @@
+import type { CaptionLayout, ShotProvenance } from "@/domain/video-quality";
 import type { ShotPlan } from "@/domain/shots";
 import type { Scene, ViewerAction } from "@/domain/platform";
 
@@ -55,6 +56,19 @@ export interface GuideReply {
   readonly simulated: true;
 }
 export interface OutputEvidence {
+  readonly nativeRenderMetrics?: {
+    readonly ffmpegExitCode: 0;
+    readonly ffmpegWallTimeMs: number;
+  };
+  readonly renderProfile?: {
+    readonly id: string;
+    readonly labOnly: boolean;
+    readonly width: number;
+    readonly height: number;
+    readonly durationSeconds: number;
+  };
+  readonly captionLayout?: CaptionLayout | null;
+  readonly shotProvenance?: readonly ShotProvenance[];
   readonly brandSnapshot?: {
     displayName: string;
     logoSha256: string | null;
