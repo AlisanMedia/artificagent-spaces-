@@ -55,6 +55,10 @@ export interface GuideReply {
   readonly simulated: true;
 }
 export interface OutputEvidence {
+  readonly brandSnapshot?: {
+    displayName: string;
+    logoSha256: string | null;
+  } | null;
   readonly artifactId?: string;
   readonly manifestSha256?: string;
   readonly colorSpace?: "bt709-sdr";

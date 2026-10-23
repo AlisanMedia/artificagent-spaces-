@@ -15,14 +15,16 @@ npm run dev
 
 `http://127.0.0.1:3000/spaces` adresini açın. Sunucu yalnız loopback’e bağlanır; Host/Origin, HttpOnly/SameSite cookie, RLS ve scoped grant kontrolleri uygulanır. Local test kimliği seçimi gerçek müşteri girişi değildir.
 
-1. **Studio • yönetici** ile oturumu açın; Atrium fixture’ını seçin veya sentetik mülk oluşturun.
-2. Yeni mülke **Ölçülü sentetik fixture ekle**; hak onaylı JPEG/PNG/WebP özel alana yüklenebilir. Gerçek fotoğraf/adres/iletişim verisi kullanmayın.
-3. Üretim stüdyosunda POV / Sinematik / Hibrit / Serbest 3D seçin, sanal teklifi gösterip işi başlatın.
-4. **Studio • bağımsız incelemeci** kimliğine geçin; mülk/işi seçip gerçek çıktıyı kaynakla karşılaştırın, kalite kontrolleriyle onaylayın.
-5. Yöneticiye dönün; onaylı dosyayı indirin veya **1 saatlik yerel tur bağlantısı** oluşturun. Bu internet yayını değildir.
-6. 3D turda WASD/oklar, sürükle-bak ve dokunmatik yön tuşları kullanılabilir. Daypart sanatsal simülasyondur. Bilinmeyen oda ve duvar geçişleri engellenir.
-7. Ayrı analiz/rehber/iletişim izinlerini seçin. “Salon kaç metrekare?”, “Mutfak kaç metrekare?”, “Mutfak odasına götür”, “Akşam ışığını göster”, “Balkona götür” sorularını deneyin.
-8. Analiz, marka ve partner sekmelerini inceleyin. North/South ayrı partner fixture’larıdır; raw child medya/lead erişimi yoktur. `.localhost` alan adları fixture’dır, DNS doğrulaması yapılmamıştır.
+1. **Mülk medyasını yükle** ile sentetik fotoğraf/MP4 seçin; bir mülk veya test kimliği seçmek zorunlu değildir. İlk yükleme hazır yerel demo hesabı ve taslak oluşturur. Mevcut bir oturumun yetkisi kendiliğinden yükseltilmez.
+2. Kullanım hakkı/sentetik veri/metadata ve ses temizliği onayını işaretleyin; **Dosyaları güvenle yükle**. Özel alana kaydedilen kaynakları değiştirin, sıralayın veya kaldırın. Geçmiş sürümler korunur.
+3. **Tarzını seç** → Doğal keşif / Sinematik tanıtım / Karma kurgu. Dikey varsayılandır; Reels/Story, WhatsApp, YouTube ve ilan seçenekleri yalnız yerel dosya dışa aktarma tercihleridir. Şablonlar hafif renk düzeni ve başlığı değiştirir; farklı canlı AI modelleri değildir.
+4. **İçeriği oluştur** → gerçek MP4 önizlemesi. Ücret alınmaz. Kısa kaynak videolar seçilen süreyi tamamlamak için tekrarlanabilir; sesleri kaldırılır.
+5. Ayrı incelemeci `/spaces/manage?property=<proje>` alanından kaynak/çıktı ve gerekli kalite/hak kapılarını inceler. Yerel demoda test hesapları bu alandadır; kendi üretimini onaylama engeli korunur. Gerçek müşteri auth'u değildir.
+6. Onay sonrası **İndir** veya 1 saatlik yerel tur bağlantısı. Gerçek sosyal ağ hesabına paylaşım, internet deployment veya ödeme yapılmaz.
+7. **3D Sanal Tur — Premium / Beta** ikincil seçenektir: doğrulanmış ölçülü plan gerekir. Yerel demo çekmecesi ölçülü sentetik örnek ekleyebilir; birkaç keyfî fotoğraf gerçek konut rekonstrüksiyonu sayılmaz. Mevcut gerçek free-walk/voice consent/analytics/white-label/partner modülleri korunur.
+8. Hesap ve yönetim alanında rolünüze uygun inceleme, analitik, marka, partner ve kullanım araçları bulunur. Dropdown gizlemek server authorization/RLS yerine geçmez.
+
+**Dosyalar:** Fotoğraf JPEG/PNG/WebP ≤5 MiB. Video yalnız 8-bit SDR H.264 MP4 ≤20 MiB, 0.25–30 saniye, her eksende ≤1920 ve toplam ≤2,073,600 piksel, ≤60 FPS; isteğe bağlı AAC ses alınır ve silinir. Tek video stream, ikinci stream yalnız AAC olabilir. MP4 yeniden kodlanır (24 FPS, en uzun kenar en fazla720); EXIF/GPS/yorum, ses/chapters/subtitle temizlenir. HDR/10-bit/MOV/WebM/HEVC/ProRes/AV1/4K/PDF ve ses/müzik ekleme desteklenmez. UI'da en fazla12 medya, server property kotası20 kayıt/50 MiB'dır; reddedilen/eski dosyalar da kotaya sayılır. Export640×360 veya360×640 H.264/BT.709,4/8/16 saniyedir.
 
 Video çıktıları **gerçek H.264 MP4 kaynak-görsel hareket/kesme demolarıdır**; fotogerçekçi AI POV yürüyüşü değildir. 3D, **gerçek metrik parametrik GLB + serbest tarayıcı navigasyonudur**; panorama veya MP4 değildir. Pencereler/balkon/manzara uydurulmaz. JSON kamera planı yalnız plan olarak etiketlenir.
 
@@ -67,3 +69,7 @@ Browser testleri desktop/mobile Chromium ve axe içerir; SwiftShader test render
 - [Sağlayıcı kanıtları](docs/provider-verification.md), [açılış ve rollback](docs/release-playbook.md).
 - [Phase 1 README](docs/archive/phase-1-readme.md), [tarihsel mimari](docs/archive/phase-1-architecture.md). Eski ekranlar JSON-only foundation arşividir; çalışan platform `/spaces` altındadır.
 - Gerçek cloud/paid API/GPU/customer-data/DPA/production/DNS/payment işlemleri `BLOCKED_EXTERNAL_APPROVAL` kalır. GitHub bağımsız review zorunludur; main’e doğrudan push/bypass yoktur.
+
+## V3 tekrar üretilebilir örnekler
+
+`npm run demo:ux` yalnız özgün sentetik SVG'den üç gerçek örnek MP4 üretir; `.spaces-local/ux-demo/measurements.json` hash/codec/süre/wall-time içerir. Başka bir sentetik kimlik ile review akışı denenir; gerçek bağımsız insan/GitHub review sayılmaz. Public örneklerin incelenmiş kopyası `public/spaces-examples/`, güvenli ölçümü `artifacts/ux-v3/example-measurements.json` içindedir. Kaynak hakları ve şema: [V3 uygulama notları](docs/ux-first-v3.md).

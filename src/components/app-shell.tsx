@@ -83,7 +83,7 @@ export function AppShell({ children }: { readonly children: ReactNode }) {
     if (typeof query === "string") router.push("/properties?q=" + encodeURIComponent(query.trim()));
   }
 
-  if (pathname.startsWith("/spaces") || pathname.startsWith("/tour/")) return <div className="spaces-shell"><a href="#main-content" className="skip-link">İçeriğe geç</a><header className="spaces-header"><Link href="/spaces" className="spaces-wordmark"><span aria-hidden="true">A↗</span> ArtificAgent <em>SPACES</em></Link><nav aria-label="Platform gezinme"><Link href="/spaces">Çalışma alanı</Link><Link href="/">Foundation arşivi</Link></nav><span className="spaces-pill">YEREL · SENTETİK · 0 USD</span></header><main id="main-content" tabIndex={-1}>{children}</main><footer className="spaces-footer">ARTIFICAGENT SPACES <span>Canlı servis / deployment / ödeme kapalı</span></footer></div>;
+  if (pathname.startsWith("/spaces") || pathname.startsWith("/tour/")) return <div className="spaces-shell"><a href="#main-content" className="skip-link">İçeriğe geç</a><header className="spaces-header"><Link href="/spaces" className="spaces-wordmark"><span aria-hidden="true">A↗</span> ArtificAgent <em>SPACES</em></Link><nav aria-label="Platform gezinme"><Link href="/spaces">Stüdyo</Link><Link href="/spaces/manage">Hesap ve yönetim</Link></nav><span className="spaces-pill">YEREL · SENTETİK · 0 USD</span></header><main id="main-content" tabIndex={-1}>{children}</main><footer className="spaces-footer">ARTIFICAGENT SPACES <span>Yerel örnek çalışma · İnternet yayını ve ödeme kapalı</span></footer></div>;
 
   return <div className="app-layout">
     <a href="#main-content" className="skip-link">İçeriğe geç</a>

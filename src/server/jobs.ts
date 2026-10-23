@@ -10,6 +10,7 @@ import { digest, newId } from "./crypto";
 import type { Actor, Database } from "./database";
 import { authorize, audit, type PropertyService } from "./properties";
 import type { LocalPrivateStorage } from "./storage";
+import { BrandService } from "./brands";
 import { Ledger } from "./ledger";
 import { buildOutput, type MediaSource } from "./media";
 
@@ -85,19 +86,44 @@ export class JobService {
     const command = GenerationInput.parse(input);
     const property = await this.properties.get(actor, command.propertyId);
     invariant(property.revision === command.revision, "STALE_REVISION", 409);
-    const sources = (await this.properties.assets(actor, property.id)).filter(
+    let sources = (await this.properties.assets(actor, property.id)).filter(
       (a) => a.status === "clean",
     );
+    if (command.sourceAssetIds) {
+      invariant(
+        new Set(command.sourceAssetIds).size === command.sourceAssetIds.length,
+        "DUPLICATE_MEDIA",
+      );
+      const selected = command.sourceAssetIds.map((id) =>
+        sources.find((a) => a.id === id),
+      );
+      invariant(selected.every(Boolean), "MEDIA_SCOPE_DENIED", 403);
+      sources = selected as typeof sources;
+    }
     invariant(
       command.mode === "interactive-3d"
         ? property.manifest.rooms.length > 0 &&
             property.manifest.measuredBy &&
             property.manifest.rooms.every((r) => r.truth === "E2")
-        : sources.some((s) => s.kind === "photo" || s.kind === "panorama"),
+        : sources.some(
+            (s) =>
+              s.kind === "photo" ||
+              s.kind === "panorama" ||
+              s.kind === "walkthrough",
+          ),
       "INSUFFICIENT_EVIDENCE",
     );
     const hash = digest(JSON.stringify(command));
     return this.db.pg.transaction(async (tx) => {
+      const current = await tx.query<{ revision: number }>(
+        "select revision from properties where organization_id=$1 and id=$2 and not archived for update",
+        [actor.organizationId, property.id],
+      );
+      invariant(
+        current.rows[0]?.revision === command.revision,
+        "STALE_REVISION",
+        409,
+      );
       await tx.query(
         "select organization_id from credit_accounts where organization_id=$1 for update",
         [actor.organizationId],
@@ -148,6 +174,7 @@ export class JobService {
               id: source.id,
               clean_hash: source.clean_hash,
               kind: source.kind,
+              mime: source.mime,
             })),
           ),
         ],
@@ -262,7 +289,13 @@ export class JobService {
               .object({
                 id: Id,
                 clean_hash: z.string().regex(/^[a-f0-9]{64}$/),
-                kind: z.enum(["photo", "panorama", "floor-plan"]),
+                kind: z.enum([
+                  "photo",
+                  "panorama",
+                  "floor-plan",
+                  "walkthrough",
+                ]),
+                mime: z.enum(["image/jpeg", "video/mp4"]).optional(),
               })
               .strict(),
           )
@@ -291,12 +324,33 @@ export class JobService {
             ),
           "SOURCE_EVIDENCE_CHANGED",
         );
+        const brand = job.command.branding
+          ? await new BrandService(this.db).publicBrand(job.organization_id)
+          : undefined;
+        let logoHash: string | undefined;
+        if (brand?.logoAssetId) {
+          const logo = (
+            await this.db.pg.query<{ clean_hash: string }>(
+              "select clean_hash from assets where organization_id=$1 and id=$2 and mime='image/jpeg' and status='clean'",
+              [job.organization_id, brand.logoAssetId],
+            )
+          ).rows[0];
+          invariant(logo, "BRAND_ASSET_SCOPE_DENIED", 403);
+          await this.storage.readVerified(
+            job.organization_id,
+            brand.logoAssetId,
+            logo.clean_hash,
+            "source",
+          );
+          logoHash = logo.clean_hash;
+        }
         const output = await buildOutput(
           this.storage,
           job.id + "--" + job.fence,
           GenerationInput.parse(job.command),
           scene,
           sources,
+          brand ? { ...brand, logoHash } : undefined,
         );
         await this.db.pg.transaction(async (tx) => {
           const updated = await tx.query(

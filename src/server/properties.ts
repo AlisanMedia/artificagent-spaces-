@@ -1,6 +1,6 @@
 import { z } from "zod";
 import sharp from "sharp";
-import { readFile } from "node:fs/promises";
+import { readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import type { Transaction } from "@electric-sql/pglite";
 import {
@@ -14,6 +14,7 @@ import {
 import { newId, digest } from "./crypto";
 import type { Actor, Database } from "./database";
 import type { LocalPrivateStorage } from "./storage";
+import { validatePhotoMagic } from "@/domain/media-intake";
 import { emptyManifest, measuredFixture } from "./seed";
 
 export interface PropertyRecord {
@@ -36,6 +37,8 @@ export interface AssetRecord {
   height: number;
   mime: string;
   bytes: number;
+  duration_seconds: number | null;
+  position: number;
 }
 export async function authorize(
   db: Database,
@@ -161,6 +164,10 @@ export class PropertyService {
           actor.userId,
         ],
       );
+      await tx.query(
+        "insert into property_media_revisions select organization_id,property_id,$4,asset_id,position from property_media_revisions where organization_id=$1 and property_id=$2 and revision=$3",
+        [actor.organizationId, id, expectedRevision, next.revision],
+      );
       await audit(
         tx,
         actor,
@@ -175,7 +182,7 @@ export class PropertyService {
     return (
       await this.db.as(actor, (tx) =>
         tx.query<AssetRecord>(
-          "select id,property_id,kind,status,clean_hash,width,height,mime,bytes from assets where organization_id=$1 and property_id=$2 order by created_at",
+          "select a.id,a.property_id,a.kind,a.status,a.clean_hash,a.width,a.height,a.mime,a.bytes,a.duration_seconds,m.position from assets a join property_media_revisions m on m.organization_id=a.organization_id and m.asset_id=a.id join properties p on p.organization_id=m.organization_id and p.id=m.property_id and p.revision=m.revision where a.organization_id=$1 and a.property_id=$2 order by m.position",
           [actor.organizationId, propertyId],
         ),
       )
@@ -185,12 +192,34 @@ export class PropertyService {
     actor: Actor,
     propertyId: string,
     bytes: Uint8Array,
-    kind: "photo" | "floor-plan" | "panorama",
+    kind: "photo" | "floor-plan" | "panorama" | "walkthrough",
     rights: unknown,
     requestedId: string = newId(),
+    options: {
+      revision?: number;
+      mime?: string;
+      signal?: AbortSignal;
+      replaceAssetId?: string;
+    } = {},
   ) {
     await authorize(this.db, actor, "edit");
-    await this.get(actor, propertyId);
+    const property = await this.get(actor, propertyId);
+    invariant(
+      options.revision === undefined || options.revision === property.revision,
+      "STALE_REVISION",
+      409,
+    );
+    if (options.replaceAssetId)
+      invariant(
+        (await this.assets(actor, propertyId)).some(
+          (a) => a.id === options.replaceAssetId,
+        ),
+        "MEDIA_SCOPE_DENIED",
+        403,
+      );
+    options.signal?.throwIfAborted();
+    if (kind !== "walkthrough" && options.mime)
+      validatePhotoMagic(bytes, options.mime);
     z.object({
       syntheticOnly: z.literal(true),
       ownedOrLicensed: z.literal(true),
@@ -199,7 +228,8 @@ export class PropertyService {
       .strict()
       .parse(rights);
     invariant(
-      bytes.byteLength > 0 && bytes.byteLength <= 5_242_880,
+      bytes.byteLength > 0 &&
+        bytes.byteLength <= (kind === "walkthrough" ? 20_971_520 : 5_242_880),
       "UPLOAD_SIZE_LIMIT",
       413,
     );
@@ -246,10 +276,63 @@ export class PropertyService {
       );
     });
     try {
-      const clean = await this.storage.ingest(actor.organizationId, id, bytes);
-      await this.db.as(actor, (tx) =>
-        tx.query(
-          "update assets set status='clean',clean_hash=$3,bytes=$4,width=$5,height=$6,mime=$7 where organization_id=$1 and id=$2 and status='quarantine'",
+      const clean =
+        kind === "walkthrough"
+          ? await this.storage.ingestVideo(
+              actor.organizationId,
+              id,
+              bytes,
+              options.signal,
+            )
+          : await this.storage.ingest(actor.organizationId, id, bytes);
+      options.signal?.throwIfAborted();
+      await this.db.as(actor, async (tx) => {
+        const current = await tx.query<{ revision: number }>(
+          "select revision from properties where organization_id=$1 and id=$2 and not archived for update",
+          [actor.organizationId, propertyId],
+        );
+        invariant(
+          current.rows[0]?.revision === property.revision,
+          "STALE_REVISION",
+          409,
+        );
+        let targetRevision = property.revision;
+        const frozen = await tx.query(
+          "select id from jobs where organization_id=$1 and property_id=$2 and revision=$3 limit 1",
+          [actor.organizationId, propertyId, property.revision],
+        );
+        if (frozen.rows.length || options.replaceAssetId) {
+          targetRevision++;
+          await tx.query(
+            "update properties set revision=$3 where organization_id=$1 and id=$2",
+            [actor.organizationId, propertyId, targetRevision],
+          );
+          await tx.query(
+            "insert into property_revisions(organization_id,property_id,revision,manifest,created_by) values($1,$2,$3,$4,$5)",
+            [
+              actor.organizationId,
+              propertyId,
+              targetRevision,
+              JSON.stringify({
+                ...property.manifest,
+                revision: targetRevision,
+              }),
+              actor.userId,
+            ],
+          );
+          await tx.query(
+            "insert into property_media_revisions select organization_id,property_id,$4,asset_id,position from property_media_revisions where organization_id=$1 and property_id=$2 and revision=$3 and ($5::text is null or asset_id<>$5)",
+            [
+              actor.organizationId,
+              propertyId,
+              property.revision,
+              targetRevision,
+              options.replaceAssetId ?? null,
+            ],
+          );
+        }
+        await tx.query(
+          "update assets set status='clean',clean_hash=$3,bytes=$4,width=$5,height=$6,mime=$7,duration_seconds=$8 where organization_id=$1 and id=$2 and status='quarantine'",
           [
             actor.organizationId,
             id,
@@ -258,9 +341,28 @@ export class PropertyService {
             clean.width,
             clean.height,
             clean.mime,
+            "durationSeconds" in clean ? clean.durationSeconds : null,
           ],
-        ),
-      );
+        );
+        if (options.replaceAssetId) {
+          await tx.query(
+            "insert into property_media_revisions select organization_id,property_id,$5,$4,position from property_media_revisions where organization_id=$1 and property_id=$2 and revision=$3 and asset_id=$6",
+            [
+              actor.organizationId,
+              propertyId,
+              property.revision,
+              id,
+              targetRevision,
+              options.replaceAssetId,
+            ],
+          );
+        } else {
+          await tx.query(
+            "insert into property_media_revisions select $1,$2,$3,$4,coalesce(max(position)+1,0) from property_media_revisions where organization_id=$1 and property_id=$2 and revision=$3",
+            [actor.organizationId, propertyId, targetRevision, id],
+          );
+        }
+      });
       return { id, ...clean };
     } catch (error) {
       await this.db.as(actor, (tx) =>
@@ -269,8 +371,69 @@ export class PropertyService {
           [actor.organizationId, id],
         ),
       );
+      await rm(
+        this.storage.path(
+          actor.organizationId,
+          id,
+          "source",
+          kind === "walkthrough" ? "mp4" : "jpg",
+        ),
+        { force: true },
+      );
       throw error;
     }
+  }
+  async reorderMedia(
+    actor: Actor,
+    propertyId: string,
+    revision: number,
+    assetIds: string[],
+  ) {
+    await authorize(this.db, actor, "edit");
+    z.array(Id).max(20).parse(assetIds);
+    invariant(
+      new Set(assetIds).size === assetIds.length,
+      "DUPLICATE_MEDIA",
+      400,
+    );
+    const current = await this.get(actor, propertyId);
+    invariant(current.revision === revision, "STALE_REVISION", 409);
+    const assets = await this.assets(actor, propertyId);
+    invariant(
+      assetIds.every((id) =>
+        assets.some((a) => a.id === id && a.status === "clean"),
+      ),
+      "MEDIA_SCOPE_DENIED",
+      403,
+    );
+    return this.db.as(actor, async (tx) => {
+      const updated = await tx.query(
+        "update properties set revision=revision+1 where organization_id=$1 and id=$2 and revision=$3 returning revision",
+        [actor.organizationId, propertyId, revision],
+      );
+      invariant(updated.rows.length === 1, "STALE_REVISION", 409);
+      const next = validateScene({
+        ...current.manifest,
+        revision: revision + 1,
+      });
+      await tx.query(
+        "insert into property_revisions(organization_id,property_id,revision,manifest,created_by) values($1,$2,$3,$4,$5)",
+        [
+          actor.organizationId,
+          propertyId,
+          next.revision,
+          JSON.stringify(next),
+          actor.userId,
+        ],
+      );
+      for (const [position, id] of assetIds.entries())
+        await tx.query(
+          "insert into property_media_revisions values($1,$2,$3,$4,$5)",
+          [actor.organizationId, propertyId, next.revision, id, position],
+        );
+      await audit(tx, actor, "property.media_revised", propertyId);
+      return { id: propertyId, revision: next.revision };
+    });
   }
   async applySyntheticPlan(actor: Actor, propertyId: string) {
     const property = await this.get(actor, propertyId);

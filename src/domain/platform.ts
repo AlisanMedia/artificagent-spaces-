@@ -310,6 +310,9 @@ export const GenerationInput = z
     idempotencyKey: z.string().min(8).max(80),
     captions: z.boolean().default(true),
     localSource: z.literal("image-motion").default("image-motion"),
+    sourceAssetIds: z.array(Id).min(1).max(12).optional(),
+    template: z.enum(["modern","luxury","warm","hotel","investment"]).default("modern"),
+    branding: z.boolean().default(false),
   })
   .strict();
 export const CreateProperty = z
