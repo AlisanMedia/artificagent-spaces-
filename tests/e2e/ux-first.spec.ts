@@ -105,10 +105,18 @@ test("nontechnical upload → real video → independent review → download wit
     (route) => route.abort(),
     { times: 1 },
   );
+  const initialVideoUpload = page.waitForResponse(
+    (r) =>
+      r.url().endsWith("/media-upload") &&
+      r.request().headers()["content-type"] === "video/mp4",
+  );
   await page.getByRole("button", { name: "Dosyaları güvenle yükle" }).click();
   await expect(
     page.getByText("Tekrar denenebilir", { exact: true }),
   ).toHaveCount(1, { timeout: 30000 });
+  // The batch continues with the MP4 after the intentional photo failure.
+  // Wait for actual server validation to finish before asserting the retry action.
+  expect((await initialVideoUpload).ok()).toBe(true);
   await expect(
     page.getByRole("button", { name: "Dosyaları güvenle yükle" }),
   ).toBeEnabled();
