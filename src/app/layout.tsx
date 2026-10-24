@@ -4,6 +4,7 @@ import { AppShell } from "@/components/app-shell";
 import { WorkspaceProvider } from "@/components/workspace-provider";
 import "./globals.css";
 import "./platform.css";
+import "./studio-visual.css";
 
 export const metadata: Metadata = {
   title: { default: "ArtificAgent Spaces — Mekânlara yeni bir bakış", template: "%s · ArtificAgent Spaces" },

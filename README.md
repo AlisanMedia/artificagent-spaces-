@@ -15,13 +15,13 @@ npm run dev
 
 `http://127.0.0.1:3000/spaces` adresini açın. Sunucu yalnız loopback’e bağlanır; Host/Origin, HttpOnly/SameSite cookie, RLS ve scoped grant kontrolleri uygulanır. Local test kimliği seçimi gerçek müşteri girişi değildir.
 
-1. **Mülk medyasını yükle** ile sentetik fotoğraf/MP4 seçin; bir mülk veya test kimliği seçmek zorunlu değildir. İlk yükleme hazır yerel demo hesabı ve taslak oluşturur. Mevcut bir oturumun yetkisi kendiliğinden yükseltilmez.
+1. **Fotoğraf veya video ekle** ile sentetik fotoğraf/MP4 seçin; bir mülk veya test kimliği seçmek zorunlu değildir. İlk yükleme hazır yerel demo hesabı ve taslak oluşturur. Mevcut bir oturumun yetkisi kendiliğinden yükseltilmez.
 2. Kullanım hakkı/sentetik veri/metadata ve ses temizliği onayını işaretleyin; **Dosyaları güvenle yükle**. Özel alana kaydedilen kaynakları değiştirin, sıralayın veya kaldırın. Geçmiş sürümler korunur.
 3. **Tarzını seç** → Doğal keşif / Sinematik tanıtım / Karma kurgu. Dikey varsayılandır; Reels/Story, WhatsApp, YouTube ve ilan seçenekleri yalnız yerel dosya dışa aktarma tercihleridir. Şablonlar hafif renk düzeni ve başlığı değiştirir; farklı canlı AI modelleri değildir.
 4. **İçeriği oluştur** → gerçek MP4 önizlemesi. Ücret alınmaz. Kısa kaynak videolar seçilen süreyi tamamlamak için tekrarlanabilir; sesleri kaldırılır.
 5. Ayrı incelemeci `/spaces/manage?property=<proje>` alanından kaynak/çıktı ve gerekli kalite/hak kapılarını inceler. Yerel demoda test hesapları bu alandadır; kendi üretimini onaylama engeli korunur. Gerçek müşteri auth'u değildir.
 6. Onay sonrası **İndir** veya 1 saatlik yerel tur bağlantısı. Gerçek sosyal ağ hesabına paylaşım, internet deployment veya ödeme yapılmaz.
-7. **3D Sanal Tur — Premium / Beta** ikincil seçenektir: doğrulanmış ölçülü plan gerekir. Yerel demo çekmecesi ölçülü sentetik örnek ekleyebilir; birkaç keyfî fotoğraf gerçek konut rekonstrüksiyonu sayılmaz. Mevcut gerçek free-walk/voice consent/analytics/white-label/partner modülleri korunur.
+7. **3D turu keşfet** ikincil seçenektir: doğrulanmış ölçülü plan gerekir. Yerel demo çekmecesi ölçülü sentetik örnek ekleyebilir; birkaç keyfî fotoğraf gerçek konut rekonstrüksiyonu sayılmaz. Mevcut gerçek free-walk/voice consent/analytics/white-label/partner modülleri korunur.
 8. Hesap ve yönetim alanında rolünüze uygun inceleme, analitik, marka, partner ve kullanım araçları bulunur. Dropdown gizlemek server authorization/RLS yerine geçmez.
 
 **Dosyalar:** Fotoğraf JPEG/PNG/WebP ≤5 MiB. Video yalnız 8-bit SDR H.264 MP4 ≤20 MiB, 0.25–30 saniye, her eksende ≤1920 ve toplam ≤2,073,600 piksel, ≤60 FPS; isteğe bağlı AAC ses alınır ve silinir. Tek video stream, ikinci stream yalnız AAC olabilir. MP4 yeniden kodlanır (24 FPS, en uzun kenar en fazla720); EXIF/GPS/yorum, ses/chapters/subtitle temizlenir. HDR/10-bit/MOV/WebM/HEVC/ProRes/AV1/4K/PDF ve ses/müzik ekleme desteklenmez. UI'da en fazla12 medya, server property kotası20 kayıt/50 MiB'dır; reddedilen/eski dosyalar da kotaya sayılır. Export640×360 veya360×640 H.264/BT.709,4/8/16 saniyedir.
@@ -110,3 +110,12 @@ Gerçek ffprobe/tam MP4 decode ve GLB geometri denetimi `npm run test:coverage` 
 Önizlemede Oluştur / Projelerim / Sonuçlar, üç video tarzı, gerçek hazır MP4 indirmesi, ölçülü plan/oda görünümleri ve GLB serbest gezinme vardır. Ziyaretçinin seçtiği dosya sadece cihazdaki geçici Blob ile gösterilir; uzak sunucuya yüklenmez ve hazır videonun ondan üretildiği söylenmez. Örnek dosyalar owner tarafından izin verilmiş sentetik tasarımdır; private tenant yayın/bağımsız release onayını geçersiz kılmaz. Ayrı backend uygulamasının RLS, sesli rehber simülasyonu, analitik ve partner özellikleri korunur; statik yayına taşınmaz.
 
 V5'te beş oda / dört kapı / üç pencere, 78.4m² **sentetik tasarım** alanı; fotogerçekçi veya gerçek ev rekonstrüksiyonu değildir. İki gerçek bağımsız insan incelemesi henüz yoktur; puanlar NULL, gerçek accepted-output maliyeti ve üretim kârı UNKNOWN kalır. Gerçek AI/ElevenLabs çağrısı ve önceki önerilen $10 benchmark onaysızdır. PR2–4 review beklerken beşinci stacked PR açılmaz; hiçbir PR bu görevde merge edilmez.
+
+
+## V5.2 premium ürün stüdyosu
+
+Sıcak açık yüzeyler, orman yeşili eylemler ve yerel lisanslı Manrope/Newsreader ile tek yükleme alanı; ilk mobil görünümde **Fotoğraf veya video ekle** / **Örnek mülkle dene**. Statik örnekler hazır MP4'tür; cihazınızda seçtiğiniz dosyalardan yeni video üretildiği iddia edilmez. Tam uygulamada gerçek özel yükleme ve bağımsız inceleme kapısı korunur.
+
+[Tasarım sistemi, haklar, hareket ve kanıt yöntemi](docs/ui-v52-design-system.md). `npm run preview:build` → `npm run preview:serve` sadece loopback statik önizleme; `npm run preview:test` etkileşim/medya/3D/axe ve kapalı API sınırlarını doğrular. `node scripts/capture-studio-evidence.mjs` yedi genişlikte gerçek ekranlar ve mobil lab ölçümleri üretir. Bu komutlar deployment yapmaz.
+
+Vercel doğru ArtificAgent hesabı erişimi olmadan **BLOCKED_ACCOUNT_ACCESS** kalır; Gold Revenue OS kullanılmaz. Gerçek iPhone/Safari, bağımsız emlakçı kullanılabilirliği, ücretli model sadakati ve ticari kârlılık bu yeniden tasarımla doğrulanmış olmaz. PR2–4 bağımsız inceleme beklerken yeni beşinci PR açılmaz ve merge yapılmaz.

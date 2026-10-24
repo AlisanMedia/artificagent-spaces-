@@ -33,11 +33,7 @@ import type {
   PropertyView,
   WorkspaceView,
 } from "@/contracts/platform-ui";
-import {
-  EXPORT_PRESETS,
-  TEMPLATE_LABELS,
-  VIDEO_STYLES,
-} from "@/domain/media-intake";
+import { EXPORT_PRESETS, TEMPLATE_LABELS } from "@/domain/media-intake";
 import {
   DISCLOSURE,
   RIGHTS,
@@ -52,6 +48,7 @@ import {
 } from "@/domain/media-capabilities";
 import { preflightSelection } from "./media-preflight";
 import { useStudioFunnel } from "./use-studio-funnel";
+import { StudioSteps, StudioStyleCards } from "./studio-presentation";
 
 type Draft = { property: PropertyView; assets: AssetView[] };
 type Pending = {
@@ -565,76 +562,29 @@ export function CreationStudio() {
             {label}
           </button>
         ))}
-        <Link className="ux-manage" href="/spaces/manage">
-          <Settings2 size={16} aria-hidden="true" />
-          Hesap ve yönetim
-        </Link>
       </nav>
       {view === "create" ? (
         <>
-          <section className="ux-hero" aria-label="Mülkün için içerik oluştur">
-            <div className="ux-hero-copy">
-              <span className="ux-kicker">MÜLKÜNÜN HİKÂYESİNİ GÖSTER</span>
+          <div className={`ux-studio-heading ${step > 1 ? "is-compact" : ""}`}>
+            <div>
+              <span className="ux-kicker">EMLAK STÜDYOSU</span>
               <h1>
-                Bir mekân.
+                Mülkünüz,
                 <br />
-                <em>Güçlü bir ilk izlenim.</em>
+                <em>sizin imzanız.</em>
               </h1>
-              <p>
-                Fotoğraf veya videolarını ekle. Tarzını seç.
-                <br />
-                Mülkünü anlatan içeriği önizle ve indir.
-              </p>
-              <button
-                className="ux-primary"
-                disabled={!bootstrap || busy || !canEdit}
-                onClick={() => (
-                  recordFunnel("picker_opened"),
-                  fileInput.current?.click()
-                )}
-              >
-                <Upload size={19} aria-hidden="true" />
-                {STUDIO_TR.upload}
-                <ArrowRight size={18} aria-hidden="true" />
-              </button>
-              <span className="ux-hero-detail">
-                Fotoğraf + MP4 video · Özel dosyalar · Kolay önizleme
-              </span>
+              <p>Fotoğraf ve videolarınızla başlayın.</p>
             </div>
-            <div className="ux-hero-art">
-              <img
-                src="/spaces-examples/interior.svg"
-                alt="Sıcak nötr tonlarda özgün sentetik salon illüstrasyonu"
-              />
-              <span>Temsilî sentetik görsel · Gerçek bir ilan değil</span>
-              <div className="ux-art-label">
-                <span>SPACES COLLECTION</span>
-                <strong>Mekânı hissettir.</strong>
-              </div>
-            </div>
-          </section>
-          <ol className="ux-stepper" aria-label="İçerik oluşturma adımları">
-            {STUDIO_TR.steps.map((label, i) => (
-              <li
-                key={label}
-                aria-current={step === i + 1 ? "step" : undefined}
-              >
-                <button
-                  disabled={(i > 0 && !ready) || busy}
-                  onClick={() => setStep(i + 1)}
-                >
-                  <span>
-                    {step > i + 1 ? (
-                      <Check size={15} aria-hidden="true" />
-                    ) : (
-                      i + 1
-                    )}
-                  </span>
-                  {label}
-                </button>
-              </li>
-            ))}
-          </ol>
+            <span className="ux-studio-caption">
+              Bir mekân. Size ait bir anlatım.
+            </span>
+          </div>
+          <StudioSteps
+            step={step}
+            onStep={setStep}
+            canAdvance={ready}
+            disabled={busy}
+          />
           <section
             className="ux-workbench"
             ref={section}
@@ -673,34 +623,8 @@ export function CreationStudio() {
             />
             {step === 1 && (
               <>
-                <div className="ux-section-heading">
-                  <div>
-                    <span className="ux-kicker">01 / MEDYA</span>
-                    <h2>Fotoğraf ve videolarını ekle</h2>
-                    <p>
-                      En iyi açılarını bir araya getir. Sıralamayı dilediğin
-                      gibi değiştir.
-                    </p>
-                  </div>
-                  <button
-                    className="subtle"
-                    disabled={busy || !canEdit}
-                    onClick={() => (
-                      recordFunnel("picker_opened"),
-                      fileInput.current?.click()
-                    )}
-                  >
-                    <Plus size={17} aria-hidden="true" />
-                    Dosya ekle
-                  </button>
-                </div>
-                <button
-                  className="ux-dropzone"
-                  disabled={busy || !canEdit}
-                  onClick={() => (
-                    recordFunnel("picker_opened"),
-                    fileInput.current?.click()
-                  )}
+                <div
+                  className="ux-upload-stage"
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => {
                     e.preventDefault();
@@ -711,17 +635,61 @@ export function CreationStudio() {
                   <span className="ux-upload-symbol">
                     <Upload size={27} aria-hidden="true" />
                   </span>
-                  <strong>Dosyalarını buraya bırak veya seç</strong>
-                  <span>Galerinden ya da cihazından fotoğraf / MP4 seç</span>
-                  <small>
-                    {MEDIA_UPLOAD_HELP_TR.photos}
-                    <br />
-                    {MEDIA_UPLOAD_HELP_TR.videos}
-                    <br />
-                    En fazla {MEDIA_CAPABILITIES.maxSelection} dosya. MOV / WebM
-                    desteklenmiyor.
-                  </small>
-                </button>
+                  <h2>İyi bir hikâye burada başlar.</h2>
+                  <p>Fotoğraf ve videolarınızı buraya bırakın.</p>
+                  <button
+                    className="ux-primary"
+                    disabled={!bootstrap || busy || !canEdit}
+                    onClick={() => {
+                      recordFunnel("picker_opened");
+                      fileInput.current?.click();
+                    }}
+                  >
+                    <Upload size={18} aria-hidden="true" />
+                    {STUDIO_TR.upload}
+                    <ArrowRight size={17} aria-hidden="true" />
+                  </button>
+                  {!draft?.assets.length && !pending.length && (
+                    <button
+                      className="ux-sample"
+                      disabled={!bootstrap || busy || !canEdit}
+                      onClick={() =>
+                        void run(async () => {
+                          const d = await ensureDraft();
+                          await api(`/properties/${d.property.id}/fixture`, {});
+                          setDraft(
+                            await api<Draft>(`/properties/${d.property.id}`),
+                          );
+                          setJob(null);
+                          setPreview("");
+                          setShare("");
+                          submission.current = null;
+                          await refresh();
+                          setStep(2);
+                          setNotice(
+                            "Örnek mülk eklendi. Yalnız sentetik kaynaklar kullanılır; oluşturulan çıktı ayrıca incelenir.",
+                          );
+                        })
+                      }
+                    >
+                      Örnek mülkle dene
+                      <ArrowRight size={16} aria-hidden="true" />
+                    </button>
+                  )}
+                  <span className="ux-upload-privacy">
+                    <ShieldCheck size={14} aria-hidden="true" />
+                    Özel yerel alan · Canlı servisler kapalı
+                  </span>
+                  <details className="ux-format-help">
+                    <summary>Desteklenen biçimler</summary>
+                    <p>{MEDIA_UPLOAD_HELP_TR.photos}</p>
+                    <p>{MEDIA_UPLOAD_HELP_TR.videos}</p>
+                    <p>
+                      En fazla {MEDIA_CAPABILITIES.maxSelection} dosya. MOV /
+                      WebM desteklenmiyor.
+                    </p>
+                  </details>
+                </div>
                 <details className="ux-property-details">
                   <summary>iPhone ve video biçimleri hakkında</summary>
                   <p>{MEDIA_UPLOAD_HELP_TR.iphone}</p>
@@ -953,42 +921,15 @@ export function CreationStudio() {
                     </p>
                   </div>
                 </div>
-                <fieldset className="ux-style-grid">
-                  <legend className="sr-only">Video tarzı</legend>
-                  {VIDEO_STYLES.map((s, i) => (
-                    <article
-                      key={s.id}
-                      className={`ux-style-card ${mode === s.id ? "selected" : ""}`}
-                    >
-                      <video
-                        controls
-                        playsInline
-                        preload="none"
-                        poster="/spaces-examples/interior.svg"
-                        src={`/spaces-examples/${["natural", "cinematic", "hybrid"][i]}.mp4`}
-                        aria-label={`${s.label} yerel örneği`}
-                      />
-                      <label>
-                        <input
-                          type="radio"
-                          name="video-style"
-                          checked={mode === s.id}
-                          onChange={() => {
-                            setMode(s.id);
-                            recordFunnel("style_selected");
-                          }}
-                        />
-                        <span>
-                          <strong>{s.label}</strong>
-                          <small>{s.description}</small>
-                        </span>
-                      </label>
-                      <span className="ux-example-label">
-                        Sentetik kaynaklardan gerçek örnek kurgu
-                      </span>
-                    </article>
-                  ))}
-                </fieldset>
+                <StudioStyleCards
+                  value={mode}
+                  examples="illustration"
+                  disabled={busy || !canEdit}
+                  onSelect={(selected) => {
+                    setMode(selected);
+                    recordFunnel("style_selected");
+                  }}
+                />
                 <p className="ux-honesty">{DISCLOSURE}</p>
                 <div className="ux-options">
                   <label>
@@ -1044,7 +985,7 @@ export function CreationStudio() {
                 <div className="ux-premium">
                   <Box size={29} aria-hidden="true" />
                   <div>
-                    <h3>3D Sanal Tur — Premium / Beta</h3>
+                    <h3>3D turu keşfet</h3>
                     <p>
                       İçinde serbestçe dolaşılabilen ayrı bir deneyim. Ölçülü
                       plan, doğrulanmış odalar ve kapı bağlantıları gerekir.
@@ -1063,7 +1004,7 @@ export function CreationStudio() {
                     aria-pressed={mode === "interactive-3d"}
                     onClick={() => setMode("interactive-3d")}
                   >
-                    3D seçeneğini incele
+                    3D seçeneklerini aç
                   </button>
                 </div>
                 <div className="ux-actions">

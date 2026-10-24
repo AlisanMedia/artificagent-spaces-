@@ -12,6 +12,8 @@ export async function previewServer(buildRoot, port = 3100) {
     ".js": "text/javascript",
     ".css": "text/css",
     ".png": "image/png",
+    ".webp": "image/webp",
+    ".woff2": "font/woff2",
     ".svg": "image/svg+xml",
     ".mp4": "video/mp4",
     ".glb": "model/gltf-binary",

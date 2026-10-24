@@ -1640,3 +1640,429 @@
 .ux-studio pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; }
 .ux-developer > * { min-width: 0; }
 .ux-media-card p { overflow-wrap: anywhere; }
+
+/* V5.2: studio-only visual layer. Management, tours, Foundation and server contracts are unchanged. */
+.spaces-shell.studio-theme {
+  --sp-bg: var(--canvas);
+  --sp-panel: var(--surface);
+  --sp-border: var(--border);
+  --sp-text: var(--ink);
+  --sp-muted: var(--subtle-text);
+  --spaces-accent: var(--brand-primary);
+  --spaces-accent-text: #fff;
+}
+.studio-theme .spaces-header {
+  max-width: 1280px;
+  margin: auto;
+  padding: 20px 32px;
+  border: 0;
+  gap: 20px;
+}
+.studio-theme .ux-brand {
+  text-decoration: none;
+}
+.studio-theme .ux-account-link {
+  margin-left: auto;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--subtle-text);
+  font-size: 13px;
+}
+.studio-theme .spaces-footer {
+  max-width: 1280px;
+  margin: auto;
+  border-color: var(--border);
+  color: var(--subtle-text);
+  padding: 24px 32px;
+}
+.studio-theme .ux-studio {
+  max-width: 1280px;
+  padding: 0 32px 40px;
+  color: var(--ink);
+}
+.studio-theme .ux-demo-note {
+  color: var(--subtle-text);
+  border-color: var(--border);
+  font-size: 11px;
+  padding: 4px 0 12px;
+  line-height: 1.6;
+}
+.studio-theme .ux-navigation {
+  padding: 8px 0 0;
+  gap: 24px;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+.studio-theme .ux-navigation button {
+  color: var(--subtle-text);
+  border-radius: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  padding: 12px 0;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.studio-theme .ux-navigation button.active {
+  color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  background: transparent;
+}
+.studio-theme .ux-studio-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  padding: 40px 0 32px;
+}
+.studio-theme .ux-studio-heading h1 {
+  font-family: Manrope, system-ui, sans-serif;
+  font-size: clamp(36px, 4.3vw, 58px);
+  letter-spacing: -0.055em;
+  font-weight: 600;
+  margin: 14px 0;
+  line-height: 1.1;
+}
+.studio-theme .ux-studio-heading h1 em {
+  font-family: Newsreader, Georgia, serif;
+  font-weight: 450;
+}
+.studio-theme .ux-studio-heading p {
+  color: var(--subtle-text);
+  font-size: 14px;
+  margin: 0;
+}
+.studio-theme .ux-studio-caption {
+  font-family: Newsreader, Georgia, serif;
+  font-style: italic;
+  font-size: 24px;
+  max-width: 260px;
+  color: var(--subtle-text);
+  padding-bottom: 8px;
+}
+.studio-theme .ux-kicker {
+  color: var(--subtle-text);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+.studio-theme .ux-workbench {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  margin: 24px 0 0;
+  animation: studio-enter var(--motion-step) ease-out;
+}
+.studio-theme .ux-upload-stage {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 880px;
+  margin: auto;
+}
+.studio-theme .ux-upload-stage::before,
+.studio-theme .ux-upload-stage::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  width: 12px;
+  height: 12px;
+  border-top: 1px solid #a0b6a8;
+}
+.studio-theme .ux-upload-stage::before {
+  left: 16px;
+  border-left: 1px solid #a0b6a8;
+}
+.studio-theme .ux-upload-stage::after {
+  right: 16px;
+  border-right: 1px solid #a0b6a8;
+}
+.studio-theme .ux-upload-stage .ux-upload-symbol {
+  color: var(--brand-primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+}
+.studio-theme .ux-upload-stage h2 {
+  font-size: 22px;
+  letter-spacing: -0.045em;
+  margin: 16px 0 6px;
+}
+.studio-theme .ux-upload-stage > p {
+  color: var(--subtle-text);
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+.studio-theme .ux-upload-stage .ux-primary {
+  min-width: 320px;
+  min-height: 52px;
+  border-radius: 12px;
+  background: var(--ux-accent);
+  color: var(--ux-accent-text);
+  border-color: var(--ux-accent);
+}
+.studio-theme .ux-studio button.ux-sample {
+  border: 0;
+  color: var(--brand-primary);
+  background: transparent;
+  min-height: 48px;
+  margin: 8px 0;
+  padding: 12px;
+  font-size: 14px;
+}
+.studio-theme .ux-upload-privacy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--subtle-text);
+  padding: 8px 0;
+}
+.studio-theme .ux-format-help {
+  font-size: 11px;
+  color: var(--subtle-text);
+  text-align: left;
+  max-width: 580px;
+}
+.studio-theme .ux-format-help summary {
+  min-height: 44px;
+  padding: 14px 0;
+  cursor: pointer;
+  text-align: center;
+}
+.studio-theme .ux-property-details {
+  border-color: var(--border);
+  color: var(--subtle-text);
+  margin-top: 16px;
+}
+.studio-theme .ux-property-details summary,
+.studio-theme .ux-developer summary {
+  min-height: 44px;
+  padding: 12px 0;
+  cursor: pointer;
+  color: var(--subtle-text);
+}
+.studio-theme .ux-property-details p,
+.studio-theme .ux-developer p {
+  color: var(--subtle-text);
+  font-size: 12px;
+}
+.studio-theme .ux-property-details input,
+.studio-theme .ux-options select {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.studio-theme .ux-studio label {
+  color: var(--ink);
+}
+.studio-theme .ux-studio button.subtle {
+  color: var(--ink);
+  border-color: var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  min-height: 44px;
+}
+.studio-theme .ux-media-card {
+  background: var(--surface);
+  border-color: var(--border);
+  border-radius: 12px;
+  animation: studio-enter 200ms ease-out;
+}
+.studio-theme .ux-media-card span {
+  color: var(--subtle-text);
+  font-size: 11px;
+}
+.studio-theme .ux-media-card p {
+  color: #8a3029;
+  font-size: 12px;
+}
+.studio-theme .ux-media-card strong {
+  font-size: 13px;
+}
+.studio-theme .ux-media-tools {
+  flex-wrap: wrap;
+}
+.studio-theme .ux-next {
+  border-color: var(--border);
+}
+.studio-theme .ux-next > span {
+  color: var(--subtle-text);
+}
+.studio-theme .ux-upload-confirm,
+.studio-theme .ux-note,
+.studio-theme .ux-review-note {
+  background: var(--soft-sage);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.studio-theme .ux-error {
+  color: #7c2a22;
+  background: #fbeee9;
+  border-color: #d9b8ab;
+}
+.studio-theme .ux-section-heading p,
+.studio-theme .ux-honesty,
+.studio-theme .ux-small,
+.studio-theme .ux-options small {
+  color: var(--subtle-text);
+}
+.studio-theme .ux-section-heading h2 {
+  color: var(--ink);
+}
+.studio-theme .ux-options {
+  margin-top: 24px;
+}
+.studio-theme .ux-premium {
+  background: var(--soft-sage);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.studio-theme .ux-premium p {
+  color: var(--subtle-text);
+}
+.studio-theme .ux-premium > svg {
+  color: var(--brand-primary);
+}
+.studio-theme .ux-result-comparison {
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+  gap: 16px;
+}
+.studio-theme .ux-result-comparison > div {
+  border-radius: 14px;
+  background: var(--cinema);
+}
+.studio-theme .ux-result-comparison > div > span {
+  color: #e3eae4;
+  font-size: 12px;
+  padding: 16px;
+}
+.studio-theme .ux-result-comparison video {
+  max-height: 600px;
+}
+.studio-theme .ux-progress {
+  background: var(--soft-sage);
+}
+.studio-theme .ux-progress p {
+  color: var(--subtle-text);
+}
+.studio-theme .ux-project-grid article {
+  background: var(--surface);
+  border-color: var(--border);
+  padding: 24px;
+}
+.studio-theme .ux-project-grid p,
+.studio-theme .ux-empty {
+  color: var(--subtle-text);
+}
+.studio-theme .ux-dialog {
+  background: var(--canvas);
+  color: var(--ink);
+  border-color: var(--border);
+}
+.studio-theme .ux-dialog p {
+  color: var(--subtle-text);
+}
+.studio-theme .ux-dialog input[type="checkbox"],
+.studio-theme .ux-checkbox input {
+  accent-color: var(--brand-primary);
+}
+.studio-theme .ux-developer {
+  border-color: var(--border);
+}
+.studio-theme .ux-developer a {
+  color: var(--brand-primary);
+}
+@media (max-width: 767px) {
+  .studio-theme .spaces-header {
+    padding: 16px 18px;
+  }
+  .studio-theme .spaces-header .studio-wordmark strong {
+    font-size: 19px;
+  }
+  .studio-theme .spaces-header .studio-wordmark > span {
+    gap: 10px;
+  }
+  .studio-theme .spaces-header .studio-wordmark-sub {
+    font-size: 8px;
+  }
+  .studio-theme .ux-studio {
+    padding: 0 18px 32px;
+  }
+  .studio-theme .ux-navigation {
+    gap: 22px;
+  }
+  .studio-theme .ux-navigation button {
+    font-size: 12px;
+  }
+  .studio-theme .ux-studio-heading {
+    padding: 24px 0;
+  }
+  .studio-theme .ux-studio-heading h1 {
+    font-size: 36px;
+  }
+  .studio-theme .ux-studio-caption {
+    display: none;
+  }
+  .studio-theme .ux-workbench {
+    margin-top: 20px;
+  }
+  .studio-theme .ux-upload-stage {
+    padding: 24px 20px 12px;
+  }
+  .studio-theme .ux-upload-stage h2 {
+    font-size: 20px;
+  }
+  .studio-theme .ux-upload-stage > p {
+    font-size: 13px;
+  }
+  .studio-theme .ux-upload-stage .ux-primary {
+    min-width: 0;
+    width: 100%;
+    font-size: 13px;
+    padding: 12px;
+    gap: 8px;
+  }
+  .studio-theme .ux-result-comparison {
+    grid-template-columns: 1fr;
+  }
+  .studio-theme .ux-result-comparison > div:first-child {
+    max-width: 180px;
+  }
+  .studio-theme .ux-media-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .studio-theme .ux-section-heading {
+    align-items: flex-start;
+  }
+  .studio-theme .ux-actions {
+    flex-wrap: wrap;
+  }
+  .studio-theme .spaces-footer {
+    padding: 24px 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio-theme .ux-workbench,
+  .studio-theme .ux-media-card {
+    animation: none;
+  }
+}
+.studio-theme .ux-studio-heading.is-compact { padding:24px 0 16px; }
+.studio-theme .ux-studio-heading.is-compact .ux-kicker,.studio-theme .ux-studio-heading.is-compact p,.studio-theme .ux-studio-heading.is-compact .ux-studio-caption { display:none; }
+.studio-theme .ux-studio-heading.is-compact h1 { font-size:24px; margin:0; }.studio-theme .ux-studio-heading.is-compact br { display:none; }.studio-theme .ux-studio-heading.is-compact em::before { content:" "; }
+.studio-theme .ux-honesty { background:var(--soft-sage); color:var(--ink); border-color:var(--border); }
+.studio-theme .ux-upload-stage .ux-upload-symbol { background:var(--surface); }

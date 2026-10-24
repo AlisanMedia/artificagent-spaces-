@@ -24,7 +24,7 @@ test("upload-first studio is keyboard accessible and responsive at mobile, table
 }, info) => {
   await page.goto("/spaces");
   await expect(
-    page.getByRole("button", { name: "Mülk medyasını yükle", exact: true }),
+    page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
   ).toBeEnabled();
   await expect(
     page.getByRole("combobox", { name: "Test kimliği" }),
@@ -48,13 +48,13 @@ test("upload-first studio is keyboard accessible and responsive at mobile, table
   }
   await page
     .getByRole("button", {
-      name: "Dosyalarını buraya bırak veya seç",
+      name: "Fotoğraf veya video ekle",
       exact: false,
     })
     .focus();
   expect(
     await page.evaluate(() =>
-      document.activeElement?.classList.contains("ux-dropzone"),
+      document.activeElement?.classList.contains("ux-primary"),
     ),
   ).toBe(true);
   const keyboardPicker = page.waitForEvent("filechooser");
@@ -63,7 +63,7 @@ test("upload-first studio is keyboard accessible and responsive at mobile, table
   await page.emulateMedia({ reducedMotion: "reduce" });
   expect(
     await page
-      .getByRole("button", { name: "Mülk medyasını yükle", exact: true })
+      .getByRole("button", { name: "Fotoğraf veya video ekle", exact: true })
       .evaluate((b) => getComputedStyle(b).transitionDuration),
   ).toBe("0s");
 });
@@ -82,7 +82,7 @@ test("nontechnical upload → real video → independent review → download wit
   await page.goto("/spaces");
   const chooser = page.waitForEvent("filechooser");
   await page
-    .getByRole("button", { name: "Mülk medyasını yükle", exact: true })
+    .getByRole("button", { name: "Fotoğraf veya video ekle", exact: true })
     .click();
   await (
     await chooser
@@ -327,7 +327,7 @@ test("intake rejects unsupported media, wrong grants and hidden role escalation"
   await post(page, "/session", { identityId: "demo-viewer-a" });
   await page.goto("/spaces");
   await expect(
-    page.getByRole("button", { name: "Mülk medyasını yükle", exact: true }),
+    page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
   ).toBeDisabled();
   const denied = await page.request.patch(
     `/api/spaces/properties/${p.id}/media`,
@@ -395,5 +395,42 @@ test("replace and remove preserve an owned project without exposing removed medi
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+test("sample shortcut creates a scoped real local draft without replacing visitor uploads or release review", async ({
+  page,
+}) => {
+  await page.goto("/spaces");
+  await expect(
+    page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
+  ).toBeEnabled();
+  const fixture = page.waitForResponse(
+    (r) => r.url().endsWith("/fixture") && r.request().method() === "POST",
+  );
+  await page
+    .getByRole("button", { name: "Örnek mülkle dene", exact: true })
+    .click();
+  expect((await fixture).ok()).toBe(true);
+  await expect(
+    page.getByRole("heading", {
+      name: "Nasıl bir video istersin?",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.getByRole("radio", { name: /Doğal keşif/ }).check();
+  await expect(page.getByRole("radio", { name: /Doğal keşif/ })).toBeChecked();
+  await page
+    .getByRole("button", { name: "Medyanı düzenle", exact: true })
+    .click();
+  await expect(
+    page.getByText("Özel alana kaydedildi", { exact: true }),
+  ).toHaveCount(2);
+  await expect(
+    page.getByRole("button", { name: "Örnek mülkle dene", exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("link", { name: "İnceleme alanı", exact: true }),
+  ).toHaveCount(0);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });

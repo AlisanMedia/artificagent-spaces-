@@ -1,5 +1,5 @@
 /** V4 single source of truth. Selection advice is never upload authorization. */
-import { invariant } from "./platform";
+import { invariant } from "./platform-errors";
 
 export const MEDIA_CAPABILITIES = Object.freeze({
   version: "local-intake-v4.1",

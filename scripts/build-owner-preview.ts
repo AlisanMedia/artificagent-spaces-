@@ -1,5 +1,7 @@
 /** Isolated static allowlist. Does not copy/build Next API, auth, DB, runtime data or credentials. */
 import { build } from "esbuild";
+import { validateGoldenSource } from "../src/domain/golden-property";
+import { verifyStudioAssets } from "./verify-studio-assets";
 import {
   readFile,
   writeFile,
@@ -34,6 +36,8 @@ const dirty =
       "fixtures/golden-v5",
       "public/golden-v5",
       "public/spaces-examples",
+      "public/studio-assets-v52",
+      "scripts/verify-studio-assets.ts",
       "scripts/build-owner-preview.ts",
       "package.json",
       "package-lock.json",
@@ -42,6 +46,17 @@ const dirty =
       encoding: "utf8",
     },
   ).trim().length > 0;
+const sceneSource = await readFile("fixtures/golden-v5/source.json");
+validateGoldenSource(JSON.parse(sceneSource.toString()));
+const goldenRecord = JSON.parse(
+  await readFile("public/golden-v5/evidence.json", "utf8"),
+) as { sourceSha256: string };
+if (
+  createHash("sha256").update(sceneSource).digest("hex") !==
+  goldenRecord.sourceSha256
+)
+  throw Error("STATIC_SCENE_SOURCE_DRIFT");
+await verifyStudioAssets(root);
 const result = await build({
   entryPoints: ["src/preview/entry.tsx"],
   bundle: true,
@@ -52,6 +67,7 @@ const result = await build({
   minify: true,
   sourcemap: false,
   legalComments: "linked",
+  external: ["/studio-assets-v52/*"],
   entryNames: "studio-[hash]",
   chunkNames: "chunk-[hash]",
   outdir: assets,
@@ -110,8 +126,15 @@ for (const folder of ["golden-v5", "spaces-examples"]) {
   }
   await cp(src, join(output, "static", folder), { recursive: true });
 }
+await cp("public/studio-assets-v52", join(output, "static/studio-assets-v52"), {
+  recursive: true,
+});
 await cp("src/app/icon.svg", join(output, "static/icon.svg"));
-const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer"><title>ArtificAgent Spaces — Sentetik ürün önizlemesi</title><link rel="icon" href="/icon.svg"><link rel="stylesheet" href="/assets/${basename(css)}"></head><body><div id="root"></div><script type="module" src="/assets/${basename(entry[0])}"></script></body></html>`;
+const eagerImports = entry[1].imports
+  .filter((i) => i.kind === "import-statement" && !i.external)
+  .map((i) => `<link rel="modulepreload" href="/assets/${basename(i.path)}">`)
+  .join("");
+const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer"><title>ArtificAgent Spaces — Sentetik ürün önizlemesi</title><link rel="icon" href="/icon.svg"><link rel="stylesheet" href="/assets/${basename(css)}">${eagerImports}<link rel="preload" as="font" type="font/woff2" crossorigin href="/studio-assets-v52/manrope-latin-wght-normal.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="/studio-assets-v52/manrope-latin-ext-wght-normal.woff2"></head><body><div id="root"></div><script type="module" src="/assets/${basename(entry[0])}"></script></body></html>`;
 await writeFile(join(output, "static/index.html"), html);
 await mkdir(join(output, "static/spaces"));
 await writeFile(join(output, "static/spaces/index.html"), html);

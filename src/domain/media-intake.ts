@@ -41,23 +41,7 @@ export const UploadSelection = MediaGrantMetadata.safeExtend({
   if (!extensions[v.mime]!.test(v.filename))
     ctx.addIssue({ code: "custom", message: "MEDIA_TYPE_MISMATCH" });
 });
-export const VIDEO_STYLES = [
-  {
-    id: "pov",
-    label: "Doğal keşif",
-    description: "Mekânın detaylarına sakin ve yakın bir bakış.",
-  },
-  {
-    id: "cinematic",
-    label: "Sinematik tanıtım",
-    description: "Özenli kesmelerle güçlü bir ilk izlenim.",
-  },
-  {
-    id: "hybrid",
-    label: "Karma kurgu",
-    description: "Detayları ve geniş bakışları aynı videoda birleştir.",
-  },
-] as const;
+export { VIDEO_STYLES } from "./video-styles";
 export const TEMPLATE_LABELS = {
   modern: "Modern Daire",
   luxury: "Lüks Konut",

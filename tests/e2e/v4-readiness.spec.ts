@@ -7,7 +7,7 @@ async function pick(
 ) {
   const chooser = page.waitForEvent("filechooser");
   await page
-    .getByRole("button", { name: "Mülk medyasını yükle", exact: true })
+    .getByRole("button", { name: "Fotoğraf veya video ekle", exact: true })
     .click();
   await (await chooser).setFiles(files);
 }

@@ -44,7 +44,7 @@ export const friendlyMediaError = (error: unknown) => {
 };
 
 export const STUDIO_TR = {
-  upload: "Mülk medyasını yükle",
+  upload: "Fotoğraf veya video ekle",
   steps: ["Medyanı yükle", "Tarzını seç", "Önizle ve indir"] as const,
   create: "İçeriği oluştur",
   preview: "Önizle",

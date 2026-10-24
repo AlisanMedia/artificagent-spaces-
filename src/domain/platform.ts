@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { PlatformError, invariant } from "./platform-errors";
+export { PlatformError, invariant } from "./platform-errors";
 
 export const Id = z.string().regex(/^[A-Za-z0-9_-]{1,80}$/);
 export const Truth = z.enum(["E0", "E1", "E2"]);
@@ -87,22 +89,6 @@ export type Scene = z.infer<typeof SceneManifest>;
 export type SceneRoom = z.infer<typeof Room>;
 export type Position = z.infer<typeof Point>;
 
-export class PlatformError extends Error {
-  constructor(
-    readonly code: string,
-    readonly status = 400,
-  ) {
-    super(code);
-    this.name = "PlatformError";
-  }
-}
-export function invariant(
-  condition: unknown,
-  code: string,
-  status = 400,
-): asserts condition {
-  if (!condition) throw new PlatformError(code, status);
-}
 export function permits(
   role: PlatformRole,
   action: "read" | "edit" | "review" | "admin",
