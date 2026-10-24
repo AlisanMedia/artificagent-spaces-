@@ -37,6 +37,12 @@ declare const SPACES_PREVIEW_BUILD_ID: string;
 // This immutable fixture is hash/schema validated by build-owner-preview.ts. No client-supplied scene.
 // Immutable source is schema-validated and hash-bound by build-owner-preview.ts.
 const plan = source as unknown as GoldenPlan;
+// Match the independently authored entrance-camera evidence; no inferred room or geometry.
+const openingCamera = plan.cameras.find((c) => c.id === "camera-entrance")!;
+const openingYaw = Math.atan2(
+  openingCamera.position[0] - openingCamera.target[0],
+  openingCamera.position[2] - openingCamera.target[2],
+);
 const SceneViewer = lazy(() =>
   import("../features/platform/scene-viewer").then((m) => ({
     default: m.SceneViewer,
@@ -615,6 +621,7 @@ function Preview() {
                       scene={plan.scene}
                       modelUrl="/golden-v5/property.glb"
                       initialQuality="low"
+                      initialYaw={openingYaw}
                     />
                   </Suspense>
                   <div className="pv52-tour-actions">

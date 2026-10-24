@@ -48,3 +48,8 @@ LCP≤2.5s / CLS≤0.1 yalnız hedeflerdir; gerçek üç soğuk Chromium ölçü
 - Vercel sonuçlarının kanıtı ayrı raporda; yerel statik build bir HTTPS yayını değildir. Gold Revenue OS alanı kullanılmaz.
 
 Rollback: geçmiş değiştirilmez. Hedefli V5.2 commit'leri için bağımsız review ve required checks ile yeni revert PR hazırlanır; bu görevde PR oluşturulmaz/merge edilmez. Sahip raporları, V5.1 dosyaları ve eski ekranlar silinmez. Önizleme paketinin özel backend içerdiği varsayılamaz: sıfır function, kapalı API/yönetim/tour-grant/.env/.git yolları ayrı test edilir.
+
+
+## 3D açılış görüntüsü düzeltmesi
+
+Görsel inceleme ilk sabit bakışın düz duvara döndüğünü ortaya çıkardı. İzole önizlemede açılış yaw'ı sabit kaynağın `camera-entrance` konum/hedefinden alınır: (1.5,1.65,1) → (3,1.65,1). Yeni `initialYaw` sunum tercihi sonlu ±π aralığındadır; veri, kapılar, konum, çarpışma ve tam uygulamanın varsayılan π bakışı değişmez. Reset aynı kayıtlı yöne döner. Tarayıcı testi gerçek yaw ve canvas RGB standart sapması>8 ile beklenmeyen tek renk görüntüyü reddeder; bu yaratıcı/photoreal kalite veya görülmeyen mimari doğrulaması değildir. Kanıt ekranı GLB hazır ve gerçek FPS örneği görülmeden alınmaz. Önceki geliştirme içi duvar görüntüsü final kanıt diye sunulmaz.

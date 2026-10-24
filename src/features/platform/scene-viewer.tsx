@@ -32,6 +32,8 @@ interface SceneProps {
   scene: Scene;
   modelUrl?: string;
   initialQuality?: "balanced" | "low";
+  /** Presentation heading only. The initial verified room/position and collisions stay unchanged. */
+  initialYaw?: number;
   onRoom?: (id: string) => void;
   onDaypart?: (value: DaypartState) => void;
   onTool?: (accepted: boolean) => void;
@@ -147,9 +149,21 @@ function addGeometry(world: THREE.Scene, scene: Scene) {
 
 export const SceneViewer = forwardRef<SceneController, SceneProps>(
   function SceneViewer(
-    { scene, modelUrl, initialQuality, onRoom, onDaypart, onTool },
+    {
+      scene,
+      modelUrl,
+      initialQuality,
+      initialYaw = Math.PI,
+      onRoom,
+      onDaypart,
+      onTool,
+    },
     ref,
   ) {
+    const startYaw =
+      Number.isFinite(initialYaw) && Math.abs(initialYaw) <= Math.PI
+        ? initialYaw
+        : Math.PI;
     const host = useRef<HTMLDivElement>(null),
       engine = useRef<Engine | null>(null);
     const callbacks = useRef({ onRoom, onDaypart, onTool });
@@ -270,7 +284,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
               active.currentRoom = first.id;
               setRoom(first.label);
               callbacks.current.onRoom?.(first.id);
-              active.yaw = Math.PI;
+              active.yaw = startYaw;
               active.pitch = 0;
               active.marker.visible = false;
             }
@@ -282,7 +296,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
           }
         },
       }),
-      [scene, applyDaypart],
+      [scene, applyDaypart, startYaw],
     );
 
     useEffect(() => {
@@ -463,7 +477,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
           const current = roomAt(scene, position)!;
           const active: Engine = {
             camera,
-            yaw: restorable && saved ? saved.yaw : Math.PI,
+            yaw: restorable && saved ? saved.yaw : startYaw,
             pitch: restorable && saved ? saved.pitch : 0,
             position,
             currentRoom: current.id,
@@ -577,6 +591,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
               .map((x) => x.toFixed(2))
               .join(",");
             element.dataset["ready"] = String(modelReady);
+            element.dataset["yaw"] = String(active.yaw);
             if (now - fpsStart > 2000) {
               const measuredFps =
                 Math.round((frames * 10000) / (now - fpsStart)) / 10;
@@ -613,6 +628,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
           };
         engine.current = null;
         delete element.dataset["ready"];
+        delete element.dataset["yaw"];
         delete element.dataset["fpsSampleAt"];
         observer?.disconnect();
         window.removeEventListener("keydown", keyDown);
@@ -638,7 +654,7 @@ export const SceneViewer = forwardRef<SceneController, SceneProps>(
         });
         environment?.dispose();
       };
-    }, [scene, modelUrl, quality, applyDaypart]);
+    }, [scene, modelUrl, quality, applyDaypart, startYaw]);
 
     function command(value: ViewerAction) {
       const active = engine.current;

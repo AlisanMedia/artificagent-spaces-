@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { mkdir, readFile } from "node:fs/promises";
-const shots = "artifacts/screenshots/v52/regression";
+import sharp from "sharp";
+const shots = "test-results/v52-preview-screenshots";
 
 test("working studio navigation, responsive Turkish copy and accessibility", async ({
   page,
@@ -27,7 +28,14 @@ test("working studio navigation, responsive Turkish copy and accessibility", asy
     expect(
       (
         await new AxeBuilder({ page })
-          .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"])
+          .withTags([
+            "wcag2a",
+            "wcag2aa",
+            "wcag21a",
+            "wcag21aa",
+            "wcag22a",
+            "wcag22aa",
+          ])
           .analyze()
       ).violations,
     ).toEqual([]);
@@ -49,7 +57,14 @@ test("working studio navigation, responsive Turkish copy and accessibility", asy
     expect(
       (
         await new AxeBuilder({ page })
-          .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"])
+          .withTags([
+            "wcag2a",
+            "wcag2aa",
+            "wcag21a",
+            "wcag21aa",
+            "wcag22a",
+            "wcag22aa",
+          ])
           .analyze()
       ).violations,
     ).toEqual([]);
@@ -213,6 +228,13 @@ test("actual GLB free walk with touch/keyboard, room routing and daypart control
     page.getByText("Blender mesh · serbest gezinme hazır", { exact: true }),
   ).toBeVisible();
   expect(await page.locator("canvas").count()).toBeGreaterThan(0);
+  await expect
+    .poll(async () => Number(await canvas.getAttribute("data-yaw")))
+    .toBeCloseTo(-Math.PI / 2, 5);
+  const pixels = await sharp(await page.locator("canvas").screenshot()).stats();
+  expect(
+    Math.max(...pixels.channels.slice(0, 3).map((c) => c.stdev)),
+  ).toBeGreaterThan(8);
   const before = await canvas.getAttribute("data-position");
   const forward = page.getByRole("button", { name: "İleri yürü", exact: true });
   await forward.dispatchEvent("pointerdown");
@@ -239,7 +261,14 @@ test("actual GLB free walk with touch/keyboard, room routing and daypart control
   expect(
     (
       await new AxeBuilder({ page })
-        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"])
+        .withTags([
+          "wcag2a",
+          "wcag2aa",
+          "wcag21a",
+          "wcag21aa",
+          "wcag22a",
+          "wcag22aa",
+        ])
         .analyze()
     ).violations,
   ).toEqual([]);
@@ -281,8 +310,13 @@ test("first mobile viewport has one working picker and a three-action honest sam
   await expect(
     page.getByRole("link", { name: "Örnek MP4'ü indir" }),
   ).toHaveAttribute("href", "/golden-v5/hybrid-portrait.mp4");
-  await expect(page.getByText(/2213b37/)).not.toBeVisible();
+  const sourceId = page.locator("#preview-build-id");
+  await expect(sourceId).toHaveText(
+    /^[a-f0-9]{40}(?: · yerel değişiklikler)?$/,
+  );
+  await expect(sourceId).not.toBeVisible();
   await page.getByText("Teknik bilgi", { exact: true }).click();
+  await expect(sourceId).toBeVisible();
   await expect(page.getByText(/Kaynak sürüm/)).toBeVisible();
 });
 
@@ -359,7 +393,14 @@ test("local files support reorder, replace, failed replacement recovery, remove,
   expect(
     (
       await new AxeBuilder({ page })
-        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"])
+        .withTags([
+          "wcag2a",
+          "wcag2aa",
+          "wcag21a",
+          "wcag21aa",
+          "wcag22a",
+          "wcag22aa",
+        ])
         .analyze()
     ).violations,
   ).toEqual([]);

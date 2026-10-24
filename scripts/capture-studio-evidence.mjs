@@ -95,6 +95,13 @@ try {
     await expect(
       p.getByText("Blender mesh · serbest gezinme hazır", { exact: true }),
     ).toBeVisible({ timeout: 30000 });
+    await expect
+      .poll(
+        async () =>
+          Number(await p.getByRole("application").getAttribute("data-fps")),
+        { timeout: 15000 },
+      )
+      .toBeGreaterThan(0);
     await shot("tour");
     results.push({
       width,
