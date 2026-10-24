@@ -99,7 +99,7 @@ V5.1 owner yetkisi yalnız doğrulanmış ArtificAgent hesabında, mevcut ücret
 ```bash
 npm run golden:verify  # commitli CAD/GLB/PNG/MP4 source/generator/dosya hash kontrolü
 npm run preview:build  # ayrı statik browser paketi; Next API/auth/DB içermez
-npm run preview:test   # kendi loopback sunucusuyla 8 Chromium/axe kontrolü
+npm run preview:test   # iki browser projesinde stüdyo + değerlendirme kontrolleri
 npm run preview:serve  # yalnız yerel inceleme, canlı internet bağlantısı değil
 ```
 
@@ -111,7 +111,6 @@ Gerçek ffprobe/tam MP4 decode ve GLB geometri denetimi `npm run test:coverage` 
 
 V5'te beş oda / dört kapı / üç pencere, 78.4m² **sentetik tasarım** alanı; fotogerçekçi veya gerçek ev rekonstrüksiyonu değildir. İki gerçek bağımsız insan incelemesi henüz yoktur; puanlar NULL, gerçek accepted-output maliyeti ve üretim kârı UNKNOWN kalır. Gerçek AI/ElevenLabs çağrısı ve önceki önerilen $10 benchmark onaysızdır. PR2–4 review beklerken beşinci stacked PR açılmaz; hiçbir PR bu görevde merge edilmez.
 
-
 ## V5.2 premium ürün stüdyosu
 
 Sıcak açık yüzeyler, orman yeşili eylemler ve yerel lisanslı Manrope/Newsreader ile tek yükleme alanı; ilk mobil görünümde **Fotoğraf veya video ekle** / **Örnek mülkle dene**. Statik örnekler hazır MP4'tür; cihazınızda seçtiğiniz dosyalardan yeni video üretildiği iddia edilmez. Tam uygulamada gerçek özel yükleme ve bağımsız inceleme kapısı korunur.
@@ -119,3 +118,11 @@ Sıcak açık yüzeyler, orman yeşili eylemler ve yerel lisanslı Manrope/Newsr
 [Tasarım sistemi, haklar, hareket ve kanıt yöntemi](docs/ui-v52-design-system.md). `npm run preview:build` → `npm run preview:serve` sadece loopback statik önizleme; `npm run preview:test` etkileşim/medya/3D/axe ve kapalı API sınırlarını doğrular. `node scripts/capture-studio-evidence.mjs` yedi genişlikte gerçek ekranlar ve mobil lab ölçümleri üretir. Bu komutlar deployment yapmaz.
 
 Vercel doğru ArtificAgent hesabı erişimi olmadan **BLOCKED_ACCOUNT_ACCESS** kalır; Gold Revenue OS kullanılmaz. Gerçek iPhone/Safari, bağımsız emlakçı kullanılabilirliği, ücretli model sadakati ve ticari kârlılık bu yeniden tasarımla doğrulanmış olmaz. PR2–4 bağımsız inceleme beklerken yeni beşinci PR açılmaz ve merge yapılmaz.
+
+## V5.3 — görsel sürüm dondurma ve bağımsız test hazırlığı
+
+V5.2 stüdyo tasarımı korunur. Statik önizlemenin footer bağlantısındaki `/evaluation/` ayrı sayfa/bundle, beş **gelecek** bağımsız emlakçı için altı görev, manuel süre, kapalı yanıtlar ve gönüllü yerel JSON export sunar. Yanıtlar RAM'de kalır; uzak gönderim, çerez veya kalıcı tarayıcı kaydı yoktur. Gerçek katılımcı veya bağımsız kabul henüz **NOT_VERIFIED**. Sentetik provanın gerçek insan sonucu sayılması engellenir.
+
+[Protokol, eşikler, mahremiyet ve moderatör talimatı](docs/usability-protocol-v53.md). `npm run usability:prepare` özel `.spaces-local/usability-v53/packet-*` altında beş NULL/DRAFT form üretir. `npm run usability:summarize -- --input <özel-responses-klasörü>` yalnız aynı commit ve sınırlı allowlist kayıtları özetler; gerçek insan doğrulaması/otomatik release yapmaz. Yanıtları PUBLIC repo veya CI'ye koymayın.
+
+`npm run preview:test` mevcut stüdyo/MP4/3D/axe kapsamını korur ve ayrı değerlendirme akışını da test eder. Foundation acceptance context'i değişmez; public CI özeti şema v2 ile tam uygulama **ve** statik preview testlerinin geçerli, sıfır skip/flaky sayılarını içerir. Vercel hedefi owner'ın doğru ArtificAgent team'idir; Gold ve owner tarafından reddedilen diğer çalışma alanları kullanılmaz. Erişim doğrulanmadan canlı URL iddiası yoktur. Gerçek Safari/iPhone ve beş insanla çalışma ayrıca yapılacaktır.

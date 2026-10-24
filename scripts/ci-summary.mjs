@@ -18,7 +18,7 @@ function sha(value) {
   return value;
 }
 
-export function createPublicSummary({ unit, e2e, audit, licenses, secrets, coverage, headSha, checkedSha, runId }) {
+export function createPublicSummary({ unit, e2e, preview, audit, licenses, secrets, coverage, headSha, checkedSha, runId }) {
   const unitTotal = count(unit.numTotalTests);
   const unitPassed = count(unit.numPassedTests);
   const unitFailed = count(unit.numFailedTests);
@@ -30,6 +30,13 @@ export function createPublicSummary({ unit, e2e, audit, licenses, secrets, cover
   const browser = Object.fromEntries(["expected", "skipped", "unexpected", "flaky"].map((key) => [key, count(e2e.stats[key])]));
   if (!browser.expected || browser.skipped || browser.unexpected || browser.flaky) {
     throw new Error("Browser evidence is incomplete, failed, skipped, or flaky.");
+  }
+  let previewBrowser;
+  if (preview !== undefined) {
+    if (!preview?.stats) throw new Error("Preview evidence is missing.");
+    previewBrowser = Object.fromEntries(["expected", "skipped", "unexpected", "flaky"].map((key) => [key, count(preview.stats[key])]));
+    if (!previewBrowser.expected || previewBrowser.skipped || previewBrowser.unexpected || previewBrowser.flaky)
+      throw new Error("Preview evidence is incomplete, failed, skipped, or flaky.");
   }
   if (!Array.isArray(secrets) || secrets.length) throw new Error("Secret scan evidence is not clean.");
   const vulnerabilities = Object.fromEntries(["info", "low", "moderate", "high", "critical", "total"].map((key) => [key, count(audit.metadata.vulnerabilities[key])]));
@@ -48,22 +55,24 @@ export function createPublicSummary({ unit, e2e, audit, licenses, secrets, cover
   if (typeof runId !== "string" || !/^(local|[0-9]+)$/.test(runId)) throw new Error("Invalid run identity.");
   // Deliberate allowlist: no test names, source, logs, URLs, screenshots or traces.
   return {
-    schemaVersion: 1, headSha: sha(headSha), checkedSha: sha(checkedSha), runId,
+    schemaVersion: previewBrowser ? 2 : 1, headSha: sha(headSha), checkedSha: sha(checkedSha), runId,
     unit: { total: unitTotal, passed: unitPassed, failed: unitFailed, skipped: unitSkipped, todo: unitTodo },
     browser, secrets: { findings: 0 }, vulnerabilities,
     licenses: { installed: licenses.length, unknown: 0, labels: licenseCounts }, coreCoverage,
+    ...(previewBrowser ? { previewBrowser } : {}),
   };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const json = async (path) => JSON.parse(await readFile(path, "utf8"));
-  const [unit, e2e, audit, licenses, secrets, coverage] = await Promise.all([
+  const [unit, e2e, audit, licenses, secrets, coverage, preview] = await Promise.all([
     json("artifacts/governance/unit.json"), json("test-results/e2e-results.json"),
     json("artifacts/governance/audit.json"), json("artifacts/dependency-licenses.json"),
     json("artifacts/governance/secrets.json"), json("coverage/coverage-summary.json"),
+    json("test-results/preview/results.json"),
   ]);
   const summary = createPublicSummary({
-    unit, e2e, audit, licenses, secrets, coverage,
+    unit, e2e, preview, audit, licenses, secrets, coverage,
     headSha: process.env["CI_REVIEW_HEAD"], checkedSha: process.env["GITHUB_SHA"],
     runId: process.env["GITHUB_RUN_ID"] ?? "local",
   });

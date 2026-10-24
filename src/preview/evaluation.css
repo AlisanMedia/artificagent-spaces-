@@ -1,0 +1,230 @@
+:root {
+  color-scheme: light;
+  background: #f7f6f2;
+}
+body {
+  margin: 0;
+}
+.evaluation-page {
+  min-height: 100vh;
+  padding: 24px 24px 64px;
+}
+.evaluation-page > header,
+.evaluation-page > main {
+  max-width: 960px;
+  margin: auto;
+}
+.evaluation-page > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 0 32px;
+  border-bottom: 1px solid var(--border);
+}
+.evaluation-page header a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.evaluation-page header > span {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--subtle-text);
+}
+.evaluation-page main {
+  padding-top: 32px;
+  outline-offset: 6px;
+}
+.evaluation-page h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+  font-weight: 550;
+}
+.evaluation-page h1 em {
+  font-family: Newsreader, Georgia, serif;
+  font-weight: 450;
+}
+.evaluation-page p {
+  line-height: 1.7;
+}
+.evaluation-privacy {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--soft-sage);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.evaluation-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 16px 0;
+}
+.evaluation-links a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--brand-primary);
+  font-size: 14px;
+  text-underline-offset: 4px;
+}
+.evaluation-small {
+  font-size: 13px;
+  color: var(--subtle-text);
+}
+.evaluation-page fieldset {
+  margin: 24px 0;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.evaluation-page legend {
+  font-size: 18px;
+  font-weight: 650;
+  padding: 0 8px;
+}
+.evaluation-setup,
+.evaluation-response {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.evaluation-page label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.evaluation-page select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--ink);
+  border-radius: 8px;
+}
+.evaluation-tasks {
+  list-style: none;
+  padding: 0;
+}
+.evaluation-tasks li {
+  margin: 32px 0;
+}
+.evaluation-tasks fieldset {
+  margin: 0;
+}
+.evaluation-tasks p {
+  font-size: 15px;
+  margin: 0 0 20px;
+}
+.evaluation-timer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.evaluation-timer button {
+  font-size: 13px;
+  padding: 10px 14px;
+}
+.evaluation-timer output {
+  color: var(--subtle-text);
+  font-size: 13px;
+}
+.evaluation-page summary {
+  min-height: 44px;
+  padding: 14px 0;
+  cursor: pointer;
+  color: var(--brand-primary);
+  font-size: 14px;
+}
+.evaluation-issues {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+}
+.evaluation-page .evaluation-issues label,
+.evaluation-page .evaluation-understanding label,
+.evaluation-page .evaluation-attestation label,
+.evaluation-page .evaluation-consent {
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 44px;
+  padding: 8px 0;
+  gap: 12px;
+}
+.evaluation-page input[type="checkbox"],
+.evaluation-page input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  margin: 2px 0 0;
+  accent-color: var(--brand-primary);
+}
+.evaluation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+}
+.evaluation-page .evaluation-notice {
+  min-height: 28px;
+  font-size: 14px;
+  color: var(--brand-primary);
+}
+.evaluation-technical {
+  margin-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.evaluation-technical p {
+  font-size: 12px;
+  color: var(--subtle-text);
+  overflow-wrap: anywhere;
+}
+.evaluation-warning {
+  background: #fbeee9;
+  color: #7c2a22;
+  padding: 16px;
+  border-radius: 12px;
+}
+.evaluation-skip {
+  position: fixed;
+  top: 8px;
+  left: 16px;
+  transform: translateY(-180%);
+  background: white;
+  padding: 12px;
+  z-index: 10;
+  color: var(--brand-primary);
+}
+.evaluation-skip:focus {
+  transform: none;
+}
+@media (max-width: 600px) {
+  .evaluation-page {
+    padding: 18px 18px 48px;
+  }
+  .evaluation-page header > span {
+    display: none;
+  }
+  .evaluation-setup,
+  .evaluation-response,
+  .evaluation-issues {
+    grid-template-columns: 1fr;
+  }
+  .evaluation-page fieldset {
+    padding: 18px 16px;
+  }
+  .evaluation-page h1 {
+    font-size: 34px;
+  }
+  .evaluation-actions > button {
+    width: 100%;
+  }
+}

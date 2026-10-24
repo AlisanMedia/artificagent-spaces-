@@ -9,8 +9,17 @@ const build = (
 const meta = JSON.parse(
   await readFile(build + "/.vercel/output/static/build-manifest.json", "utf8"),
 );
-const dir = "artifacts/screenshots/v52/after";
+const evidenceVersion = process.argv.includes("--v53") ? "v53" : "v52";
+const dir =
+  evidenceVersion === "v53"
+    ? ".spaces-local/v53/visual-evidence/screenshots"
+    : "artifacts/screenshots/v52/after";
+const detailsDir =
+  evidenceVersion === "v53"
+    ? ".spaces-local/v53/visual-evidence/measurements"
+    : "artifacts/ui-v52";
 await mkdir(dir, { recursive: true });
+await mkdir(detailsDir, { recursive: true });
 const server = await previewServer(build, 3111);
 const browser = await chromium.launch({
   args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"],
@@ -112,10 +121,11 @@ try {
       states,
     });
     await writeFile(
-      "artifacts/ui-v52/after-capture.json",
+      `${detailsDir}/after-capture.json`,
       JSON.stringify(
         {
-          phase: "V5.2_AFTER",
+          phase:
+            evidenceVersion === "v53" ? "V5.3_VISUAL_FREEZE" : "V5.2_AFTER",
           sourceHead: meta.sourceHead,
           sourceDirty: meta.sourceDirty,
           buildSha256: meta.buildSha256,
@@ -127,7 +137,9 @@ try {
       ),
     );
     await ctx.close();
-    console.log("Captured V5.2 width " + width + " with 5 real states");
+    console.log(
+      `Captured ${evidenceVersion} width ${width} with 5 real states`,
+    );
   }
   const performance = [];
   for (let i = 0; i < 3; i++) {
@@ -174,7 +186,7 @@ try {
     await ctx.close();
   }
   await writeFile(
-    "artifacts/ui-v52/after-performance.json",
+    `${detailsDir}/after-performance.json`,
     JSON.stringify(
       {
         sourceHead: meta.sourceHead,

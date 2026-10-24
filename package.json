@@ -38,7 +38,9 @@
     "golden:verify": "tsx scripts/golden-property.ts --verify",
     "preview:build": "tsx scripts/build-owner-preview.ts",
     "preview:serve": "node scripts/serve-owner-preview.mjs",
-    "preview:test": "playwright test -c playwright.preview.config.ts"
+    "preview:test": "playwright test -c playwright.preview.config.ts",
+    "usability:prepare": "tsx scripts/usability-evaluation.ts prepare",
+    "usability:summarize": "tsx scripts/usability-evaluation.ts summarize"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.11",

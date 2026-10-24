@@ -679,6 +679,9 @@ function Preview() {
       <footer className="pv52-footer">
         <span>ArtificAgent Spaces</span>
         <span>Bir mekâna yeni bir bakış.</span>
+        <a href="/evaluation/" target="_blank" rel="noreferrer">
+          Değerlendirme formu <span className="sr-only">(yeni sekme)</span>
+        </a>
         <details>
           <summary>Teknik bilgi</summary>
           <p>

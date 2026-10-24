@@ -1305,3 +1305,6 @@ body {
 .pv52-studio-heading.is-compact h1 { font-size:24px; margin:0; line-height:1.2; }
 .pv52-studio-heading.is-compact br { display:none; }
 .pv52-studio-heading.is-compact em::before { content:" "; }
+
+/* Optional evaluator stays in the quiet footer; the accepted studio layout is frozen. */
+.pv52-footer > a { color:var(--subtle-text); min-height:44px; font-size:11px; text-underline-offset:4px; }

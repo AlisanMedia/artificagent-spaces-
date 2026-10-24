@@ -51,3 +51,14 @@ test("missing counts and arbitrary identity strings fail closed", () => {
   const input = evidence(); input.headSha = "PRIVATE BUSINESS TEXT";
   assert.throws(() => createPublicSummary(input), /Invalid evidence revision/);
 });
+
+test("schema v2 includes isolated preview counts and still excludes raw participant/browser data", () => {
+  const input = evidence(); input.preview = {stats:{expected:22,skipped:0,unexpected:0,flaky:0},participants:[{name:'PRIVATE BUSINESS TEXT'}],attachments:['PRIVATE BUSINESS TEXT']};
+  const summary=createPublicSummary(input);assert.equal(summary.schemaVersion,2);assert.deepEqual(summary.previewBrowser,input.preview.stats);assert.equal(JSON.stringify(summary).includes('PRIVATE BUSINESS TEXT'),false);
+});
+test("isolated preview skipped, failed or flaky results cannot produce public acceptance", () => {
+  for (const k of ['skipped','unexpected','flaky']) { const input=evidence();input.preview={stats:{expected:22,skipped:0,unexpected:0,flaky:0}};input.preview.stats[k]=1;assert.throws(()=>createPublicSummary(input),/Preview evidence/); }
+});
+test("missing or empty preview evidence fails closed when the new schema is requested", () => {
+  const input=evidence();input.preview={};assert.throws(()=>createPublicSummary(input),/Preview evidence/);input.preview={stats:{expected:0,skipped:0,unexpected:0,flaky:0}};assert.throws(()=>createPublicSummary(input),/Preview evidence/);
+});

@@ -2,6 +2,7 @@
 import { build } from "esbuild";
 import { validateGoldenSource } from "../src/domain/golden-property";
 import { verifyStudioAssets } from "./verify-studio-assets";
+import { UX_PROTOCOL, UX_TASKS } from "../src/domain/usability-evaluation";
 import {
   readFile,
   writeFile,
@@ -58,7 +59,7 @@ if (
   throw Error("STATIC_SCENE_SOURCE_DRIFT");
 await verifyStudioAssets(root);
 const result = await build({
-  entryPoints: ["src/preview/entry.tsx"],
+  entryPoints: ["src/preview/entry.tsx", "src/preview/evaluation-entry.tsx"],
   bundle: true,
   splitting: true,
   format: "esm",
@@ -138,6 +139,50 @@ const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta n
 await writeFile(join(output, "static/index.html"), html);
 await mkdir(join(output, "static/spaces"));
 await writeFile(join(output, "static/spaces/index.html"), html);
+const evaluationEntry = Object.entries(result.metafile.outputs).find(
+  ([, v]) => v.entryPoint === "src/preview/evaluation-entry.tsx" && v.cssBundle,
+);
+if (!evaluationEntry?.[1].cssBundle) throw Error("EVALUATION_ENTRY_MISSING");
+await mkdir(join(output, "static/evaluation"));
+const evaluationImports = evaluationEntry[1].imports
+  .filter((i) => i.kind === "import-statement" && !i.external)
+  .map((i) => `<link rel="modulepreload" href="/assets/${basename(i.path)}">`)
+  .join("");
+let evaluationHtml = html
+  .replaceAll(
+    `/assets/${basename(entry[0])}`,
+    `/assets/${basename(evaluationEntry[0])}`,
+  )
+  .replace(
+    `/assets/${basename(css)}`,
+    `/assets/${basename(evaluationEntry[1].cssBundle)}`,
+  )
+  .replace(
+    "Sentetik ürün önizlemesi</title>",
+    "Kullanım değerlendirmesi</title>",
+  );
+evaluationHtml = eagerImports
+  ? evaluationHtml.replace(eagerImports, evaluationImports)
+  : evaluationHtml.replace("</head>", evaluationImports + "</head>");
+await writeFile(join(output, "static/evaluation/index.html"), evaluationHtml);
+await writeFile(
+  join(output, "static/evaluation/protocol.json"),
+  JSON.stringify(
+    {
+      schemaVersion: 1,
+      version: UX_PROTOCOL,
+      tasks: UX_TASKS,
+      plannedIndependentProfessionals: 5,
+      genuineParticipants: null,
+      acceptance: "NOT_RUN",
+      customerDataCollection: false,
+      uploads: false,
+      submissionEndpoint: null,
+    },
+    null,
+    2,
+  ),
+);
 await writeFile(
   join(output, "static/robots.txt"),
   "User-agent: *\nDisallow: /\n",
