@@ -159,10 +159,16 @@ test("actual Blender 3D is freely walkable, collision bounded and guided by scop
   await expect(canvas).toHaveAttribute("data-quality", "low");
   const initial = await canvas.getAttribute("data-position");
   await canvas.focus();
+  await expect(canvas).toBeFocused();
   await page.keyboard.down("KeyW");
-  await page.waitForTimeout(400);
-  await page.keyboard.up("KeyW");
-  expect(await canvas.getAttribute("data-position")).not.toBe(initial);
+  try {
+    // Observe a rendered movement rather than assuming a software-GPU frame occurs within 400ms.
+    await expect
+      .poll(() => canvas.getAttribute("data-position"), { timeout: 5000 })
+      .not.toBe(initial);
+  } finally {
+    await page.keyboard.up("KeyW");
+  }
   await page
     .getByRole("checkbox", { name: "Takma kimlikli oda / etkileşim analizi" })
     .check();
