@@ -390,6 +390,15 @@ test("local files support reorder, replace, failed replacement recovery, remove,
   await expect(
     page.getByRole("heading", { name: "suruklenen.png", exact: true }),
   ).toBeVisible();
+  await files.setInputFiles(
+    Array.from({ length: 13 }, (_, i) => ({
+      name: `limit-${i}.png`,
+      mimeType: "image/png",
+      buffer: img,
+    })),
+  );
+  await expect(page.getByText(/Bir seçimde en fazla 12 dosya/)).toBeVisible();
+  await expect(page.locator(".pv52-media-card")).toHaveCount(2);
   expect(
     (
       await new AxeBuilder({ page })

@@ -1,0 +1,352 @@
+{
+  "phase": "V5.2_AFTER",
+  "sourceHead": "25473e9a60386e2a4fc8c67f3b1e6992f3405657",
+  "sourceDirty": false,
+  "buildSha256": "5d9e9b07a5a9a01f7f7bc51cfde330555aa2a62df13b3fc48d64f58433210fee",
+  "synthetic": true,
+  "results": [
+    {
+      "width": 375,
+      "height": 844,
+      "primaryBox": {
+        "x": 39,
+        "y": 554.3125,
+        "width": 297,
+        "height": 52
+      },
+      "primaryInFirstViewport": true,
+      "visiblePrimaryPickers": 1,
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/after/375-studio.png",
+          "sha256": "4c29ba75c71be1667b57a3b01376329cb1547902b5afe94182b0541328de0944",
+          "bytes": 42184,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/after/375-files.png",
+          "sha256": "93bcabbb2f7baafb4da66a2eaa52b83beb475fe2570f2f3e0c96da2b0829f5f4",
+          "bytes": 56480,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/after/375-styles.png",
+          "sha256": "faddde45702005410e19573651add2da595feadf180d317875b6716badc1f5f6",
+          "bytes": 102689,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/after/375-result.png",
+          "sha256": "8cdec52d4c4d4f32f3a1aaa9d4f561895f4f37ca4d08295b3aaa92f7711953ec",
+          "bytes": 250667,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/after/375-tour.png",
+          "sha256": "c294981b15ef59eba24750d3bfa89171037860ea208613c96da4b9e5f55f5f06",
+          "bytes": 65637,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "primaryBox": {
+        "x": 39,
+        "y": 554.3125,
+        "width": 312,
+        "height": 52
+      },
+      "primaryInFirstViewport": true,
+      "visiblePrimaryPickers": 1,
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/after/390-studio.png",
+          "sha256": "ba094cf93ad4aa175b0f02d754f555540ab8f7ea64b9b478745ba306d802104a",
+          "bytes": 42244,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/after/390-files.png",
+          "sha256": "6b5ef4f5667ecc8de9799937942bc5bf2329e0ff4e220494c961b7be4c63a3fd",
+          "bytes": 56621,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/after/390-styles.png",
+          "sha256": "7a6be09c599c36308b823405a9cdc2e426fcc9883f54ae09b065db316e62de89",
+          "bytes": 102751,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/after/390-result.png",
+          "sha256": "a1b99ec5a3eef94128ff23bd29e20b7f3cc02f7253dac3e00eb5b61497ba826b",
+          "bytes": 252631,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/after/390-tour.png",
+          "sha256": "be485eb496b781b5ebc8cb77342658b5cabd0a6c2cd81f51dc95f0bae3777296",
+          "bytes": 66010,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "height": 844,
+      "primaryBox": {
+        "x": 39,
+        "y": 554.3125,
+        "width": 352,
+        "height": 52
+      },
+      "primaryInFirstViewport": true,
+      "visiblePrimaryPickers": 1,
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/after/430-studio.png",
+          "sha256": "3f857c287d568a75c7e0d4bd8e57d61a308387829bb823be803a41cec8df6ffb",
+          "bytes": 42172,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/after/430-files.png",
+          "sha256": "c3e86be3023df54bbe5da287d3eab1688ab97684d1bb2b304a0f388fd53954dd",
+          "bytes": 56632,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/after/430-styles.png",
+          "sha256": "17fb11a18e0a3ac05697296030803a5a11578ca4254ee1dc6b2023d3b1ff737a",
+          "bytes": 102972,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/after/430-result.png",
+          "sha256": "ee556e8c51f8e381b20d72c90aab370550b2864098f17e95156a06d57d2cfe74",
+          "bytes": 252609,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/after/430-tour.png",
+          "sha256": "4857fa5c14580d189743ffa6366c982e6c62216fcc4f2e615c55d2263eb72c9e",
+          "bytes": 65189,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1000,
+      "primaryBox": {
+        "x": 224,
+        "y": 631.03125,
+        "width": 320,
+        "height": 52.5
+      },
+      "primaryInFirstViewport": true,
+      "visiblePrimaryPickers": 1,
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/after/768-studio.png",
+          "sha256": "8061a8909f1f35faa6fadb98cad393f9a1d3fea14198518987201711942321a0",
+          "bytes": 49874,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/after/768-files.png",
+          "sha256": "6b15804707a9c3e1abe791b2184e5608358b2aa013c8a852c1d03ddc5b97b3d2",
+          "bytes": 62674,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/after/768-styles.png",
+          "sha256": "1c825a913200c56c95329856d17841aae77a611231d9f81b45c7a5064524a114",
+          "bytes": 159636,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/after/768-result.png",
+          "sha256": "6a9752038177b533da68e1f66eb9d7c858236580492bad71d3c172830b31be1b",
+          "bytes": 345087,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/after/768-tour.png",
+          "sha256": "c8e9baefb3351126d44f85f4015ad02f4998fa8d9f9964950bb78bc8209afce4",
+          "bytes": 72062,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "height": 1000,
+      "primaryBox": {
+        "x": 165.078125,
+        "y": 633.3125,
+        "width": 320,
+        "height": 52.5
+      },
+      "primaryInFirstViewport": true,
+      "visiblePrimaryPickers": 1,
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/after/1024-studio.png",
+          "sha256": "9f57371a38e19b668662d1faf6c440129d88c41572639fc8ff68f68fd4ac613a",
+          "bytes": 84959,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/after/1024-files.png",
+          "sha256": "4e4074c8e72aad9135e470dc221195d0a3be637ca3b1121329735dcc86ed6fb2",
+          "bytes": 97248,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/after/1024-styles.png",
+          "sha256": "5216519e36b23a296129bb6dffe499525b0dde6fdd8dafa770a1c4c78a1e2953",
+          "bytes": 224778,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/after/1024-result.png",
+          "sha256": "8c50885c965fe63513ac9f94ec846f082358a7809d6e08541953f05453480bca",
+          "bytes": 353619,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/after/1024-tour.png",
+          "sha256": "4a50891abb021630f7bbe4ad66cdcec566c98e195e66a11a5031306f5066a00a",
+          "bytes": 77642,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 1000,
+      "primaryBox": {
+        "x": 246.53125,
+        "y": 658.625,
+        "width": 320,
+        "height": 52.5
+      },
+      "primaryInFirstViewport": true,
+      "visiblePrimaryPickers": 1,
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/after/1280-studio.png",
+          "sha256": "1c3910cd8022ad4bc62c5ceb7d8fc8ee99d0b0da58c3c29e71f3353b45f85fbf",
+          "bytes": 86616,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/after/1280-files.png",
+          "sha256": "041396e2fe365cb5f885a14ab7bcca5721ba247c24f088da211fac6d4771947c",
+          "bytes": 98030,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/after/1280-styles.png",
+          "sha256": "ada6b2342eda01c3b000cf058dc5211a449d14236aed9101bfd6fe8868d507fa",
+          "bytes": 314842,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/after/1280-result.png",
+          "sha256": "5b1592cf2ac3357d29e69424c63e350c646277c56d56cc936f382ea8b3ccc500",
+          "bytes": 362551,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/after/1280-tour.png",
+          "sha256": "9fa930e90e61379753bdbe82605b5bfa73b401dad2c1c0fa73c0a3c16cc4adf0",
+          "bytes": 80673,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "primaryBox": {
+        "x": 326.53125,
+        "y": 662.25,
+        "width": 320,
+        "height": 52.5
+      },
+      "primaryInFirstViewport": true,
+      "visiblePrimaryPickers": 1,
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/after/1440-studio.png",
+          "sha256": "cd7cdd244a44246be1e4af677fe3cb2d6e9ac2fe8abdab4e3762fe25472266c7",
+          "bytes": 88621,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/after/1440-files.png",
+          "sha256": "9a4bb1e36bfaae36044af93ffec5738427d113060daadff5b3668a6efab059b4",
+          "bytes": 100339,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/after/1440-styles.png",
+          "sha256": "16d41a778b0b2828928db78cde967855584a042f45df2e2e91ed5eccb909e1cb",
+          "bytes": 319696,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/after/1440-result.png",
+          "sha256": "cd6a89853bbdf9e6bce19b904c85c2b56666e2fc6422d2ce49481ad8327394e0",
+          "bytes": 366293,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/after/1440-tour.png",
+          "sha256": "6047a2862c1f7ea77ce80a83739e2ff7680ae9f0b65343a3b8dfad691be71e3c",
+          "bytes": 82553,
+          "overflow": false
+        }
+      ]
+    }
+  ]
+}

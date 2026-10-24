@@ -1,0 +1,71 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "type": "data",
+      "name": "Manrope",
+      "version": "5.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "OFL-1.1"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "scope",
+          "value": "self-hosted UI asset, not installed npm dependency"
+        },
+        {
+          "name": "rightsReview",
+          "value": "license/format/hash checked; legal certification not claimed"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "3911b66d9f2e005a4b989223405d0e5032619c668597ba467cc76a23c8fffcfb"
+        }
+      ]
+    },
+    {
+      "type": "data",
+      "name": "Newsreader",
+      "version": "5.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "OFL-1.1"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "scope",
+          "value": "self-hosted UI asset, not installed npm dependency"
+        },
+        {
+          "name": "rightsReview",
+          "value": "license/format/hash checked; legal certification not claimed"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "48bc8861b9b2ca9300747cad4fd6a3b4ac3028d364df00bd1b72097baa75e509"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "d8c263970d52e0b94b3d5d4250d5962fe39f8f3b6fa9ad13b406d73ff3f4b036"
+        }
+      ]
+    }
+  ]
+}

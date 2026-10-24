@@ -1,0 +1,45 @@
+{
+  "method": "WCAG relative sRGB luminance, opaque token pairs; not full page/manual WCAG certification",
+  "pairs": [
+    {
+      "foreground": "#192622",
+      "background": "#F7F6F2",
+      "use": "Ana metin",
+      "wcagContrast": 14.474,
+      "normalTextThreshold": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "#58645D",
+      "background": "#F7F6F2",
+      "use": "Yardımcı metin",
+      "wcagContrast": 5.719,
+      "normalTextThreshold": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "#FFFFFF",
+      "background": "#0D624A",
+      "use": "Ana eylem",
+      "wcagContrast": 7.335,
+      "normalTextThreshold": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "#FFFFFF",
+      "background": "#101916",
+      "use": "Video ve 3D yazısı",
+      "wcagContrast": 17.908,
+      "normalTextThreshold": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "#192622",
+      "background": "#E3EAE4",
+      "use": "Açıklama yüzeyi",
+      "wcagContrast": 12.787,
+      "normalTextThreshold": 4.5,
+      "pass": true
+    }
+  ]
+}

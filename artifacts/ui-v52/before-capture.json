@@ -1,0 +1,386 @@
+{
+  "phase": "V5.1_BEFORE",
+  "sourceHead": "2213b37c0b68813ebc6dcdb1d2cc4d1f671eaaa8",
+  "buildSha256": "c09f7f942295fc18ef768f1958ca1759e2d4ade1745a814ae2b075be4c37a42e",
+  "synthetic": true,
+  "results": [
+    {
+      "width": 375,
+      "height": 844,
+      "primaryBox": {
+        "x": 16,
+        "y": 551.234375,
+        "width": 253.234375,
+        "height": 52.75
+      },
+      "primaryInFirstViewport": true,
+      "secondPickerBox": {
+        "x": 35,
+        "y": 1161.84375,
+        "width": 305,
+        "height": 130.09375
+      },
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/before/375-studio.png",
+          "sha256": "e5b2b23a9484ea3188823d2597b673666083adf2603a6a11abcc464735505cb1",
+          "bytes": 159658,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/before/375-files.png",
+          "sha256": "6f51862eb3e25c79e7617f4baee1f00dfe3ab294949ec28125916496e37d4dca",
+          "bytes": 225355,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/before/375-styles.png",
+          "sha256": "cceed4f40d2461279772e603824ac644696d7f26ecdb6684f6ee4f0d198fbe9b",
+          "bytes": 273990,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/before/375-result.png",
+          "sha256": "1576567ec16ee01163f4c9ad51f34f79120c3a276dc6054f8e74daf65a733305",
+          "bytes": 379658,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/before/375-tour.png",
+          "sha256": "64789dd0c53b2f6a1ee558095b250c6815e9295f138c426fab03b8fc7ee46348",
+          "bytes": 76507,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "primaryBox": {
+        "x": 16,
+        "y": 551.234375,
+        "width": 253.234375,
+        "height": 52.75
+      },
+      "primaryInFirstViewport": true,
+      "secondPickerBox": {
+        "x": 35,
+        "y": 1170.28125,
+        "width": 320,
+        "height": 130.09375
+      },
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/before/390-studio.png",
+          "sha256": "049ad2cf58dbfade3f7eb3b9ac8c23012332ad58cf5f165205552d0b4324d74d",
+          "bytes": 166997,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/before/390-files.png",
+          "sha256": "a3015776a9119d163d4aef50f991f7ae4487701c27a19cadc2b1ed0b94fb9d9a",
+          "bytes": 237707,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/before/390-styles.png",
+          "sha256": "e03d26cf03e9752169828c0d4e4f40e63720143bbd13339d0850ce64a24e75e9",
+          "bytes": 297363,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/before/390-result.png",
+          "sha256": "6050578d33f9b5f2e7d913594ed249fdb95771afc462bdecfbd4849317c405b7",
+          "bytes": 406526,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/before/390-tour.png",
+          "sha256": "44704c424341f79268c76a9d26b77c01ad89e962823cd3d7b6d90c98e46421c0",
+          "bytes": 76882,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "height": 844,
+      "primaryBox": {
+        "x": 16,
+        "y": 551.234375,
+        "width": 253.234375,
+        "height": 52.75
+      },
+      "primaryInFirstViewport": true,
+      "secondPickerBox": {
+        "x": 35,
+        "y": 1192.78125,
+        "width": 360,
+        "height": 130.09375
+      },
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/before/430-studio.png",
+          "sha256": "f6dff8b993d2d8b3e0fa095c141fd23ecb46e813769f3790753f682bb732880f",
+          "bytes": 188062,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/before/430-files.png",
+          "sha256": "057907181ecaa7642ce9196ed00fab700886aeb428476af90caebc473822d8d1",
+          "bytes": 266240,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/before/430-styles.png",
+          "sha256": "99996c4f381c4777feca3c22b51e3dc3bb77b39575325369ef031a29487c574b",
+          "bytes": 373941,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/before/430-result.png",
+          "sha256": "79ab2725a04300ed76918225179f8dbff77cb5ee271de0b8c572b3b50f6d370d",
+          "bytes": 474053,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/before/430-tour.png",
+          "sha256": "4145c9a423a61946aa8b414cd0dd5585b2046c1c8e415d183e31799713ac0d56",
+          "bytes": 76362,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1000,
+      "primaryBox": {
+        "x": 22,
+        "y": 453.953125,
+        "width": 253.234375,
+        "height": 52.75
+      },
+      "primaryInFirstViewport": true,
+      "secondPickerBox": {
+        "x": 47,
+        "y": 852.578125,
+        "width": 674,
+        "height": 133.390625
+      },
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/before/768-studio.png",
+          "sha256": "d928a1b1c8da3ec70919b000a42084312ffe7f466a71c9ee779ebfcfc4f25e1d",
+          "bytes": 198222,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/before/768-files.png",
+          "sha256": "70162cc3ff2bffd502870198f86de1ad65d8ce9dc9ed91672a982cd5e7b66c1e",
+          "bytes": 326971,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/before/768-styles.png",
+          "sha256": "c09d71ea99869674130034d5106995f1c0ae5e67223107ebfe225bdb2e5801f5",
+          "bytes": 335271,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/before/768-result.png",
+          "sha256": "18e57a5bb26ec643188d88a8e697e949d2f586469adfdfa09d69f696b9a7cb09",
+          "bytes": 504412,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/before/768-tour.png",
+          "sha256": "a21cfb80c554648242cb92acb215d94dee4c0bb0e5b16f89b9c4abf023c6d9ba",
+          "bytes": 80910,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "height": 1000,
+      "primaryBox": {
+        "x": 40,
+        "y": 474.328125,
+        "width": 253.234375,
+        "height": 52.75
+      },
+      "primaryInFirstViewport": true,
+      "secondPickerBox": {
+        "x": 71,
+        "y": 878.953125,
+        "width": 882,
+        "height": 133.390625
+      },
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/before/1024-studio.png",
+          "sha256": "4777b99a65ebe8958b34d25f851b739224d01cab19277c269864075cbbb72b70",
+          "bytes": 265347,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/before/1024-files.png",
+          "sha256": "41d49a9318c0bdf262bb6993d9b4718a0addbf1fdfe2cd8b1b2b8f127f7a2e15",
+          "bytes": 417088,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/before/1024-styles.png",
+          "sha256": "14e339a6245fece932b6b461b38603ec2324ec807f68e4eff3b0bcfe34918f59",
+          "bytes": 357937,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/before/1024-result.png",
+          "sha256": "aca6cc0b34a9334c012b0e501f26da6cde377f3f53db0e3a8032d6b10fd7999a",
+          "bytes": 575929,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/before/1024-tour.png",
+          "sha256": "aaad32062cef8e9592b9ac403f2973e613ca7fd76c0971f52d3a46c48d4abf74",
+          "bytes": 82979,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 1000,
+      "primaryBox": {
+        "x": 40,
+        "y": 522.203125,
+        "width": 253.234375,
+        "height": 52.75
+      },
+      "primaryInFirstViewport": true,
+      "secondPickerBox": {
+        "x": 71,
+        "y": 950.59375,
+        "width": 1138,
+        "height": 133.390625
+      },
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/before/1280-studio.png",
+          "sha256": "6ae4be3f506fb1d5104f48ab1fe31fcbf6f0859ebd55591d8c8399b656ca4dee",
+          "bytes": 363451,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/before/1280-files.png",
+          "sha256": "8ada840b05eba2a094ed1fccc98ae4f93c726c5b84bfd813d5b952ce8c6f5db7",
+          "bytes": 535600,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/before/1280-styles.png",
+          "sha256": "f08471f521862252f6dae27ba5154eb9447f4a0ec6fa4b44d0a59f1318cb9377",
+          "bytes": 556234,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/before/1280-result.png",
+          "sha256": "1b7ecdc7d0ba86984d513b96b5fa737cffc59f1564f5fb807e545dc5567f7b4e",
+          "bytes": 674903,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/before/1280-tour.png",
+          "sha256": "05f629e81de24ecdbf028d44248b13fd4d870cd2d05cb736dff3f1691d25379c",
+          "bytes": 84540,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "primaryBox": {
+        "x": 40,
+        "y": 557.921875,
+        "width": 253.234375,
+        "height": 52.75
+      },
+      "primaryInFirstViewport": true,
+      "secondPickerBox": {
+        "x": 71,
+        "y": 1006.9375,
+        "width": 1298,
+        "height": 133.390625
+      },
+      "states": [
+        {
+          "state": "studio",
+          "file": "artifacts/screenshots/v52/before/1440-studio.png",
+          "sha256": "bf66eebe15a622b7e927b28fe4801d10b03c010f96aba621c58b4228e75f233a",
+          "bytes": 432328,
+          "overflow": false
+        },
+        {
+          "state": "files",
+          "file": "artifacts/screenshots/v52/before/1440-files.png",
+          "sha256": "48efe137a73270eaa2deff5644d2fdc50e200f7f8924fb9b0586176ab3b05145",
+          "bytes": 613698,
+          "overflow": false
+        },
+        {
+          "state": "styles",
+          "file": "artifacts/screenshots/v52/before/1440-styles.png",
+          "sha256": "dc8f2a33b498de24ae260af6b136a85019773c5782ef5d50297adb50f14846b1",
+          "bytes": 719989,
+          "overflow": false
+        },
+        {
+          "state": "result",
+          "file": "artifacts/screenshots/v52/before/1440-result.png",
+          "sha256": "d5a58808a433c9dcb9299f3cdd30f1d3f84a707ada79b3765d21ec5013ae8585",
+          "bytes": 756094,
+          "overflow": false
+        },
+        {
+          "state": "tour",
+          "file": "artifacts/screenshots/v52/before/1440-tour.png",
+          "sha256": "3548d7c37e55855d28b6da79f4d84afca6c9ac9317c7d16be642d2375ddc694d",
+          "bytes": 85020,
+          "overflow": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "sourceHead": "25473e9a60386e2a4fc8c67f3b1e6992f3405657",
+  "sourceDirty": false,
+  "buildSha256": "5d9e9b07a5a9a01f7f7bc51cfde330555aa2a62df13b3fc48d64f58433210fee",
+  "method": {
+    "viewport": "390x844 Chromium",
+    "cpuThrottle": 4,
+    "networkLatencyMs": 150,
+    "downloadBytesPerSecond": 200000,
+    "observationAfterLoadMs": 4500,
+    "coldContexts": 3,
+    "realIphone": false
+  },
+  "samples": [
+    {
+      "lcp": 2532,
+      "cls": 0.0045421952993660725,
+      "transferBytes": 401428,
+      "resources": 6
+    },
+    {
+      "lcp": 2368,
+      "cls": 0.0045421952993660725,
+      "transferBytes": 401428,
+      "resources": 6
+    },
+    {
+      "lcp": 2444,
+      "cls": 0.0045421952993660725,
+      "transferBytes": 401428,
+      "resources": 6
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "baselineHead": "2213b37c0b68813ebc6dcdb1d2cc4d1f671eaaa8",
+  "visualHead": "25473e9a60386e2a4fc8c67f3b1e6992f3405657",
+  "beforeBuildSha256": "c09f7f942295fc18ef768f1958ca1759e2d4ade1745a814ae2b075be4c37a42e",
+  "afterBuildSha256": "5d9e9b07a5a9a01f7f7bc51cfde330555aa2a62df13b3fc48d64f58433210fee",
+  "method": {
+    "viewport": "390x844 Chromium",
+    "cpuThrottle": 4,
+    "networkLatencyMs": 150,
+    "downloadBytesPerSecond": 200000,
+    "observationAfterLoadMs": 4500,
+    "coldContexts": 3,
+    "realIphone": false
+  },
+  "lcpBeforeMs": [
+    6504,
+    6512,
+    6516
+  ],
+  "lcpAfterMs": [
+    2532,
+    2368,
+    2444
+  ],
+  "medianBeforeMs": 6512,
+  "medianAfterMs": 2444,
+  "medianReductionPercent": 62.47,
+  "allRunsWithin2500ms": false,
+  "maxClsAfter": 0.0045421952993660725,
+  "clsWithinPointOne": true,
+  "resourceTransferBeforeBytes": 1062006,
+  "resourceTransferAfterBytes": 401428,
+  "note": "Resource Timing subresources, excludes navigation document; lab only, not real iPhone or Vercel/CDN. One final sample exceeds LCP target; no unconditional PASS."
+}

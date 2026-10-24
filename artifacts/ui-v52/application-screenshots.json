@@ -1,0 +1,57 @@
+{
+  "source": "actual local Next app full 48-test run; no deployment; synthetic test fixtures only",
+  "screenshots": [
+    {
+      "file": "artifacts/screenshots/v52/application/desktop-chromium-390-studio.png",
+      "sha256": "9645fc890a1d28d86418dc8786625b389d6419f3208a2047700f3e487e8d6259",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/desktop-chromium-768-studio.png",
+      "sha256": "2a866992900c895393584eb1c6f996bc2586fc667ed7a65212928efea2180cf4",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/desktop-chromium-1280-studio.png",
+      "sha256": "03e9e3c66685d0b28ca16fd48b88b25d8fa1742d6f21b70002c7f19e72699da5",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/desktop-chromium-result.png",
+      "sha256": "b12350d4f5f7b9e909e49511bd1d6534eda040c6b97b0930b6cd64631dcff32d",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/desktop-chromium-scoped-3d-voice.png",
+      "sha256": "662bfd9dbc8b1ee5b5125333a02ced7da9a9512f9226d49cbe496f77a681cbdc",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/mobile-chromium-390-studio.png",
+      "sha256": "dfacd47a0ec1420ed82a80d693df367f7dcfee65593cf91d9d6a1300c6d42c94",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/mobile-chromium-768-studio.png",
+      "sha256": "69f68ed9d1a425d8a59d0591a418e5a0f20af0a0ebf8011f6c64e53e9c280151",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/mobile-chromium-1280-studio.png",
+      "sha256": "f29f7f804d056bbf58e3d63f6d82d9a3e9453111e1722202f835ee7a0b629d19",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/mobile-chromium-result.png",
+      "sha256": "901b26dc5a79ccde092f6d66c173506bc9f6d2d655c53ba945cee9174dd416ab",
+      "synthetic": true
+    },
+    {
+      "file": "artifacts/screenshots/v52/application/mobile-chromium-scoped-3d-voice.png",
+      "sha256": "41adb010b06c22d0eb04ff9c7ee356e8cc85a4b4e2826641cb925d48face9ab8",
+      "synthetic": true
+    }
+  ],
+  "sourceCodeEquivalent": "e63ab9b751acfd3f7896a29e5b15bc3b26566d2c",
+  "note": "Captured in the actual passing 48-test local app run before the optional static-preview initialYaw follow-up; not a deployment/current hosted screenshot."
+}
