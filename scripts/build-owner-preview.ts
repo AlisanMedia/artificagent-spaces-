@@ -209,6 +209,12 @@ await writeFile(
       routes: [
         { src: "/(.*)", headers, continue: true },
         {
+          src: "/(.*)",
+          methods: ["POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE", "CONNECT"],
+          status: 405,
+          dest: "/404.html",
+        },
+        {
           src: "/(?:api(?:/.*)?|spaces/manage(?:/.*)?|tour(?:/.*)?|\\.env.*|\\.git.*|\\.spaces-local.*)",
           status: 404,
           dest: "/404.html",
