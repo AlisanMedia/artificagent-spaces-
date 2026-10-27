@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, build/v5-4-api-first-studio]
 
 permissions:
   contents: read
@@ -32,8 +32,20 @@ jobs:
       - name: Install CPU-only local media tools
         timeout-minutes: 5
         run: |
-          sudo apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 -o APT::Update::Error-Mode=any update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install --no-install-recommends --yes ffmpeg blender python3-numpy fonts-dejavu-core
+          # The runner's Azure HTTP mirror stalled twice on blender-data. Keep signed
+          # Ubuntu packages and the same five-minute gate; use official HTTPS sources.
+          test -f /usr/share/keyrings/ubuntu-archive-keyring.gpg
+          spaces_ci_sources=$(mktemp -t spaces-ubuntu-sources.XXXXXX)
+          trap 'rm -f "$spaces_ci_sources"' EXIT
+          cat > "$spaces_ci_sources" <<'SOURCES'
+          deb [signed-by=/usr/share/keyrings/ubuntu-archive-keyring.gpg] https://archive.ubuntu.com/ubuntu noble main restricted universe multiverse
+          deb [signed-by=/usr/share/keyrings/ubuntu-archive-keyring.gpg] https://archive.ubuntu.com/ubuntu noble-updates main restricted universe multiverse
+          deb [signed-by=/usr/share/keyrings/ubuntu-archive-keyring.gpg] https://security.ubuntu.com/ubuntu noble-security main restricted universe multiverse
+          SOURCES
+          chmod 644 "$spaces_ci_sources"
+          spaces_apt_flags=(-o "Dir::Etc::sourcelist=$spaces_ci_sources" -o "Dir::Etc::sourceparts=-" -o Acquire::Retries=2 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 -o APT::Update::Error-Mode=any)
+          sudo apt-get "${spaces_apt_flags[@]}" update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get "${spaces_apt_flags[@]}" install --no-install-recommends --yes ffmpeg blender python3-numpy fonts-dejavu-core
           ffmpeg -version | head -1
           blender --version | head -1
           blender --background --factory-startup --disable-autoexec --python-exit-code 1 --python-expr "import bpy, numpy; assert bpy.ops.export_scene.gltf.get_rna_type().identifier"
