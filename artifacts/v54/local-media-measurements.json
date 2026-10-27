@@ -1,0 +1,284 @@
+{
+  "syntheticOnly": true,
+  "paidInferenceCalls": 0,
+  "measurements": [
+    {
+      "syntheticOnly": true,
+      "actualProvider": "local-ffmpeg",
+      "paidInferenceCalls": 0,
+      "width": 640,
+      "height": 360,
+      "durationSeconds": 9.958333,
+      "sha256": "165868b33e0a47c5407d1aafc6608501f81ac71bf302ca6dfd50cf4967f3e26e",
+      "bytes": 99727,
+      "wallTimeMs": 3389,
+      "clips": [
+        {
+          "order": 0,
+          "sha256": "ad34d4fb4d8ba236d94e4c4d12a44d4f7b61cc1d220ad70d2c329cc6d5bd8a65",
+          "sourceSha256": "27b36b860d529bdc9f6dd47990bbd233dc40a6420f53dd59b777b135d6ba1290",
+          "durationSeconds": 4.96,
+          "width": 640,
+          "height": 360,
+          "codec": "h264",
+          "bytes": 61760
+        },
+        {
+          "order": 1,
+          "sha256": "ef0335b54ab6250eabb0fc406acdfd2b72bad7ea86500bd1a42204583e22fc09",
+          "sourceSha256": "8d1d0c40d080fcfcc1cb213ee8176bca2b334a2ac5815d7c941fd4ba47a59a31",
+          "durationSeconds": 4.96,
+          "width": 640,
+          "height": 360,
+          "codec": "h264",
+          "bytes": 43070
+        }
+      ],
+      "evidenceFile": "measurements.json",
+      "release": "QA_FIXTURE_NOT_CUSTOMER_RELEASE"
+    },
+    {
+      "syntheticOnly": true,
+      "qaHeldNotCustomerRelease": true,
+      "actualProvider": "local-ffmpeg",
+      "native1080p": false,
+      "requestedSeconds": 30,
+      "actualSeconds": 29.958333,
+      "width": 640,
+      "height": 360,
+      "sha256": "088f31f20d427d15f09e80b2d44297e9560816b6764db16c48c03422fc500a0a",
+      "bytes": 215074,
+      "auxiliaryBytes": 219474,
+      "wallTimeMs": 8426,
+      "clips": [
+        {
+          "order": 0,
+          "sha256": "fc926346a7ea0fb929ba4421a4f1e3a14d2f678f539ce107e47936c7fa378db9",
+          "sourceSha256": "b0f6d6542a6a61f86fa571fa30c63d48250dbf957679f22125fd1b8d7da8c5cf",
+          "durationSeconds": 4.96,
+          "bytes": 36819
+        },
+        {
+          "order": 1,
+          "sha256": "dce06e110ed05209c23875f5a010ddd86b5de296e108f2a789e3e918820cd77b",
+          "sourceSha256": "77f777cae2f43a673d255edfc6a3e1818ef632532974acaf6193bfa9169be341",
+          "durationSeconds": 4.96,
+          "bytes": 36868
+        },
+        {
+          "order": 2,
+          "sha256": "b76d11978b6fb87e096582394ee4e055856aaf137b5d7e51bb9214cbb4ebe26a",
+          "sourceSha256": "df975e5ccab7df21fe69a8642bc052ad4ecbb0660cdffefe14a0e7b6aa177a30",
+          "durationSeconds": 4.96,
+          "bytes": 36049
+        },
+        {
+          "order": 3,
+          "sha256": "a60ad28dda90ccdb8ca514a3db94ffe128e2fb6b68701e2dee4d534a506824f5",
+          "sourceSha256": "50d3bd00c3a0a11e0c0d1f52c1cb57d36021aa1fee2fcfc1b3de0b828ab7d63f",
+          "durationSeconds": 4.96,
+          "bytes": 37172
+        },
+        {
+          "order": 4,
+          "sha256": "965cf27ac031d02ec94696310aa600280ed76938b38582c9e3f564ca13cc63bd",
+          "sourceSha256": "0661220024a8fc9b909b2d5f65e1795d08d6033142251d2787b137fb82efba16",
+          "durationSeconds": 4.96,
+          "bytes": 35602
+        },
+        {
+          "order": 5,
+          "sha256": "188a33d05d08bc82126a4de72d490941109551bac9e9fd480b610715e3dfdf23",
+          "sourceSha256": "5d84783eb23b2a8770ff3ba6330dae53aaf1eaf4824375d24dde3eac2eb1d82b",
+          "durationSeconds": 4.96,
+          "bytes": 36964
+        }
+      ],
+      "evidenceFile": "synthetic-30s-measurements.json",
+      "release": "QA_FIXTURE_NOT_CUSTOMER_RELEASE"
+    },
+    {
+      "syntheticOnly": true,
+      "qaHeldNotCustomerRelease": true,
+      "actualProvider": "local-ffmpeg",
+      "native1080p": false,
+      "requestedSeconds": 45,
+      "actualSeconds": 44.958333,
+      "width": 360,
+      "height": 640,
+      "sha256": "5f797e2cce49e0d1fbe264016aacec47873517ce7c3aeddc8f0991165f0405ce",
+      "bytes": 279473,
+      "auxiliaryBytes": 287006,
+      "wallTimeMs": 14750,
+      "clips": [
+        {
+          "order": 0,
+          "sha256": "62a1f053d6cc868c15c72c7fccc868f57da3283cfc2bc373a3eb540cf251c585",
+          "sourceSha256": "b0f6d6542a6a61f86fa571fa30c63d48250dbf957679f22125fd1b8d7da8c5cf",
+          "durationSeconds": 4.96,
+          "bytes": 31706
+        },
+        {
+          "order": 1,
+          "sha256": "fa0ab823e49d37f974c1d192942f8b776877db3ed14d1d16ec28cec2fd277f18",
+          "sourceSha256": "77f777cae2f43a673d255edfc6a3e1818ef632532974acaf6193bfa9169be341",
+          "durationSeconds": 4.96,
+          "bytes": 31782
+        },
+        {
+          "order": 2,
+          "sha256": "5fd349902e127f5ccc924511167da5ac59bc9d5958f9c6a8c89804dd4b093f98",
+          "sourceSha256": "df975e5ccab7df21fe69a8642bc052ad4ecbb0660cdffefe14a0e7b6aa177a30",
+          "durationSeconds": 4.96,
+          "bytes": 32321
+        },
+        {
+          "order": 3,
+          "sha256": "9856bb79db401c6f2e4e4b0439026a966460f799a4a226a67ce90be7d0ad241a",
+          "sourceSha256": "50d3bd00c3a0a11e0c0d1f52c1cb57d36021aa1fee2fcfc1b3de0b828ab7d63f",
+          "durationSeconds": 4.96,
+          "bytes": 31387
+        },
+        {
+          "order": 4,
+          "sha256": "bc605edd3638c4a9d8339726900168a75d041ceff237b7a14e6e328605916833",
+          "sourceSha256": "0661220024a8fc9b909b2d5f65e1795d08d6033142251d2787b137fb82efba16",
+          "durationSeconds": 4.96,
+          "bytes": 31734
+        },
+        {
+          "order": 5,
+          "sha256": "25701e776897e9c2b87f089b5298cacd0a411a47d8f5c038463cfe012184595d",
+          "sourceSha256": "5d84783eb23b2a8770ff3ba6330dae53aaf1eaf4824375d24dde3eac2eb1d82b",
+          "durationSeconds": 4.96,
+          "bytes": 32324
+        },
+        {
+          "order": 6,
+          "sha256": "1adcf85be82cae73df09a6cd166fb1bd48450ec55de064519b91e1b3efd75af0",
+          "sourceSha256": "cce600d69ea876b5649b91cd49af7ba77df06a9ed89390b5537a7502dd26a0db",
+          "durationSeconds": 4.96,
+          "bytes": 31284
+        },
+        {
+          "order": 7,
+          "sha256": "1a82627e86845e947cc2cfd3957723a60c883271a651317dda5ffd918fa0e032",
+          "sourceSha256": "c8037a8e94cacdc2a7f503b113604c8ba022d2bf176bd02193eeb948855af782",
+          "durationSeconds": 4.96,
+          "bytes": 31911
+        },
+        {
+          "order": 8,
+          "sha256": "d87a0b7a5a142f8d69c10db0704b4ce52442d9780f6288d1e21e8fda6d5df7c8",
+          "sourceSha256": "0886a84cb806486a0ab997b824b4e854d5f56547b38fe27b8712bf09cecd6c53",
+          "durationSeconds": 4.96,
+          "bytes": 32557
+        }
+      ],
+      "evidenceFile": "synthetic-45s-measurements.json",
+      "release": "QA_FIXTURE_NOT_CUSTOMER_RELEASE"
+    },
+    {
+      "syntheticOnly": true,
+      "qaHeldNotCustomerRelease": true,
+      "actualProvider": "local-ffmpeg",
+      "native1080p": false,
+      "requestedSeconds": 60,
+      "actualSeconds": 59.958333,
+      "width": 640,
+      "height": 360,
+      "sha256": "b9c6ef0deb9218ab929ace30e9938c16999e44ac2b34bb983b324dfd5848c7aa",
+      "bytes": 427865,
+      "auxiliaryBytes": 437815,
+      "wallTimeMs": 17516,
+      "clips": [
+        {
+          "order": 0,
+          "sha256": "fc926346a7ea0fb929ba4421a4f1e3a14d2f678f539ce107e47936c7fa378db9",
+          "sourceSha256": "b0f6d6542a6a61f86fa571fa30c63d48250dbf957679f22125fd1b8d7da8c5cf",
+          "durationSeconds": 4.96,
+          "bytes": 36819
+        },
+        {
+          "order": 1,
+          "sha256": "dce06e110ed05209c23875f5a010ddd86b5de296e108f2a789e3e918820cd77b",
+          "sourceSha256": "77f777cae2f43a673d255edfc6a3e1818ef632532974acaf6193bfa9169be341",
+          "durationSeconds": 4.96,
+          "bytes": 36868
+        },
+        {
+          "order": 2,
+          "sha256": "b76d11978b6fb87e096582394ee4e055856aaf137b5d7e51bb9214cbb4ebe26a",
+          "sourceSha256": "df975e5ccab7df21fe69a8642bc052ad4ecbb0660cdffefe14a0e7b6aa177a30",
+          "durationSeconds": 4.96,
+          "bytes": 36049
+        },
+        {
+          "order": 3,
+          "sha256": "a60ad28dda90ccdb8ca514a3db94ffe128e2fb6b68701e2dee4d534a506824f5",
+          "sourceSha256": "50d3bd00c3a0a11e0c0d1f52c1cb57d36021aa1fee2fcfc1b3de0b828ab7d63f",
+          "durationSeconds": 4.96,
+          "bytes": 37172
+        },
+        {
+          "order": 4,
+          "sha256": "965cf27ac031d02ec94696310aa600280ed76938b38582c9e3f564ca13cc63bd",
+          "sourceSha256": "0661220024a8fc9b909b2d5f65e1795d08d6033142251d2787b137fb82efba16",
+          "durationSeconds": 4.96,
+          "bytes": 35602
+        },
+        {
+          "order": 5,
+          "sha256": "188a33d05d08bc82126a4de72d490941109551bac9e9fd480b610715e3dfdf23",
+          "sourceSha256": "5d84783eb23b2a8770ff3ba6330dae53aaf1eaf4824375d24dde3eac2eb1d82b",
+          "durationSeconds": 4.96,
+          "bytes": 36964
+        },
+        {
+          "order": 6,
+          "sha256": "eafc8903514c849e56c53062c8320f3538a552860c3384729399232559c0a2df",
+          "sourceSha256": "cce600d69ea876b5649b91cd49af7ba77df06a9ed89390b5537a7502dd26a0db",
+          "durationSeconds": 4.96,
+          "bytes": 35595
+        },
+        {
+          "order": 7,
+          "sha256": "dcccab7ba8a2cd80e04cf6238fcd1932e7393eb55e3648604c061d615fe26fba",
+          "sourceSha256": "c8037a8e94cacdc2a7f503b113604c8ba022d2bf176bd02193eeb948855af782",
+          "durationSeconds": 4.96,
+          "bytes": 36300
+        },
+        {
+          "order": 8,
+          "sha256": "309047b38aa3f1ba972fb6d35e1034ab5132ff3b1654ba242a47a903c065b4f1",
+          "sourceSha256": "0886a84cb806486a0ab997b824b4e854d5f56547b38fe27b8712bf09cecd6c53",
+          "durationSeconds": 4.96,
+          "bytes": 36335
+        },
+        {
+          "order": 9,
+          "sha256": "48c7a1c06d36db976f3cd30161d71144cbff1cebafe9a0ac929afdb5fbde13d1",
+          "sourceSha256": "284fbea17ba15b9a0c780e766582ea8d9951b3fb6243fe2922b9607de73c47e3",
+          "durationSeconds": 4.96,
+          "bytes": 36381
+        },
+        {
+          "order": 10,
+          "sha256": "7d022edcf4d348a6a217dc287d307104c23789066a42877539108a2ea65c2ead",
+          "sourceSha256": "0de713e79faa0f6cd2cc40b2ee96e8bb4a9fa62e0a053d44cd3591d30d24a240",
+          "durationSeconds": 4.96,
+          "bytes": 36414
+        },
+        {
+          "order": 11,
+          "sha256": "33f24ff37ef5ac1df16b5e72d235ae8c3cfe662e6b8134e6411bc851030f4bf2",
+          "sourceSha256": "40dbf20acc75811a2e56766167ad8f751ededc5b6b8afafeabfed2ef70b3152f",
+          "durationSeconds": 4.96,
+          "bytes": 37316
+        }
+      ],
+      "evidenceFile": "synthetic-60s-measurements.json",
+      "release": "QA_FIXTURE_NOT_CUSTOMER_RELEASE"
+    }
+  ]
+}

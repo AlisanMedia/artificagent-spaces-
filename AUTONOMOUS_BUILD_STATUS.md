@@ -198,3 +198,12 @@ Vercel correct ArtificAgent scope is not yet confirmed/authorized. Owner rejecte
 PR2/3/4 remainOPEN/unmerged,Chesar55requested,actualreviews0;historicalcheckruns39821430869/39940671824/39992936672 success at their respective old heads. Main9a3df78 unchanged; Protectmain25460908 FULLY_VERIFIED active/main/bypass0/independent1/stale/conversation/strictFoundation15368/merge-only/noforce/deletion. No newPR/merge. A feature branch does not inherit main rules automatically. This additive checkpoint excludes pre-existing uncommitted owner handoff text from staging while preserving its complete working copy.
 
 Next safe commands: npm run preview:build; npm run preview:test; node scripts/capture-studio-evidence.mjs --v53. Before ordinary new-branch push scan full reachable history+public static package, verify exact ancestry/current remote; dispatch existingworkflow390302282 on newhead. Verify exact current-head result and both-browser aggregate artifact, never reuse historical results. Deliver final Turkish SPACES_V5_3_PREVIEW_AND_USABILITY_REPORT.md outsideGit with source/build/CI hashes, screenshots, exact account blocker, zero spend and next action. No PR5 while parent reviews pending; no merge/production/protection changes.
+
+
+## V5.4 API-first owner execution — 2026-10-27
+
+- Isolated worktree/branch: `build/v5-4-api-first-studio`, base `8fc1770aaad7f5bb9716d8e40247ad60b7fe5aeb`; original worktrees and owner reports preserved. ZIP/reference HTML unavailable; the complete owner prompt in the message is the implementation authority.
+- Main and PR2–4 verified unchanged, three review lists empty. No PR5/merge or governance change. Foundation acceptance / integration15368 retained.
+- Targeted premium /spaces, four property-video-v1 camera presets and separate disabled fal Kling4 / Seedance2.5US, private Marble1.1Plus photo requests and genuine 2:1 Pedra panorama contracts implemented; validation is in progress.
+- Local per-photo MP4 clips use the existing guarded CPU media boundary, source revision/hashes, durable idempotent jobs and independent per-clip review. External authorization USD0; no credentials, inference, billing or Vercel actions.
+- Final V5.4 report will record actual checks, corrected failures and remaining gates; this checkpoint does not claim live integrations, production readiness or independent human acceptance.

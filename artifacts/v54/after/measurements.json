@@ -1,0 +1,172 @@
+{
+  "syntheticOnly": true,
+  "externalSpendMicroUsd": 0,
+  "deployed": false,
+  "sourceSha": "8fc1770aaad7f5bb9716d8e40247ad60b7fe5aeb",
+  "sourceDirty": true,
+  "sourceBinding": "CAPTURE_CHECKOUT_ONLY_APP_BUILD_VERIFIED_SEPARATELY",
+  "baseline": false,
+  "measurements": [
+    {
+      "width": 375,
+      "state": "studio",
+      "overflow": false,
+      "primary": {
+        "x": 45,
+        "y": 673.78125,
+        "width": 285,
+        "height": 48
+      }
+    },
+    {
+      "width": 390,
+      "state": "studio",
+      "overflow": false,
+      "primary": {
+        "x": 45,
+        "y": 673.78125,
+        "width": 300,
+        "height": 48
+      }
+    },
+    {
+      "width": 430,
+      "state": "studio",
+      "overflow": false,
+      "primary": {
+        "x": 45,
+        "y": 673.78125,
+        "width": 340,
+        "height": 48
+      }
+    },
+    {
+      "width": 768,
+      "state": "studio",
+      "overflow": false,
+      "primary": {
+        "x": 224,
+        "y": 744.46875,
+        "width": 320,
+        "height": 48.5
+      }
+    },
+    {
+      "width": 1024,
+      "state": "studio",
+      "overflow": false,
+      "primary": {
+        "x": 150.390625,
+        "y": 755,
+        "width": 320,
+        "height": 48.5
+      }
+    },
+    {
+      "width": 1280,
+      "state": "studio",
+      "overflow": false,
+      "primary": {
+        "x": 227.1875,
+        "y": 778.59375,
+        "width": 320,
+        "height": 48.5
+      }
+    },
+    {
+      "width": 1440,
+      "state": "studio",
+      "overflow": false,
+      "primary": {
+        "x": 307.1875,
+        "y": 793.6875,
+        "width": 320,
+        "height": 48.5
+      }
+    },
+    {
+      "width": 390,
+      "state": "styles",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "state": "styles",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "state": "ai-3d",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "state": "ai-3d",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "state": "panorama",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "state": "panorama",
+      "overflow": false
+    }
+  ],
+  "files": [
+    {
+      "file": "375-studio.png",
+      "sha256": "8dcae98449f4a1985435571261e3872d9e5d10f097c76f27e494481140f70508"
+    },
+    {
+      "file": "390-studio.png",
+      "sha256": "4f1a6c86a80d4e14885e6f54d904d17f08d85414b609375f392f5eca34d4ea68"
+    },
+    {
+      "file": "430-studio.png",
+      "sha256": "4ec9f07c103ce4237b70886dccf38aba763fa06d2050c48abe2586989ac16afd"
+    },
+    {
+      "file": "768-studio.png",
+      "sha256": "050a95591760845b5f7bc4cd0eadc58b20ac668a490cf586b405615d918f216f"
+    },
+    {
+      "file": "1024-studio.png",
+      "sha256": "20026b5b68a72c8d62e21f276f8e36d6c013356c6252c6d7d401ea95f73550ca"
+    },
+    {
+      "file": "1280-studio.png",
+      "sha256": "dec760d4acdb3b9bca6628e0c433a5bf0ecd39ebf387e9c8834b23d1ed6487fd"
+    },
+    {
+      "file": "1440-studio.png",
+      "sha256": "09f4361c1dd65f34d37b2bd158fbb8b787727cfb759c1be99bad544e0cfc477a"
+    },
+    {
+      "file": "390-styles.png",
+      "sha256": "9f779b22ae9e107e442d151ff1ca6b34b6b37b143850e7e7ee50b07d9d9166e7"
+    },
+    {
+      "file": "1440-styles.png",
+      "sha256": "9077797551d9992f90158c01d5722c6f3ed5b15c42bc51a04377ca26a58990cf"
+    },
+    {
+      "file": "390-ai-3d.png",
+      "sha256": "19b2059b477768f95ed597d29a01fa50b04e9986160a819e24534af788dc355f"
+    },
+    {
+      "file": "1440-ai-3d.png",
+      "sha256": "0209991e15c42c0816fee311bf0afa350a2aa4ac1c2ef9a9d9138f05600e4867"
+    },
+    {
+      "file": "390-panorama.png",
+      "sha256": "2c5579d6bfba59e73a02689b2b236bae1be3243ff37e55d5a56ffb07f9f0ce45"
+    },
+    {
+      "file": "1440-panorama.png",
+      "sha256": "ec3b42f6a9412f0143ac603d52475790221f583110be4728e079b25a4c272dad"
+    }
+  ]
+}

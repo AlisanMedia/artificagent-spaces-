@@ -1,0 +1,14 @@
+{
+  "syntheticOnly": true,
+  "actualProvider": "local-ffmpeg",
+  "metadata": {
+    "width": 360,
+    "height": 640,
+    "duration": 9.958333
+  },
+  "clipCount": 2,
+  "submitCount": 1,
+  "externalRequests": 0,
+  "independentTestIdentityReview": true,
+  "realHumanAcceptance": false
+}

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PhotoCompositionSettings } from "./studio-composition-settings";
 import { PlatformError, invariant } from "./platform-errors";
 export { PlatformError, invariant } from "./platform-errors";
 
@@ -323,9 +324,7 @@ export const GenerationInput = z
     propertyId: Id,
     revision: z.number().int().positive(),
     mode: Mode,
-    durationSeconds: z
-      .union([z.literal(4), z.literal(8), z.literal(16)])
-      .default(4),
+    durationSeconds: z.number().int().min(4).max(60).default(4),
     aspectRatio: z.enum(["16:9", "9:16"]).default("16:9"),
     idempotencyKey: z.string().min(8).max(80),
     captions: z.boolean().default(true),
@@ -335,8 +334,31 @@ export const GenerationInput = z
       .enum(["modern", "luxury", "warm", "hotel", "investment"])
       .default("modern"),
     branding: z.boolean().default(false),
+    photoComposition: PhotoCompositionSettings.optional(),
   })
-  .strict();
+  .strict()
+  .superRefine((input, ctx) => {
+    if (!input.photoComposition) {
+      if (![4, 8, 16].includes(input.durationSeconds))
+        ctx.addIssue({
+          code: "custom",
+          path: ["durationSeconds"],
+          message: "UNSUPPORTED_LOCAL_DURATION",
+        });
+    } else if (
+      input.mode === "interactive-3d" ||
+      !input.sourceAssetIds ||
+      input.durationSeconds % 5 !== 0 ||
+      input.durationSeconds > input.photoComposition.requestedDurationSeconds ||
+      input.sourceAssetIds.length * 5 !== input.durationSeconds
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["photoComposition"],
+        message: "INVALID_PHOTO_COMPOSITION",
+      });
+    }
+  });
 export const CreateProperty = z
   .object({
     title: safeLabel,

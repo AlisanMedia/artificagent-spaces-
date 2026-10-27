@@ -13,6 +13,10 @@ import type { LocalPrivateStorage } from "./storage";
 import { BrandService } from "./brands";
 import { Ledger } from "./ledger";
 import { buildOutput, type MediaSource } from "./media";
+import {
+  buildPhotoComposition,
+  discardFencedComposition,
+} from "./video-composition";
 
 export interface JobRecord {
   id: string;
@@ -113,6 +117,14 @@ export class JobService {
           ),
       "INSUFFICIENT_EVIDENCE",
     );
+    if (command.photoComposition)
+      invariant(
+        sources.length === command.sourceAssetIds?.length &&
+          sources.every((s) => s.kind === "photo") &&
+          new Set(sources.map((s) => s.clean_hash)).size === sources.length,
+        "DISTINCT_PHOTOS_REQUIRED",
+        422,
+      );
     const hash = digest(JSON.stringify(command));
     return this.db.pg.transaction(async (tx) => {
       const current = await tx.query<{ revision: number }>(
@@ -147,7 +159,7 @@ export class JobService {
       invariant(active.rows[0]!.count < 3, "TENANT_JOB_LIMIT", 429);
       const capacity = (
         await tx.query<{ bytes: string }>(
-          "select coalesce(sum((output->>'bytes')::bigint),0)::text as bytes from jobs where organization_id=$1",
+          "select coalesce(sum((output->>'bytes')::bigint + coalesce((output->>'auxiliaryBytes')::bigint,0)),0)::text as bytes from jobs where organization_id=$1",
           [actor.organizationId],
         )
       ).rows[0]!;
@@ -344,7 +356,9 @@ export class JobService {
           );
           logoHash = logo.clean_hash;
         }
-        const output = await buildOutput(
+        const output = await (
+          job.command.photoComposition ? buildPhotoComposition : buildOutput
+        )(
           this.storage,
           job.id + "--" + job.fence,
           GenerationInput.parse(job.command),
@@ -365,6 +379,12 @@ export class JobService {
           );
           if (updated.rows.length)
             await this.ledger.settle(tx, job.organization_id, job.id, 1000);
+          else
+            await discardFencedComposition(
+              this.storage,
+              job.organization_id,
+              output,
+            );
           await tx.query(
             "update job_attempts set state=$4,output_hash=$5,finished_at=now() where organization_id=$1 and job_id=$2 and fence=$3 and state='processing'",
             [

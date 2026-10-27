@@ -7,6 +7,10 @@ import { MEDIA_CAPABILITIES } from "@/domain/media-capabilities";
 import { MediaGrantMetadata, UploadSelection } from "@/domain/media-intake";
 import { authorize } from "@/server/properties";
 import {
+  prepareStudioPlan,
+  STUDIO_PROVIDER_READINESS,
+} from "@/server/studio-planner";
+import {
   cookie,
   errorResponse,
   jsonBody,
@@ -500,6 +504,23 @@ async function handler(request: Request, context: RouteContext) {
       });
       return responseJson({ scheduled: true, externalSpendMicroUsd: 0 }, 202);
     }
+    if (path === "studio/provider-readiness" && method === "GET") {
+      await authorize(platform.db, actor, "admin");
+      return responseJson(STUDIO_PROVIDER_READINESS);
+    }
+    if (
+      (path === "studio/plan" || path === "studio/submit") &&
+      method === "POST"
+    ) {
+      const plan = await prepareStudioPlan(
+        platform.db,
+        platform.properties,
+        actor,
+        await jsonBody(request),
+      );
+      invariant(path !== "studio/submit", "BLOCKED_EXTERNAL_APPROVAL", 403);
+      return responseJson(plan);
+    }
     if (path === "quote" && method === "POST")
       return responseJson(platform.jobs.quote(await jsonBody(request)));
     if (path === "jobs" && method === "POST") {
@@ -579,7 +600,10 @@ async function handler(request: Request, context: RouteContext) {
           }),
         });
       }
-      if (segments[2] === "output" && method === "GET") {
+      if (
+        (segments[2] === "output" || segments[2] === "clips") &&
+        method === "GET"
+      ) {
         const grant = platform.secrets.verify(
           request.headers.get("x-spaces-grant") ??
             url.searchParams.get("grant") ??
@@ -614,12 +638,23 @@ async function handler(request: Request, context: RouteContext) {
           );
         } else
           invariant(job.state === "approved", "APPROVED_OUTPUT_REQUIRED", 403);
+        const clip =
+          segments[2] === "clips"
+            ? job.output.photoComposition?.clips.find(
+                (c) => String(c.order) === segments[3],
+              )
+            : undefined;
+        invariant(
+          segments[2] !== "clips" || (segments.length === 4 && clip),
+          "CLIP_NOT_FOUND",
+          404,
+        );
         const bytes = await platform.storage.readVerified(
           actor.organizationId,
-          job.output.artifactId ?? id,
-          job.output.sha256,
+          clip?.artifactId ?? job.output.artifactId ?? id,
+          clip?.sha256 ?? job.output.sha256,
           "output",
-          job.output.extension,
+          clip ? "mp4" : job.output.extension,
         );
         return new Response(new Uint8Array(bytes), {
           headers: {

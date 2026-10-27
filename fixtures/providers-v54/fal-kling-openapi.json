@@ -1,0 +1,221 @@
+{
+  "source": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=kling/v4/image-to-video",
+  "retrievedAtUtc": "2026-10-27T12:48:34.680806+00:00",
+  "sourceSha256": "182f5a1c65afd4f7ff759eeca4f42f16ae649974172111696052e95b20ebcb3b",
+  "paths": [
+    "/kling/v4/image-to-video/requests/{request_id}/status",
+    "/kling/v4/image-to-video/requests/{request_id}/cancel",
+    "/kling/v4/image-to-video",
+    "/kling/v4/image-to-video/requests/{request_id}"
+  ],
+  "schemas": {
+    "QueueStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["IN_QUEUE", "IN_PROGRESS", "COMPLETED"]
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "response_url": {
+          "type": "string"
+        },
+        "status_url": {
+          "type": "string"
+        },
+        "cancel_url": {
+          "type": "string"
+        },
+        "logs": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "queue_position": {
+          "type": "integer"
+        }
+      },
+      "required": ["status", "request_id"]
+    },
+    "V4ImageToVideoInput": {
+      "type": "object",
+      "title": "ImageToVideoInput",
+      "properties": {
+        "middle_image_urls": {
+          "title": "Middle Image Urls",
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "x-fal": {
+                  "max_file_size": 31457280,
+                  "min_height": 300,
+                  "timeout": 20,
+                  "min_aspect_ratio": 0.4,
+                  "max_aspect_ratio": 2.5,
+                  "min_width": 300
+                },
+                "type": "string"
+              },
+              "maxItems": 8
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration": {
+          "title": "Duration",
+          "minimum": 3,
+          "type": "integer",
+          "maximum": 30,
+          "default": 5
+        },
+        "prompt": {
+          "title": "Prompt",
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 26000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "multi_prompt": {
+          "title": "Multi Prompt",
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/KlingV4Shot"
+              },
+              "minItems": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "start_image_url": {
+          "x-fal": {
+            "max_file_size": 31457280,
+            "min_height": 300,
+            "timeout": 20,
+            "min_aspect_ratio": 0.4,
+            "max_aspect_ratio": 2.5,
+            "min_width": 300
+          },
+          "title": "Start Image Url",
+          "type": "string"
+        },
+        "resolution": {
+          "title": "Resolution",
+          "type": "string",
+          "enum": ["720p", "1080p"],
+          "default": "1080p"
+        },
+        "end_image_url": {
+          "title": "End Image Url",
+          "anyOf": [
+            {
+              "x-fal": {
+                "max_file_size": 31457280,
+                "min_height": 300,
+                "timeout": 20,
+                "min_aspect_ratio": 0.4,
+                "max_aspect_ratio": 2.5,
+                "min_width": 300
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": ["start_image_url"]
+    },
+    "V4ImageToVideoOutput": {
+      "type": "object",
+      "title": "ImageToVideoOutput",
+      "properties": {
+        "video": {
+          "$ref": "#/components/schemas/File"
+        }
+      },
+      "required": ["video"]
+    },
+    "KlingV4Shot": {
+      "type": "object",
+      "title": "KlingV4Shot",
+      "properties": {
+        "duration": {
+          "type": "integer",
+          "title": "Duration",
+          "minimum": 1,
+          "maximum": 30,
+          "default": 5
+        },
+        "prompt": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Prompt",
+          "maxLength": 512
+        }
+      },
+      "required": ["prompt"]
+    },
+    "File": {
+      "type": "object",
+      "title": "File",
+      "properties": {
+        "content_type": {
+          "title": "Content Type",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "file_size": {
+          "title": "File Size",
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "url": {
+          "type": "string",
+          "title": "Url"
+        },
+        "file_name": {
+          "title": "File Name",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": ["url"]
+    }
+  }
+}

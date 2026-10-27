@@ -2,6 +2,14 @@
 
 Bu sürüm yerel/sentetik laboratuvardır. Aşağıdaki playbook deployment talimatının icrası veya üretim kabulü değildir. Başlangıç harici bütçe **USD 0**; external gates kapalı kalır.
 
+## V5.4 güncel kilit ve gelecekteki sağlayıcı açılışı
+
+27 Ekim 2026 owner talimatıyla **yeni Vercel deployment/deneme/account/project ve bütün gerçek sağlayıcı çağrıları bu görevde kapalıdır**. Önceki Preview/team istisnasıyla engel aşılamaz; V5.3.1 billing doğrulama kapısı korunur. Bu değişiklik yerel ürünü yeniden kurmaz; mevcut korumaları daraltmaz.
+
+Gelecekte yalnız ayrı açık owner izniyle: fal.ai video, World Labs AI3D ve isteğe bağlı Pedra gerçek360 için hesap/model erişimi, downstream reseller/white-label hakkı, input/output training, DPA/retention/region ve harcama/yeniden-deneme/overage tavanı yazılı doğrulanır. Sadece hakları açık sentetik fixture, belirli model ve belirli toplam USD tavanı seçilir. Varsayılan provider fallback kapalı kalır. Müşteri fotoğrafları bu deney izninin kapsamı değildir. Pedra turu kamuya açık bağlantı oluşturabileceğinden ayrı yayın/veri izni de gerekir.
+
+Ancak bu kararlardan sonra sunucu secret yöneticisine `FAL_KEY`, `WORLDLABS_API_KEY`, isteğe bağlı `PEDRA_API_KEY` atanabilir. Değerler chat, Git, browser, log, screenshot veya CI artifact'ine yazılmaz. `SPACES_PROVIDER_LIVE_ENABLED=false` ve `SPACES_EXTERNAL_MAX_USD=0` bugünün kilitli varsayılanlarıdır; flag değiştirmek mevcut adapter'ı etkinleştirmez. Gerçek transport, atomik yetkili maliyet rezervasyonu, kısa ömürlü server-issued kaynak URL'leri, egress/SSRF/byte/decoder kontrolleri, doğrulanmış webhook ve özel depoya normalize edilmeden canlı açılış yoktur. Mevcut sentetik `maxCostMicroUsd: 0` kuralı korunur. Bu sürümde transport açılışı **NOT_IMPLEMENTED / BLOCKED_EXTERNAL_APPROVAL** kalır.
+
 ## Yerel işletim
 
 `npm ci --ignore-scripts`, `npm run build`, `npm run start`; ayrı terminalde gerekirse `npm run worker:local`. Host yalnız 127.0.0.1; private data `.spaces-local/` veya `SPACES_LOCAL_DATA_DIR`. PGlite dizinini aynı anda ikinci süreçte açmayın. `npm run demo:local` uygulama dururken çalıştırılır. Worker başka cloud/AI/GPU/ödeme servisine bağlanmaz; process kapandıktan sonra arka planda çalışmaz.

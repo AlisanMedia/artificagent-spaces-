@@ -1,5 +1,7 @@
 "use client";
 
+import { ProviderReadinessPanel } from "./provider-readiness-panel";
+
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
@@ -80,6 +82,8 @@ export function ManagementDashboard({
     [partner, setPartner] = useState<PartnerView | null>(null),
     [brand, setBrand] = useState<BrandTheme | null>(null),
     [reviewJob, setReviewJob] = useState<JobView | null>(null),
+    [clipChecks, setClipChecks] = useState<Record<string, boolean>>({}),
+    [viewedClips, setViewedClips] = useState<Record<string, boolean>>({}),
     [preview, setPreview] = useState(""),
     [sourcePreview, setSourcePreview] = useState(""),
     [sourceVideo, setSourceVideo] = useState(false),
@@ -197,6 +201,8 @@ export function ManagementDashboard({
   }
   async function openJob(job: JobView) {
     setReviewJob(job);
+    setClipChecks({});
+    setViewedClips({});
     setPreview("");
     setPublication("");
     setChecks({
@@ -986,6 +992,108 @@ export function ManagementDashboard({
                             {reviewJob.state === "awaiting-review" &&
                               canReview && (
                                 <>
+                                  {reviewJob.output.photoComposition && (
+                                    <fieldset aria-label="Sahne incelemeleri">
+                                      <legend>
+                                        Her sahneyi kaynağıyla karşılaştır
+                                      </legend>
+                                      <p>
+                                        Yerel kaynak-görsel klipleri. Sağlayıcı
+                                        modeli yalnız planlanmıştır; AI üretimi
+                                        yapılmadı.
+                                      </p>
+                                      {reviewJob.output.photoComposition.clips.map(
+                                        (clip) => (
+                                          <div
+                                            key={clip.artifactId}
+                                            className="spaces-actions"
+                                          >
+                                            <button
+                                              className="subtle"
+                                              disabled={busy}
+                                              onClick={() =>
+                                                void action(async () => {
+                                                  const grant = await api<{
+                                                    token: string;
+                                                  }>(
+                                                    `/jobs/${reviewJob.id}/review-grant`,
+                                                    {},
+                                                  );
+                                                  const result =
+                                                    await localRequest(
+                                                      `/jobs/${reviewJob.id}/clips/${clip.order}`,
+                                                      {
+                                                        headers: {
+                                                          "x-spaces-grant":
+                                                            grant.token,
+                                                        },
+                                                      },
+                                                    );
+                                                  const sourceGrant =
+                                                    await api<{
+                                                      token: string;
+                                                    }>(
+                                                      `/assets/${clip.sourceAssetId}/grant`,
+                                                      {},
+                                                    );
+                                                  const source =
+                                                    await localRequest(
+                                                      `/assets/${clip.sourceAssetId}`,
+                                                      {
+                                                        headers: {
+                                                          "x-spaces-grant":
+                                                            sourceGrant.token,
+                                                        },
+                                                      },
+                                                    );
+                                                  setPreview(
+                                                    objectUrl(
+                                                      await result.blob(),
+                                                    ),
+                                                  );
+                                                  setSourcePreview(
+                                                    objectUrl(
+                                                      await source.blob(),
+                                                    ),
+                                                  );
+                                                  setSourceVideo(false);
+                                                  setViewedClips((v) => ({
+                                                    ...v,
+                                                    [clip.artifactId]: true,
+                                                  }));
+                                                })
+                                              }
+                                            >
+                                              Sahne {clip.order + 1} ve
+                                              kaynağını aç
+                                            </button>
+                                            <label className="spaces-checkbox">
+                                              <input
+                                                type="checkbox"
+                                                disabled={
+                                                  !viewedClips[
+                                                    clip.artifactId
+                                                  ] || busy
+                                                }
+                                                checked={
+                                                  !!clipChecks[clip.artifactId]
+                                                }
+                                                onChange={(e) =>
+                                                  setClipChecks((v) => ({
+                                                    ...v,
+                                                    [clip.artifactId]:
+                                                      e.target.checked,
+                                                  }))
+                                                }
+                                              />
+                                              Sahne {clip.order + 1} kaynağıyla
+                                              tutarlı
+                                            </label>
+                                          </div>
+                                        ),
+                                      )}
+                                    </fieldset>
+                                  )}
                                   <fieldset>
                                     <legend>İnsan kalite kontrolü</legend>
                                     {(
@@ -1034,15 +1142,44 @@ export function ManagementDashboard({
                                         disabled={
                                           busy ||
                                           (decision === "approved" &&
-                                            !Object.values(checks).every(
+                                            (!Object.values(checks).every(
                                               Boolean,
-                                            ))
+                                            ) ||
+                                              !!reviewJob.output?.photoComposition?.clips.some(
+                                                (c) =>
+                                                  !clipChecks[c.artifactId],
+                                              )))
                                         }
                                         onClick={() =>
                                           void action(async () => {
                                             await api(
                                               `/jobs/${reviewJob.id}/review`,
-                                              { decision, ...checks },
+                                              {
+                                                decision,
+                                                ...checks,
+                                                ...(reviewJob.output
+                                                  ?.photoComposition
+                                                  ? {
+                                                      clipApprovals:
+                                                        reviewJob.output.photoComposition.clips
+                                                          .filter(
+                                                            (c) =>
+                                                              clipChecks[
+                                                                c.artifactId
+                                                              ],
+                                                          )
+                                                          .map((c) => ({
+                                                            artifactId:
+                                                              c.artifactId,
+                                                            sha256: c.sha256,
+                                                            sourceSha256:
+                                                              c.sourceSha256,
+                                                            decision:
+                                                              "approved",
+                                                          })),
+                                                    }
+                                                  : {}),
+                                              },
                                             );
                                             await load();
                                             setReviewJob(null);
@@ -1514,6 +1651,7 @@ export function ManagementDashboard({
                   Canlı Supabase / video AI / ElevenLabs / ödeme kapalı
                 </li>
               </ul>
+              {workspace.actor.role === "admin" && <ProviderReadinessPanel />}
               <p>
                 Plan, oran ve sanal kredi gerçek ticari teklif değildir.
                 Sonuçlar insan incelemesi olmadan yayımlanamaz. Tur linkleri

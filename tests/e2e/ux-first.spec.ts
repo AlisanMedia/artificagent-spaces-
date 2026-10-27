@@ -134,6 +134,7 @@ test("nontechnical upload → real video → independent review → download wit
     .getByRole("button", { name: "Tarzını seç", exact: true })
     .last()
     .click();
+  await page.locator(".v54-legacy > summary").click();
   await page.getByRole("radio", { name: /Karma kurgu/ }).check();
   await page
     .getByRole("combobox", { name: "Sunum şablonu" })
@@ -426,6 +427,7 @@ test("sample shortcut creates a scoped real local draft without replacing visito
       exact: true,
     }),
   ).toBeVisible();
+  await page.locator(".v54-legacy > summary").click();
   await page.getByRole("radio", { name: /Doğal keşif/ }).check();
   await expect(page.getByRole("radio", { name: /Doğal keşif/ })).toBeChecked();
   await page

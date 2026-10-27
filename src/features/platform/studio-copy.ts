@@ -6,6 +6,20 @@ export const RIGHTS =
 export const friendlyMediaError = (error: unknown) => {
   const key = error instanceof Error ? error.message : "";
   const messages: Record<string, string> = {
+    DISTINCT_PHOTOS_REQUIRED:
+      "Her sahne için farklı bir fotoğraf seç. Aynı fotoğrafın kopyaları süreyi uzatmak için kullanılmaz.",
+    PANORAMA_2_TO_1_REQUIRED:
+      "360° tur için yalnız 2:1 oranında gerçek panoramalar ekle. Normal oda fotoğrafı kullanılamaz.",
+    PANORAMA_CONFIRMATION_REQUIRED:
+      "Görsellerin gerçek 360° panorama olduğunu onayla. Kaynakları ayrıca incelemeci kontrol etmelidir.",
+    MARBLE_PHOTO_LIMIT:
+      "AI 3D hazırlığı için 1–4 fotoğraf seç. Diğer kaynakların projende korunur.",
+    MEDIA_SCOPE_DENIED:
+      "Seçilen kaynak bu projede kullanılamıyor. Projeni yeniden açıp kaynaklarını kontrol et.",
+    BLOCKED_EXTERNAL_APPROVAL:
+      "Gerçek AI üretimi henüz açık değil. Dosyaların korundu; yerel örnekle devam edebilirsin.",
+    ALL_CLIP_REVIEWS_REQUIRED:
+      "İndirme için başka bir incelemecinin her sahneyi kaynağıyla karşılaştırıp onaylaması gerekir.",
     UPLOAD_SIZE_LIMIT:
       "Dosya fazla büyük. Fotoğrafı 5 MB, MP4 videoyu 20 MB altında seç.",
     VIDEO_DURATION_LIMIT: "En fazla 30 saniyelik bir video seç.",

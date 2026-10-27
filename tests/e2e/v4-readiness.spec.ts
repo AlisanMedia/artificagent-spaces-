@@ -181,6 +181,7 @@ test("JPEG/WebP and MP4 upload remain scoped, preview is real and download stays
     .getByRole("button", { name: "Tarzını seç", exact: true })
     .last()
     .click();
+  await page.locator(".v54-legacy > summary").click();
   await page.getByRole("radio", { name: /Sinematik tanıtım/ }).check();
   await page.getByRole("radio", { name: /Karma kurgu/ }).check();
   await page

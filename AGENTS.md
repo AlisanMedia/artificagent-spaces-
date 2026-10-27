@@ -1,5 +1,11 @@
 # ArtificAgent Spaces — V2.0 çalışma yetkisi
 
+## V5.4 API-first studio — 27 October 2026 (latest owner authority)
+
+Implement the targeted `/spaces` premium studio on a separate V5.4 feature branch, preserving V2–V5.3 history, tenant/RLS/storage/review/jobs/analytics/white-label and all historical owner files. Four versioned fixed camera presets route to separately disabled fal Kling 4.0 / Seedance 2.5 US adapters; Marble 1.1 Plus photo worlds and Pedra 2:1 panorama tours are separate, disabled products. Reuse existing local media and viewer infrastructure; no proprietary model/GPU/reconstruction rebuild. Source-scoped clip plans, actual bounded synthetic MP4 assembly and independent per-clip release checks are authorized. Provider-ready contracts are not live integrations.
+
+**This latest directive supersedes the earlier preview/team exception: NO new Vercel deployment, trial, account/project, hosted service, paid inference, credit purchase, customer-data transfer, live payment or voice-agent mutation. External authorization remains USD0.** Keep the V5.3.1 billing gate; never work around it via Gold or AntiGravity. Preserve `maxCostMicroUsd: 0` on synthetic paths, disabled transports, legal/DPA/retention/region and downstream reseller gates. Provider credentials must use future server-side secret management; no credential values in code/chat/logs/browser. Preserve PR2–4, ruleset25460908 and Foundation acceptance15368; no PR5, merges, main writes, rebase/squash/force/history rewrite or branch deletion. A normal isolated feature push/checkpoint is permitted after public security review. Report actual tests and unavailable package/reference files honestly. Final single Turkish delivery: `SPACES_V5_4_API_FIRST_IMPLEMENTATION_REPORT.md`.
+
 Owner'ın **2026-10-22 AUTONOMOUS END-TO-END BUILD AUTHORIZATION V2.0** talimatı Phase 1B'yi kapatır; Phase 2–12 için yerel/sentetik geliştirmeyi sürekli yetkilendirir. Eski “Phase 1 only / her fazda onay” metinleri tarihsel kayıttır. Bu dosya yalnız `AlisanMedia/artificagent-spaces-` projesine uygulanır.
 
 - Yerel uygulama, PostgreSQL/RLS migration kodu, private storage, FFmpeg/Blender, browser 3D, voice simülasyonu, analytics, white-label ve adversarial testleri uygulayıp bağımsız işlere devam et. Faz sınırında rutin onay isteme.

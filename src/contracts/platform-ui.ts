@@ -51,7 +51,16 @@ export interface JobView {
     | "failed"
     | "cancelled"
     | "unknown-submission";
-  command: { mode: string; aspectRatio: string; durationSeconds: number };
+  command: {
+    mode: string;
+    aspectRatio: string;
+    durationSeconds: number;
+    photoComposition?: {
+      version: "property-video-v1";
+      styleId: "natural" | "premium" | "explore" | "exterior";
+      requestedDurationSeconds: 30 | 45 | 60;
+    };
+  };
   output: OutputEvidence | null;
   error_code: string | null;
   created_by: string;

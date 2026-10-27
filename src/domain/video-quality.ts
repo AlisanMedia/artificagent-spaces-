@@ -14,14 +14,22 @@ export interface ShotProvenance {
   readonly sourceSha256: string;
   readonly startSeconds: number;
   readonly endSeconds: number;
-  readonly operation: "still-pan-zoom" | "footage-loop-cut";
+  readonly operation:
+    | "still-pan-zoom"
+    | "footage-loop-cut"
+    | "still-letterbox-motion";
 }
 export function renderProfile(
   aspect: "16:9" | "9:16",
   seconds: number,
   lab?: LabProfile,
+  composition?: "photo-clips-v54",
 ) {
-  invariant([4, 8, 16].includes(seconds), "UNSUPPORTED_LOCAL_DURATION");
+  invariant(
+    [4, 8, 16].includes(seconds) ||
+      (composition === "photo-clips-v54" && seconds === 5 && !lab),
+    "UNSUPPORTED_LOCAL_DURATION",
+  );
   invariant(
     !lab || ["lab-720p-15s", "lab-1080p-30s"].includes(lab),
     "UNKNOWN_LAB_PROFILE",
@@ -29,14 +37,14 @@ export function renderProfile(
   const short =
     lab === "lab-720p-15s" ? 720 : lab === "lab-1080p-30s" ? 1080 : 360;
   return {
-    id: lab ?? "local-preview-v3",
+    id: lab ?? composition ?? "local-preview-v3",
     labOnly: !!lab,
     width: aspect === "16:9" ? (short * 16) / 9 : short,
     height: aspect === "16:9" ? short : (short * 16) / 9,
     durationSeconds:
       lab === "lab-720p-15s" ? 15 : lab === "lab-1080p-30s" ? 30 : seconds,
-    maxOutputBytes: 52_428_800,
-    timeoutMs: 90_000,
+    maxOutputBytes: composition ? 4_194_304 : 52_428_800,
+    timeoutMs: composition ? 10_000 : 90_000,
   };
 }
 export interface FrameStatistics {

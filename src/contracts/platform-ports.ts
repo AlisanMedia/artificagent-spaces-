@@ -56,6 +56,26 @@ export interface GuideReply {
   readonly simulated: true;
 }
 export interface OutputEvidence {
+  readonly auxiliaryBytes?: number;
+  readonly photoComposition?: {
+    readonly version: "property-video-v1";
+    readonly styleId: string;
+    readonly requestedDurationSeconds: number;
+    readonly clipSeconds: 5;
+    readonly fit: "letterbox";
+    readonly actualProvider: "local-ffmpeg";
+    readonly plannedProvider: "fal";
+    readonly plannedModel: string;
+    readonly clips: readonly {
+      readonly order: number;
+      readonly artifactId: string;
+      readonly sourceAssetId: string;
+      readonly sourceSha256: string;
+      readonly sha256: string;
+      readonly bytes: number;
+      readonly durationSeconds: number;
+    }[];
+  };
   readonly nativeRenderMetrics?: {
     readonly ffmpegExitCode: 0;
     readonly ffmpegWallTimeMs: number;

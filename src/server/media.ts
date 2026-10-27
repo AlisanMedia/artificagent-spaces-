@@ -2,7 +2,7 @@ import { planShots } from "@/domain/shots";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { mkdtemp, readFile, writeFile, rm } from "node:fs/promises";
-import { join } from "node:path";
+import { join, resolve, sep } from "node:path";
 import type { z } from "zod";
 import type { GenerationInput } from "@/domain/platform";
 import { invariant, type Scene } from "@/domain/platform";
@@ -17,6 +17,112 @@ import {
 import { renderCaption } from "./captions";
 
 const run = promisify(execFile);
+/** Existing reviewed CPU worker boundary. Composition callers can only probe/decode/assemble private local files. */
+export function runCompositionTool(
+  tool: "ffmpeg" | "ffprobe",
+  args: readonly string[],
+  privateRoot: string,
+  timeoutMs: number,
+) {
+  invariant(
+    ["ffmpeg", "ffprobe"].includes(tool) &&
+      Number.isInteger(timeoutMs) &&
+      timeoutMs >= 1 &&
+      timeoutMs <= 15_000 &&
+      args.length <= 180 &&
+      args.every(
+        (a) =>
+          a.length <= 4096 &&
+          !/[\r\n\0]/.test(a) &&
+          !/^[a-z][a-z0-9+.-]*:\/\//i.test(a),
+      ),
+    "COMPOSITION_PROCESS_DENIED",
+    403,
+  );
+  const paths =
+    tool === "ffprobe"
+      ? [args.at(-1)!]
+      : args.flatMap((arg, i) => (arg === "-i" ? [args[i + 1]!] : []));
+  if (tool === "ffmpeg" && args.at(-1) !== "-") paths.push(args.at(-1)!);
+  invariant(
+    paths.length > 0 &&
+      paths.every(
+        (p) =>
+          typeof p === "string" &&
+          resolve(p).startsWith(resolve(privateRoot) + sep),
+      ),
+    "COMPOSITION_FILE_SCOPE_DENIED",
+    403,
+  );
+  if (tool === "ffprobe")
+    invariant(
+      args.slice(0, -1).join(" ") ===
+        "-v error -show_streams -show_format -of json",
+      "COMPOSITION_PROCESS_DENIED",
+      403,
+    );
+  else {
+    const allowed = new Set([
+      "-hide_banner",
+      "-loglevel",
+      "-nostdin",
+      "-y",
+      "-threads",
+      "-i",
+      "-filter_complex_threads",
+      "-filter_complex",
+      "-map",
+      "-t",
+      "-an",
+      "-sn",
+      "-dn",
+      "-map_chapters",
+      "-map_metadata",
+      "-c:v",
+      "-preset",
+      "-crf",
+      "-pix_fmt",
+      "-color_primaries",
+      "-color_trc",
+      "-colorspace",
+      "-color_range",
+      "-movflags",
+      "-fs",
+      "-xerror",
+      "-f",
+    ]);
+    invariant(
+      args.every(
+        (a) =>
+          !a.startsWith("-") || a === "-" || /^-\d+$/.test(a) || allowed.has(a),
+      ),
+      "COMPOSITION_PROCESS_DENIED",
+      403,
+    );
+    const at = args.indexOf("-filter_complex");
+    if (at >= 0)
+      invariant(
+        /^(?:\[\d+:v\]setsar=1,setpts=PTS-STARTPTS\[v\d+\];)+(?:\[v\d+\])+concat=n=\d+:v=1:a=0\[out\]$/.test(
+          args[at + 1] ?? "",
+        ),
+        "COMPOSITION_FILTER_DENIED",
+        403,
+      );
+    else
+      invariant(
+        args.includes("-xerror") &&
+          args.at(-1) === "-" &&
+          args.includes("null"),
+        "COMPOSITION_PROCESS_DENIED",
+        403,
+      );
+  }
+  return run(tool, [...args], {
+    timeout: timeoutMs,
+    maxBuffer: 262_144,
+    env: isolatedWorkerEnvironment(),
+  });
+}
 export function isolatedWorkerEnvironment(): NodeJS.ProcessEnv {
   return {
     NODE_ENV: process.env.NODE_ENV,
@@ -56,6 +162,7 @@ export async function buildOutput(
     input.aspectRatio,
     input.durationSeconds,
     laboratory?.profile,
+    input.photoComposition ? "photo-clips-v54" : undefined,
   );
   const dir = await mkdtemp(join(storage.root, "worker-"));
   try {
@@ -180,6 +287,11 @@ export async function buildOutput(
       width = spec.width,
       height = spec.height;
     invariant(selected.length > 0, "CLEAN_IMAGE_REQUIRED");
+    if (input.photoComposition)
+      invariant(
+        selected.length === 1 && selected[0]?.kind === "photo",
+        "SINGLE_PHOTO_CLIP_REQUIRED",
+      );
     const args = ["-hide_banner", "-loglevel", "error", "-nostdin", "-y"];
     for (const source of selected) {
       const path = storage.path(
@@ -243,9 +355,11 @@ export async function buildOutput(
         ? `,fade=t=out:st=${shotDuration - fade}:d=${fade}`
         : "");
     const filters = selected.map((source, i) =>
-      source.kind === "walkthrough"
-        ? `[${i}:v]trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height},fps=24,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`
-        : `[${i}:v]scale=${workingWidth}:${workingHeight}:force_original_aspect_ratio=increase:out_color_matrix=bt709:out_range=tv,crop=${workingWidth}:${workingHeight},zoompan=z='min(1.0+on*${zoomRate},1.08)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=${frames}:s=${width}x${height}:fps=24,trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`,
+      input.photoComposition
+        ? `[${i}:v]scale=${Math.floor((width * 0.9) / 2) * 2}:${Math.floor((height * 0.9) / 2) * 2}:force_original_aspect_ratio=decrease,pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2:color=0x101916,zoompan=z='1+on*${0.03 / Math.max(1, frames - 1)}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=${frames}:s=${width}x${height}:fps=24,trim=duration=5,setpts=PTS-STARTPTS,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`
+        : source.kind === "walkthrough"
+          ? `[${i}:v]trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height},fps=24,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`
+          : `[${i}:v]scale=${workingWidth}:${workingHeight}:force_original_aspect_ratio=increase:out_color_matrix=bt709:out_range=tv,crop=${workingWidth}:${workingHeight},zoompan=z='min(1.0+on*${zoomRate},1.08)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=${frames}:s=${width}x${height}:fps=24,trim=duration=${spec.durationSeconds / selected.length},setpts=PTS-STARTPTS,setsar=1,format=yuv420p,setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709${tail(i)}[v${i}]`,
     );
     const labels = {
       modern: "Modern Daire",
@@ -392,12 +506,24 @@ export async function buildOutput(
         sourceSha256: source.clean_hash,
         startSeconds: i * shotDuration,
         endSeconds: (i + 1) * shotDuration,
-        operation:
-          source.kind === "walkthrough" ? "footage-loop-cut" : "still-pan-zoom",
+        operation: input.photoComposition
+          ? "still-letterbox-motion"
+          : source.kind === "walkthrough"
+            ? "footage-loop-cut"
+            : "still-pan-zoom",
       })),
-      cameraPlan: scene.rooms.some((r) => r.truth === "E2")
-        ? planShots(scene, input.mode, input.durationSeconds)
-        : null,
+      cameraPlan:
+        !input.photoComposition && scene.rooms.some((r) => r.truth === "E2")
+          ? planShots(
+              scene,
+              input.mode,
+              input.durationSeconds === 16
+                ? 16
+                : input.durationSeconds === 8
+                  ? 8
+                  : 4,
+            )
+          : null,
       kind: "image-motion-demo",
       mime: "video/mp4",
       extension: "mp4",

@@ -2,6 +2,8 @@
 
 Owner V2.0 yetkisi: **22 Ekim 2026**. Phase 1B kapalıdır; P2–P12 için sürekli yerel/sentetik geliştirme yetkilidir. Harici bütçe **0 USD**. Mevcut canlı ArtificAgent ElevenLabs agent’ına dokunulmaz.
 
+**27 Ekim V5.4 güncel kapsamı:** hedefli `/spaces` API-first stüdyo ve kapalı fal / World Labs / Pedra sözleşmeleri. Önceki Vercel Preview istisnası bu görevde kapalıdır: yeni deployment, deneme, hesap/proje, müşteri verisi veya gerçek API çağrısı yapılmaz. Aşağıdaki tarihsel V5 yayın notları yeni yayın yetkisi değildir.
+
 Bu sürüm gerçek PostgreSQL/PGlite RLS, özel dosya saklama, kalıcı işler, FFmpeg MP4, Blender GLB ve Three.js serbest gezinme, bağımsız yerel inceleme, mülk kapsamlı rehber simülasyonu, izinli analiz, white-label ve partner sınırlarını içerir. **Üretim auth’u, ücretli AI, ElevenLabs oturumu, ödeme veya deployment etkin değildir.**
 
 ## Çalıştırma
@@ -126,3 +128,16 @@ V5.2 stüdyo tasarımı korunur. Statik önizlemenin footer bağlantısındaki `
 [Protokol, eşikler, mahremiyet ve moderatör talimatı](docs/usability-protocol-v53.md). `npm run usability:prepare` özel `.spaces-local/usability-v53/packet-*` altında beş NULL/DRAFT form üretir. `npm run usability:summarize -- --input <özel-responses-klasörü>` yalnız aynı commit ve sınırlı allowlist kayıtları özetler; gerçek insan doğrulaması/otomatik release yapmaz. Yanıtları PUBLIC repo veya CI'ye koymayın.
 
 `npm run preview:test` mevcut stüdyo/MP4/3D/axe kapsamını korur ve ayrı değerlendirme akışını da test eder. Foundation acceptance context'i değişmez; public CI özeti şema v2 ile tam uygulama **ve** statik preview testlerinin geçerli, sıfır skip/flaky sayılarını içerir. Vercel hedefi owner'ın doğru ArtificAgent team'idir; Gold ve owner tarafından reddedilen diğer çalışma alanları kullanılmaz. Erişim doğrulanmadan canlı URL iddiası yoktur. Gerçek Safari/iPhone ve beş insanla çalışma ayrıca yapılacaktır.
+
+## V5.4 — fotoğraftan ayrı sahneler, kontrollü tek MP4
+
+`/spaces` içinde Video Tanıtımı / AI 3D Deneyim / 360° Sanal Tur ayrı ürünlerdir. Dört sabit kamera stili ve 30/45/60sn hedefi, kaynak sayısı yetersizken dürüst kısa öneri sunar. Yerel örnek her fotoğraftan nominal5sn klip ve gerçek H.264 birleşim üretir; 360×640 veya640×360'tır. 1080p, fotogerçekçi AI turu veya sağlayıcı üretimi değildir. Her klip kaynak hash'i/revizyonu ile bağlanır; farklı incelemeci tüm sahneleri ve mevcut dört kalite koşulunu onaylamadan final indirme açılmaz. Eski4/8/16sn ve ölçülü3D seçenekleri daraltılabilir alanda korunur.
+
+```bash
+npm run test -- tests/unit/api-first-v54.test.ts tests/unit/api-first-composition.test.ts
+npm run test -- tests/unit/v54-long-composition.test.ts
+npm run test:e2e -- tests/e2e/api-first-v54.spec.ts
+node scripts/capture-api-first-evidence.mjs # app ayrıca loopback'te açıkken; yalnız sentetik kanıt
+```
+
+Test MP4'leri ve ölçümleri yalnız özel `.spaces-local/v54/verified-composition/` altında tutulur; gerçek insan/ilan kabulü sayılmaz. Canlı fal Kling4 / Seedance2.5US, Marble1.1Plus ve Pedra hazırlıkları transport ve bütçe kapılarıyla **kapalıdır**; hesabın erişimi, reseller/DPA/retention/region, kesin deney bütçesi ve güvenli server secret yönetimi ayrıca onaylanmalıdır. Standart kullanıcı model/prompt kimliği görmez; yalnız admin hazırlık durumunu okuyabilir. [V5.4 sözleşmeler, resmî kaynaklar ve güvenlik sınırları](docs/api-first-v54.md).

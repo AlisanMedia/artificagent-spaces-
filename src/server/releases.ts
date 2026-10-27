@@ -40,6 +40,19 @@ export class ReleaseService {
         evidence: z.boolean(),
         continuity: z.boolean(),
         disclosure: z.boolean(),
+        clipApprovals: z
+          .array(
+            z
+              .object({
+                artifactId: z.string().regex(/^[A-Za-z0-9_-]{1,80}$/),
+                sha256: z.string().regex(/^[a-f0-9]{64}$/),
+                sourceSha256: z.string().regex(/^[a-f0-9]{64}$/),
+                decision: z.literal("approved"),
+              })
+              .strict(),
+          )
+          .max(12)
+          .optional(),
       })
       .strict()
       .parse(input);
@@ -66,6 +79,25 @@ export class ReleaseService {
       "STALE_OR_INVALID_REVIEW",
       409,
     );
+    if (request.decision === "approved" && job.output.photoComposition) {
+      const clips = job.output.photoComposition.clips,
+        approvals = request.clipApprovals ?? [];
+      invariant(
+        approvals.length === clips.length &&
+          new Set(approvals.map((a) => a.artifactId)).size ===
+            approvals.length &&
+          clips.every((c) =>
+            approvals.some(
+              (a) =>
+                a.artifactId === c.artifactId &&
+                a.sha256 === c.sha256 &&
+                a.sourceSha256 === c.sourceSha256,
+            ),
+          ),
+        "ALL_CLIP_REVIEWS_REQUIRED",
+        409,
+      );
+    }
     return this.db.pg.transaction(async (tx) => {
       const id = newId();
       const result = await tx.query(
