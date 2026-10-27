@@ -16,6 +16,7 @@ const files = [];
 const capture = async (page, width, state) => {
   await page.setViewportSize({ width, height: width < 600 ? 844 : 1000 });
   await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(() => window.scrollTo(0, 0));
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth > innerWidth,
   );

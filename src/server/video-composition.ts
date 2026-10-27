@@ -251,7 +251,7 @@ export async function buildPhotoComposition(
         integrity: true,
         architecturalFidelity: "HUMAN_REVIEW_REQUIRED",
         disclosure:
-          "Yerel sentetik kurgu: her fotoğraftan ayrı 5 saniyelik kaynak-görsel klibi ve gerçek H.264 MP4 birleştirmesi. fal/AI üretimi veya 1080p çıktı değildir. Her sahne ve bütün film bağımsız inceleme bekler.",
+          "Yerel sentetik kurgu: her fotoğraftan ayrı 5 saniyelik kaynak-görsel klibi ve gerçek H.264 MP4 birleştirmesi. Gerçek AI üretimi veya 1080p çıktı değildir. Her sahne ve bütün film bağımsız inceleme bekler.",
       },
     };
   } catch (error) {

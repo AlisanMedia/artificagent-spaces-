@@ -186,6 +186,9 @@ test("V5.4 two-photo clips assemble a real MP4, block double submits and require
   }));
   expect(meta.width).toBe(360);
   expect(meta.height).toBe(640);
+  expect(await page.locator(".ux-studio").innerText()).not.toMatch(
+    /\b(?:fal|Kling|Seedance|Marble)\b/i,
+  );
   expect(Math.abs(meta.duration - 10)).toBeLessThanOrEqual(1 / 24 + 0.002);
   expect(submits).toHaveLength(1);
   await video.evaluate(async (v) => {

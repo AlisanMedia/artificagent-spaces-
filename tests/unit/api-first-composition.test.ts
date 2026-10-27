@@ -220,6 +220,9 @@ describe("actual source-scoped V5.4 MP4 composition and release", () => {
     const j = await rt.jobs.get(actor, jobId);
     expect(j.state, j.error_code ?? "render failed").toBe("awaiting-review");
     output = j.output!;
+    expect(output.qa.disclosure).not.toMatch(
+      /\b(?:fal|Kling|Seedance|Marble)\b/i,
+    );
     expect(output).toMatchObject({
       codec: "h264",
       width: 640,
