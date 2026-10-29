@@ -373,7 +373,10 @@ export function CreationStudio() {
   }
   async function selectFiles(files: File[]) {
     // Cancelling the native picker must not discard the current draft/result or advance the wizard.
-    if (!files.length) return;
+    if (!files.length) {
+      replaceTarget.current = null;
+      return;
+    }
     setError("");
     setNotice("");
     setJob(null);
@@ -754,6 +757,9 @@ export function CreationStudio() {
                   }
                   aria-label="Fotoğraf veya video seç"
                   tabIndex={-1}
+                  onCancel={() => {
+                    replaceTarget.current = null;
+                  }}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     void selectFiles(Array.from(e.target.files ?? []));
                     e.target.value = "";
@@ -780,7 +786,6 @@ export function CreationStudio() {
                         disabled={!bootstrap || busy || !canEdit}
                         onClick={() => {
                           setProduct("video");
-                          setStep(2);
                           recordFunnel("picker_opened");
                           fileInput.current?.click();
                         }}
