@@ -12,6 +12,7 @@ import { BeforeAfterSlider } from "../../components/before-after-slider";
 import { sampleAsset, showcaseMedia, videoSample } from "./media";
 import { VideoExample } from "./video-example";
 import { InteractiveSample } from "./interactive-sample";
+import { ServiceExplorer } from "../services/service-explorer";
 
 export const CUSTOMER_SERVICES = [
   {
@@ -367,6 +368,12 @@ export function CustomerShowcase({
                   },
                 }
               : {})}
+          />
+          <ServiceExplorer
+            onInspect={inspect}
+            studioHref={studioHref}
+            isolated={isolated}
+            sampleHref={isolated ? "/showcase/" : "/spaces/showcase"}
           />
           {isolatedNotice && (
             <p role="status" className="sc-disclosure">

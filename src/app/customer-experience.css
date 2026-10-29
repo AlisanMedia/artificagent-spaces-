@@ -1,4 +1,365 @@
 /* V5.5 — architectural editorial / existing licensed type and tenant tokens. */
+/* Service catalogue: progressive disclosure, no new customer navigation layer. */
+.sv-explorer {
+  margin-top: 24px;
+  color: var(--ink, #192622);
+}
+.sv-disclosure {
+  border: 1px solid var(--border, #d9dfd9);
+  border-radius: 14px;
+  background: var(--surface, #fff);
+}
+.sv-disclosure > summary {
+  min-height: 72px;
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  list-style: none;
+}
+.sv-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.sv-disclosure > summary strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 650;
+}
+.sv-disclosure > summary small {
+  display: block;
+  margin-top: 4px;
+  color: var(--subtle-text, #58645d);
+  font-size: 12px;
+}
+.sv-plus {
+  font-size: 26px;
+  line-height: 1;
+  color: var(--brand-primary, #0d624a);
+}
+.sv-disclosure[open] .sv-plus {
+  transform: rotate(45deg);
+}
+.sv-catalog {
+  border-top: 1px solid var(--border, #d9dfd9);
+  padding: 24px;
+}
+.sv-intro h3 {
+  font-size: 22px;
+  margin: 0 0 8px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.sv-intro p {
+  color: var(--subtle-text, #58645d);
+  margin: 0 0 24px;
+  font-size: 14px;
+}
+.sv-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 16px;
+}
+.sv-filters label,
+.sv-calculator-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 0;
+}
+.sv-filters input,
+.sv-filters select,
+.sv-calculator input {
+  min-height: 48px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid var(--border, #d9dfd9);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fff;
+  color: #192622;
+  font: inherit;
+  font-size: 16px;
+}
+.sv-search-control {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.sv-search-control svg {
+  position: absolute;
+  left: 14px;
+  color: #58645d;
+  pointer-events: none;
+}
+.sv-search-control input {
+  padding-left: 42px;
+}
+.sv-filter-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+.sv-filter-meta label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  min-height: 44px;
+  cursor: pointer;
+}
+.sv-filter-meta input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--brand-primary, #0d624a);
+}
+.sv-filter-meta p {
+  color: var(--subtle-text, #58645d);
+  font-size: 12px;
+  margin: 0;
+}
+.sv-service-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sv-service-list li {
+  border: 1px solid var(--border, #d9dfd9);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  min-width: 0;
+}
+.sv-status {
+  color: #16553f;
+  background: #e3eae4;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 650;
+  display: inline-block;
+}
+.sv-status.is-pending {
+  color: #665441;
+  background: #f4eee5;
+}
+.sv-service-list h4 {
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.4;
+  margin: 14px 0 8px;
+}
+.sv-service-list p {
+  color: var(--subtle-text, #58645d);
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 0 0 12px;
+}
+.sv-explorer .subtle {
+  color: var(--ink, #192622);
+  background: transparent;
+  border: 0;
+  min-height: 44px;
+  padding: 8px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.sv-service-list button {
+  margin-top: auto;
+}
+.sv-more {
+  display: block;
+  margin: 20px auto 0;
+  padding: 12px 20px;
+  min-height: 48px;
+  background: var(--canvas, #f7f6f2);
+  border: 1px solid var(--border, #d9dfd9);
+  border-radius: 8px;
+  color: var(--ink, #192622);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.sv-explorer .sv-fine-print {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--subtle-text, #58645d);
+  margin: 20px 0 0;
+}
+.sv-empty {
+  background: var(--canvas, #f7f6f2);
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 14px;
+}
+.sv-dialog {
+  width: min(680px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 48px);
+  padding: 28px;
+  color: #192622;
+  background: #fff;
+  overflow-y: auto;
+}
+.sv-dialog-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+.sv-dialog-heading .subtle {
+  width: 44px;
+  justify-content: center;
+  padding: 0;
+}
+.sv-dialog h2 {
+  font-size: 27px;
+  margin: 0 0 12px;
+  letter-spacing: -0.03em;
+}
+.sv-dialog > p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.sv-requirements {
+  display: grid;
+  gap: 16px;
+  padding: 20px 0;
+  margin: 0;
+}
+.sv-requirements dt {
+  font-size: 12px;
+  color: #58645d;
+  margin-bottom: 6px;
+}
+.sv-requirements dd {
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0;
+}
+.sv-truth,
+.sv-local-note {
+  background: #f7f6f2;
+  color: #39473f;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.sv-pending-note {
+  color: #665441;
+  background: #f4eee5;
+  border-radius: 8px;
+  padding: 16px;
+}
+.sv-dialog-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.sv-dialog-actions a {
+  text-align: center;
+}
+.sv-calculator {
+  border-top: 1px solid #d9dfd9;
+  margin-top: 20px;
+  padding-top: 8px;
+}
+.sv-calculator-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.sv-calculator .ux-primary {
+  margin-top: 20px;
+}
+.sv-calculator-result {
+  margin-top: 24px;
+  border-radius: 10px;
+  background: #e3eae4;
+  padding: 20px;
+}
+.sv-calculator-result > p {
+  font-weight: 650;
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+.sv-calculator-result dl {
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.sv-calculator-result dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.sv-calculator-result dt {
+  font-size: 13px;
+  color: #39473f;
+}
+.sv-calculator-result dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  text-align: right;
+}
+.sv-explorer :is(button, input, select, summary, a):focus-visible {
+  outline: 3px solid #0d624a;
+  outline-offset: 3px;
+}
+@media (max-width: 900px) {
+  .sv-service-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .sv-catalog {
+    padding: 20px 16px;
+  }
+  .sv-filters,
+  .sv-service-list,
+  .sv-calculator-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sv-service-list li {
+    padding: 18px;
+  }
+  .sv-dialog {
+    padding: 20px;
+  }
+  .sv-dialog-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sv-dialog-actions .subtle {
+    justify-content: center;
+  }
+  .sv-calculator-result dl > div {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sv-calculator-result dd {
+    text-align: left;
+  }
+}
 .sc-public {
   min-height: 100vh;
 }

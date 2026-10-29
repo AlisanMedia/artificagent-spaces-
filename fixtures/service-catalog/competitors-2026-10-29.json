@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "retrievedOn": "2026-10-29",
+  "costUsd": 0,
+  "method": "Credential-free bounded public HTTPS GET; no account, signup, media asset copy or paid search service.",
+  "limitations": [
+    "Herkese açık sayfaların kısmi incelemesi; tüm piyasanın veya hesap içi araçların eksiksiz taraması değildir.",
+    "Pazarlama sayfasındaki hizmet tanımı, gerçek kalite/API/erişim/lisans/fiyat doğrulaması değildir.",
+    "Hız, müşteri, satış artışı, 4K ve fiyat iddiaları bizim vaatlerimize aktarılmadı.",
+    "Özgün rakip kodu, görseli, videosu, markalı şablonu veya promptu kopyalanmadı."
+  ],
+  "sources": [
+    {
+      "id": "emlakvideo",
+      "name": "EmlakVideo.ai",
+      "url": "https://emlakvideo.ai",
+      "verification": "PUBLIC_FIRST_PARTY_DESCRIPTION_ONLY",
+      "observations": [
+        "İlan ve drone tarzı video, yaratıcı geçiş, proje/arsa videosu ve avatar sunumu listeleniyor.",
+        "Fotoğraf tarafında sanal mobilya, temizleme, yükseltme, boya, cephe ve plan renderı listeleniyor.",
+        "İlan metni, afiş, çeviri, konum/hesap araçları ve ofis belgeleri listeleniyor.",
+        "Sitedeki 3D Tur örneği açıklaması, kat planından dönen maket videosu; serbest gezilebilir dünya kanıtı değil."
+      ],
+      "pages": [
+        {
+          "url": "https://emlakvideo.ai",
+          "finalUrl": "https://emlakvideo.ai",
+          "status": 200,
+          "sha256": "b7602c824e98c057eb321ac7edd7f2b9800b5865a323f7a92e14bedf3b7036b4",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://emlakvideo.ai/kategori/video",
+          "finalUrl": "https://emlakvideo.ai/kategori/video",
+          "status": 200,
+          "sha256": "c5e8a03c89089684e885820c58997799826a387ed33e68f5022cb7c99c0651ef",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://emlakvideo.ai/kategori/foto",
+          "finalUrl": "https://emlakvideo.ai/kategori/foto",
+          "status": 200,
+          "sha256": "7bfc4b9d8cb42b3f2087aac297f1dcec4a870d95def739f261f216a9eb2f42aa",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://emlakvideo.ai/kategori/pazarlama",
+          "finalUrl": "https://emlakvideo.ai/kategori/pazarlama",
+          "status": 200,
+          "sha256": "9f8b4686a1f505a751b7713fa56864aa8ebf0fc5333fad282a0355047223d49c",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://emlakvideo.ai/tanitim-videosu",
+          "finalUrl": "https://emlakvideo.ai/tanitim-videosu",
+          "status": 200,
+          "sha256": "75db9bc44f9c3b7d4e1534c1b2e76407ccd4b7e0dfd2b87293c3c4fe000e0dda",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://emlakvideo.ai/oda-genislet",
+          "finalUrl": "https://emlakvideo.ai/oda-genislet",
+          "status": 200,
+          "sha256": "e476b5f38fb187a07da3601988bb54168b791d15e72876a649e23f97f216eace",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://emlakvideo.ai/deprem-karnesi",
+          "finalUrl": "https://emlakvideo.ai/deprem-karnesi",
+          "status": 200,
+          "sha256": "07b22b1c18594594b6145a8dc61dd2bf3f3d6354edb9bb08ee3177bc55a12a55",
+          "retrievedOn": "2026-10-29"
+        }
+      ]
+    },
+    {
+      "id": "reele",
+      "name": "Reel-E",
+      "url": "https://www.reel-e.ai",
+      "verification": "PUBLIC_FIRST_PARTY_DESCRIPTION_ONLY",
+      "observations": [
+        "Fotoğraflardan video, fotoğraf düzenleme, seslendirme/altyazı, müzik ve marka araçları listeleniyor.",
+        "Mülke özel sayfa, lead/etkileşim özeti ve yönlendirmeli düzenleme sunuluyor.",
+        "Tek yükleme sonrası video/fotoğraf/sayfa paketi pazarlanıyor; kendi hesabımızda denenmedi."
+      ],
+      "pages": [
+        {
+          "url": "https://www.reel-e.ai",
+          "finalUrl": "https://www.reel-e.ai",
+          "status": 200,
+          "sha256": "3e20ef9a71cf73e5bfd5788842d8db2c67559ce4bafa9cd6e842ae1b37dfbfb9",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://www.reel-e.ai/features",
+          "finalUrl": "https://www.reel-e.ai/features",
+          "status": 200,
+          "sha256": "ef4a5a71d4ff7dc3b41966e269245cdcfdc734b8703d767e70dc9fd433ff98e5",
+          "retrievedOn": "2026-10-29"
+        }
+      ]
+    },
+    {
+      "id": "pedra",
+      "name": "Pedra",
+      "url": "https://pedra.ai",
+      "verification": "PUBLIC_FIRST_PARTY_DESCRIPTION_ONLY",
+      "observations": [
+        "Sanal mobilya, oda boşaltma, renovasyon, fotoğraf düzeltme, video, 360 tur ve kat planı listeleniyor.",
+        "Resmî public API dizininde görsel işlemler, video, turlar ve sosyal planlama ayrı sözleşmeler olarak listeleniyor.",
+        "API listesi, bizim white-label/reseller hakkımız veya aktif entegrasyonumuz anlamına gelmez."
+      ],
+      "pages": [
+        {
+          "url": "https://pedra.ai",
+          "finalUrl": "https://pedra.ai",
+          "status": 200,
+          "sha256": "cd5224eedd513b22b437ec393e866246943cf86794e04ca24e0fb8d928f5f18b",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://pedra.ai/api-documentation",
+          "finalUrl": "https://pedra.ai/api-documentation",
+          "status": 200,
+          "sha256": "bfab735e4512ba0c886f56ccf2df18ae94e6d8bfb858a2286993d95ab5eff852",
+          "retrievedOn": "2026-10-29"
+        }
+      ]
+    },
+    {
+      "id": "reimaginehome",
+      "name": "REimagineHome",
+      "url": "https://www.reimaginehome.ai",
+      "verification": "PUBLIC_FIRST_PARTY_DESCRIPTION_ONLY",
+      "observations": [
+        "Sanal mobilya, nesne/mobilya değiştirme, boya/yüzey, peyzaj, gökyüzü, akşam, çözünürlük ve perspektif araçları listeleniyor.",
+        "Mevsim ve havuz gibi görsel değişiklikler, mevcut mülk gerçeği ile konseptin ayrılmasını gerektiriyor."
+      ],
+      "pages": [
+        {
+          "url": "https://www.reimaginehome.ai",
+          "finalUrl": "https://www.reimaginehome.ai",
+          "status": 200,
+          "sha256": "f94c5029fe0e1c463732774784464376484f40109d4b9a716798942e8fa5a0de",
+          "retrievedOn": "2026-10-29"
+        }
+      ]
+    },
+    {
+      "id": "applydesign",
+      "name": "ApplyDesign",
+      "url": "https://www.applydesign.io",
+      "verification": "PUBLIC_FIRST_PARTY_DESCRIPTION_ONLY",
+      "observations": [
+        "Sanal mobilya, boşaltma, çoklu açı tutarlılığı, 360 dekorasyon, özel 3D nesne ve video/sayfa araçları listeleniyor.",
+        "Mobilya sürükle-bırak editörü de tanımlanıyor; bu kullanıma hazır bizim özelliğimiz değildir."
+      ],
+      "pages": [
+        {
+          "url": "https://www.applydesign.io",
+          "finalUrl": "https://www.applydesign.io",
+          "status": 200,
+          "sha256": "81cb44b72427d9b7192429dbd2bbd048c1223395202da6788affd8af9666f8c7",
+          "retrievedOn": "2026-10-29"
+        },
+        {
+          "url": "https://www.applydesign.io/features",
+          "finalUrl": "https://www.applydesign.io/features",
+          "status": 200,
+          "sha256": "0b17f4d2e880858eb58306a75f2816b57c73d357c851271da48e6add70908cb8",
+          "retrievedOn": "2026-10-29"
+        }
+      ]
+    },
+    {
+      "id": "styldod",
+      "name": "Styldod",
+      "url": "https://www.styldod.com",
+      "verification": "PUBLIC_FIRST_PARTY_DESCRIPTION_ONLY",
+      "observations": [
+        "Sanal dekorasyon, renovasyon, fotoğraf iyileştirme, nesne temizleme, plan, 360, render ve video hizmetleri listeleniyor.",
+        "Kaynak/yapı doğruluğu, profesyonel inceleme ve gömülü kurumsal akışlar öne çıkarılıyor."
+      ],
+      "pages": [
+        {
+          "url": "https://www.styldod.com",
+          "finalUrl": "https://www.styldod.com",
+          "status": 200,
+          "sha256": "9744f7011da057090e67f3902e7615e0dd0c4e5eb459ff3e88ae54d02052da46",
+          "retrievedOn": "2026-10-29"
+        }
+      ]
+    }
+  ]
+}

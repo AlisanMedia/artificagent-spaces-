@@ -59,6 +59,7 @@ import { ApiFirstControls, StudioProductSelector } from "./api-first-controls";
 import { StudioPreviewRail } from "./studio-preview-rail";
 import { ServiceCards } from "../showcase/customer-showcase";
 import { CustomerSteps, OrderSummary } from "./customer-journey";
+import { ServiceExplorer } from "../services/service-explorer";
 
 type Draft = { property: PropertyView; assets: AssetView[] };
 type Pending = {
@@ -840,6 +841,17 @@ export function CreationStudio() {
                       Örnek mülkle dene{" "}
                       <ArrowRight size={16} aria-hidden="true" />
                     </button>
+                    <ServiceExplorer
+                      disabled={busy || !canEdit}
+                      onSelect={(p) => {
+                        setProduct(p);
+                        setStudioPlan(null);
+                        setPanoramaConfirmed(false);
+                        setJob(null);
+                        setPreview("");
+                        setStep(2);
+                      }}
+                    />
                   </>
                 )}
                 {step === 2 && (

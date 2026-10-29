@@ -3,6 +3,7 @@ import { build } from "esbuild";
 import { validateGoldenSource } from "../src/domain/golden-property";
 import { verifyStudioAssets } from "./verify-studio-assets";
 import { verifyShowcase } from "./verify-showcase";
+import "./verify-service-catalog";
 import { UX_PROTOCOL, UX_TASKS } from "../src/domain/usability-evaluation";
 import {
   readFile,
@@ -41,6 +42,8 @@ const dirty =
       "public/studio-assets-v52",
       "public/showcase-v55",
       "fixtures/showcase-v55",
+      "fixtures/service-catalog",
+      "scripts/verify-service-catalog.ts",
       "scripts/verify-showcase.ts",
       "scripts/verify-studio-assets.ts",
       "scripts/build-owner-preview.ts",
