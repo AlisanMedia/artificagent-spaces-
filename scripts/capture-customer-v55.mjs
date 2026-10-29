@@ -59,6 +59,42 @@ try {
   });
   for (const width of [390, 1440]) await capture(width, "styles");
   if (!before) {
+    await page
+      .getByRole("list", { name: "İçerik oluşturma adımları" })
+      .getByRole("button", { name: /Medya/ })
+      .click();
+    await page
+      .getByLabel("Fotoğraf veya video seç")
+      .setInputFiles({
+        name: "sentetik-salon.jpg",
+        mimeType: "image/jpeg",
+        buffer: await readFile("fixtures/video-quality-v4/photo-a.jpg"),
+      });
+    for (const width of [390, 1440]) await capture(width, "upload");
+    await page
+      .getByRole("button", { name: "Seçim 1 kaldır", exact: true })
+      .click();
+    await page
+      .getByRole("button", { name: "Tarzını seç", exact: true })
+      .last()
+      .click();
+    await page
+      .getByRole("button", { name: "İsteği gözden geçir", exact: true })
+      .click();
+    await page
+      .getByRole("button", { name: "Yerel örnek oluştur", exact: true })
+      .click();
+    await expect(page.getByLabel("Oluşturulan video önizlemesi")).toBeVisible({
+      timeout: 60000,
+    });
+    await page.getByRole("link", { name: /Proje sonuç sayfasını aç/ }).click();
+    await expect(
+      page.getByLabel("Projenin gerçek yerel video çıktısı"),
+    ).toBeVisible({ timeout: 30000 });
+    await expect(
+      page.getByRole("button", { name: "İndir", exact: true }),
+    ).toBeDisabled();
+    for (const width of [390, 1440]) await capture(width, "result-review");
     await page.goto(origin + "/spaces/showcase");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     for (const width of [375, 390, 430, 768, 1024, 1280, 1440])
