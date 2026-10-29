@@ -145,7 +145,10 @@ try {
               encoding: "utf8",
             }).trim(),
         localChanges: !before,
-        syntheticOnly: true,
+        realCustomerData: false,
+        sampleSourceKinds: before
+          ? ["AUTHORED_SYNTHETIC"]
+          : ["AUTHORED_SYNTHETIC", "LICENSED_PUBLIC_CC0"],
         deployed: false,
         rows,
       },

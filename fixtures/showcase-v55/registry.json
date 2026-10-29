@@ -660,15 +660,15 @@
     {
       "id": "cc0-panorama-poster",
       "url": "/showcase-v55/cc0-panorama-poster.webp",
-      "sha256": "7dacb7cb3e318a2054b42f81c827bb8d6ff71459e2b9663177157263f036ee12",
-      "bytes": 164234,
+      "sha256": "0673d2c3d0d6f47e81311e24971f48b4b40febd9abea8ef46fc811298db7ec33",
+      "bytes": 111254,
       "type": "image",
       "width": 1280,
       "height": 720,
       "aspectRatio": "16:9",
       "production": false,
       "propertyId": "polyhaven-brown04",
-      "cameraId": "panorama-perspective-center",
+      "cameraId": "panorama-kitchen-direction",
       "rights": "VERIFIED_CC0_REFERENCE",
       "license": {
         "id": "CC0-1.0",

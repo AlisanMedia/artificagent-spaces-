@@ -303,11 +303,33 @@ try {
     capture: "LICENSED_CC0_PHOTOGRAPHY",
     roomLabel: "Lisanslı iç mekân örneği",
   });
-  await sharp(`${dir}/cc0-room-source.jpg`)
+  // A different actual viewing direction makes the 360 cover distinct from the video source.
+  await run(
+    "ffmpeg",
+    [
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-nostdin",
+      "-y",
+      "-threads",
+      "1",
+      "-i",
+      join(inputs, "room-bounded.jpg"),
+      "-vf",
+      `v360=input=equirect:output=flat:h_fov=95:v_fov=60:yaw=135:w=1280:h=720`,
+      "-frames:v",
+      "1",
+      join(inputs, "panorama-cover.png"),
+    ],
+    { timeout: 20000, maxBuffer: 262144, env: isolatedWorkerEnvironment() },
+  );
+  await sharp(join(inputs, "panorama-cover.png"))
     .webp({ quality: 90 })
     .toFile(`${dir}/cc0-panorama-poster.webp`);
   await add("cc0-panorama-poster", `${dir}/cc0-panorama-poster.webp`, "image", {
     ...common,
+    cameraId: "panorama-kitchen-direction",
     sourceId: "cc0-room-panorama",
   });
   await sharp(join(inputs, "model-cover.png"))

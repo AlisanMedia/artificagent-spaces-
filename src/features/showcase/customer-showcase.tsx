@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
+import { preload } from "react-dom";
 import { ArrowRight, Play, ShieldCheck, X } from "lucide-react";
 import { StudioWordmark } from "../platform/studio-presentation";
 import {
@@ -279,6 +280,9 @@ export function CustomerShowcase({
   const before = sampleAsset(showcaseMedia.comparison.beforeId),
     after = sampleAsset(showcaseMedia.comparison.afterId),
     source = sampleAsset(showcaseMedia.comparison.sourceId);
+  const heroPoster = sampleAsset(videoSample("premium")?.posterId ?? "");
+  if (heroPoster)
+    preload(heroPoster.url, { as: "image", fetchPriority: "high" });
   return (
     <div className="studio-theme sc-public">
       <a href="#showcase-main" className="studio-skip">
