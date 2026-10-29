@@ -1,5 +1,7 @@
 # ArtificAgent Spaces — yerel ürün laboratuvarı
 
+**29 Ekim — hizmet örnekleri devamı:** boş oda yakın planları yerine her hizmete bağlı ayrı kapak, kartta oynatılabilen gerçek yerel MP4, mevcut modelin tamamını gösteren 3D render ve doğrulanmış CC0 fotoğraf panoraması. [Kaynaklar, haklar ve çalışma sınırı](docs/service-samples-refresh.md). Eski sentetik fixtures korunur; lisanslı kamuya açık referans istisnası müşteri upload/API/deployment yetkisini genişletmez.
+
 Owner V2.0 yetkisi: **22 Ekim 2026**. Phase 1B kapalıdır; P2–P12 için sürekli yerel/sentetik geliştirme yetkilidir. Harici bütçe **0 USD**. Mevcut canlı ArtificAgent ElevenLabs agent’ına dokunulmaz.
 
 **29 Ekim V5.5 güncel kapsamı:** müşteri hizmet/örnek galerisi, dört adımlı stüdyo ve ayrı yetkili sonuç sayfası. Yeni deployment, gerçek müşteri/sağlayıcı/ödeme ve harici bütçe kapalıdır. [V5.5 müşteri yolu](docs/customer-experience-v55.md), [örnek hakları](docs/showcase-rights-v55.md), [A/B/C beta kapıları](docs/controlled-beta-readiness-v55.md).

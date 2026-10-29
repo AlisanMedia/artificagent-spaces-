@@ -31,14 +31,21 @@ export function InteractiveSample({ kind }: { kind: "ai-3d" | "tour-360" }) {
       {!active ? (
         <div className="sc-tour-poster">
           <img
-            src={kind === "ai-3d" ? "/golden-v5/living.png" : asset.url}
+            src={
+              sampleAsset(
+                kind === "ai-3d"
+                  ? (showcaseMedia.modelPosterId ?? "living-source")
+                  : (showcaseMedia.panoramaPosterId ??
+                      showcaseMedia.panoramaId),
+              )?.url
+            }
             width="640"
             height="360"
             loading="lazy"
             alt={
               kind === "ai-3d"
-                ? "Örnek mülkün salonu; sentetik 3D tasarım"
-                : "Sentetik salonun equirectangular panorama kaynağı"
+                ? "Örnekte açılan sentetik 3D modelin tamamı"
+                : "Lisanslı 360 derece fotoğrafın perspektif önizlemesi"
             }
           />
           <button
@@ -67,7 +74,7 @@ export function InteractiveSample({ kind }: { kind: "ai-3d" | "tour-360" }) {
         <span>
           {kind === "ai-3d"
             ? "Sentetik ölçülü tasarım · gerçek konut değil"
-            : "Sentetik 2:1 panorama · gerçek konut değil"}
+            : "CC0 lisanslı fotoğraf panoraması · AI üretimi değil"}
         </span>
         {active && (
           <>

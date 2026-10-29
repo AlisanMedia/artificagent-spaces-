@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { describe, it, expect } from "vitest";
 import registry from "../../fixtures/showcase-v55/registry.json";
+import publicRights from "../../fixtures/showcase-v55/public-rights.json";
 import { ShowcaseRegistry } from "@/domain/showcase";
 import { matchedComparison } from "@/domain/showcase-selection";
 import {
@@ -101,6 +102,10 @@ describe("V5.5 source-bound public showcase", () => {
       );
       await expect(verifyShowcase(root)).rejects.toThrow();
       await mkdir(join(root, "public/golden-v5"), { recursive: true });
+      await writeFile(
+        join(root, "fixtures/showcase-v55/public-rights.json"),
+        JSON.stringify(publicRights),
+      );
       await writeFile(
         join(root, "public/golden-v5/living.png"),
         "changed public fixture",

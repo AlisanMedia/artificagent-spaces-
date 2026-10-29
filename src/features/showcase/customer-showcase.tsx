@@ -8,7 +8,7 @@ import {
   type PropertyVideoStyle,
 } from "../../domain/real-estate-styles";
 import { BeforeAfterSlider } from "../../components/before-after-slider";
-import { sampleAsset, showcaseMedia } from "./media";
+import { sampleAsset, showcaseMedia, videoSample } from "./media";
 import { VideoExample } from "./video-example";
 import { InteractiveSample } from "./interactive-sample";
 
@@ -18,23 +18,73 @@ export const CUSTOMER_SERVICES = [
     title: "AI Emlak Video",
     description: "Fotoğraflarınızdan, seçtiğiniz kamera tarzıyla bir tanıtım.",
     format: "Yerel örnek: H.264 MP4 · AI üretimi kapalı",
-    poster: "/showcase-v55/premium-poster.webp",
+    posterId: videoSample("premium")?.posterId ?? "",
   },
   {
     id: "ai-3d",
     title: "AI 3D Deneyim",
     description: "Mekânı farklı açılardan, etkileşimli olarak keşfedin.",
     format: "Sentetik GLB örneği · AI üretimi kapalı",
-    poster: "/golden-v5/living.png",
+    posterId: showcaseMedia.modelPosterId ?? "living-source",
   },
   {
     id: "tour-360",
     title: "360° Sanal Tur",
     description: "Gerçek panoramalardan, sabit noktalı bir tur deneyimi.",
-    format: "2:1 panorama örneği · Tur servisi kapalı",
-    poster: "/showcase-v55/living-panorama.jpg",
+    format: "Lisanslı 360° fotoğraf örneği · Tur servisi kapalı",
+    posterId: showcaseMedia.panoramaPosterId ?? showcaseMedia.panoramaId,
   },
 ] as const;
+
+function ServiceCover({
+  product,
+  compact,
+}: {
+  product: StudioProduct;
+  compact: boolean;
+}) {
+  const [failed, setFailed] = useState(false);
+  const service = CUSTOMER_SERVICES.find((s) => s.id === product)!,
+    cover = sampleAsset(service.posterId),
+    clip =
+      product === "video"
+        ? sampleAsset(videoSample("premium")?.outputId ?? "")
+        : null;
+  if (!cover || failed)
+    return (
+      <p role="alert" className="sc-cover-error">
+        Örnek yüklenemedi. Aşağıdaki örnek alanından yeniden deneyebilirsin.
+      </p>
+    );
+  return clip && !compact ? (
+    <video
+      controls
+      playsInline
+      preload="none"
+      poster={cover.url}
+      src={clip.url}
+      width={clip.width!}
+      height={clip.height!}
+      onError={() => setFailed(true)}
+      aria-label="Emlak video hizmetinin gerçek yerel kurgu örneği"
+    />
+  ) : (
+    <img
+      src={cover.url}
+      width={cover.width!}
+      height={cover.height!}
+      loading="lazy"
+      alt={
+        product === "video"
+          ? "Kartta oynatılabilen gerçek örnek videonun karesi"
+          : product === "ai-3d"
+            ? "Açılabilen sentetik 3D modelin tamamını gösteren görünüm"
+            : "Açılabilen lisanslı 360 derece fotoğraftan perspektif görünüm"
+      }
+      onError={() => setFailed(true)}
+    />
+  );
+}
 
 export function ServiceCards({
   onSelect,
@@ -59,13 +109,7 @@ export function ServiceCards({
           key={s.id}
           aria-label={s.title}
         >
-          <img
-            src={s.poster}
-            width="640"
-            height="360"
-            alt={`${s.title} için sentetik örnek`}
-            loading="lazy"
-          />
+          <ServiceCover product={s.id} compact={compact} />
           <div className="sc-service-copy">
             <span className="sc-overline">
               0{i + 1} /{" "}
@@ -179,29 +223,30 @@ export function ShowcaseGallery({
             <img
               src={
                 product === "ai-3d"
-                  ? "/golden-v5/living.png"
-                  : "/showcase-v55/living-panorama.jpg"
+                  ? sampleAsset(showcaseMedia.modelPosterId ?? "living-source")
+                      ?.url
+                  : sampleAsset(showcaseMedia.panoramaId)?.url
               }
               width="640"
               height={product === "ai-3d" ? 360 : 320}
               alt={
                 product === "ai-3d"
-                  ? "Örnek mülkün kaynak salon görünümü"
-                  : "Gerçek küresel projeksiyonla render edilen sentetik 2:1 panorama"
+                  ? "Örnekte açılan sentetik 3D modelin tamamı"
+                  : "CC0 lisanslı gerçek 2:1 fotoğraf panoraması"
               }
               loading="lazy"
             />
             <p>
               {product === "ai-3d"
-                ? "Kaynak görünüm: Örnek mülk / salon. Tasarım ölçüleri sentetiktir; fotoğraftan daire rekonstrüksiyonu yapılmadı."
-                : "Kaynak: aynı sentetik salonun 1024 × 512 equirectangular panoraması. Normal oda fotoğrafı değildir."}
+                ? "Örnekte açılan aynı 3D tasarım. Tasarım ölçüleri sentetiktir; fotoğraftan daire rekonstrüksiyonu yapılmadı."
+                : "Kaynak: Poly Haven / Brown Photostudio 04 · CC0 lisanslı gerçek 2048 × 1024 fotoğraf panoraması. Normal oda fotoğrafı değildir."}
             </p>
           </div>
           <InteractiveSample key={product} kind={product} />
           <p className="sc-disclosure">
             {product === "ai-3d"
               ? "Bu, serbestçe dolaşılabilen ölçülü sentetik bir 3D tasarımdır. Canlı AI üretimi, ölçülmüş konut veya dijital ikiz değildir."
-              : "Bu tek odalı sentetik panorama yerel olarak görüntülenir. Harici tur, oda geçişi veya dış paylaşım oluşturulmadı."}
+              : "Bu tek odalı, lisanslı fotoğraf panoraması yerel olarak görüntülenir. Harici tur, oda geçişi veya dış paylaşım oluşturulmadı."}
           </p>
         </>
       )}
@@ -263,7 +308,7 @@ export function CustomerShowcase({
       <main id="showcase-main" tabIndex={-1}>
         <div className="sc-notice">
           <ShieldCheck size={14} aria-hidden="true" />
-          Sentetik ürün gösterimi · Gerçek AI üretimi henüz etkin değil
+          Ürün gösterimi · Hazır örnekler · Gerçek AI üretimi henüz etkin değil
         </div>
 
         <section className="sc-hero">
@@ -337,8 +382,9 @@ export function CustomerShowcase({
               Önce görün. <em>Sonra karar verin.</em>
             </h2>
             <p>
-              Tüm örnekler bu proje için hazırlanmış sentetik içeriklerdir.
-              Kendi dosyanızdan üretilmiş sonuç değildir.
+              Lisanslı fotoğraflardan gerçek kurgu, açılabilen 3D tasarım ve
+              gerçek panorama örnekleri. Kendi dosyanızdan üretilmiş sonuç
+              değildir.
             </p>
           </div>
           <ShowcaseGallery key={galleryKey} initialProduct={selected} />
@@ -409,7 +455,7 @@ export function CustomerShowcase({
           {[
             [
               "Şu anda hangi sonuçları alabilirim?",
-              "Yerel uygulama sentetik kaynaklardan gerçek, düşük çözünürlüklü MP4 kurgu oluşturabilir. Hazır video, sentetik serbest 3D ve 360° panorama örneklerini inceleyebilirsiniz. Canlı AI hizmetleri kapalıdır.",
+              "Yerel uygulama gerçek, düşük çözünürlüklü MP4 kurgu oluşturabilir. Buradaki videolar lisanslı fotoğraflardan aynı kurgu hattıyla hazırlanmıştır. Serbest 3D tasarım ve lisanslı 360° fotoğraf panoraması da açılabilir. Canlı AI hizmetleri kapalıdır; bu örnekler AI kalite garantisi değildir.",
             ],
             [
               "Kendi fotoğrafımı yüklersem örnek video değişir mi?",
@@ -438,8 +484,8 @@ export function CustomerShowcase({
       <footer className="sc-footer">
         <StudioWordmark />
         <p>
-          Sentetik ürün gösterimi. Gerçek müşterilere açık ticari servis
-          değildir.
+          Lisanslı referanslar ve sentetik tasarımlarla ürün gösterimi. Gerçek
+          müşterilere açık ticari servis değildir.
         </p>
         <a href={studioHref}>Stüdyoyu aç</a>
       </footer>
@@ -460,7 +506,7 @@ export function CustomerShowcase({
           </button>
         </div>
         <p>
-          Gerçek müşteri girişi henüz etkin değil. Bu deneyim sentetik örnekleri
+          Gerçek müşteri girişi henüz etkin değil. Bu deneyim hazır örnekleri
           incelemek içindir.
         </p>
         {isolated ? (

@@ -14,8 +14,37 @@ export async function verifyShowcase(root = process.cwd()) {
       await readFile(join(root, "fixtures/showcase-v55/registry.json"), "utf8"),
     ),
   );
+  const rights = registry.assets.some((a) => a.license)
+    ? (JSON.parse(
+        await readFile(
+          join(root, "fixtures/showcase-v55/public-rights.json"),
+          "utf8",
+        ),
+      ) as {
+        sources: {
+          sourcePage: string;
+          author: string;
+          upstreamSha256: string;
+        }[];
+        licenseUrl: string;
+        license: string;
+      })
+    : null;
   const files = new Set<string>();
   for (const a of registry.assets) {
+    if (
+      a.license &&
+      (!rights ||
+        rights.license !== "CC0-1.0" ||
+        rights.licenseUrl !== a.license.licenseUrl ||
+        !rights.sources.some(
+          (s) =>
+            s.sourcePage === a.license!.sourcePage &&
+            s.author === a.license!.author &&
+            s.upstreamSha256 === a.license!.upstreamSha256,
+        ))
+    )
+      throw Error("PUBLIC_LICENSE_EVIDENCE_MISMATCH");
     if (a.width && a.height) {
       const [w, h] = a.aspectRatio?.split(":").map(Number) ?? [];
       if (!w || !h || Math.abs(w / h - a.width / a.height) > 0.000001)
@@ -123,7 +152,8 @@ if (
     JSON.stringify({
       result: "PASS",
       assets: r.registry.assets.length,
-      decodedVideos: r.registry.samples.length,
+      decodedVideos: r.registry.assets.filter((a) => a.type === "video").length,
+      activeVideoExamples: r.registry.samples.length,
       panoramas: 1,
       externalSpendUsd: 0,
     }),

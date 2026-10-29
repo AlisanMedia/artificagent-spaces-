@@ -63,11 +63,11 @@ describe("customer controls", () => {
   });
   it("a broken MP4 never remains a fake working player", () => {
     render(<VideoExample style="exterior" />);
-    const v = screen.getByLabelText("Dış Cephe hazır sentetik örnek videosu");
-    expect(v).toHaveAttribute("src", "/showcase-v55/exterior.mp4");
+    const v = screen.getByLabelText("Dış Cephe hazır örnek videosu");
+    expect(v).toHaveAttribute("src", "/showcase-v55/cc0-exterior.mp4");
     fireEvent.error(v);
     expect(
-      screen.queryByLabelText("Dış Cephe hazır sentetik örnek videosu"),
+      screen.queryByLabelText("Dış Cephe hazır örnek videosu"),
     ).not.toBeInTheDocument();
     expect(screen.getByRole("alert")).toHaveTextContent("açılamıyor");
   });

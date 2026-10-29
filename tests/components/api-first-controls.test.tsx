@@ -137,9 +137,9 @@ describe("V5.4 customer-facing controls", () => {
       />,
     );
     const video = screen.getByLabelText(
-      "Premium Sinematik hazır sentetik örnek videosu",
+      "Premium Sinematik hazır örnek videosu",
     );
-    expect(video.getAttribute("src")).toBe("/showcase-v55/premium.mp4");
+    expect(video.getAttribute("src")).toBe("/showcase-v55/cc0-premium.mp4");
     expect(screen.getByText(/seçtiğin dosyadan oluşturulmadı/)).toBeVisible();
     expect(screen.queryByLabelText("Oluşturulan video önizlemesi")).toBeNull();
   });

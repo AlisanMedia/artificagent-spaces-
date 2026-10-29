@@ -36,7 +36,7 @@ export function StudioPreviewRail({
     <aside className="v54-preview-rail" aria-label="Medya ve sahne özeti">
       <div className="v54-preview-heading">
         <span className="ux-kicker">MEDYA ALANI</span>
-        <span>{hasActual ? "Özel yerel çıktı" : "Hazır sentetik örnek"}</span>
+        <span>{hasActual ? "Özel yerel çıktı" : "Hazır örnek"}</span>
       </div>
       <div
         className={`v54-cinema ${hasActual && job.output?.extension === "glb" ? "v54-cinema-3d" : ""}`}
@@ -77,7 +77,7 @@ export function StudioPreviewRail({
             ? "Bu hazır örnek videodur; seçtiğin dosyadan oluşturulmadı. Gerçek AI video üretimi henüz etkin değil."
             : product === "ai-3d"
               ? "Hazır ölçülü sentetik GLB tasarımı. Gerçek konut rekonstrüksiyonu veya AI sağlayıcı çıktısı değildir."
-              : "Hazır sentetik 2:1 panorama. Yerel örnektir; harici tur oluşturulmadı."}
+              : "CC0 lisanslı gerçek 2:1 fotoğraf panoraması. Yerel örnektir; harici tur oluşturulmadı."}
       </p>
       {product !== "video" && !hasActual && (
         <p className="v54-media-kind">

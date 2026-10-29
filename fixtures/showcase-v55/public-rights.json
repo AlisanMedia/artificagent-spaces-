@@ -1,0 +1,34 @@
+{
+  "version": "verified-public-cc0-reference-v1",
+  "retrievedOn": "2026-10-29",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "licensePageSha256": "46158a6b319ae8ef55acd18bd96d986c9261fb0cc8086124e97bcbefe779a623",
+  "deedUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "officialExcerpt": "You can use our assets for any purpose, including commercial work. You can redistribute them, share them around, include them when sharing your own work, or even in a product you sell.",
+  "sources": [
+    {
+      "sourcePage": "https://polyhaven.com/a/brown_photostudio_04",
+      "author": "Sergej Majboroda",
+      "fileApi": "https://api.polyhaven.com/files/brown_photostudio_04",
+      "downloadUrl": "https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/brown_photostudio_04.jpg",
+      "upstreamSha256": "d59e82aeffbd44dd7d779b983350fc515faa70b194cb6966f35e08b1b40a3a2c",
+      "upstreamBytes": 40211222,
+      "upstreamMd5": "c19bff53bec5c5352d0ea5c8f022d1af",
+      "inputDownloadedAndChecksumVerified": true,
+      "visiblePeopleOrPrivateContactData": "NONE_IDENTIFIED_IN_SELECTED_FRAMING_MANUAL_REVIEW"
+    },
+    {
+      "sourcePage": "https://polyhaven.com/a/modern_buildings_2",
+      "author": "Alexander Scholten",
+      "fileApi": "https://api.polyhaven.com/files/modern_buildings_2",
+      "downloadUrl": "https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/modern_buildings_2.jpg",
+      "upstreamSha256": "e025caabb1e925541f9095325e9e091c9dac9bb240393e1d8a2092ac1479e231",
+      "upstreamBytes": 34845892,
+      "upstreamMd5": "1b5c20906d4b9768f5c1ccbcd3a345c7",
+      "inputDownloadedAndChecksumVerified": true,
+      "visiblePeopleOrPrivateContactData": "NONE_IDENTIFIED_IN_SELECTED_FRAMING_MANUAL_REVIEW"
+    }
+  ],
+  "scope": "Public sample illustration only; not customer media, provider output, AI quality warranty or model/OEM/DPA approval."
+}

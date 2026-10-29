@@ -117,7 +117,7 @@ export function ApiFirstControls({
                     alt=""
                     loading="lazy"
                   />
-                  <span>Sentetik örnek kare</span>
+                  <span>Gerçek örnek videodan kare</span>
                   <b aria-hidden="true">0{i + 1}</b>
                   {styleId === style.id && (
                     <Check size={20} aria-hidden="true" />

@@ -5,6 +5,7 @@ import type { SampleAsset } from "../../domain/showcase";
 
 /** Static, approved equirectangular source. Rotation only; this is not a free-walk 3D reconstruction. */
 export function PanoramaViewer({ asset }: { asset: SampleAsset }) {
+  const licensed = asset.capture === "LICENSED_CC0_PHOTOGRAPHY";
   const host = useRef<HTMLDivElement>(null),
     [state, setState] = useState<"loading" | "ready" | "error">("loading");
   // The center of the authored equirectangular image is the documented room view.
@@ -36,7 +37,9 @@ export function PanoramaViewer({ asset }: { asset: SampleAsset }) {
       renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
       renderer.domElement.setAttribute(
         "aria-label",
-        "Sentetik salonun gerçek 360 derece panorama görünümü",
+        asset.capture === "LICENSED_CC0_PHOTOGRAPHY"
+          ? "Lisanslı iç mekânın gerçek 360 derece fotoğraf görünümü"
+          : "Sentetik salonun gerçek 360 derece panorama görünümü",
       );
       container.appendChild(renderer.domElement);
     } catch {
@@ -137,7 +140,7 @@ export function PanoramaViewer({ asset }: { asset: SampleAsset }) {
         className="sc-panorama-canvas"
         tabIndex={0}
         role="region"
-        aria-label="360° salon panoraması; sürükle veya ok tuşlarını kullan"
+        aria-label="360° oda panoraması; sürükle veya ok tuşlarını kullan"
         onPointerDown={(e) => {
           drag.current = { x: e.clientX, y: e.clientY, pointer: e.pointerId };
           redraw.current();
@@ -195,8 +198,10 @@ export function PanoramaViewer({ asset }: { asset: SampleAsset }) {
         </p>
       )}
       <p className="sc-panorama-caption">
-        Salon · 360° sentetik panorama · Sabit noktadan etrafına bak. Bu örnekte
-        oda geçişi yok.
+        {licensed
+          ? "İç mekân · 360° lisanslı fotoğraf panoraması"
+          : "Salon · 360° sentetik panorama"}{" "}
+        · Sabit noktadan etrafına bak. Bu örnekte oda geçişi yok.
       </p>
     </div>
   );

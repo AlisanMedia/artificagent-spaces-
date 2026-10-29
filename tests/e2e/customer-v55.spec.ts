@@ -60,7 +60,7 @@ test("V5.5 all four styles play the exact measured sample with the matching sour
     const style = sample.style as keyof typeof labels;
     await page.getByRole("radio", { name: labels[style], exact: true }).check();
     const video = page
-      .getByLabel(`${labels[style]} hazır sentetik örnek videosu`)
+      .getByLabel(`${labels[style]} hazır örnek videosu`)
       .last();
     const a = registry.assets.find((a) => a.id === sample.outputId)!;
     await expect(video).toHaveAttribute("src", a.url);
@@ -159,9 +159,11 @@ test("V5.5 separate 3D and genuine equirectangular viewers load only on request"
     timeout: 30000,
   });
   await expect(
-    page.getByText("Salon · 360° sentetik panorama", { exact: false }),
+    page.getByText("İç mekân · 360° lisanslı fotoğraf panoraması", {
+      exact: false,
+    }),
   ).toBeVisible();
-  const surface = page.getByRole("region", { name: /360° salon panoraması/ });
+  const surface = page.getByRole("region", { name: /360° oda panoraması/ });
   await surface.scrollIntoViewIfNeeded();
   await expect(surface).toHaveAttribute("data-yaw", String(-Math.PI / 2));
   const firstFrame = await surface.locator("canvas").screenshot();
@@ -206,15 +208,15 @@ test("V5.5 separate 3D and genuine equirectangular viewers load only on request"
 test("V5.5 missing video and panorama fail closed, never show fake success", async ({
   page,
 }) => {
-  await page.route("**/showcase-v55/exterior.mp4", (r) => r.abort());
+  await page.route("**/showcase-v55/cc0-exterior.mp4", (r) => r.abort());
   await page.goto("/spaces/showcase");
   await page.getByRole("radio", { name: "Dış Cephe", exact: true }).check();
-  const v = page.getByLabel("Dış Cephe hazır sentetik örnek videosu");
+  const v = page.getByLabel("Dış Cephe hazır örnek videosu");
   await v.evaluate((v) => (v as HTMLVideoElement).load());
   await expect(page.locator(".sc-gallery").getByRole("alert")).toContainText(
     "açılamıyor",
   );
-  await page.route("**/showcase-v55/living-panorama.jpg", (r) => r.abort());
+  await page.route("**/showcase-v55/cc0-room-panorama.jpg", (r) => r.abort());
   await page.getByRole("button", { name: "360° örneği", exact: true }).click();
   await page
     .getByRole("button", { name: "360° örneğini başlat", exact: true })

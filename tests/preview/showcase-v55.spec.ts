@@ -34,7 +34,7 @@ test("isolated V5.5 showcase has real samples and never calls application APIs o
     .getByRole("button", { name: "Video örnekleri", exact: true })
     .click();
   await page.getByRole("radio", { name: "Dış Cephe", exact: true }).check();
-  const v = page.getByLabel("Dış Cephe hazır sentetik örnek videosu");
+  const v = page.getByLabel("Dış Cephe hazır örnek videosu");
   await v.evaluate((x) => (x as HTMLVideoElement).play());
   await expect
     .poll(() => v.evaluate((x) => (x as HTMLVideoElement).currentTime))

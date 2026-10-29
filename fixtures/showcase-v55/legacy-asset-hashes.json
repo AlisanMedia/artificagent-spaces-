@@ -1,0 +1,110 @@
+[
+  {
+    "id": "living-source",
+    "url": "/golden-v5/living.png",
+    "sha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791",
+    "bytes": 312426
+  },
+  {
+    "id": "facade-source",
+    "url": "/showcase-v55/facade.png",
+    "sha256": "0a280a938cb1728384b76b0b7f3ffb0c50a635e6f59db4f69ff128ef7a613e53",
+    "bytes": 26459
+  },
+  {
+    "id": "compare-before",
+    "url": "/showcase-v55/comparison-before.webp",
+    "sha256": "7a5233554dec8559f5fab5adf87f791e7823218759b44221b493ee9277efc252",
+    "bytes": 33234
+  },
+  {
+    "id": "compare-after",
+    "url": "/showcase-v55/comparison-after.webp",
+    "sha256": "9a216b36ad12a81fffd8319582aa9fbe0fd9bdc53ce1aedda62e318df8b2b514",
+    "bytes": 57218
+  },
+  {
+    "id": "video-natural",
+    "url": "/showcase-v55/natural.mp4",
+    "sha256": "552a6a3de5004173cc6391c6d25e0f6e52e4c1916aaed118dbfdc102b12754bf",
+    "bytes": 73963
+  },
+  {
+    "id": "poster-natural",
+    "url": "/showcase-v55/natural-poster.webp",
+    "sha256": "0cbe6298c12755c1e9c85ab494f50243f83b8e20169d6e9e2d1830a54026081f",
+    "bytes": 16180
+  },
+  {
+    "id": "thumb-natural",
+    "url": "/showcase-v55/natural-thumb.webp",
+    "sha256": "02d3bc5d60c976413265aa1f31a3f2db463b66ea11b2ce63b5a0f8deaa7ed25a",
+    "bytes": 2302
+  },
+  {
+    "id": "video-premium",
+    "url": "/showcase-v55/premium.mp4",
+    "sha256": "d01e7fd1a56aa964270d5d84ada7a649e76ab6354a17a91e9a35e285e6e746cd",
+    "bytes": 85815
+  },
+  {
+    "id": "poster-premium",
+    "url": "/showcase-v55/premium-poster.webp",
+    "sha256": "c7d42c13763d6a266456a867834a50e45f1540d600f1eacb5fc25c8e5588c0d5",
+    "bytes": 16020
+  },
+  {
+    "id": "thumb-premium",
+    "url": "/showcase-v55/premium-thumb.webp",
+    "sha256": "3465b1dae005c0cb4c6a21b033fddbed5a7461a880a735a7a3d72258f1d7117e",
+    "bytes": 2326
+  },
+  {
+    "id": "video-explore",
+    "url": "/showcase-v55/explore.mp4",
+    "sha256": "eb79ec04b375d2b267df547ecbdecfbd0714142e142b0d5d3e267871a59f80bf",
+    "bytes": 81793
+  },
+  {
+    "id": "poster-explore",
+    "url": "/showcase-v55/explore-poster.webp",
+    "sha256": "758310a946d45efabeb59a6be3ab5cc8f6b396dbe9cb011754425950e007aff9",
+    "bytes": 13716
+  },
+  {
+    "id": "thumb-explore",
+    "url": "/showcase-v55/explore-thumb.webp",
+    "sha256": "ae6e17c1cf6cf6cc3ffe345fb1c85afaf3492425e7dfac41b59fe32858156add",
+    "bytes": 2160
+  },
+  {
+    "id": "video-exterior",
+    "url": "/showcase-v55/exterior.mp4",
+    "sha256": "f5232c1d07d8c5dc934e9fbef4d11a10ce5aaecb12ac6b9eadabab2de5717b12",
+    "bytes": 69756
+  },
+  {
+    "id": "poster-exterior",
+    "url": "/showcase-v55/exterior-poster.webp",
+    "sha256": "e8f054503e4f0c0de274448a28345a245fa72397c7b460e93747a835d0e7a3a1",
+    "bytes": 6660
+  },
+  {
+    "id": "thumb-exterior",
+    "url": "/showcase-v55/exterior-thumb.webp",
+    "sha256": "86f26cb9dfe93aa7e6cb622ac79b222c20ab9318c33b989800cf20c2ebc8e141",
+    "bytes": 2486
+  },
+  {
+    "id": "living-panorama",
+    "url": "/showcase-v55/living-panorama.jpg",
+    "sha256": "0406db3832533a0600fafeaf781423fe48781eed49f49ccaeb11946a385c73f5",
+    "bytes": 72769
+  },
+  {
+    "id": "golden-model",
+    "url": "/golden-v5/property.glb",
+    "sha256": "1b3cee01fcf18d55a12bdbd5cf62ffba7f2a225ad870cbc6c967eb6a0e77cf10",
+    "bytes": 64152
+  }
+]

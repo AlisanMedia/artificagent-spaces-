@@ -38,8 +38,8 @@ export function VideoExample({
           />
           <figcaption>
             {style === "exterior"
-              ? "Özgün sentetik cephe çalışması"
-              : "Örnek mülk · salon"}{" "}
+              ? "Lisanslı mimari referans"
+              : "Lisanslı iç mekân referansı"}{" "}
             / kaynak fotoğraf
           </figcaption>
         </figure>
@@ -53,7 +53,7 @@ export function VideoExample({
           poster={poster.url}
           src={video.url}
           onError={() => setFailed(true)}
-          aria-label={`${PROPERTY_STYLE_CARDS.find((s) => s.id === style)?.label} hazır sentetik örnek videosu`}
+          aria-label={`${PROPERTY_STYLE_CARDS.find((s) => s.id === style)?.label} hazır örnek videosu`}
           width={video.width!}
           height={video.height!}
         />
@@ -63,6 +63,31 @@ export function VideoExample({
         </figcaption>
       </figure>
       {disclose && <p className="sc-disclosure">{sample.disclosure}</p>}
+      {disclose && source.license && (
+        <details className="sc-image-credit">
+          <summary>Örneğin kaynağı ve kullanım hakkı</summary>
+          <p>
+            <a
+              href={source.license.sourcePage}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Poly Haven · {source.license.author}
+            </a>{" "}
+            ·{" "}
+            <a
+              href={source.license.licenseUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CC0
+            </a>
+            . Kaynak bir fotoğraf panoramasından alınan perspektif karedir. Bu
+            MP4 mevcut yerel kurgu hattıyla hazırlanmıştır; canlı AI çıktısı
+            veya sonuç garantisi değildir.
+          </p>
+        </details>
+      )}
     </div>
   );
 }

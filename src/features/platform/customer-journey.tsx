@@ -118,7 +118,7 @@ export function OrderSummary({
       <p className="ux-honesty">
         {video
           ? "Yerel örnek, fotoğraflardan kurgu oluşturur; fotogerçekçi AI yürüyüşü değildir. İndirmeden önce farklı incelemecinin her sahneyi onaylaması gerekir."
-          : "Bu istek ücretli bir üretim başlatmaz. Kaynakları kontrol edebilir; sonuç türüne uygun hazır sentetik örneği inceleyebilirsin."}
+          : "Bu istek ücretli bir üretim başlatmaz. Kaynakları kontrol edebilir; sonuç türüne uygun hazır örneği inceleyebilirsin."}
       </p>
       <div className="v55-summary-actions">
         <button
