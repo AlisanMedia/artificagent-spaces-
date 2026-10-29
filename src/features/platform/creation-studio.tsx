@@ -149,6 +149,14 @@ export function CreationStudio() {
     restored = useRef(""),
     submission = useRef<{ fingerprint: string; key: string } | null>(null),
     titleInput = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const picker = fileInput.current;
+    const cancelled = () => {
+      replaceTarget.current = null;
+    };
+    picker?.addEventListener("cancel", cancelled);
+    return () => picker?.removeEventListener("cancel", cancelled);
+  }, [view]);
   const objectUrl = useCallback((blob: Blob) => {
     const u = URL.createObjectURL(blob);
     urls.current.add(u);
@@ -757,9 +765,6 @@ export function CreationStudio() {
                   }
                   aria-label="Fotoğraf veya video seç"
                   tabIndex={-1}
-                  onCancel={() => {
-                    replaceTarget.current = null;
-                  }}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     void selectFiles(Array.from(e.target.files ?? []));
                     e.target.value = "";
@@ -786,6 +791,7 @@ export function CreationStudio() {
                         disabled={!bootstrap || busy || !canEdit}
                         onClick={() => {
                           setProduct("video");
+                          replaceTarget.current = null;
                           recordFunnel("picker_opened");
                           fileInput.current?.click();
                         }}
@@ -863,6 +869,7 @@ export function CreationStudio() {
                         className="ux-primary"
                         disabled={!bootstrap || busy || !canEdit}
                         onClick={() => {
+                          replaceTarget.current = null;
                           recordFunnel("picker_opened");
                           fileInput.current?.click();
                         }}
