@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
   push:
-    branches: [main, build/v5-4-api-first-studio]
+    branches: [main, build/v5-4-api-first-studio, build/v5-5-customer-experience]
 
 permissions:
   contents: read

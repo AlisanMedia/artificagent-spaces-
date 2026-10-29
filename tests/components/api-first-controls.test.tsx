@@ -37,9 +37,7 @@ describe("V5.4 customer-facing controls", () => {
         <ApiFirstControls product="video" {...common} />
       </>,
     );
-    await user.click(
-      screen.getByRole("button", { name: "AI 3D Deneyim" }),
-    );
+    await user.click(screen.getByRole("button", { name: "AI 3D Deneyim" }));
     expect(selected).toHaveBeenCalledWith("ai-3d");
     expect(screen.getAllByRole("radio")).toHaveLength(4);
     await user.click(screen.getByRole("radio", { name: /Premium Sinematik/ }));
@@ -89,6 +87,42 @@ describe("V5.4 customer-facing controls", () => {
       screen.getByText(/Türkçe tur dili sağlayıcıda belgelenmedi/),
     ).toBeVisible();
   });
+  it("keeps panorama confirmation mandatory when entering the guided request summary", async () => {
+    const user = userEvent.setup(),
+      onPlan = vi.fn(),
+      onContinue = vi.fn();
+    const { rerender } = render(
+      <ApiFirstControls
+        product="tour-360"
+        {...common}
+        onPlan={onPlan}
+        onContinue={onContinue}
+      />,
+    );
+    expect(
+      screen.getByRole("button", { name: "Seçimlerimi kontrol et" }),
+    ).toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: "İsteği gözden geçir" }),
+    ).toBeDisabled();
+    rerender(
+      <ApiFirstControls
+        product="tour-360"
+        {...common}
+        panoramaConfirmed
+        onPlan={onPlan}
+        onContinue={onContinue}
+      />,
+    );
+    await user.click(
+      screen.getByRole("button", { name: "Seçimlerimi kontrol et" }),
+    );
+    await user.click(
+      screen.getByRole("button", { name: "İsteği gözden geçir" }),
+    );
+    expect(onPlan).toHaveBeenCalledOnce();
+    expect(onContinue).toHaveBeenCalledOnce();
+  });
   it("never relabels a pre-generated sample as a result of user-selected files", () => {
     render(
       <StudioPreviewRail
@@ -102,8 +136,10 @@ describe("V5.4 customer-facing controls", () => {
         aspect="9:16"
       />,
     );
-    const video = screen.getByLabelText("Hazır sentetik örnek video");
-    expect(video.getAttribute("src")).toBe("/spaces-examples/cinematic.mp4");
+    const video = screen.getByLabelText(
+      "Premium Sinematik hazır sentetik örnek videosu",
+    );
+    expect(video.getAttribute("src")).toBe("/showcase-v55/premium.mp4");
     expect(screen.getByText(/seçtiğin dosyadan oluşturulmadı/)).toBeVisible();
     expect(screen.queryByLabelText("Oluşturulan video önizlemesi")).toBeNull();
   });

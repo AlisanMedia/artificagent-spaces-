@@ -6,6 +6,7 @@ import "./globals.css";
 import "./platform.css";
 import "./studio-visual.css";
 import "./api-first-studio.css";
+import "./customer-experience.css";
 
 export const metadata: Metadata = {
   title: {

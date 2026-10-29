@@ -13,7 +13,7 @@
     "demo:local": "tsx scripts/local-lab.ts demo",
     "worker:local": "node scripts/local-worker.mjs",
     "dev": "node scripts/next.mjs dev",
-    "build": "node scripts/next.mjs build",
+    "build": "npm run showcase:verify && node scripts/next.mjs build",
     "start": "node scripts/next.mjs start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "node scripts/next.mjs typegen && tsc --noEmit",
@@ -40,7 +40,9 @@
     "preview:serve": "node scripts/serve-owner-preview.mjs",
     "preview:test": "playwright test -c playwright.preview.config.ts",
     "usability:prepare": "tsx scripts/usability-evaluation.ts prepare",
-    "usability:summarize": "tsx scripts/usability-evaluation.ts summarize"
+    "usability:summarize": "tsx scripts/usability-evaluation.ts summarize",
+    "showcase:verify": "tsx scripts/verify-showcase.ts",
+    "showcase:build": "tsx scripts/build-showcase-v55.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.11",

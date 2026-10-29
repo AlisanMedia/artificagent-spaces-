@@ -33,6 +33,8 @@ import {
 import { useLocalMedia, type LocalMedia } from "./use-local-media";
 import "../app/studio-visual.css";
 import "./preview.css";
+import "../app/customer-experience.css";
+import { CustomerShowcase } from "../features/showcase/customer-showcase";
 declare const SPACES_PREVIEW_BUILD_ID: string;
 // This immutable fixture is hash/schema validated by build-owner-preview.ts. No client-supplied scene.
 // Immutable source is schema-validated and hash-bound by build-owner-preview.ts.
@@ -677,6 +679,7 @@ function Preview() {
         )}
       </main>
       <footer className="pv52-footer">
+        <a href="/showcase/">Hizmetler ve örnek çalışmalar</a>
         <span>ArtificAgent Spaces</span>
         <span>Bir mekâna yeni bir bakış.</span>
         <a href="/evaluation/" target="_blank" rel="noreferrer">
@@ -1014,6 +1017,10 @@ function PageTitle({
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Preview />
+    {window.location.pathname.startsWith("/showcase") ? (
+      <CustomerShowcase isolated studioHref="/spaces/" />
+    ) : (
+      <Preview />
+    )}
   </StrictMode>,
 );

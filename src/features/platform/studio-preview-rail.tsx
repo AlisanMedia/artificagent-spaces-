@@ -6,6 +6,8 @@ import type {
   PropertyVideoStyle,
   StudioProduct,
 } from "@/domain/real-estate-styles";
+import { VideoExample } from "../showcase/video-example";
+import { InteractiveSample } from "../showcase/interactive-sample";
 const Viewer = dynamic(
   () => import("./scene-viewer").then((m) => m.SceneViewer),
   { ssr: false, loading: () => <p role="status">3D görünümü yükleniyor…</p> },
@@ -29,12 +31,6 @@ export function StudioPreviewRail({
   thumbnails: Readonly<Record<string, string>>;
   aspect: "16:9" | "9:16";
 }) {
-  const sample =
-    styleId === "natural"
-      ? "natural"
-      : styleId === "explore"
-        ? "hybrid"
-        : "cinematic";
   const hasActual = !!preview && !!job?.output;
   return (
     <aside className="v54-preview-rail" aria-label="Medya ve sahne özeti">
@@ -48,18 +44,24 @@ export function StudioPreviewRail({
       >
         {hasActual && job.output?.extension === "glb" && property ? (
           <Viewer scene={property.manifest} modelUrl={preview} />
+        ) : !hasActual ? (
+          product === "video" ? (
+            <VideoExample
+              key={styleId}
+              style={styleId}
+              compact
+              disclose={false}
+            />
+          ) : (
+            <InteractiveSample key={product} kind={product} />
+          )
         ) : (
           <video
-            key={hasActual ? preview : sample}
+            key={preview}
             controls
             playsInline
             preload="metadata"
-            src={hasActual ? preview : `/spaces-examples/${sample}.mp4`}
-            poster={
-              hasActual
-                ? undefined
-                : `/studio-assets-v52/style-${sample === "natural" ? "pov" : sample}.webp`
-            }
+            src={preview}
             aria-label={
               hasActual
                 ? "Oluşturulan video önizlemesi"
@@ -71,12 +73,17 @@ export function StudioPreviewRail({
       <p className="v54-media-truth">
         {hasActual
           ? job.output?.qa.disclosure
-          : "Bu hazır örnek videodur; seçtiğin dosyadan oluşturulmadı. Gerçek AI video üretimi henüz etkin değil."}
+          : product === "video"
+            ? "Bu hazır örnek videodur; seçtiğin dosyadan oluşturulmadı. Gerçek AI video üretimi henüz etkin değil."
+            : product === "ai-3d"
+              ? "Hazır ölçülü sentetik GLB tasarımı. Gerçek konut rekonstrüksiyonu veya AI sağlayıcı çıktısı değildir."
+              : "Hazır sentetik 2:1 panorama. Yerel örnektir; harici tur oluşturulmadı."}
       </p>
       {product !== "video" && !hasActual && (
         <p className="v54-media-kind">
-          Gösterilen medya video örneğidir.{" "}
-          {product === "ai-3d" ? "AI 3D" : "360°"} sonucu üretilmedi.
+          {product === "ai-3d"
+            ? "AI 3D üretimi etkin değil; örnek tasarımda serbestçe gezinebilirsin."
+            : "360° üretimi etkin değil; bu tek panorama içinde etrafına bakabilirsin."}
         </p>
       )}
       <div className="v54-scene-heading">

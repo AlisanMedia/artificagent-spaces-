@@ -2,6 +2,7 @@
 import { build } from "esbuild";
 import { validateGoldenSource } from "../src/domain/golden-property";
 import { verifyStudioAssets } from "./verify-studio-assets";
+import { verifyShowcase } from "./verify-showcase";
 import { UX_PROTOCOL, UX_TASKS } from "../src/domain/usability-evaluation";
 import {
   readFile,
@@ -38,6 +39,9 @@ const dirty =
       "public/golden-v5",
       "public/spaces-examples",
       "public/studio-assets-v52",
+      "public/showcase-v55",
+      "fixtures/showcase-v55",
+      "scripts/verify-showcase.ts",
       "scripts/verify-studio-assets.ts",
       "scripts/build-owner-preview.ts",
       "package.json",
@@ -58,6 +62,7 @@ if (
 )
   throw Error("STATIC_SCENE_SOURCE_DRIFT");
 await verifyStudioAssets(root);
+await verifyShowcase(root);
 const result = await build({
   entryPoints: ["src/preview/entry.tsx", "src/preview/evaluation-entry.tsx"],
   bundle: true,
@@ -131,6 +136,9 @@ await cp("public/studio-assets-v52", join(output, "static/studio-assets-v52"), {
   recursive: true,
 });
 await cp("src/app/icon.svg", join(output, "static/icon.svg"));
+await cp("public/showcase-v55", join(output, "static/showcase-v55"), {
+  recursive: true,
+});
 const eagerImports = entry[1].imports
   .filter((i) => i.kind === "import-statement" && !i.external)
   .map((i) => `<link rel="modulepreload" href="/assets/${basename(i.path)}">`)
@@ -139,6 +147,8 @@ const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta n
 await writeFile(join(output, "static/index.html"), html);
 await mkdir(join(output, "static/spaces"));
 await writeFile(join(output, "static/spaces/index.html"), html);
+await mkdir(join(output, "static/showcase"));
+await writeFile(join(output, "static/showcase/index.html"), html);
 const evaluationEntry = Object.entries(result.metafile.outputs).find(
   ([, v]) => v.entryPoint === "src/preview/evaluation-entry.tsx" && v.cssBundle,
 );
@@ -210,7 +220,15 @@ await writeFile(
         { src: "/(.*)", headers, continue: true },
         {
           src: "/(.*)",
-          methods: ["POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE", "CONNECT"],
+          methods: [
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE",
+            "OPTIONS",
+            "TRACE",
+            "CONNECT",
+          ],
           status: 405,
           dest: "/404.html",
         },

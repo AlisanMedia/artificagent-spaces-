@@ -15,6 +15,7 @@ import {
   type StudioProduct,
 } from "@/domain/real-estate-styles";
 import type { StudioPlanView } from "@/contracts/studio-ui";
+import { sampleAsset, videoSample } from "../showcase/media";
 
 export function StudioProductSelector({
   value,
@@ -66,6 +67,7 @@ export function ApiFirstControls({
   onCreateLocal,
   panoramaConfirmed,
   onPanoramaConfirmed,
+  onContinue,
 }: {
   product: StudioProduct;
   styleId: PropertyVideoStyle;
@@ -82,6 +84,7 @@ export function ApiFirstControls({
   onCreateLocal: () => void;
   panoramaConfirmed: boolean;
   onPanoramaConfirmed: (confirmed: boolean) => void;
+  onContinue?: () => void;
 }) {
   const required = duration / 5,
     availableSeconds = Math.min(photoCount, required) * 5;
@@ -106,7 +109,9 @@ export function ApiFirstControls({
                 />
                 <span className="v54-style-media">
                   <img
-                    src={`/studio-assets-v52/${style.poster}`}
+                    src={
+                      sampleAsset(videoSample(style.id)?.posterId ?? "")?.url
+                    }
                     width="640"
                     height="360"
                     alt=""
@@ -266,20 +271,27 @@ export function ApiFirstControls({
             !photoCount ||
             (product === "tour-360" && !panoramaConfirmed)
           }
-          onClick={product === "video" ? onCreateLocal : onPlan}
+          onClick={onContinue ?? (product === "video" ? onCreateLocal : onPlan)}
         >
           {busy
             ? "Kontrol ediliyor…"
-            : product === "video"
-              ? "Yerel örnek oluştur"
-              : "Seçimlerimi kontrol et"}
+            : onContinue
+              ? "İsteği gözden geçir"
+              : product === "video"
+                ? "Yerel örnek oluştur"
+                : "Seçimlerimi kontrol et"}
           <ArrowRight size={17} aria-hidden="true" />
         </button>
-        {product === "video" && (
+        {(product === "video" || !!onContinue) && (
           <button
             className="subtle"
             type="button"
-            disabled={busy || !canEdit || !photoCount}
+            disabled={
+              busy ||
+              !canEdit ||
+              !photoCount ||
+              (product === "tour-360" && !panoramaConfirmed)
+            }
             onClick={onPlan}
           >
             Seçimlerimi kontrol et

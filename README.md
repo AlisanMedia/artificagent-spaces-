@@ -2,7 +2,9 @@
 
 Owner V2.0 yetkisi: **22 Ekim 2026**. Phase 1B kapalıdır; P2–P12 için sürekli yerel/sentetik geliştirme yetkilidir. Harici bütçe **0 USD**. Mevcut canlı ArtificAgent ElevenLabs agent’ına dokunulmaz.
 
-**27 Ekim V5.4 güncel kapsamı:** hedefli `/spaces` API-first stüdyo ve kapalı fal / World Labs / Pedra sözleşmeleri. Önceki Vercel Preview istisnası bu görevde kapalıdır: yeni deployment, deneme, hesap/proje, müşteri verisi veya gerçek API çağrısı yapılmaz. Aşağıdaki tarihsel V5 yayın notları yeni yayın yetkisi değildir.
+**29 Ekim V5.5 güncel kapsamı:** müşteri hizmet/örnek galerisi, dört adımlı stüdyo ve ayrı yetkili sonuç sayfası. Yeni deployment, gerçek müşteri/sağlayıcı/ödeme ve harici bütçe kapalıdır. [V5.5 müşteri yolu](docs/customer-experience-v55.md), [örnek hakları](docs/showcase-rights-v55.md), [A/B/C beta kapıları](docs/controlled-beta-readiness-v55.md).
+
+**27 Ekim V5.4 korunan kapsamı:** hedefli `/spaces` API-first stüdyo ve kapalı fal / World Labs / Pedra sözleşmeleri. Önceki Vercel Preview istisnası bu görevde kapalıdır: yeni deployment, deneme, hesap/proje, müşteri verisi veya gerçek API çağrısı yapılmaz. Aşağıdaki tarihsel V5 yayın notları yeni yayın yetkisi değildir.
 
 Bu sürüm gerçek PostgreSQL/PGlite RLS, özel dosya saklama, kalıcı işler, FFmpeg MP4, Blender GLB ve Three.js serbest gezinme, bağımsız yerel inceleme, mülk kapsamlı rehber simülasyonu, izinli analiz, white-label ve partner sınırlarını içerir. **Üretim auth’u, ücretli AI, ElevenLabs oturumu, ödeme veya deployment etkin değildir.**
 
@@ -141,3 +143,9 @@ node scripts/capture-api-first-evidence.mjs # app ayrıca loopback'te açıkken;
 ```
 
 Test MP4'leri ve ölçümleri yalnız özel `.spaces-local/v54/verified-composition/` altında tutulur; gerçek insan/ilan kabulü sayılmaz. Canlı fal Kling4 / Seedance2.5US, Marble1.1Plus ve Pedra hazırlıkları transport ve bütçe kapılarıyla **kapalıdır**; hesabın erişimi, reseller/DPA/retention/region, kesin deney bütçesi ve güvenli server secret yönetimi ayrıca onaylanmalıdır. Standart kullanıcı model/prompt kimliği görmez; yalnız admin hazırlık durumunu okuyabilir. [V5.4 sözleşmeler, resmî kaynaklar ve güvenlik sınırları](docs/api-first-v54.md).
+
+## V5.5 — hizmet seç, gerçek örneğini gör, yerel çalışmanı oluştur
+
+`/spaces/showcase` üç ayrı ürün gösterimi ve dört stile bağlı gerçek MP4; `/spaces` dört adımlı yerel iş/inceleme yolu; `/spaces/projects/<jobId>` yalnız yetkili proje sonucu. `npm run showcase:verify` kayıtlı kaynak/hash/rights/decoder ve gerçek karşılaştırma türevini build sırasında zorunlu doğrular. `npm run preview:build` ayrı statik pakette `/showcase/` galerisi ekler, hiçbir sunucu API/auth/DB içermez veya deployment yapmaz.
+
+Örnekler bu proje için yazılmış sentetik görseller, kaynak-hareketli FFmpeg videoları, ölçülü CAD/GLB ve doğru küresel projeksiyonlu tek-oda panoramadır. Gerçek fal/Marble/Pedra çıktısı veya müşteri mülkü değildir. Canlı fiyat, bağımsız insan kabulü ve ticari kârlılık henüz bilinmez. Vercel billing kapısı ve yeni deployment yasağı sürer.

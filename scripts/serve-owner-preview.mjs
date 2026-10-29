@@ -13,6 +13,7 @@ export async function previewServer(buildRoot, port = 3100) {
     ".css": "text/css",
     ".png": "image/png",
     ".webp": "image/webp",
+    ".jpg": "image/jpeg",
     ".woff2": "font/woff2",
     ".svg": "image/svg+xml",
     ".mp4": "video/mp4",

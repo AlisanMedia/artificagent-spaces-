@@ -152,8 +152,8 @@ test("V5.4 two-photo clips assemble a real MP4, block double submits and require
   await page.goto("/spaces");
   await uploadPhotos(page);
   await page
-    .getByRole("button", { name: "Medya", exact: false })
-    .first()
+    .getByRole("list", { name: "İçerik oluşturma adımları" })
+    .getByRole("button", { name: /Medya/ })
     .click();
   await page
     .getByRole("button", { name: "Kaynak 2 yukarı", exact: true })
@@ -163,6 +163,9 @@ test("V5.4 two-photo clips assemble a real MP4, block double submits and require
     .last()
     .click();
   await page.getByRole("radio", { name: /Premium Sinematik/ }).check();
+  await page
+    .getByRole("button", { name: "İsteği gözden geçir", exact: true })
+    .click();
   const pending = page.waitForResponse(
     (r) =>
       r.request().method() === "POST" && r.url().endsWith("/api/spaces/jobs"),
@@ -391,7 +394,8 @@ test("V5.4 real-ratio synthetic panorama stays a separate blocked tour and never
 }) => {
   await page.goto("/spaces");
   await page
-    .getByRole("button", { name: "360° Sanal Tur", exact: true })
+    .getByRole("article", { name: "360° Sanal Tur" })
+    .getByRole("button", { name: /Bu Hizmeti Seç/ })
     .click();
   const image = await sharp({
     create: { width: 1600, height: 800, channels: 3, background: "#e3eae4" },

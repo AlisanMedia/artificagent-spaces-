@@ -48,7 +48,7 @@ import {
 } from "@/domain/media-capabilities";
 import { preflightSelection } from "./media-preflight";
 import { useStudioFunnel } from "./use-studio-funnel";
-import { StudioSteps, StudioStyleCards } from "./studio-presentation";
+import { StudioStyleCards } from "./studio-presentation";
 import {
   PROPERTY_STYLE_CARDS,
   type PropertyVideoStyle,
@@ -57,6 +57,8 @@ import {
 import type { StudioPlanView } from "@/contracts/studio-ui";
 import { ApiFirstControls, StudioProductSelector } from "./api-first-controls";
 import { StudioPreviewRail } from "./studio-preview-rail";
+import { ServiceCards } from "../showcase/customer-showcase";
+import { CustomerSteps, OrderSummary } from "./customer-journey";
 
 type Draft = { property: PropertyView; assets: AssetView[] };
 type Pending = {
@@ -107,9 +109,22 @@ export function CreationStudio() {
     [studioPlan, setStudioPlan] = useState<StudioPlanView | null>(null);
   const [bootstrap, setBootstrap] = useState<Bootstrap | null>(null),
     [workspace, setWorkspace] = useState<WorkspaceView | null>(null);
-  const [view, setView] = useState<"create" | "projects" | "shares">("create"),
+  const [view, setView] = useState<"create" | "projects" | "archive">("create"),
     [step, setStep] = useState(1),
     [draft, setDraft] = useState<Draft | null>(null);
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get(
+      "service",
+    );
+    if (
+      requested === "video" ||
+      requested === "ai-3d" ||
+      requested === "tour-360"
+    ) {
+      setProduct(requested);
+      setStep(2);
+    }
+  }, []);
   const [pending, setPending] = useState<Pending[]>([]),
     [thumbs, setThumbs] = useState<Record<string, string>>({}),
     [rights, setRights] = useState(false);
@@ -163,7 +178,10 @@ export function CreationStudio() {
     const jobs = (w?.jobs ?? []).filter(
       (j) => j.property_id === id && j.revision === d.property.revision,
     );
-    setJob(jobs[0] ?? null);
+    const service = new URLSearchParams(window.location.search).get("service");
+    const hasService =
+      service === "video" || service === "ai-3d" || service === "tour-360";
+    setJob(hasService ? null : (jobs[0] ?? null));
     if (jobs[0]) {
       const c = jobs[0].command;
       setMode(c.mode as Mode);
@@ -174,7 +192,7 @@ export function CreationStudio() {
       }
       setPreset(c.aspectRatio === "16:9" ? "youtube" : "reels");
     }
-    setStep(jobs.length ? 3 : 1);
+    setStep(hasService ? 2 : jobs.length ? 5 : 2);
   }, []);
   useEffect(() => {
     let active = true;
@@ -409,7 +427,7 @@ export function CreationStudio() {
           : MEDIA_CAPABILITIES.maxSelection - (draft?.assets.length ?? 0),
       ),
     );
-    setStep(1);
+    setStep(2);
     setView("create");
     requestAnimationFrame(() => {
       section.current?.scrollIntoView({
@@ -527,7 +545,7 @@ export function CreationStudio() {
       const j = await api<JobView>("/jobs", command);
       recordFunnel("job_started");
       setJob(j);
-      setStep(3);
+      setStep(5);
       setPreview("");
       await refresh();
       section.current?.focus();
@@ -605,7 +623,7 @@ export function CreationStudio() {
         setJob(created);
         setPreview("");
         setShare("");
-        setStep(3);
+        setStep(5);
         await refresh();
         section.current?.focus();
       });
@@ -623,7 +641,10 @@ export function CreationStudio() {
       } as CSSProperties)
     : undefined;
   return (
-    <div className="ux-studio v54-studio" style={brandStyle}>
+    <div
+      className={`ux-studio v54-studio v55-studio ${step === 1 ? "v55-step-one" : ""}`}
+      style={brandStyle}
+    >
       <div className="ux-demo-note">
         <ShieldCheck size={15} aria-hidden="true" />
         <span>
@@ -634,9 +655,9 @@ export function CreationStudio() {
       <nav className="ux-navigation" aria-label="Stüdyo bölümleri">
         {(
           [
-            ["create", "Oluştur"],
+            ["create", "Yeni Çalışma"],
             ["projects", "Projelerim"],
-            ["shares", "Paylaşımlar / Sonuçlar"],
+            ["archive", "Medya Arşivi"],
           ] as const
         ).map(([id, label]) => (
           <button
@@ -670,23 +691,25 @@ export function CreationStudio() {
               Bir mekân. Size ait bir anlatım.
             </span>
           </div>
-          <StudioProductSelector
-            value={product}
-            disabled={busy}
-            onSelect={(p) => {
-              setProduct(p);
-              setStudioPlan(null);
-              setPanoramaConfirmed(false);
-              setError("");
-              setJob(null);
-              setPreview("");
-              setShare("");
-              if (step > 1) setStep(2);
-            }}
-          />
+          {step !== 1 && (
+            <StudioProductSelector
+              value={product}
+              disabled={busy}
+              onSelect={(p) => {
+                setProduct(p);
+                setStudioPlan(null);
+                setPanoramaConfirmed(false);
+                setError("");
+                setJob(null);
+                setPreview("");
+                setShare("");
+                if (step > 1) setStep(ready ? 3 : 2);
+              }}
+            />
+          )}
           <div className="v54-workspace">
             <div className="v54-main-column">
-              <StudioSteps
+              <CustomerSteps
                 step={step}
                 onStep={setStep}
                 canAdvance={ready}
@@ -736,6 +759,85 @@ export function CreationStudio() {
                 />
                 {step === 1 && (
                   <>
+                    <div className="v55-service-heading">
+                      <div>
+                        <h2>
+                          Nasıl bir çalışma <em>istersin?</em>
+                        </h2>
+                        <p>Örneğine bak, ihtiyacına uygun hizmeti seç.</p>
+                      </div>
+                    </div>
+                    <div className="v55-quick-start">
+                      <span>
+                        Video ile hemen başla. Yalnız sentetik dosyalarla yerel
+                        deneme.
+                      </span>
+                      <button
+                        type="button"
+                        className="ux-primary"
+                        disabled={!bootstrap || busy || !canEdit}
+                        onClick={() => {
+                          setProduct("video");
+                          setStep(2);
+                          recordFunnel("picker_opened");
+                          fileInput.current?.click();
+                        }}
+                      >
+                        <Upload size={17} aria-hidden="true" />
+                        Fotoğraf veya video ekle
+                      </button>
+                    </div>
+                    <ServiceCards
+                      compact
+                      selected={product}
+                      disabled={busy || !canEdit}
+                      onSelect={(p) => {
+                        setProduct(p);
+                        setStudioPlan(null);
+                        setPanoramaConfirmed(false);
+                        setJob(null);
+                        setPreview("");
+                        setStep(2);
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="ux-sample"
+                      disabled={!bootstrap || busy || !canEdit}
+                      onClick={() =>
+                        void run(async () => {
+                          const d = await ensureDraft();
+                          await api(`/properties/${d.property.id}/fixture`, {});
+                          setDraft(
+                            await api<Draft>(`/properties/${d.property.id}`),
+                          );
+                          setProduct("video");
+                          setJob(null);
+                          setPreview("");
+                          setShare("");
+                          submission.current = null;
+                          await refresh();
+                          setStep(3);
+                          setNotice(
+                            "Örnek mülk eklendi. Yalnız sentetik kaynaklar kullanılır; oluşturulan çıktı ayrıca incelenir.",
+                          );
+                        })
+                      }
+                    >
+                      Örnek mülkle dene{" "}
+                      <ArrowRight size={16} aria-hidden="true" />
+                    </button>
+                  </>
+                )}
+                {step === 2 && (
+                  <>
+                    {product !== "video" && (
+                      <p className="ux-note">
+                        {product === "tour-360"
+                          ? "360° tur için gerçek 2:1 oranında equirectangular panorama gerekir. Normal oda fotoğrafı uygun değildir; oran, kaynak kontrolünde ayrıca doğrulanır."
+                          : "AI 3D hazırlığında 1–4 fotoğraf kullanılır. Gerçek üretim kapalıdır; fotoğraflar görünmeyen alanların ölçüsünü kanıtlamaz."}
+                      </p>
+                    )}
                     <div
                       className="ux-upload-stage"
                       onDragOver={(e) => e.preventDefault()}
@@ -783,7 +885,7 @@ export function CreationStudio() {
                               setShare("");
                               submission.current = null;
                               await refresh();
-                              setStep(2);
+                              setStep(3);
                               setNotice(
                                 "Örnek mülk eklendi. Yalnız sentetik kaynaklar kullanılır; oluşturulan çıktı ayrıca incelenir.",
                               );
@@ -827,7 +929,13 @@ export function CreationStudio() {
                           />
                           <div>
                             <strong>
-                              {a.mime === "video/mp4" ? "Video" : "Fotoğraf"}{" "}
+                              {a.kind === "floor-plan"
+                                ? "Plan"
+                                : a.kind === "panorama"
+                                  ? "Panorama"
+                                  : a.mime === "video/mp4"
+                                    ? "Video"
+                                    : "Fotoğraf"}{" "}
                               {i + 1}
                             </strong>
                             <span>
@@ -1023,7 +1131,7 @@ export function CreationStudio() {
                         className="ux-primary"
                         disabled={!ready || busy || !canEdit}
                         onClick={() => {
-                          setStep(2);
+                          setStep(3);
                           section.current?.focus();
                         }}
                       >
@@ -1033,11 +1141,11 @@ export function CreationStudio() {
                     </div>
                   </>
                 )}
-                {step === 2 && (
+                {step === 3 && (
                   <>
                     <div className="ux-section-heading">
                       <div>
-                        <span className="ux-kicker">02 / TARZ</span>
+                        <span className="ux-kicker">03 / TARZ</span>
                         <h2>
                           {product === "video"
                             ? "Nasıl bir video istersin?"
@@ -1090,6 +1198,7 @@ export function CreationStudio() {
                           await checkStudioPlan();
                         })
                       }
+                      onContinue={() => setStep(4)}
                       onCreateLocal={() => void generatePhotoEdit()}
                     />
                     <details className="v54-legacy">
@@ -1193,7 +1302,7 @@ export function CreationStudio() {
                         </button>
                       </div>
                       <div className="ux-actions">
-                        <button className="subtle" onClick={() => setStep(1)}>
+                        <button className="subtle" onClick={() => setStep(2)}>
                           <ArrowLeft size={16} aria-hidden="true" />
                           Medyanı düzenle
                         </button>
@@ -1225,11 +1334,39 @@ export function CreationStudio() {
                     </details>
                   </>
                 )}
-                {step === 3 && (
+                {step === 4 && (
+                  <OrderSummary
+                    product={product}
+                    style={cameraStyle}
+                    count={
+                      draft?.assets.filter(
+                        (a) => a.kind === "photo" || a.kind === "panorama",
+                      ).length ?? 0
+                    }
+                    aspect={EXPORT_PRESETS[preset].aspect}
+                    duration={targetSeconds}
+                    plan={
+                      studioPlan?.revision === draft?.property.revision &&
+                      studioPlan?.product === product
+                        ? studioPlan
+                        : null
+                    }
+                    busy={busy}
+                    canEdit={canEdit}
+                    onCreate={() => void generatePhotoEdit()}
+                    onCheck={() =>
+                      void run(async () => {
+                        await checkStudioPlan();
+                      })
+                    }
+                    onBack={() => setStep(3)}
+                  />
+                )}
+                {step === 5 && (
                   <>
                     <div className="ux-section-heading">
                       <div>
-                        <span className="ux-kicker">03 / SONUÇ</span>
+                        <span className="ux-kicker">PROJE SONUCU</span>
                         <h2>
                           {!job
                             ? "İçeriğin burada görünecek"
@@ -1244,11 +1381,16 @@ export function CreationStudio() {
                       </div>
                     </div>
                     {!job ? (
-                      <button className="ux-primary" onClick={() => setStep(2)}>
+                      <button className="ux-primary" onClick={() => setStep(3)}>
                         Tarzını seç
                       </button>
                     ) : (
                       <>
+                        <p className="v55-order-link">
+                          <Link href={`/spaces/projects/${job.id}`}>
+                            Proje sonuç sayfasını aç →
+                          </Link>
+                        </p>
                         {(["queued", "processing"] as string[]).includes(
                           job.state,
                         ) && (
@@ -1327,7 +1469,7 @@ export function CreationStudio() {
                               className="ux-primary"
                               onClick={() => {
                                 submission.current = null;
-                                setStep(2);
+                                setStep(3);
                               }}
                             >
                               Düzenle ve tekrar dene
@@ -1358,7 +1500,7 @@ export function CreationStudio() {
                           >
                             Yerel paylaşım bağlantısı oluştur
                           </button>
-                          <button className="subtle" onClick={() => setStep(1)}>
+                          <button className="subtle" onClick={() => setStep(2)}>
                             Kaynakları düzenle
                           </button>
                         </div>
@@ -1397,9 +1539,7 @@ export function CreationStudio() {
           <div className="ux-section-heading">
             <div>
               <span className="ux-kicker">ÇALIŞMALARIN</span>
-              <h1>
-                {view === "projects" ? "Projelerim" : "Paylaşımlar / Sonuçlar"}
-              </h1>
+              <h1>{view === "projects" ? "Projelerim" : "Medya Arşivi"}</h1>
               <p>
                 Kaldığın yerden devam et. Yalnız hesabının yetkili olduğu
                 projeler gösterilir.
@@ -1423,34 +1563,31 @@ export function CreationStudio() {
             </button>
           </div>
           <div className="ux-project-grid">
-            {workspace?.properties
-              .filter(
-                (p) =>
-                  view === "projects" ||
-                  workspace.jobs.some(
+            {workspace?.properties.map((p) => (
+              <article key={p.id}>
+                <FolderOpen size={28} aria-hidden="true" />
+                <h2>{p.title}</h2>
+                <p>
+                  {workspace.jobs.some(
                     (j) => j.property_id === p.id && j.state === "approved",
-                  ),
-              )
-              .map((p) => (
-                <article key={p.id}>
-                  <FolderOpen size={28} aria-hidden="true" />
-                  <h2>{p.title}</h2>
-                  <p>
-                    {workspace.jobs.some(
-                      (j) => j.property_id === p.id && j.state === "approved",
-                    )
-                      ? "Onaylı çıktı hazır"
-                      : "Taslak ve çalışmalar"}
-                  </p>
-                  <button
-                    className="subtle"
-                    onClick={() => void run(() => openProject(p.id, workspace))}
-                  >
-                    Devam et
-                    <ArrowRight size={16} aria-hidden="true" />
-                  </button>
-                </article>
-              ))}
+                  )
+                    ? "Onaylı çıktı hazır"
+                    : "Taslak ve çalışmalar"}
+                </p>
+                <button
+                  className="subtle"
+                  onClick={() =>
+                    void run(async () => {
+                      await openProject(p.id, workspace);
+                      if (view === "archive") setStep(2);
+                    })
+                  }
+                >
+                  Devam et
+                  <ArrowRight size={16} aria-hidden="true" />
+                </button>
+              </article>
+            ))}
           </div>
           {!workspace?.properties.length && (
             <div className="ux-empty">
