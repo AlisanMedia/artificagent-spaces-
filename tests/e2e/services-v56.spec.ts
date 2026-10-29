@@ -26,6 +26,10 @@ test("pending service details have real modal focus, no generation and no privat
   const catalog = page.getByRole("region", { name: "Hizmet kataloğu" });
   await expect(catalog).toBeHidden();
   const summary = page.locator(".sv-disclosure > summary");
+  await expect(page.locator(".sv-explorer")).toHaveAttribute(
+    "data-ready",
+    "true",
+  );
   await summary.focus();
   await page.keyboard.press("Enter");
   await expect(catalog).toBeVisible();

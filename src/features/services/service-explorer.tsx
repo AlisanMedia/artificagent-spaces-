@@ -1,5 +1,13 @@
 "use client";
-import { lazy, Suspense, useEffect, useId, useRef, useState } from "react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { ArrowRight, Search, X } from "lucide-react";
 import {
   SERVICES,
@@ -16,6 +24,9 @@ const LocalCalculators = lazy(() =>
   import("./local-calculators").then((m) => ({ default: m.LocalCalculators })),
 );
 const PAGE_SIZE = 6;
+const subscribeHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
 export function ServiceExplorer({
   onInspect,
   onSelect,
@@ -32,6 +43,12 @@ export function ServiceExplorer({
   isolated?: boolean;
 }) {
   const prefix = useId(),
+    interactive = useSyncExternalStore(
+      subscribeHydration,
+      clientSnapshot,
+      serverSnapshot,
+    ),
+    [expanded, setExpanded] = useState(false),
     [query, setQuery] = useState(""),
     [category, setCategory] = useState<ServiceCategory | "all">("all"),
     [available, setAvailable] = useState(false),
@@ -55,8 +72,16 @@ export function ServiceExplorer({
     setLimit(PAGE_SIZE);
   }
   return (
-    <div className="sv-explorer">
-      <details className="sv-disclosure">
+    <div
+      className="sv-explorer"
+      inert={!interactive}
+      aria-busy={!interactive}
+      data-ready={interactive}
+    >
+      <details
+        className="sv-disclosure"
+        onToggle={(event) => setExpanded(event.currentTarget.open)}
+      >
         <summary>
           <span>
             <strong>Tüm hizmetleri keşfet</strong>
@@ -66,112 +91,119 @@ export function ServiceExplorer({
             +
           </span>
         </summary>
-        <div className="sv-catalog" role="region" aria-label="Hizmet kataloğu">
-          <div className="sv-intro">
-            <h3>Ne hazırlamak istersin?</h3>
-            <p>
-              İhtiyacını bul; hangi hizmetin kullanılabildiğini başlamadan gör.
-            </p>
-          </div>
-          <div className="sv-filters">
-            <label htmlFor={`${prefix}-search`} className="sv-search">
-              <span>Hizmet ara</span>
-              <span className="sv-search-control">
-                <Search size={17} aria-hidden="true" />
-                <input
-                  id={`${prefix}-search`}
-                  type="search"
-                  maxLength={160}
-                  value={query}
-                  placeholder="Örn. mobilya, ilan, kredi"
-                  autoComplete="off"
+        {expanded && (
+          <div
+            className="sv-catalog"
+            role="region"
+            aria-label="Hizmet kataloğu"
+          >
+            <div className="sv-intro">
+              <h3>Ne hazırlamak istersin?</h3>
+              <p>
+                İhtiyacını bul; hangi hizmetin kullanılabildiğini başlamadan
+                gör.
+              </p>
+            </div>
+            <div className="sv-filters">
+              <label htmlFor={`${prefix}-search`} className="sv-search">
+                <span>Hizmet ara</span>
+                <span className="sv-search-control">
+                  <Search size={17} aria-hidden="true" />
+                  <input
+                    id={`${prefix}-search`}
+                    type="search"
+                    maxLength={160}
+                    value={query}
+                    placeholder="Örn. mobilya, ilan, kredi"
+                    autoComplete="off"
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                      setLimit(PAGE_SIZE);
+                    }}
+                  />
+                </span>
+              </label>
+              <label htmlFor={`${prefix}-category`}>
+                Hizmet türü
+                <select
+                  id={`${prefix}-category`}
+                  value={category}
                   onChange={(e) => {
-                    setQuery(e.target.value);
+                    setCategory(e.target.value as ServiceCategory | "all");
                     setLimit(PAGE_SIZE);
                   }}
-                />
-              </span>
-            </label>
-            <label htmlFor={`${prefix}-category`}>
-              Hizmet türü
-              <select
-                id={`${prefix}-category`}
-                value={category}
-                onChange={(e) => {
-                  setCategory(e.target.value as ServiceCategory | "all");
-                  setLimit(PAGE_SIZE);
-                }}
-              >
-                <option value="all">Tüm hizmetler</option>
-                {SERVICE_CATEGORIES.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div className="sv-filter-meta">
-            <label>
-              <input
-                type="checkbox"
-                checked={available}
-                onChange={(e) => {
-                  setAvailable(e.target.checked);
-                  setLimit(PAGE_SIZE);
-                }}
-              />{" "}
-              Yalnız şimdi denenebilenler
-            </label>
-            <p role="status">{matches.length} hizmet bulundu</p>
-          </div>
-          <ul className="sv-service-list">
-            {matches.slice(0, limit).map((service) => (
-              <li key={service.id}>
-                <span
-                  className={`sv-status ${service.action.kind === "PLANNED" ? "is-pending" : ""}`}
                 >
-                  {serviceStatus(service)}
-                </span>
-                <h4>{service.title}</h4>
-                <p>{service.summary}</p>
-                <button
-                  type="button"
-                  className="subtle"
-                  onClick={() => setSelectedId(service.id)}
-                  aria-label={`Detayları gör: ${service.title} hakkında bilgi`}
-                >
-                  Detayları gör <ArrowRight size={14} aria-hidden="true" />
-                </button>
-              </li>
-            ))}
-          </ul>
-          {!matches.length && (
-            <div className="sv-empty">
-              <p>
-                Bu aramada hizmet bulunamadı. Daha kısa bir kelime
-                deneyebilirsin.
-              </p>
-              <button type="button" className="subtle" onClick={reset}>
-                Filtreleri temizle
-              </button>
+                  <option value="all">Tüm hizmetler</option>
+                  {SERVICE_CATEGORIES.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
             </div>
-          )}
-          {matches.length > limit && (
-            <button
-              type="button"
-              className="sv-more"
-              onClick={() => setLimit((v) => v + PAGE_SIZE)}
-            >
-              Diğer hizmetleri göster
-            </button>
-          )}
-          <p className="sv-fine-print">
-            Katalogda {SERVICES.length} hizmet kapsamı var. “Hazırlanıyor”
-            olanlar henüz oluşturulamaz; fotoğraf veya ücret kabul etmez. Yerel
-            örnekler canlı AI çıktısı değildir.
-          </p>
-        </div>
+            <div className="sv-filter-meta">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={available}
+                  onChange={(e) => {
+                    setAvailable(e.target.checked);
+                    setLimit(PAGE_SIZE);
+                  }}
+                />{" "}
+                Yalnız şimdi denenebilenler
+              </label>
+              <p role="status">{matches.length} hizmet bulundu</p>
+            </div>
+            <ul className="sv-service-list">
+              {matches.slice(0, limit).map((service) => (
+                <li key={service.id}>
+                  <span
+                    className={`sv-status ${service.action.kind === "PLANNED" ? "is-pending" : ""}`}
+                  >
+                    {serviceStatus(service)}
+                  </span>
+                  <h4>{service.title}</h4>
+                  <p>{service.summary}</p>
+                  <button
+                    type="button"
+                    className="subtle"
+                    onClick={() => setSelectedId(service.id)}
+                    aria-label={`Detayları gör: ${service.title} hakkında bilgi`}
+                  >
+                    Detayları gör <ArrowRight size={14} aria-hidden="true" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+            {!matches.length && (
+              <div className="sv-empty">
+                <p>
+                  Bu aramada hizmet bulunamadı. Daha kısa bir kelime
+                  deneyebilirsin.
+                </p>
+                <button type="button" className="subtle" onClick={reset}>
+                  Filtreleri temizle
+                </button>
+              </div>
+            )}
+            {matches.length > limit && (
+              <button
+                type="button"
+                className="sv-more"
+                onClick={() => setLimit((v) => v + PAGE_SIZE)}
+              >
+                Diğer hizmetleri göster
+              </button>
+            )}
+            <p className="sv-fine-print">
+              Katalogda {SERVICES.length} hizmet kapsamı var. “Hazırlanıyor”
+              olanlar henüz oluşturulamaz; fotoğraf veya ücret kabul etmez.
+              Yerel örnekler canlı AI çıktısı değildir.
+            </p>
+          </div>
+        )}
       </details>
       <dialog
         ref={dialog}
@@ -179,7 +211,13 @@ export function ServiceExplorer({
         aria-labelledby={`${prefix}-title`}
         aria-describedby={`${prefix}-description`}
         onKeyDown={(event) => {
-          if (event.key !== "Tab") return;
+          if (
+            event.key !== "Tab" ||
+            event.ctrlKey ||
+            event.altKey ||
+            event.metaKey
+          )
+            return;
           const controls = Array.from(
             event.currentTarget.querySelectorAll<HTMLElement>(
               'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',

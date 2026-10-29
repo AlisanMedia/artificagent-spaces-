@@ -245,6 +245,7 @@ test("intake rejects unsupported media, wrong grants and hidden role escalation"
   page,
 }) => {
   await page.goto("/spaces");
+  await expect(page.getByLabel("Fotoğraf veya video seç")).toBeEnabled();
   await page.getByLabel("Fotoğraf veya video seç").setInputFiles({
     name: "bad.mov",
     mimeType: "video/quicktime",
@@ -362,6 +363,7 @@ test("replace and remove preserve an owned project without exposing removed medi
 }) => {
   test.setTimeout(90000);
   await page.goto("/spaces");
+  await expect(page.getByLabel("Fotoğraf veya video seç")).toBeEnabled();
   await page.getByLabel("Fotoğraf veya video seç").setInputFiles([
     { name: "bir.png", mimeType: "image/png", buffer: await photo() },
     { name: "iki.png", mimeType: "image/png", buffer: await photo() },

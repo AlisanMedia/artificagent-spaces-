@@ -12,6 +12,9 @@ async function pick(
   await (await chooser).setFiles(files);
 }
 async function consent(page: Page) {
+  await expect(
+    page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
+  ).toBeEnabled();
   await page.getByText("Gizlilik ve demo ölçümü", { exact: true }).click();
   await page
     .getByRole("checkbox", { name: /Yalnız bu sekmede anonim demo/ })
@@ -87,20 +90,6 @@ test("unsupported device formats are retained with Turkish advice before upload,
   );
   expect(data.counts["picker_opened"]).toBe(1);
   expect(await aggregate.innerText()).not.toContain("telefon");
-  await mkdir("artifacts/screenshots", { recursive: true });
-  for (const width of [390, 768, 1280]) {
-    await page.setViewportSize({ width, height: 900 });
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth,
-      ),
-    ).toBe(true);
-    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-    await page.screenshot({
-      path: `artifacts/screenshots/v4-${info.project.name}-${width}-format-guidance.png`,
-      fullPage: true,
-    });
-  }
   await page
     .getByRole("checkbox", { name: /Yalnız bu sekmede anonim demo/ })
     .uncheck();
@@ -122,6 +111,9 @@ test("unsupported device formats are retained with Turkish advice before upload,
     ) + "\n",
   );
   await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
+  ).toBeEnabled();
   await page.getByText("Gizlilik ve demo ölçümü", { exact: true }).click();
   await expect(
     page.getByRole("checkbox", { name: /Yalnız bu sekmede anonim demo/ }),
@@ -129,6 +121,46 @@ test("unsupported device formats are retained with Turkish advice before upload,
   await expect(page.getByLabel("Yerel demo adım sayısı")).toHaveText(
     "0 yerel adım",
   );
+});
+test("unsupported-format guidance keeps all three responsive axe checks and actual screenshots", async ({
+  page,
+}, info) => {
+  await page.goto("/spaces");
+  await consent(page);
+  await pick(page, [
+    {
+      name: "telefon.heic",
+      mimeType: "image/heic",
+      buffer: Buffer.from("synthetic invalid HEIC"),
+    },
+    {
+      name: "telefon.mov",
+      mimeType: "video/quicktime",
+      buffer: Buffer.from("synthetic invalid MOV"),
+    },
+    {
+      name: "telefon.webm",
+      mimeType: "video/webm",
+      buffer: Buffer.from("synthetic invalid WebM"),
+    },
+  ]);
+  await expect(
+    page.getByText("Bu biçim yüklenmeyecek", { exact: true }),
+  ).toHaveCount(3);
+  await mkdir("artifacts/screenshots", { recursive: true });
+  for (const width of [390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    await page.screenshot({
+      path: `artifacts/screenshots/v4-${info.project.name}-${width}-format-guidance.png`,
+      fullPage: true,
+    });
+  }
 });
 test("JPEG/WebP and MP4 upload remain scoped, preview is real and download stays review-gated with opt-in observations", async ({
   page,

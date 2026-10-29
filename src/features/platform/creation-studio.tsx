@@ -759,6 +759,7 @@ export function CreationStudio() {
                   className="ux-file-input"
                   type="file"
                   multiple
+                  disabled={!bootstrap || busy || !canEdit}
                   accept={
                     product === "video"
                       ? MEDIA_PICKER_ACCEPT

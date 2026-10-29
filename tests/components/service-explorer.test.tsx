@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeAll, describe, expect, it, vi } from "vitest";
+import { renderToString } from "react-dom/server";
 import { ServiceExplorer } from "@/features/services/service-explorer";
 beforeAll(() => {
   // jsdom has no modal top layer; real focus/ESC behavior is covered in Playwright.
@@ -18,11 +19,23 @@ async function open() {
   return user;
 }
 describe("progressive service discovery", () => {
+  it("keeps server-rendered discovery inert and does not hydrate unseen service cards", () => {
+    const html = renderToString(<ServiceExplorer />);
+    expect(html).toContain('inert=""');
+    expect(html).toContain('data-ready="false"');
+    expect(html).not.toContain('aria-label="Hizmet kataloğu"');
+    render(<ServiceExplorer />);
+    const explorer = screen
+      .getByText("Tüm hizmetleri keşfet")
+      .closest(".sv-explorer");
+    expect(explorer).toHaveAttribute("data-ready", "true");
+    expect(explorer).not.toHaveAttribute("inert");
+  });
   it("starts collapsed, shows at most six services, and searches Turkish without extra navigation", async () => {
     render(<ServiceExplorer />);
     expect(
       screen.queryByRole("region", { name: "Hizmet kataloğu" }),
-    ).not.toBeVisible();
+    ).not.toBeInTheDocument();
     const user = await open();
     expect(
       screen.getAllByRole("button", { name: /hakkında bilgi/ }),

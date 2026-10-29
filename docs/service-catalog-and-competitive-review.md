@@ -21,6 +21,8 @@ URL, tarih, HTTP sonucu ve SHA256 kayıtları: [competitors-2026-10-29.json](../
 
 Her detay gereken kaynak, gerçek/hedef çıktı, şimdiki durum ve kritik sınırı birlikte gösterir. Hazırlanan hizmet dosya/ücret kabul etmez; ilgisiz video veya sıradan fotoğrafı o hizmetin çıktısı gibi açmaz. Canlı provider, müşteri hesabı, fiyat veya süre vaadi yoktur. İki yerel video seçeneği mevcut stüdyoya gider; kaynak/grant/review/indirme kontrolleri aynıdır. İki tur seçeneği sadece doğrulanmış örnek açar. Statik önizlemede yeni video oluşturma eylemi gösterilmez.
 
+Kapalı kataloğun kartları ve form alanları başlangıç DOM'una yüklenmez; yalnız açılınca oluşturulur. Sunucu çıktısındaki katalog istemci etkileşimleri bağlanana kadar `inert` kalır. Bu işaret erişim yetkisi değildir. Dosya seçici de mevcut oturum/rol/stüdyo hazır olmadan etkinleşmez; gerçek API yetkilendirmesi değişmez. Testler gizli SSR alanına erken dosya yazarak gerçek kullanıcı akışını atlamaz. Ekran boyutu/axe kanıtı ve gizlilik/funnel çekimleri ayrı görevlerde korunur; timeout veya güvenlik eşikleri artırılmaz.
+
 ## Korunan ürün doğruluğu
 
 - EmlakVideo'nun listesinde “3D Tur” diye tanımlanan bazı çıktılar dönen maket **videosudur**. Bizde bu, **3D kat planı ve maket** kapsamına karşılık gelir; serbest gezilebilir AI dünya veya 360 turla eşitlenmez.

@@ -12,6 +12,10 @@ async function post<T>(page: Page, path: string, data: unknown): Promise<T> {
   return r.json() as Promise<T>;
 }
 async function uploadPhotos(page: Page) {
+  // Match the real picker: a hidden SSR input is not an authenticated, hydrated studio.
+  await expect(
+    page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
+  ).toBeEnabled();
   await page.getByLabel("Fotoğraf veya video seç").setInputFiles([
     {
       name: "sentetik-a.jpg",
@@ -402,6 +406,7 @@ test("V5.4 real-ratio synthetic panorama stays a separate blocked tour and never
   })
     .png()
     .toBuffer();
+  await expect(page.getByLabel("Fotoğraf veya video seç")).toBeEnabled();
   await page.getByLabel("Fotoğraf veya video seç").setInputFiles({
     name: "sentetik-kalibrasyon.png",
     mimeType: "image/png",
