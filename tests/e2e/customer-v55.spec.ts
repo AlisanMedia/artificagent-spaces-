@@ -128,7 +128,7 @@ test("V5.5 comparison uses native mouse/touch/keyboard range with unchanged sour
 });
 test("V5.5 separate 3D and genuine equirectangular viewers load only on request", async ({
   page,
-}) => {
+}, testInfo) => {
   await page.goto("/spaces/showcase");
   await expect(page.locator("canvas")).toHaveCount(0);
   await page.getByRole("button", { name: "3D örneği", exact: true }).click();
@@ -162,9 +162,43 @@ test("V5.5 separate 3D and genuine equirectangular viewers load only on request"
     page.getByText("Salon · 360° sentetik panorama", { exact: false }),
   ).toBeVisible();
   const surface = page.getByRole("region", { name: /360° salon panoraması/ });
+  await surface.scrollIntoViewIfNeeded();
+  await expect(surface).toHaveAttribute("data-yaw", String(-Math.PI / 2));
+  const firstFrame = await surface.locator("canvas").screenshot();
+  const box = (await surface.boundingBox())!;
+  const start = { x: box.x + box.width * 0.5, y: box.y + box.height * 0.5 };
+  const end = { x: start.x - box.width * 0.25, y: start.y };
+  if (testInfo.project.use.hasTouch) {
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchStart",
+      touchPoints: [start],
+    });
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchMove",
+      touchPoints: [end],
+    });
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchEnd",
+      touchPoints: [],
+    });
+    await cdp.detach();
+  } else {
+    await page.mouse.move(start.x, start.y);
+    await page.mouse.down();
+    await page.mouse.move(end.x, end.y, { steps: 8 });
+    await page.mouse.up();
+  }
+  await expect(surface).not.toHaveAttribute("data-yaw", String(-Math.PI / 2));
+  expect(
+    (await surface.locator("canvas").screenshot()).equals(firstFrame),
+  ).toBe(false);
   await surface.focus();
+  const draggedYaw = await surface.getAttribute("data-yaw");
   await page.keyboard.press("ArrowRight");
+  await expect(surface).not.toHaveAttribute("data-yaw", draggedYaw!);
   await page.keyboard.press("Home");
+  await expect(surface).toHaveAttribute("data-yaw", String(-Math.PI / 2));
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.getByRole("button", { name: "Örneği kapat", exact: true }).click();
   await expect(page.locator("canvas")).toHaveCount(0);

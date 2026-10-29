@@ -253,3 +253,9 @@ Fix keeps source/workbench text opaque throughout a translate-only entrance; nat
 ### V5.5 native picker / isolated browser fixture — 2026-10-29
 
 The shortcut now advances to upload only after a nonempty selection; closing the native picker preserves the current step/result and clears a pending replacement intent. The unchanged cancel assertion caught the shortcut's premature step update; behavior is fixed, not the assertion. Browser suites use a new0700synthetic runtime per run and refuse reuse of another server, preserving old private data/evidence and removing cross-run fixture accumulation. Same2workers,30sfunctional budgets, browser matrix,retry policy,AXE and release/tenant assertions remain. No production/session/provider permission changes.
+
+### V5.5 final interactive inspection checkpoint — 2026-10-29
+
+At `a597db27e8fffe61ed79af7a6546bc4ea5b24a58`, local277unit/15governance/70application-browser/26static-browser tests passed without skips/flaky results; exact-head hosted Foundation acceptance run40848479707 also completed SUCCESS. The separate screenshot pass captured12baseline and29V5.5 synthetic screens. Those results cover that exact revision only.
+
+Actual visual inspection then caught a panorama usability defect: pointer movement changed angles without scheduling a redraw, and the initial longitude faced an empty wall. The fix redraws only on input/resize and opens at the center of the authored panorama. The focused desktop mouse/mobile CDP touch test asserts changed rendered pixels and yaw, plus keyboard arrows/Home reset:2/2PASS. A new exact-head full CI/local verification is still required for this commit; its final evidence is recorded in the external Turkish owner report. No asset/hash, provider, private data, reviewer, cost or deployment policy changed. Read-only Vercel team access works, accessible projects0 and dedicated project404; no V5.5 hosted URL or deployment is claimed.

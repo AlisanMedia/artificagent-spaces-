@@ -7,7 +7,9 @@ import type { SampleAsset } from "../../domain/showcase";
 export function PanoramaViewer({ asset }: { asset: SampleAsset }) {
   const host = useRef<HTMLDivElement>(null),
     [state, setState] = useState<"loading" | "ready" | "error">("loading");
-  const angles = useRef({ yaw: 0, pitch: 0 });
+  // The center of the authored equirectangular image is the documented room view.
+  // In the inward-facing sphere that longitude points along negative X.
+  const angles = useRef({ yaw: -Math.PI / 2, pitch: 0 });
   const redraw = useRef<() => void>(() => {});
   useEffect(() => {
     if (
@@ -150,6 +152,7 @@ export function PanoramaViewer({ asset }: { asset: SampleAsset }) {
             Math.min(1.35, angles.current.pitch + (e.clientY - d.y) * 0.006),
           );
           drag.current = { x: e.clientX, y: e.clientY, pointer: e.pointerId };
+          redraw.current();
         }}
         onPointerUp={(e) => {
           drag.current = null;
@@ -171,7 +174,8 @@ export function PanoramaViewer({ asset }: { asset: SampleAsset }) {
           )
             return;
           e.preventDefault();
-          if (e.key === "Home") angles.current = { yaw: 0, pitch: 0 };
+          if (e.key === "Home")
+            angles.current = { yaw: -Math.PI / 2, pitch: 0 };
           else if (e.key === "ArrowLeft") angles.current.yaw -= 0.12;
           else if (e.key === "ArrowRight") angles.current.yaw += 0.12;
           else
