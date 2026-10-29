@@ -1084,3 +1084,25 @@
   padding: 0;
   border: 0;
 }
+
+/* Text must remain AA-readable from the first frame, including newly forked source cards. */
+@keyframes v55-enter {
+  from {
+    transform: translateY(4px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.v55-studio .ux-workbench {
+  animation: v55-enter 240ms ease-out both;
+}
+.v55-studio .ux-media-card {
+  animation: v55-enter 180ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v55-studio .ux-workbench,
+  .v55-studio .ux-media-card {
+    animation: none;
+  }
+}

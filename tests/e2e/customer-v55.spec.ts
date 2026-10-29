@@ -228,4 +228,14 @@ test("V5.5 four steps preserve drafts and closed provider actions", async ({
   await expect(
     page.getByText("Özel alana kaydedildi", { exact: true }),
   ).toHaveCount(2);
+  // Source-card status text remains fully opaque even at the first animation frame.
+  expect(
+    await page
+      .locator(".ux-media-card")
+      .first()
+      .evaluate((e) => {
+        for (const a of e.getAnimations()) a.currentTime = 0;
+        return getComputedStyle(e).opacity;
+      }),
+  ).toBe("1");
 });

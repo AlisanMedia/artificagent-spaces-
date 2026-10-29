@@ -21,7 +21,7 @@ async function photo() {
 
 test("upload-first studio is keyboard accessible and responsive at mobile, tablet and desktop", async ({
   page,
-}, info) => {
+}) => {
   await page.goto("/spaces");
   await expect(
     page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
@@ -41,10 +41,8 @@ test("upload-first studio is keyboard accessible and responsive at mobile, table
       ),
     ).toBe(true);
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-    await page.screenshot({
-      path: `artifacts/screenshots/v3-${info.project.name}-${width}-studio.png`,
-      fullPage: true,
-    });
+    // PNG encoding is captured by capture-customer-v55.mjs at these same widths/heights.
+    // Keep every viewport/axe/focus assertion in this unchanged functional time budget.
   }
   await page
     .getByRole("button", {
@@ -60,6 +58,12 @@ test("upload-first studio is keyboard accessible and responsive at mobile, table
   const keyboardPicker = page.waitForEvent("filechooser");
   await page.keyboard.press("Enter");
   await (await keyboardPicker).setFiles([]);
+  await expect(
+    page
+      .getByRole("list", { name: "İçerik oluşturma adımları" })
+      .locator("li")
+      .first(),
+  ).toHaveAttribute("aria-current", "step");
   await page.emulateMedia({ reducedMotion: "reduce" });
   expect(
     await page

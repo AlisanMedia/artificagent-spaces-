@@ -29,8 +29,11 @@ try {
   await expect(
     page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
   ).toBeEnabled({ timeout: 30000 });
-  async function capture(width, state) {
-    await page.setViewportSize({ width, height: width < 600 ? 844 : 1000 });
+  async function capture(width, state, heightOverride) {
+    await page.setViewportSize({
+      width,
+      height: heightOverride ?? (width < 600 ? 844 : 1000),
+    });
     await page.evaluate(() => document.fonts.ready);
     await page.evaluate(() => window.scrollTo(0, 0));
     const overflow = await page.evaluate(
@@ -51,6 +54,8 @@ try {
   }
   for (const width of [375, 390, 430, 768, 1024, 1280, 1440])
     await capture(width, "studio");
+  for (const width of [390, 768, 1280])
+    await capture(width, "compat-studio", 900);
   await page
     .getByRole("button", { name: "Örnek mülkle dene", exact: true })
     .click();
@@ -63,13 +68,11 @@ try {
       .getByRole("list", { name: "İçerik oluşturma adımları" })
       .getByRole("button", { name: /Medya/ })
       .click();
-    await page
-      .getByLabel("Fotoğraf veya video seç")
-      .setInputFiles({
-        name: "sentetik-salon.jpg",
-        mimeType: "image/jpeg",
-        buffer: await readFile("fixtures/video-quality-v4/photo-a.jpg"),
-      });
+    await page.getByLabel("Fotoğraf veya video seç").setInputFiles({
+      name: "sentetik-salon.jpg",
+      mimeType: "image/jpeg",
+      buffer: await readFile("fixtures/video-quality-v4/photo-a.jpg"),
+    });
     for (const width of [390, 1440]) await capture(width, "upload");
     await page
       .getByRole("button", { name: "Seçim 1 kaldır", exact: true })

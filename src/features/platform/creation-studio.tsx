@@ -372,6 +372,8 @@ export function CreationStudio() {
     return d;
   }
   async function selectFiles(files: File[]) {
+    // Cancelling the native picker must not discard the current draft/result or advance the wizard.
+    if (!files.length) return;
     setError("");
     setNotice("");
     setJob(null);
