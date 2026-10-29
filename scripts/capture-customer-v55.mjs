@@ -85,8 +85,14 @@ try {
             exact: true,
           })
           .click();
-      if (product !== "video")
+      if (product !== "video") {
+        await expect(
+          page.locator(
+            product === "ai-3d" ? ".scene-canvas" : ".sc-panorama-canvas",
+          ),
+        ).toHaveAttribute("data-ready", "true", { timeout: 30000 });
         await expect(page.locator("canvas").last()).toBeVisible();
+      }
       for (const width of [390, 1440]) await capture(width, product);
     }
   }

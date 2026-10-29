@@ -58,8 +58,8 @@ export function VideoExample({
           height={video.height!}
         />
         <figcaption>
-          {video.width} × {video.height} · {video.durationSeconds} sn · H.264
-          MP4 · sessiz
+          {video.width} × {video.height} · {video.durationSeconds?.toFixed(2)}{" "}
+          sn · H.264 MP4 · sessiz
         </figcaption>
       </figure>
       {disclose && <p className="sc-disclosure">{sample.disclosure}</p>}

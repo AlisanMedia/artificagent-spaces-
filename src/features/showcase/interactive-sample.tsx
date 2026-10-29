@@ -9,6 +9,12 @@ const SceneViewer = lazy(() =>
 const PanoramaViewer = lazy(() =>
   import("./panorama-viewer").then((m) => ({ default: m.PanoramaViewer })),
 );
+const plan = source as unknown as GoldenPlan;
+const camera = plan.cameras.find((c) => c.id === "camera-entrance")!;
+const initialYaw = Math.atan2(
+  camera.position[0] - camera.target[0],
+  camera.position[2] - camera.target[2],
+);
 export function InteractiveSample({ kind }: { kind: "ai-3d" | "tour-360" }) {
   const [active, setActive] = useState(false),
     [error, setError] = useState(""),
@@ -50,6 +56,7 @@ export function InteractiveSample({ kind }: { kind: "ai-3d" | "tour-360" }) {
               scene={(source as unknown as GoldenPlan).scene}
               modelUrl={asset.url}
               initialQuality="low"
+              initialYaw={initialYaw}
             />
           ) : (
             <PanoramaViewer asset={asset} />

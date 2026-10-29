@@ -336,8 +336,11 @@
 }
 .sc-tour-poster {
   position: relative;
+  display: grid;
+  place-items: center;
 }
 .sc-tour-poster img {
+  grid-area: 1 / 1;
   width: 100%;
   aspect-ratio: 16/9;
   height: auto;
@@ -347,10 +350,9 @@
   border-radius: 8px;
 }
 .sc-tour-poster button {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  grid-area: 1 / 1;
+  position: relative;
+  z-index: 1;
   white-space: nowrap;
 }
 .sc-viewer-toolbar {
