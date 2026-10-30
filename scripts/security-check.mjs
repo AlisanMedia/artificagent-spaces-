@@ -29,6 +29,14 @@ for (const file of files) {
   const source = await readFile(file, "utf8");
   const path = relative(root, file).replaceAll("\\", "/");
   if (/\b(?:fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(source) && path !== "src/features/platform/client.ts") failures.push("Network primitive outside reviewed same-origin boundary: " + path);
+  if (/from\s+["']node:(?:https|http|dns)(?:\/promises)?["']/.test(source) && !["src/server/production/transport.ts", "src/server/production/output-ingress.ts"].includes(path)) failures.push("Unreviewed server network import: " + path);
+  if (["src/server/production/transport.ts", "src/server/production/output-ingress.ts"].includes(path)) {
+    const lock = source.indexOf("invariant(PROVIDER_RUNTIME_LOCK.liveEnabled");
+    const formattedLock = source.indexOf("PROVIDER_RUNTIME_LOCK.liveEnabled,");
+    const boundary = lock >= 0 ? lock : formattedLock;
+    if (boundary < 0 || boundary > source.indexOf("httpsRequest(")) failures.push("Provider transport must fail before network/secret work: " + path);
+    if (!source.includes("BLOCKED_EXTERNAL_APPROVAL")) failures.push("Provider transport approval lock missing: " + path);
+  }
   if (/\b(?:eval|Function)\s*\(|dangerouslySetInnerHTML|service_role|NEXT_PUBLIC_.*(?:KEY|SECRET|TOKEN)/.test(source)) failures.push("Unsafe content, execution or secret surface: " + path);
   if (/(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}/.test(source)) failures.push("Potential credential: " + path);
   if (source.includes('"use client"') && /from\s+["'](?:node:|@\/server\/|@electric-sql\/|jose["'])/.test(source)) failures.push("Private server dependency in browser module: " + path);

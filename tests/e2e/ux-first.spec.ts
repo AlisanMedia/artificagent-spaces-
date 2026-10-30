@@ -19,58 +19,59 @@ async function photo() {
     .toBuffer();
 }
 
-test("upload-first studio is keyboard accessible and responsive at mobile, tablet and desktop", async ({
-  page,
-}) => {
-  await page.goto("/spaces");
-  await expect(
-    page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
-  ).toBeEnabled();
-  await expect(
-    page.getByRole("combobox", { name: "Test kimliği" }),
-  ).toHaveCount(0);
-  await expect(
-    page.getByRole("button", { name: "Operasyon", exact: true }),
-  ).toHaveCount(0);
-  await mkdir("artifacts/screenshots", { recursive: true });
-  for (const width of [390, 768, 1280]) {
+for (const width of [390, 768, 1280])
+  test(`upload-first studio keyboard, axe and responsive controls at ${width}px`, async ({
+    page,
+  }) => {
     await page.setViewportSize({ width, height: 900 });
+    await page.goto("/spaces");
+    await expect(
+      page.getByRole("button", {
+        name: "Fotoğraf veya video ekle",
+        exact: true,
+      }),
+    ).toBeEnabled();
+    await expect(
+      page.getByRole("combobox", { name: "Test kimliği" }),
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("button", { name: "Operasyon", exact: true }),
+    ).toHaveCount(0);
+    await mkdir("artifacts/screenshots", { recursive: true });
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-    // PNG encoding is captured by capture-customer-v55.mjs at these same widths/heights.
-    // Keep every viewport/axe/focus assertion in this unchanged functional time budget.
-  }
-  await page
-    .getByRole("button", {
-      name: "Fotoğraf veya video ekle",
-      exact: false,
-    })
-    .focus();
-  expect(
-    await page.evaluate(() =>
-      document.activeElement?.classList.contains("ux-primary"),
-    ),
-  ).toBe(true);
-  const keyboardPicker = page.waitForEvent("filechooser");
-  await page.keyboard.press("Enter");
-  await (await keyboardPicker).setFiles([]);
-  await expect(
-    page
-      .getByRole("list", { name: "İçerik oluşturma adımları" })
-      .locator("li")
-      .first(),
-  ).toHaveAttribute("aria-current", "step");
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  expect(
+    // Each width now independently preserves the picker focus/cancel and reduced-motion assertions.
     await page
-      .getByRole("button", { name: "Fotoğraf veya video ekle", exact: true })
-      .evaluate((b) => getComputedStyle(b).transitionDuration),
-  ).toBe("0s");
-});
+      .getByRole("button", {
+        name: "Fotoğraf veya video ekle",
+        exact: false,
+      })
+      .focus();
+    expect(
+      await page.evaluate(() =>
+        document.activeElement?.classList.contains("ux-primary"),
+      ),
+    ).toBe(true);
+    const keyboardPicker = page.waitForEvent("filechooser");
+    await page.keyboard.press("Enter");
+    await (await keyboardPicker).setFiles([]);
+    await expect(
+      page
+        .getByRole("list", { name: "İçerik oluşturma adımları" })
+        .locator("li")
+        .first(),
+    ).toHaveAttribute("aria-current", "step");
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    expect(
+      await page
+        .getByRole("button", { name: "Fotoğraf veya video ekle", exact: true })
+        .evaluate((b) => getComputedStyle(b).transitionDuration),
+    ).toBe("0s");
+  });
 
 test("nontechnical upload → real video → independent review → download with drafts preserved", async ({
   page,
