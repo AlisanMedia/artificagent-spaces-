@@ -1,5 +1,7 @@
 # ArtificAgent Spaces — yerel ürün laboratuvarı
 
+**30 Ekim — V5.7 güncel kapsam:** yedi sade müşteri hizmet ailesi, 15 ayrı kapalı üretim sözleşmesi, server-owned sürümlü prompt/profiller, güncel resmî şema alt kümeleri, kalıcı source-bound istek/callback kayıtları ve gerçek private PNG/QA/bağımsız teslim test hattı. 75 başlık yalnız yönetim araştırmasıdır. Yeni fotoğraf formu tercih kaydeder; gerçek AI üretimi/ücret başlatmaz. [V5.7 kapsamı, eksikler ve açılış kapıları](docs/premium-production-v57.md). Canlı sağlayıcı, müşteri verisi, deployment ve USD0 sınırları değişmedi. Aşağıdaki V5.6 müşteri kataloğu notu tarihsel davranıştır; V5.7'de katalog yönetim alanına taşındı.
+
 **29 Ekim — hizmet örnekleri devamı:** boş oda yakın planları yerine her hizmete bağlı ayrı kapak, kartta oynatılabilen gerçek yerel MP4, mevcut modelin tamamını gösteren 3D render ve doğrulanmış CC0 fotoğraf panoraması. [Kaynaklar, haklar ve çalışma sınırı](docs/service-samples-refresh.md). Eski sentetik fixtures korunur; lisanslı kamuya açık referans istisnası müşteri upload/API/deployment yetkisini genişletmez.
 
 Owner V2.0 yetkisi: **22 Ekim 2026**. Phase 1B kapalıdır; P2–P12 için sürekli yerel/sentetik geliştirme yetkilidir. Harici bütçe **0 USD**. Mevcut canlı ArtificAgent ElevenLabs agent’ına dokunulmaz.

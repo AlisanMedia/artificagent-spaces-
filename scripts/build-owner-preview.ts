@@ -4,6 +4,7 @@ import { validateGoldenSource } from "../src/domain/golden-property";
 import { verifyStudioAssets } from "./verify-studio-assets";
 import { verifyShowcase } from "./verify-showcase";
 import "./verify-service-catalog";
+import "./verify-production-services";
 import { UX_PROTOCOL, UX_TASKS } from "../src/domain/usability-evaluation";
 import {
   readFile,
@@ -43,6 +44,9 @@ const dirty =
       "public/showcase-v55",
       "fixtures/showcase-v55",
       "fixtures/service-catalog",
+      "fixtures/providers-v57",
+      "fixtures/production-v57",
+      "scripts/verify-production-services.ts",
       "scripts/verify-service-catalog.ts",
       "scripts/verify-showcase.ts",
       "scripts/verify-studio-assets.ts",

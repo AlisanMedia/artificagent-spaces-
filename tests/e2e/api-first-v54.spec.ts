@@ -42,7 +42,7 @@ async function uploadPhotos(page: Page) {
     .last()
     .click();
 }
-test("V5.4 upload-first modes and fixed choices are responsive, accessible and honest", async ({
+test("V5.4 upload-first CTA and all seven viewport/focus/axe checks remain responsive", async ({
   page,
 }, info) => {
   await page.goto("/spaces");
@@ -72,6 +72,19 @@ test("V5.4 upload-first modes and fixed choices are responsive, accessible and h
     measurements.push({ width, primary: box, overflow: false });
   }
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await writeFile(
+    `artifacts/v54/${info.project.name}-responsive.json`,
+    JSON.stringify({ syntheticOnly: true, measurements }, null, 2),
+  );
+});
+
+test("V5.4 fixed choices keep source honesty, denied panorama and reduced-motion controls", async ({
+  page,
+}) => {
+  await page.goto("/spaces");
+  await expect(
+    page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
+  ).toBeEnabled();
   await page
     .getByRole("button", { name: "Örnek mülkle dene", exact: true })
     .click();
@@ -130,10 +143,6 @@ test("V5.4 upload-first modes and fixed choices are responsive, accessible and h
       .getByRole("button", { name: "Video Tanıtımı", exact: true })
       .evaluate((e) => getComputedStyle(e).transitionDuration),
   ).toBe("0s");
-  await writeFile(
-    `artifacts/v54/${info.project.name}-responsive.json`,
-    JSON.stringify({ syntheticOnly: true, measurements }, null, 2),
-  );
 });
 
 test("V5.4 two-photo clips assemble a real MP4, block double submits and require independent per-scene release", async ({
@@ -399,7 +408,7 @@ test("V5.4 real-ratio synthetic panorama stays a separate blocked tour and never
   await page.goto("/spaces");
   await page
     .getByRole("article", { name: "360° Sanal Tur" })
-    .getByRole("button", { name: /Bu Hizmeti Seç/ })
+    .getByRole("button", { name: /Tercihleri hazırla/ })
     .click();
   const image = await sharp({
     create: { width: 1600, height: 800, channels: 3, background: "#e3eae4" },

@@ -2,6 +2,12 @@
 
 Bu sürüm yerel/sentetik laboratuvardır. Aşağıdaki playbook deployment talimatının icrası veya üretim kabulü değildir. Başlangıç harici bütçe **USD 0**; external gates kapalı kalır.
 
+## V5.7 addendum — 30 Ekim 2026
+
+[Hizmet motoru kapsamı](premium-production-v57.md) güncel offline sözleşme/transport/QA kodunu ve eksikleri ayırır. fal video/kontrollü edit, Pedra fotoğraf (ve isteğe bağlı gerçek360), World Labs AI3D için ayrı şema, izin ve maliyet kapıları vardır. Yeni gate-first server HTTP kodu **açık değildir ve ağ dalları canlı test edilmedi**. PGlite request/inbox/PNG teslim testleri hosted worker/auth/storage/AV/KMS veya provider output doğrulaması yerine geçmez. Yeni fotoğraf formu yalnız tercih kaydeder; müşteri ücretli üretimi başlatamaz. Eski V5.4 NOT_IMPLEMENTED kayıtları tarihsel transport durumudur, bugün canlı entegrasyon yine yoktur.
+
+V5.7 migration yalnız ayrı yerel test veri dizinlerinde uygulanır. Eski V5.6 uygulaması yeni tablo/trigger içeren DB'ye doğrudan geri bağlanmaz; restore için ayrı eski-version backup/worktree kullanılır. Gerçek ağ açılışından önce actual provider artifact intake, özel depoya byte doğrulama, queue/grant-window reconciliation, current role/revision/fence, gerçek independent review UX, hard spend cap ve gerçek fiyat/kalite/rights benchmark'ı tamamlanmalıdır. Gerekli secret **adları** FAL_KEY / WORLDLABS_API_KEY / PEDRA_API_KEY; değerler yalnız yetkili server secret manager'da. Bir env/key bu sürümün sabit kilidini açamaz. USD0, Vercel billing/deployment yasağı ve PR2–4 bağımsız review şartı sürer.
+
 ## V5.4 güncel kilit ve gelecekteki sağlayıcı açılışı
 
 27 Ekim 2026 owner talimatıyla **yeni Vercel deployment/deneme/account/project ve bütün gerçek sağlayıcı çağrıları bu görevde kapalıdır**. Önceki Preview/team istisnasıyla engel aşılamaz; V5.3.1 billing doğrulama kapısı korunur. Bu değişiklik yerel ürünü yeniden kurmaz; mevcut korumaları daraltmaz.

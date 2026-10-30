@@ -14,7 +14,13 @@ test("isolated V5.5 showcase has real samples and never calls application APIs o
     "Gayrimenkullerinizi",
   );
   await page
-    .getByRole("article", { name: "360° Sanal Tur" })
+    .getByText("Video, 3D ve panorama örneklerini karşılaştır", { exact: true })
+    .click();
+  await page
+    .locator(".sc-service")
+    .filter({
+      has: page.getByRole("heading", { name: "360° Sanal Tur", exact: true }),
+    })
     .getByRole("button", { name: /Bu Hizmeti Seç/ })
     .click();
   await expect(

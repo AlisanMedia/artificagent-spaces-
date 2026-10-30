@@ -17,11 +17,14 @@ test("service covers demonstrate their real media instead of one unrelated room 
       privateOrExternal.push(u.origin + u.pathname);
   });
   await page.goto("/spaces/showcase");
+  await page
+    .getByText("Video, 3D ve panorama örneklerini karşılaştır", { exact: true })
+    .click();
   const s = registry.samples.find((s) => s.style === "premium")!,
     video = registry.assets.find((a) => a.id === s.outputId)!,
     poster = registry.assets.find((a) => a.id === s.posterId)!;
   const player = page
-    .getByRole("article", { name: "AI Emlak Video" })
+    .locator('.sc-service[aria-label="AI Emlak Video"]')
     .locator("video");
   await expect(player).toHaveAttribute("src", video.url);
   await expect(player).toHaveAttribute("poster", poster.url);
@@ -35,10 +38,10 @@ test("service covers demonstrate their real media instead of one unrelated room 
   const model = registry.assets.find((a) => a.id === registry.modelPosterId)!,
     pano = registry.assets.find((a) => a.id === registry.panoramaPosterId)!;
   await expect(
-    page.getByRole("article", { name: "AI 3D Deneyim" }).locator("img"),
+    page.locator('.sc-service[aria-label="AI 3D Deneyim"]').locator("img"),
   ).toHaveAttribute("src", model.url);
   await expect(
-    page.getByRole("article", { name: "360° Sanal Tur" }).locator("img"),
+    page.locator('.sc-service[aria-label="360° Sanal Tur"]').locator("img"),
   ).toHaveAttribute("src", pano.url);
   expect(new Set([poster.url, model.url, pano.url]).size).toBe(3);
   await page

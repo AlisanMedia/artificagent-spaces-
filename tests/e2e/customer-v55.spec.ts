@@ -41,7 +41,12 @@ test("V5.5 public discovery is source-only, responsive and has real service navi
   await expect(
     page.getByRole("button", { name: "Giriş Yap", exact: true }),
   ).toBeFocused();
-  const card = page.getByRole("article", { name: "360° Sanal Tur" });
+  await page
+    .getByText("Video, 3D ve panorama örneklerini karşılaştır", { exact: true })
+    .click();
+  const card = page.locator(".sc-service").filter({
+    has: page.getByRole("heading", { name: "360° Sanal Tur", exact: true }),
+  });
   await card.getByRole("link", { name: /Bu Hizmeti Seç/ }).click();
   await expect(page).toHaveURL(/service=tour-360/);
   await expect(page.getByText(/360° tur için gerçek 2:1/)).toBeVisible();

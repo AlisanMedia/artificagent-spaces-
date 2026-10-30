@@ -1,6 +1,7 @@
 "use client";
 
 import { ProviderReadinessPanel } from "./provider-readiness-panel";
+import { AdminServiceResearch } from "../services/admin-service-research";
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -1652,6 +1653,7 @@ export function ManagementDashboard({
                 </li>
               </ul>
               {workspace.actor.role === "admin" && <ProviderReadinessPanel />}
+              {workspace.actor.role === "admin" && <AdminServiceResearch />}
               <p>
                 Plan, oran ve sanal kredi gerçek ticari teklif değildir.
                 Sonuçlar insan incelemesi olmadan yayımlanamaz. Tur linkleri

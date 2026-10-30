@@ -18,34 +18,19 @@ test("isolated catalogue is truthful and local calculators do not add APIs or da
   await page.goto("/showcase/");
   const catalog = page.getByRole("region", { name: "Hizmet kataloğu" });
   await expect(catalog).toBeHidden();
-  await page.locator(".sv-disclosure > summary").click();
-  await page
-    .getByRole("button", {
-      name: "Detayları gör: Emlak tanıtım videosu hakkında bilgi",
-    })
-    .click();
-  await expect(page.getByRole("dialog")).toContainText(
-    "dosyadan yeni video oluşturmaz",
-  );
   await expect(
-    page.getByRole("link", { name: "Yerel stüdyoda dene" }),
+    page.getByRole("region", { name: "Üretim hizmetleri" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("article", { name: "Sanal Mobilya" }),
+  ).toContainText("Doğrulanmış hizmet sonucu henüz yok");
+  await expect(
+    page.getByRole("link", { name: /Tercihleri hazırla/ }),
   ).toHaveCount(0);
-  await page.keyboard.press("Escape");
-  await page.getByLabel("Hizmet türü").selectOption("photo");
+  await expect(page.locator(".sv-disclosure")).toHaveCount(0);
+  await page.getByText("Hesaplama araçları", { exact: true }).click();
   await page
-    .getByRole("button", {
-      name: "Detayları gör: Sanal mobilya yerleşimi hakkında bilgi",
-    })
-    .click();
-  await expect(page.getByRole("dialog")).toContainText(
-    "Dosya yükleme veya ödeme başlatılmaz",
-  );
-  await page.keyboard.press("Escape");
-  await page.getByLabel("Hizmet türü").selectOption("analysis");
-  await page
-    .getByRole("button", {
-      name: "Detayları gör: Konut kredisi hesaplayıcı hakkında bilgi",
-    })
+    .getByRole("button", { name: "Konut kredisi hesaplayıcı", exact: true })
     .click();
   await page.getByLabel("Kredi tutarı (TL)").fill("12000");
   await page.getByLabel("Aylık nominal faiz (%)").fill("0");

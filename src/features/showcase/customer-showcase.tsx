@@ -12,7 +12,8 @@ import { BeforeAfterSlider } from "../../components/before-after-slider";
 import { sampleAsset, showcaseMedia, videoSample } from "./media";
 import { VideoExample } from "./video-example";
 import { InteractiveSample } from "./interactive-sample";
-import { ServiceExplorer } from "../services/service-explorer";
+import { ProductionFamilyCards } from "../services/production-families";
+import { LocalSupportTools } from "../services/local-support-tools";
 
 export const CUSTOMER_SERVICES = [
   {
@@ -355,26 +356,25 @@ export function CustomerShowcase({
               sonucu farklıdır.
             </p>
           </div>
-          <ServiceCards
-            onInspect={inspect}
-            studioHref={studioHref}
-            {...(isolated
-              ? {
-                  onSelect: (p: StudioProduct) => {
-                    inspect(p);
-                    setIsolatedNotice(
-                      "Bu statik önizlemede yalnız hazır örnek gösterilir. Üretim, hesap ve yükleme sunucusu bağlı değildir.",
-                    );
-                  },
-                }
-              : {})}
-          />
-          <ServiceExplorer
-            onInspect={inspect}
-            studioHref={studioHref}
-            isolated={isolated}
-            sampleHref={isolated ? "/showcase/" : "/spaces/showcase"}
-          />
+          <ProductionFamilyCards isolated={isolated} />
+          <details className="v54-legacy">
+            <summary>Video, 3D ve panorama örneklerini karşılaştır</summary>
+            <ServiceCards
+              onInspect={inspect}
+              studioHref={studioHref}
+              {...(isolated
+                ? {
+                    onSelect: (p: StudioProduct) => {
+                      inspect(p);
+                      setIsolatedNotice(
+                        "Bu statik önizlemede yalnız hazır örnek gösterilir. Üretim, hesap ve yükleme sunucusu bağlı değildir.",
+                      );
+                    },
+                  }
+                : {})}
+            />
+          </details>
+          <LocalSupportTools />
           {isolatedNotice && (
             <p role="status" className="sc-disclosure">
               {isolatedNotice}
@@ -431,7 +431,7 @@ export function CustomerShowcase({
             ))}
           </ol>
         </section>
-        <section className="sc-section sc-comparison-section">
+        <section id="foto-ornek" className="sc-section sc-comparison-section">
           <div>
             <span className="sc-overline">AYNI KAYNAK, AYNI KADRAJ</span>
             <h2>

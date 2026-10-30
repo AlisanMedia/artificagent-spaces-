@@ -5,7 +5,12 @@ function localOnly(page: Page) {
   page.on("request", (r) => {
     const u = new URL(r.url());
     if (
-      u.pathname.startsWith("/api/") ||
+      (u.pathname.startsWith("/api/") &&
+        ![
+          "/api/spaces/bootstrap",
+          "/api/spaces/workspace",
+          "/api/spaces/organizations",
+        ].includes(u.pathname)) ||
       r.method() !== "GET" ||
       u.hostname !== "127.0.0.1"
     )
@@ -13,16 +18,51 @@ function localOnly(page: Page) {
   });
   return unexpected;
 }
-async function openCatalog(page: Page, category?: string) {
+async function research(page: Page) {
   await page.goto("/spaces/showcase");
+  await expect(
+    page.getByRole("region", { name: "Hizmet kataloğu" }),
+  ).toBeHidden();
+  const origin = "http://127.0.0.1:3000";
+  expect(
+    (
+      await page.request.post("/api/spaces/session", {
+        headers: { Origin: origin },
+        data: { identityId: "demo-viewer-a" },
+      })
+    ).ok(),
+  ).toBe(true);
+  expect(
+    (await page.request.get("/api/spaces/production/readiness")).status(),
+  ).toBe(403);
+  expect(
+    (
+      await page.request.post("/api/spaces/session", {
+        headers: { Origin: origin },
+        data: { identityId: "demo-admin-a" },
+      })
+    ).ok(),
+  ).toBe(true);
+  await page.goto("/spaces/manage");
+  await page.getByRole("button", { name: "Operasyon", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Araştırma kataloğunu aç", exact: true })
+    .click();
+  await expect(page.locator(".sv-explorer")).toHaveAttribute(
+    "data-ready",
+    "true",
+  );
+}
+async function openCatalog(page: Page, category?: string) {
+  await research(page);
   await page.locator(".sv-disclosure > summary").click();
   if (category) await page.getByLabel("Hizmet türü").selectOption(category);
 }
 test("pending service details have real modal focus, no generation and no private requests", async ({
   page,
 }) => {
+  await research(page);
   const unexpected = localOnly(page);
-  await page.goto("/spaces/showcase");
   const catalog = page.getByRole("region", { name: "Hizmet kataloğu" });
   await expect(catalog).toBeHidden();
   const summary = page.locator(".sv-disclosure > summary");
@@ -108,8 +148,8 @@ test("catalogue search, availability, reduced motion and seven widths remain acc
 test("local loan calculates and validates without network, storage or guessed bank rates", async ({
   page,
 }) => {
-  const unexpected = localOnly(page);
   await openCatalog(page, "analysis");
+  const unexpected = localOnly(page);
   const originalStorage = await page.evaluate(() => ({
     local: { ...localStorage },
     session: { ...sessionStorage },
@@ -147,8 +187,8 @@ test("local loan calculates and validates without network, storage or guessed ba
 test("rental scenario reports a loss without inventing profitable payback and passes contrast", async ({
   page,
 }) => {
-  const unexpected = localOnly(page);
   await openCatalog(page, "analysis");
+  const unexpected = localOnly(page);
   const originalStorage = await page.evaluate(() => ({
     local: { ...localStorage },
     session: { ...sessionStorage },
@@ -183,7 +223,7 @@ test("catalogue only navigates to bound samples and keeps upload in the first mo
     })
     .click();
   await expect(page.getByRole("dialog")).toContainText("2:1");
-  await page.getByRole("button", { name: "Hazır örneği aç" }).click();
+  await page.getByRole("link", { name: "Hazır örneği aç" }).click();
   await expect(
     page.getByRole("button", { name: "360° örneği", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
@@ -206,13 +246,14 @@ test("catalogue only navigates to bound samples and keeps upload in the first mo
   await expect(
     page.getByRole("region", { name: "Hizmet kataloğu" }),
   ).toBeHidden();
+  await research(page);
   await page.locator(".sv-disclosure > summary").click();
   await page
     .getByRole("button", {
       name: "Detayları gör: Emlak tanıtım videosu hakkında bilgi",
     })
     .click();
-  await page.getByRole("button", { name: "Yerel stüdyoda dene" }).click();
+  await page.getByRole("link", { name: "Yerel stüdyoda dene" }).click();
   await expect(
     page.getByRole("button", { name: "Fotoğraf veya video ekle", exact: true }),
   ).toBeVisible();

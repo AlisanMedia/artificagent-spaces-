@@ -59,7 +59,10 @@ import { ApiFirstControls, StudioProductSelector } from "./api-first-controls";
 import { StudioPreviewRail } from "./studio-preview-rail";
 import { ServiceCards } from "../showcase/customer-showcase";
 import { CustomerSteps, OrderSummary } from "./customer-journey";
-import { ServiceExplorer } from "../services/service-explorer";
+import { ProductionFamilyCards } from "../services/production-families";
+import { ProductionRequestPanel } from "../services/production-request-panel";
+import { LocalSupportTools } from "../services/local-support-tools";
+import { ProductionServiceId } from "@/domain/production-services";
 
 type Draft = { property: PropertyView; assets: AssetView[] };
 type Pending = {
@@ -94,6 +97,8 @@ function MediaThumbnail({
 }
 
 export function CreationStudio() {
+  const [productionService, setProductionService] =
+    useState<ProductionServiceId | null>(null);
   const {
     record: recordFunnel,
     consent: consentFunnel,
@@ -114,6 +119,28 @@ export function CreationStudio() {
     [step, setStep] = useState(1),
     [draft, setDraft] = useState<Draft | null>(null);
   useEffect(() => {
+    const next = ProductionServiceId.safeParse(
+      new URLSearchParams(window.location.search).get("productionService"),
+    );
+    if (next.success) {
+      if (next.data.startsWith("P")) {
+        setProductionService(next.data);
+        setStep(2);
+      } else if (next.data === "T01" || next.data === "T02") {
+        setProduct(next.data === "T01" ? "tour-360" : "ai-3d");
+        setStep(2);
+      } else if (next.data.startsWith("V")) {
+        setProduct("video");
+        if (next.data === "V02") setCameraStyle("premium");
+        if (next.data === "V03") setCameraStyle("explore");
+        if (next.data === "V04") setCameraStyle("exterior");
+        setStep(2);
+      } else {
+        setNotice(
+          "İlan paketi yalnız onaylanmış sonuçlarla hazırlanabilir. Önce bir hizmet ve kaynak seç.",
+        );
+      }
+    }
     const requested = new URLSearchParams(window.location.search).get(
       "service",
     );
@@ -401,7 +428,10 @@ export function CreationStudio() {
       let advice;
       try {
         advice = await preflightSelection(file);
-        if (product !== "video" && file.type === "video/mp4")
+        if (
+          (product !== "video" || productionService !== null) &&
+          file.type === "video/mp4"
+        )
           advice = {
             supported: false,
             message:
@@ -648,6 +678,9 @@ export function CreationStudio() {
   const canEdit =
       !workspace || ["admin", "editor"].includes(workspace.actor.role),
     ready = (draft?.assets.length ?? 0) > 0 && !pending.length;
+  const productionSource = draft?.assets.find(
+    (a) => a.kind === "photo" && a.status === "clean",
+  );
   const brandStyle = workspace
     ? ({
         "--ux-accent": workspace.brand.accent,
@@ -705,11 +738,12 @@ export function CreationStudio() {
               Bir mekân. Size ait bir anlatım.
             </span>
           </div>
-          {step !== 1 && (
+          {step !== 1 && !productionService && (
             <StudioProductSelector
               value={product}
               disabled={busy}
               onSelect={(p) => {
+                setProductionService(null);
                 setProduct(p);
                 setStudioPlan(null);
                 setPanoramaConfirmed(false);
@@ -725,7 +759,9 @@ export function CreationStudio() {
             <div className="v54-main-column">
               <CustomerSteps
                 step={step}
-                onStep={setStep}
+                onStep={(next) =>
+                  setStep(productionService && next >= 3 ? 3 : next)
+                }
                 canAdvance={ready}
                 disabled={busy}
               />
@@ -761,7 +797,7 @@ export function CreationStudio() {
                   multiple
                   disabled={!bootstrap || busy || !canEdit}
                   accept={
-                    product === "video"
+                    product === "video" && !productionService
                       ? MEDIA_PICKER_ACCEPT
                       : "image/jpeg,image/png,image/webp"
                   }
@@ -793,6 +829,7 @@ export function CreationStudio() {
                         disabled={!bootstrap || busy || !canEdit}
                         onClick={() => {
                           setProduct("video");
+                          setProductionService(null);
                           replaceTarget.current = null;
                           recordFunnel("picker_opened");
                           fileInput.current?.click();
@@ -802,12 +839,17 @@ export function CreationStudio() {
                         Fotoğraf veya video ekle
                       </button>
                     </div>
-                    <ServiceCards
-                      compact
-                      selected={product}
-                      disabled={busy || !canEdit}
-                      onSelect={(p) => {
-                        setProduct(p);
+                    <ProductionFamilyCards
+                      disabled={!bootstrap || busy || !canEdit}
+                      onSelect={(id) => {
+                        setProductionService(id.startsWith("P") ? id : null);
+                        setProduct(
+                          id === "T01"
+                            ? "tour-360"
+                            : id === "T02"
+                              ? "ai-3d"
+                              : "video",
+                        );
                         setStudioPlan(null);
                         setPanoramaConfirmed(false);
                         setJob(null);
@@ -827,6 +869,7 @@ export function CreationStudio() {
                             await api<Draft>(`/properties/${d.property.id}`),
                           );
                           setProduct("video");
+                          setProductionService(null);
                           setJob(null);
                           setPreview("");
                           setShare("");
@@ -842,17 +885,21 @@ export function CreationStudio() {
                       Örnek mülkle dene{" "}
                       <ArrowRight size={16} aria-hidden="true" />
                     </button>
-                    <ServiceExplorer
-                      disabled={busy || !canEdit}
-                      onSelect={(p) => {
-                        setProduct(p);
-                        setStudioPlan(null);
-                        setPanoramaConfirmed(false);
-                        setJob(null);
-                        setPreview("");
-                        setStep(2);
-                      }}
-                    />
+                    <LocalSupportTools />
+                    <details className="v54-legacy">
+                      <summary>
+                        Video, 3D ve panorama örneklerini karşılaştır
+                      </summary>
+                      <ServiceCards
+                        compact
+                        onSelect={(p) => {
+                          setProductionService(null);
+                          setProduct(p);
+                          setStep(2);
+                        }}
+                        disabled={!bootstrap || busy || !canEdit}
+                      />
+                    </details>
                   </>
                 )}
                 {step === 2 && (
@@ -1168,199 +1215,210 @@ export function CreationStudio() {
                     </div>
                   </>
                 )}
-                {step === 3 && (
-                  <>
-                    <div className="ux-section-heading">
-                      <div>
-                        <span className="ux-kicker">03 / TARZ</span>
-                        <h2>
-                          {product === "video"
-                            ? "Nasıl bir video istersin?"
-                            : product === "ai-3d"
-                              ? "AI 3D deneyimini hazırla"
-                              : "360° turunu hazırla"}
-                        </h2>
-                        <p>
-                          {product === "video"
-                            ? "Tek bir tarz seç; her fotoğraf ayrı bir sahne olsun."
-                            : "İçerik türüne uygun kaynakları kontrol edelim."}
-                        </p>
-                      </div>
-                    </div>
-                    <ApiFirstControls
-                      product={product}
-                      styleId={cameraStyle}
-                      onStyle={(style) => {
-                        setCameraStyle(style);
-                        setStudioPlan(null);
-                        recordFunnel("style_selected");
-                      }}
-                      aspect={EXPORT_PRESETS[preset].aspect}
-                      onAspect={(aspect) => {
-                        setPreset(aspect === "9:16" ? "reels" : "listing");
-                        setStudioPlan(null);
-                      }}
-                      duration={targetSeconds}
-                      onDuration={(seconds) => {
-                        setTargetSeconds(seconds);
-                        setStudioPlan(null);
-                      }}
-                      photoCount={
-                        draft?.assets.filter(
-                          (a) => a.kind === "photo" || a.kind === "panorama",
-                        ).length ?? 0
-                      }
-                      plan={
-                        studioPlan?.revision === draft?.property.revision &&
-                        studioPlan?.product === product
-                          ? studioPlan
-                          : null
-                      }
-                      busy={busy}
-                      canEdit={canEdit}
-                      panoramaConfirmed={panoramaConfirmed}
-                      onPanoramaConfirmed={setPanoramaConfirmed}
-                      onPlan={() =>
-                        void run(async () => {
-                          await checkStudioPlan();
-                        })
-                      }
-                      onContinue={() => setStep(4)}
-                      onCreateLocal={() => void generatePhotoEdit()}
+                {step === 3 &&
+                  (productionService ? (
+                    <ProductionRequestPanel
+                      key={`${productionService}:${draft?.property.organization_id ?? ""}:${draft?.property.id ?? ""}:${draft?.property.revision ?? 0}`}
+                      serviceId={productionService}
+                      property={draft?.property ?? null}
+                      assets={draft?.assets ?? []}
+                      disabled={busy || !canEdit}
+                      onBack={() => setStep(2)}
                     />
-                    <details className="v54-legacy">
-                      <summary>
-                        Önceki yerel kurgu ve ölçülü 3D seçenekleri
-                      </summary>
-                      <StudioStyleCards
-                        value={mode}
-                        examples="illustration"
-                        disabled={busy || !canEdit}
-                        onSelect={(selected) => {
-                          setMode(selected);
+                  ) : (
+                    <>
+                      <div className="ux-section-heading">
+                        <div>
+                          <span className="ux-kicker">03 / TARZ</span>
+                          <h2>
+                            {product === "video"
+                              ? "Nasıl bir video istersin?"
+                              : product === "ai-3d"
+                                ? "AI 3D deneyimini hazırla"
+                                : "360° turunu hazırla"}
+                          </h2>
+                          <p>
+                            {product === "video"
+                              ? "Tek bir tarz seç; her fotoğraf ayrı bir sahne olsun."
+                              : "İçerik türüne uygun kaynakları kontrol edelim."}
+                          </p>
+                        </div>
+                      </div>
+                      <ApiFirstControls
+                        product={product}
+                        styleId={cameraStyle}
+                        onStyle={(style) => {
+                          setCameraStyle(style);
+                          setStudioPlan(null);
                           recordFunnel("style_selected");
                         }}
+                        aspect={EXPORT_PRESETS[preset].aspect}
+                        onAspect={(aspect) => {
+                          setPreset(aspect === "9:16" ? "reels" : "listing");
+                          setStudioPlan(null);
+                        }}
+                        duration={targetSeconds}
+                        onDuration={(seconds) => {
+                          setTargetSeconds(seconds);
+                          setStudioPlan(null);
+                        }}
+                        photoCount={
+                          draft?.assets.filter(
+                            (a) => a.kind === "photo" || a.kind === "panorama",
+                          ).length ?? 0
+                        }
+                        plan={
+                          studioPlan?.revision === draft?.property.revision &&
+                          studioPlan?.product === product
+                            ? studioPlan
+                            : null
+                        }
+                        busy={busy}
+                        canEdit={canEdit}
+                        panoramaConfirmed={panoramaConfirmed}
+                        onPanoramaConfirmed={setPanoramaConfirmed}
+                        onPlan={() =>
+                          void run(async () => {
+                            await checkStudioPlan();
+                          })
+                        }
+                        onContinue={() => setStep(4)}
+                        onCreateLocal={() => void generatePhotoEdit()}
                       />
-                      <p className="ux-honesty">{DISCLOSURE}</p>
-                      <div className="ux-options">
-                        <label>
-                          Sunum şablonu
-                          <select
-                            value={template}
-                            onChange={(e) =>
-                              setTemplate(
-                                e.target.value as keyof typeof TEMPLATE_LABELS,
-                              )
-                            }
-                          >
-                            {Object.entries(TEMPLATE_LABELS).map(
-                              ([id, label]) => (
+                      <details className="v54-legacy">
+                        <summary>
+                          Önceki yerel kurgu ve ölçülü 3D seçenekleri
+                        </summary>
+                        <StudioStyleCards
+                          value={mode}
+                          examples="illustration"
+                          disabled={busy || !canEdit}
+                          onSelect={(selected) => {
+                            setMode(selected);
+                            recordFunnel("style_selected");
+                          }}
+                        />
+                        <p className="ux-honesty">{DISCLOSURE}</p>
+                        <div className="ux-options">
+                          <label>
+                            Sunum şablonu
+                            <select
+                              value={template}
+                              onChange={(e) =>
+                                setTemplate(
+                                  e.target
+                                    .value as keyof typeof TEMPLATE_LABELS,
+                                )
+                              }
+                            >
+                              {Object.entries(TEMPLATE_LABELS).map(
+                                ([id, label]) => (
+                                  <option key={id} value={id}>
+                                    {label}
+                                  </option>
+                                ),
+                              )}
+                            </select>
+                            <small>
+                              Başlığı ve hafif renk düzenini değiştirir.
+                            </small>
+                          </label>
+                          <label>
+                            Nerede kullanacaksın?
+                            <select
+                              value={preset}
+                              onChange={(e) =>
+                                setPreset(
+                                  e.target.value as keyof typeof EXPORT_PRESETS,
+                                )
+                              }
+                            >
+                              {Object.entries(EXPORT_PRESETS).map(([id, p]) => (
                                 <option key={id} value={id}>
-                                  {label}
+                                  {p.label} ·{" "}
+                                  {p.aspect === "9:16" ? "Dikey" : "Yatay"}
                                 </option>
-                              ),
-                            )}
-                          </select>
-                          <small>
-                            Başlığı ve hafif renk düzenini değiştirir.
-                          </small>
-                        </label>
-                        <label>
-                          Nerede kullanacaksın?
-                          <select
-                            value={preset}
-                            onChange={(e) =>
-                              setPreset(
-                                e.target.value as keyof typeof EXPORT_PRESETS,
-                              )
-                            }
-                          >
-                            {Object.entries(EXPORT_PRESETS).map(([id, p]) => (
-                              <option key={id} value={id}>
-                                {p.label} ·{" "}
-                                {p.aspect === "9:16" ? "Dikey" : "Yatay"}
-                              </option>
-                            ))}
-                          </select>
-                          <small>
-                            {EXPORT_PRESETS[preset].aspect === "9:16"
-                              ? "Dikey (Reels / Story) · 360 × 640"
-                              : "Yatay (YouTube / İlan) · 640 × 360"}
-                          </small>
-                        </label>
-                        <label>
-                          Video uzunluğu
-                          <select
-                            value={duration}
-                            onChange={(e) =>
-                              setDuration(Number(e.target.value))
-                            }
-                          >
-                            <option value={8}>Kısa · 8 saniye</option>
-                            <option value={16}>Standart · 16 saniye</option>
-                            <option value={4}>Hızlı örnek · 4 saniye</option>
-                          </select>
-                        </label>
-                      </div>
-                      <div className="ux-premium">
-                        <Box size={29} aria-hidden="true" />
-                        <div>
-                          <h3>3D turu keşfet</h3>
-                          <p>
-                            İçinde serbestçe dolaşılabilen ayrı bir deneyim.
-                            Ölçülü plan, doğrulanmış odalar ve kapı bağlantıları
-                            gerekir. Birkaç fotoğraftan gerçek ev oluşturulduğu
-                            iddia edilmez.
-                          </p>
-                          {mode === "interactive-3d" && (
-                            <p role="status">
-                              {draft?.property.manifest.measuredBy
-                                ? "Ölçülü sentetik plan hazır. Gerçek mülk rekonstrüksiyonu değil."
-                                : "Bu projede doğrulanmış ölçülü plan yok. Önce plan incelemesi gerekir."}
-                            </p>
-                          )}
+                              ))}
+                            </select>
+                            <small>
+                              {EXPORT_PRESETS[preset].aspect === "9:16"
+                                ? "Dikey (Reels / Story) · 360 × 640"
+                                : "Yatay (YouTube / İlan) · 640 × 360"}
+                            </small>
+                          </label>
+                          <label>
+                            Video uzunluğu
+                            <select
+                              value={duration}
+                              onChange={(e) =>
+                                setDuration(Number(e.target.value))
+                              }
+                            >
+                              <option value={8}>Kısa · 8 saniye</option>
+                              <option value={16}>Standart · 16 saniye</option>
+                              <option value={4}>Hızlı örnek · 4 saniye</option>
+                            </select>
+                          </label>
                         </div>
-                        <button
-                          className="subtle"
-                          aria-pressed={mode === "interactive-3d"}
-                          onClick={() => setMode("interactive-3d")}
-                        >
-                          3D seçeneklerini aç
-                        </button>
-                      </div>
-                      <div className="ux-actions">
-                        <button className="subtle" onClick={() => setStep(2)}>
-                          <ArrowLeft size={16} aria-hidden="true" />
-                          Medyanı düzenle
-                        </button>
-                        <button
-                          className="subtle"
-                          onClick={() => editor.current?.showModal()}
-                        >
-                          <Settings2 size={16} aria-hidden="true" />
-                          Marka ve altyazı
-                        </button>
-                        <button
-                          className="ux-primary"
-                          disabled={
-                            busy ||
-                            !canEdit ||
-                            (mode === "interactive-3d" &&
-                              !draft?.property.manifest.measuredBy)
-                          }
-                          onClick={() => void generate()}
-                        >
-                          {busy ? "Başlatılıyor…" : "İçeriği oluştur"}
-                          <ArrowRight size={17} aria-hidden="true" />
-                        </button>
-                      </div>
-                      <p className="ux-small">
-                        Yerel demoda ücret alınmaz. İndirme ve paylaşım
-                        öncesinde ayrı bir incelemeci onayı gerekir.
-                      </p>
-                    </details>
-                  </>
-                )}
+                        <div className="ux-premium">
+                          <Box size={29} aria-hidden="true" />
+                          <div>
+                            <h3>3D turu keşfet</h3>
+                            <p>
+                              İçinde serbestçe dolaşılabilen ayrı bir deneyim.
+                              Ölçülü plan, doğrulanmış odalar ve kapı
+                              bağlantıları gerekir. Birkaç fotoğraftan gerçek ev
+                              oluşturulduğu iddia edilmez.
+                            </p>
+                            {mode === "interactive-3d" && (
+                              <p role="status">
+                                {draft?.property.manifest.measuredBy
+                                  ? "Ölçülü sentetik plan hazır. Gerçek mülk rekonstrüksiyonu değil."
+                                  : "Bu projede doğrulanmış ölçülü plan yok. Önce plan incelemesi gerekir."}
+                              </p>
+                            )}
+                          </div>
+                          <button
+                            className="subtle"
+                            aria-pressed={mode === "interactive-3d"}
+                            onClick={() => setMode("interactive-3d")}
+                          >
+                            3D seçeneklerini aç
+                          </button>
+                        </div>
+                        <div className="ux-actions">
+                          <button className="subtle" onClick={() => setStep(2)}>
+                            <ArrowLeft size={16} aria-hidden="true" />
+                            Medyanı düzenle
+                          </button>
+                          <button
+                            className="subtle"
+                            onClick={() => editor.current?.showModal()}
+                          >
+                            <Settings2 size={16} aria-hidden="true" />
+                            Marka ve altyazı
+                          </button>
+                          <button
+                            className="ux-primary"
+                            disabled={
+                              busy ||
+                              !canEdit ||
+                              (mode === "interactive-3d" &&
+                                !draft?.property.manifest.measuredBy)
+                            }
+                            onClick={() => void generate()}
+                          >
+                            {busy ? "Başlatılıyor…" : "İçeriği oluştur"}
+                            <ArrowRight size={17} aria-hidden="true" />
+                          </button>
+                        </div>
+                        <p className="ux-small">
+                          Yerel demoda ücret alınmaz. İndirme ve paylaşım
+                          öncesinde ayrı bir incelemeci onayı gerekir.
+                        </p>
+                      </details>
+                    </>
+                  ))}
                 {step === 4 && (
                   <OrderSummary
                     product={product}
@@ -1549,16 +1607,34 @@ export function CreationStudio() {
                 )}
               </section>
             </div>
-            <StudioPreviewRail
-              product={product}
-              styleId={cameraStyle}
-              job={job}
-              preview={preview}
-              property={draft?.property ?? null}
-              assets={draft?.assets ?? []}
-              thumbnails={thumbs}
-              aspect={EXPORT_PRESETS[preset].aspect}
-            />
+            {productionService ? (
+              <aside className="pe-source-rail" aria-label="Fotoğraf kaynağı">
+                <h2>Kaynak fotoğrafın</h2>
+                {productionSource && thumbs[productionSource.id] ? (
+                  <img
+                    src={thumbs[productionSource.id]}
+                    alt="İstek için yüklenen kaynak fotoğraf; henüz düzenlenmiş sonuç yok"
+                  />
+                ) : (
+                  <p>Yüklenen fotoğraf burada gösterilecek.</p>
+                )}
+                <p>
+                  Henüz üretilmiş sonuç yok. Kaynak fotoğraf, sonuç gibi
+                  gösterilmez.
+                </p>
+              </aside>
+            ) : (
+              <StudioPreviewRail
+                product={product}
+                styleId={cameraStyle}
+                job={job}
+                preview={preview}
+                property={draft?.property ?? null}
+                assets={draft?.assets ?? []}
+                thumbnails={thumbs}
+                aspect={EXPORT_PRESETS[preset].aspect}
+              />
+            )}
           </div>
         </>
       ) : (
