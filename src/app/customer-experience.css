@@ -1498,6 +1498,10 @@
   }
 }
 /* V5.7: restrained service families, not the 75-item R&D catalogue. */
+.spaces-shell.studio-theme > .skip-link {
+  background: #192622;
+  color: #f7f6f2;
+}
 .pe-families {
   margin-block: 24px;
 }

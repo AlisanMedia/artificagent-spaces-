@@ -48,6 +48,17 @@ test("V5.7 photo sources/options save a real blocked request, survive API read a
   baseURL,
 }) => {
   await page.goto("/spaces?productionService=P03");
+  const skip = page.getByRole("link", { name: "İçeriğe geç", exact: true });
+  await skip.focus();
+  await expect(skip).toBeFocused();
+  expect(
+    await skip.evaluate((el) => ({
+      color: getComputedStyle(el).color,
+      background: getComputedStyle(el).backgroundColor,
+    })),
+  ).toEqual({ color: "rgb(247, 246, 242)", background: "rgb(25, 38, 34)" });
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#main-content")).toBeFocused();
   const picker = page.getByLabel("Fotoğraf veya video seç");
   await expect(picker).toBeEnabled();
   await picker.setInputFiles({

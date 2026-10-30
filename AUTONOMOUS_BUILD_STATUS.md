@@ -1,3 +1,9 @@
+# V5.7 son görsel düzeltme — 30 Ekim 2026
+
+Önceki kaynak `7a98ac16c12e652455aa5b033a0b688b1808b8a7` normal push ile doğrulandı. Hosted `41042579619` / check `124018725636` Foundation acceptance15368 SUCCESS:402 unit,94 browser,28 static preview,fail/skip/flaky0; tam fetched-history Gitleaks0,audit0. İndirilen tek public-ci-summary.json ZIP digest doğrulandı. Bu eski run aşağıdaki yeni CSS commit'inin sonucu değildir.
+
+Son ekran incelemesi, klavye ile açılan İçeriğe geç bağlantısında inherited renk sorununu ortaya çıkardı. Yalnız bu bağlantının kontrastı düzeltildi ve mevcut V5.7 browser akışına gerçek focus/Enter/renk doğrulaması eklendi; hiçbir eski assert veya sınır kaldırılmadı. Yeni exact-head hosted sonuç ve kaynak SHA, dışarıdaki tek owner raporunda doğrulanır. Gerçek sağlayıcı çağrısı0,hariciUSD0,yeni deploy/PR/merge0. Eski scanner sibling checkpoint'i korunur ve yerel tüm-ref bilinen prose bulgusu gizlenmez.
+
 # V5.7 kaynak ve doğrulama checkpoint'i — 30 Ekim 2026
 
 Base: `a2d1edf791f26c364f660212f53c92e19d8a72a0`. Devam dalı: `build/v5-7-production-engine-reviewed`. Çekirdek commit: `b3dfb2d6c9ca62a8ec0e65b6037fbc6160864930`; UI checkpoint: `e015a57ef0acc38b65de03657f4fb91bf4f3e64a`. Bu notun bulunduğu yeni commit aynı kod üzerine test/guard/checkpoint düzeltmesidir; gerçek son HEAD ve hosted run kanıtı ayrı owner raporunda verilir.
