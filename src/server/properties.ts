@@ -303,7 +303,7 @@ export class PropertyService {
         );
         let targetRevision = property.revision;
         const frozen = await tx.query(
-          "select id from jobs where organization_id=$1 and property_id=$2 and revision=$3 limit 1",
+          "select id from jobs where organization_id=$1 and property_id=$2 and revision=$3 union all select id from production_requests where organization_id=$1 and property_id=$2 and revision=$3 limit 1",
           [actor.organizationId, propertyId, property.revision],
         );
         if (frozen.rows.length || options.replaceAssetId) {

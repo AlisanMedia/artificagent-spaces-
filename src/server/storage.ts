@@ -20,7 +20,7 @@ export class LocalPrivateStorage {
     organizationId: string,
     id: string,
     kind: "source" | "quarantine" | "output",
-    extension: "jpg" | "mp4" | "glb" | "json" = "jpg",
+    extension: "jpg" | "mp4" | "glb" | "json" | "png" = "jpg",
   ) {
     Id.parse(organizationId);
     Id.parse(id);
@@ -139,7 +139,7 @@ export class LocalPrivateStorage {
     organizationId: string,
     id: string,
     kind: "source" | "output",
-    extension: "jpg" | "mp4" | "glb" | "json" = "jpg",
+    extension: "jpg" | "mp4" | "glb" | "json" | "png" = "jpg",
   ) {
     return readFile(this.path(organizationId, id, kind, extension));
   }
@@ -148,7 +148,7 @@ export class LocalPrivateStorage {
     id: string,
     expectedHash: string,
     kind: "source" | "output",
-    extension: "jpg" | "mp4" | "glb" | "json" = "jpg",
+    extension: "jpg" | "mp4" | "glb" | "json" | "png" = "jpg",
   ) {
     const bytes = await this.read(organizationId, id, kind, extension);
     invariant(digest(bytes) === expectedHash, "STORED_HASH_MISMATCH", 409);

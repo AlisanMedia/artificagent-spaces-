@@ -11,6 +11,8 @@ import { AnalyticsService } from "./analytics";
 import { VoiceService } from "./voice";
 import { BrandService } from "./brands";
 import { seedIdentity } from "./seed";
+import { ProductionServiceEngine } from "./production/engine";
+import { ProductionArtifactDelivery } from "./production/delivery";
 
 export class PlatformRuntime {
   readonly identity: IdentityService;
@@ -20,6 +22,8 @@ export class PlatformRuntime {
   readonly analytics: AnalyticsService;
   readonly voice: VoiceService;
   readonly brands: BrandService;
+  readonly production: ProductionServiceEngine;
+  readonly productionDelivery: ProductionArtifactDelivery;
   constructor(
     readonly db: Database,
     readonly storage: LocalPrivateStorage,
@@ -32,6 +36,14 @@ export class PlatformRuntime {
     this.analytics = new AnalyticsService(db, this.releases, secrets);
     this.voice = new VoiceService(db, this.releases, this.analytics, secrets);
     this.brands = new BrandService(db);
+    this.production = new ProductionServiceEngine(db, this.properties);
+    this.productionDelivery = new ProductionArtifactDelivery(
+      db,
+      this.properties,
+      this.production,
+      storage,
+      secrets,
+    );
   }
   static async create(root: string, memory = false, seedProperties = true) {
     await mkdir(root, { recursive: true, mode: 0o700 });

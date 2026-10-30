@@ -6,6 +6,8 @@ import { DEMO_IDENTITIES } from "@/server/seed";
 import { MEDIA_CAPABILITIES } from "@/domain/media-capabilities";
 import { MediaGrantMetadata, UploadSelection } from "@/domain/media-intake";
 import { authorize } from "@/server/properties";
+import { PRODUCTION_SERVICES } from "@/server/production/registry";
+import { ProductionServiceId } from "@/domain/production-services";
 import {
   prepareStudioPlan,
   STUDIO_PROVIDER_READINESS,
@@ -503,6 +505,96 @@ async function handler(request: Request, context: RouteContext) {
         await platform.voice.settleExpired();
       });
       return responseJson({ scheduled: true, externalSpendMicroUsd: 0 }, 202);
+    }
+    if (path === "production/readiness" && method === "GET") {
+      await authorize(platform.db, actor, "admin");
+      return responseJson({
+        services: PRODUCTION_SERVICES,
+        liveEnabled: false,
+        approvedExternalSpendMicroUsd: 0,
+      });
+    }
+    if (path === "production/requests" && method === "POST")
+      return responseJson(
+        await platform.production.plan(actor, await jsonBody(request)),
+        201,
+      );
+    if (path === "production/requests" && method === "GET")
+      return responseJson(
+        await platform.production.list(
+          actor,
+          Id.parse(url.searchParams.get("propertyId")),
+          z.coerce
+            .number()
+            .int()
+            .positive()
+            .parse(url.searchParams.get("revision")),
+          ProductionServiceId.parse(url.searchParams.get("serviceId")),
+        ),
+      );
+    if (
+      segments[0] === "production" &&
+      segments[1] === "requests" &&
+      segments[2]
+    ) {
+      const requestId = Id.parse(segments[2]);
+      if (segments.length === 3 && method === "GET")
+        return responseJson(await platform.production.get(actor, requestId));
+      if (
+        segments.length === 4 &&
+        segments[3] === "cancel" &&
+        method === "POST"
+      )
+        return responseJson(await platform.production.cancel(actor, requestId));
+      if (
+        segments.length === 4 &&
+        segments[3] === "review" &&
+        method === "POST"
+      )
+        return responseJson(
+          await platform.productionDelivery.review(
+            actor,
+            requestId,
+            await jsonBody(request),
+          ),
+        );
+      if (
+        segments.length === 4 &&
+        segments[3] === "revoke" &&
+        method === "POST"
+      )
+        return responseJson(
+          await platform.productionDelivery.revoke(actor, requestId),
+        );
+      if (
+        segments.length === 4 &&
+        segments[3] === "download-grant" &&
+        method === "POST"
+      )
+        return responseJson({
+          token: await platform.productionDelivery.grant(actor, requestId),
+        });
+      if (
+        segments.length === 4 &&
+        segments[3] === "output" &&
+        method === "GET"
+      ) {
+        const result = await platform.productionDelivery.download(
+          actor,
+          requestId,
+          request.headers.get("x-spaces-grant") ?? "",
+        );
+        return new Response(new Uint8Array(result.bytes), {
+          headers: {
+            "Content-Type": "image/png",
+            "Content-Disposition": `attachment; filename="${requestId}.png"`,
+            "Cache-Control": "private, no-store",
+            "X-Content-Type-Options": "nosniff",
+            "X-Spaces-Origin": result.origin,
+          },
+        });
+      }
+      invariant(false, "BLOCKED_EXTERNAL_APPROVAL", 403);
     }
     if (path === "studio/provider-readiness" && method === "GET") {
       await authorize(platform.db, actor, "admin");

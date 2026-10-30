@@ -1,0 +1,364 @@
+{
+  "source": {
+    "id": "fal-edit",
+    "url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai/nano-banana-pro/edit",
+    "finalUrl": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai/nano-banana-pro/edit",
+    "status": 200,
+    "retrievedAtUtc": "2026-10-30T09:22:42.000928+00:00",
+    "sha256": "72347970618a4514536e9886b901c2c5e13475a37a7556be66cd58081b03df9a",
+    "bytes": 18880,
+    "schemaNames": [
+      "QueueStatus",
+      "NanoBananaProEditInput",
+      "NanoBananaProEditOutput",
+      "GeminiMessage",
+      "GeminiTextPart",
+      "GeminiImagePart",
+      "GeminiDocumentPart",
+      "GeminiSignaturePart",
+      "ImageFile",
+      "GeminiConversation",
+      "GeminiVideoMessage",
+      "GeminiVideoPart",
+      "GeminiAudioPart"
+    ]
+  },
+  "schemas": {
+    "QueueStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["IN_QUEUE", "IN_PROGRESS", "COMPLETED"]
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "response_url": {
+          "type": "string"
+        },
+        "status_url": {
+          "type": "string"
+        },
+        "cancel_url": {
+          "type": "string"
+        },
+        "logs": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "queue_position": {
+          "type": "integer"
+        }
+      },
+      "required": ["status", "request_id"]
+    },
+    "NanoBananaProEditInput": {
+      "type": "object",
+      "required": ["prompt"],
+      "properties": {
+        "limit_generations": {
+          "type": "boolean",
+          "default": true,
+          "title": "Limit Generations"
+        },
+        "max_output_tokens": {
+          "anyOf": [
+            {
+              "maximum": 32768,
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Max Output Tokens"
+        },
+        "num_images": {
+          "default": 1,
+          "type": "integer",
+          "minimum": 1,
+          "title": "Number of Images",
+          "maximum": 4
+        },
+        "include_thoughts": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Include Thoughts"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Seed"
+        },
+        "thinking_level": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": "high"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Thinking Level"
+        },
+        "sync_mode": {
+          "type": "boolean",
+          "default": false,
+          "title": "Sync Mode"
+        },
+        "history": {
+          "items": {
+            "$ref": "#/components/schemas/GeminiMessage"
+          },
+          "type": "array",
+          "title": "History"
+        },
+        "top_p": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Top P"
+        },
+        "enable_web_search": {
+          "type": "boolean",
+          "default": false,
+          "title": "Enable Web Search"
+        },
+        "temperature": {
+          "anyOf": [
+            {
+              "maximum": 2,
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Temperature"
+        },
+        "context": {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GeminiTextPart"
+              },
+              {
+                "$ref": "#/components/schemas/GeminiImagePart"
+              },
+              {
+                "$ref": "#/components/schemas/GeminiDocumentPart"
+              },
+              {
+                "$ref": "#/components/schemas/GeminiSignaturePart"
+              }
+            ],
+            "discriminator": {
+              "mapping": {
+                "signature": "#/components/schemas/GeminiSignaturePart",
+                "image": "#/components/schemas/GeminiImagePart",
+                "text": "#/components/schemas/GeminiTextPart",
+                "document": "#/components/schemas/GeminiDocumentPart"
+              },
+              "propertyName": "type"
+            }
+          },
+          "type": "array",
+          "title": "Context"
+        },
+        "prompt": {
+          "maxLength": 50000,
+          "type": "string",
+          "minLength": 3,
+          "title": "Prompt"
+        },
+        "output_format": {
+          "type": "string",
+          "default": "png",
+          "title": "Output Format",
+          "enum": ["jpeg", "png", "webp"]
+        },
+        "resolution": {
+          "enum": ["1K", "2K", "4K"],
+          "type": "string",
+          "default": "1K",
+          "title": "Resolution"
+        },
+        "safety_tolerance": {
+          "enum": ["1", "2", "3", "4", "5", "6"],
+          "type": "string",
+          "default": "4",
+          "title": "Safety Tolerance"
+        },
+        "aspect_ratio": {
+          "default": "auto",
+          "anyOf": [
+            {
+              "enum": [
+                "auto",
+                "21:9",
+                "16:9",
+                "3:2",
+                "4:3",
+                "5:4",
+                "1:1",
+                "4:5",
+                "3:4",
+                "2:3",
+                "9:16",
+                "4:1",
+                "1:4",
+                "8:1",
+                "1:8"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Aspect Ratio"
+        },
+        "system_prompt": {
+          "maxLength": 50000,
+          "type": "string",
+          "default": "",
+          "title": "System Prompt"
+        },
+        "image_urls": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "title": "Image URLs"
+        },
+        "return_history": {
+          "type": "boolean",
+          "default": false,
+          "title": "Return History"
+        }
+      },
+      "title": "NanoBananaImageToImageInput"
+    },
+    "NanoBananaProEditOutput": {
+      "type": "object",
+      "required": ["images", "description"],
+      "properties": {
+        "images": {
+          "items": {
+            "$ref": "#/components/schemas/ImageFile"
+          },
+          "type": "array",
+          "title": "Images"
+        },
+        "conversations": {
+          "items": {
+            "$ref": "#/components/schemas/GeminiConversation"
+          },
+          "type": "array",
+          "title": "Conversations"
+        },
+        "grounding_metadata": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array",
+          "title": "Grounding Metadata"
+        }
+      },
+      "title": "NanoBananaImageToImageOutput"
+    },
+    "ImageFile": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "file_size": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "File Size"
+        },
+        "width": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Width"
+        },
+        "height": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Height"
+        },
+        "content_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Content Type"
+        },
+        "file_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "File Name"
+        },
+        "url": {
+          "type": "string",
+          "title": "Url"
+        }
+      },
+      "title": "ImageFile"
+    }
+  }
+}

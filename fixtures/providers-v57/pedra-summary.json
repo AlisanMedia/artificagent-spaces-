@@ -1,0 +1,33 @@
+{
+  "schemaRevision": "official-2026-10-30",
+  "framingField": "preserveAspectRatio",
+  "framingDefaultSelected": false,
+  "reason": "Avoid provider center-crop; dimensions/framing checked on actual bytes. preserveOriginalFraming is not sent.",
+  "arrayOutputs": [
+    "/api/enhance",
+    "/api/enhance_and_correct_perspective",
+    "/api/furnish",
+    "/api/empty_room",
+    "/api/renovation"
+  ],
+  "objectOutputs": ["/api/remove_object", "/api/sky_blue"],
+  "furnishRoomEnum": [
+    "Living room",
+    "Dining + Living room",
+    "Bedroom",
+    "Dining room",
+    "Terrace",
+    "Entrance",
+    "Office",
+    "Bathroom"
+  ],
+  "selectedStyleSubset": [
+    "Modern",
+    "Scandinavian",
+    "Contemporary",
+    "Minimalist",
+    "Mediterranean"
+  ],
+  "skyEnum": ["sunny", "sunny-no-reflections", "sunrise", "dawn", "night"],
+  "schemaApproval": "PUBLIC_DOCS_ONLY_LIVE_NOT_VERIFIED"
+}
