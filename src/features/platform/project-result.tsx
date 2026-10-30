@@ -15,6 +15,7 @@ const Viewer = dynamic(
 export function ProjectResult({ id }: { id: string }) {
   const [job, setJob] = useState<JobView | null>(null),
     [property, setProperty] = useState<PropertyView | null>(null),
+    [sourceUrl, setSourceUrl] = useState(""),
     [previewState, setPreviewState] = useState<{
       key: string;
       url: string;
@@ -31,10 +32,18 @@ export function ProjectResult({ id }: { id: string }) {
       if (readLock.current) return;
       readLock.current = true;
       try {
-        const j = await api<JobView>(`/jobs/${id}`),
-          p = await api<{ property: PropertyView }>(
-            `/properties/${j.property_id}`,
-          );
+        let j = await api<JobView>(`/jobs/${id}`);
+        if (j.providerRun?.canAdvance) {
+          try {
+            await api(`/jobs/${id}/v01-poll`, {});
+            j = await api<JobView>(`/jobs/${id}`);
+          } catch {
+            /* Durable run stays visible; never submit again after uncertain acceptance. */
+          }
+        }
+        const p = await api<{ property: PropertyView }>(
+          `/properties/${j.property_id}`,
+        );
         if (active) {
           setJob(j);
           setProperty(p.property);
@@ -61,6 +70,32 @@ export function ProjectResult({ id }: { id: string }) {
       clearInterval(timer);
     };
   }, [id]);
+  const sourceAssetId = job?.providerRun?.sourceAssetId;
+  useEffect(() => {
+    let active = true,
+      url = "";
+    if (sourceAssetId)
+      void api<{ token: string }>(`/assets/${sourceAssetId}/grant`, {})
+        .then((g) =>
+          localRequest(`/assets/${sourceAssetId}`, {
+            headers: { "x-spaces-grant": g.token },
+          }),
+        )
+        .then((r) => r.blob())
+        .then((blob) => {
+          if (active) {
+            url = URL.createObjectURL(blob);
+            setSourceUrl(url);
+          }
+        })
+        .catch(() => {
+          if (active) setSourceUrl("");
+        });
+    return () => {
+      active = false;
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [sourceAssetId, id]);
   const stale = !!job && !!property && job.revision !== property.revision;
   const outputHash = job?.output?.sha256,
     state = job?.state,
@@ -169,8 +204,28 @@ export function ProjectResult({ id }: { id: string }) {
                 ? "Kaynak kontrolü gerekli"
                 : CUSTOMER_JOB_LABELS[job.state]}
             </span>
-            <span>Yerel sentetik çalışma · Gerçek AI üretimi kapalı</span>
+            <span>
+              {job.providerRun
+                ? job.providerRun.mode === "offline-fixture"
+                  ? "Sentetik offline V01 entegrasyon testi · Gerçek fal üretimi değildir"
+                  : "İzinli gerçek V01 sağlayıcı testi · Ticari yayın değildir"
+                : "Yerel sentetik çalışma · Gerçek AI üretimi kapalı"}
+            </span>
           </div>
+          {job.providerRun && sourceUrl && (
+            <figure>
+              <img
+                src={sourceUrl}
+                width="640"
+                height="360"
+                alt="Bu V01 isteğine bağlı kaynak fotoğraf"
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
+              <figcaption>
+                Bu çalışmanın kaynak fotoğrafı · sürüm {job.revision}
+              </figcaption>
+            </figure>
+          )}
           {stale ? (
             <p className="ux-note">
               Kaynaklar değişti. Eski önizleme ve teslim kullanılamaz; güncel
@@ -185,7 +240,11 @@ export function ProjectResult({ id }: { id: string }) {
                   controls
                   playsInline
                   preload="metadata"
-                  aria-label="Projenin gerçek yerel video çıktısı"
+                  aria-label={
+                    job.providerRun
+                      ? "V01 özel depoya alınmış doğrulanmış video adayı"
+                      : "Projenin gerçek yerel video çıktısı"
+                  }
                 />
               ) : (
                 <Viewer scene={property.manifest} modelUrl={media} />
@@ -200,7 +259,7 @@ export function ProjectResult({ id }: { id: string }) {
             {job.state === "awaiting-review"
               ? "Önizlemen hazır. İndirmeden önce farklı ve yetkili bir incelemeci her sahneyi kontrol etmeli."
               : job.state === "approved" && !stale
-                ? "Bağımsız yerel inceleme kaydı mevcut. Gerçek insan ticari kalite kabulü anlamına gelmez."
+                ? "Bağımsız inceleme kaydı mevcut. Offline reviewer hesabı gerçek insan ticari kabulü anlamına gelmez."
                 : job.state === "unknown-submission"
                   ? "İstek sonucu kesinleşmedi. Otomatik yeniden üretim veya ücretli yeniden deneme yapılmaz."
                   : "Çalışman kayıtlıdır; bu sayfayı yeniden açarak gerçek durumunu görebilirsin."}
@@ -224,7 +283,7 @@ export function ProjectResult({ id }: { id: string }) {
             <button
               type="button"
               className="subtle"
-              disabled={!allowed || busy}
+              disabled={!allowed || busy || job.execution_kind === "fal-v01"}
               onClick={() => void action("share")}
             >
               Yerel paylaşım bağlantısı oluştur
@@ -233,6 +292,12 @@ export function ProjectResult({ id }: { id: string }) {
               Yetkili inceleme alanı
             </Link>
           </div>
+          {job.execution_kind === "fal-v01" && (
+            <p>
+              Bu testte public paylaşım kapalıdır. Final indirme farklı yetkili
+              reviewer onayından sonra açılır.
+            </p>
+          )}
           {share && allowed && (
             <p role="status">
               <Link href={share}>Onaylı yerel turu aç</Link> · 1 saatlik yerel

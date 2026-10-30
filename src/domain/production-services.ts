@@ -94,9 +94,10 @@ export interface ProductionRequestView {
     | "rejected";
   message: string;
   futurePriceMicroUsd: null;
-  actualExternalCostMicroUsd: 0;
-  downloadAllowed: false;
-  liveEnabled: false;
+  actualExternalCostMicroUsd: number | null;
+  downloadAllowed: boolean;
+  jobId?: string;
+  liveEnabled: boolean;
 }
 /** Customer-only vocabulary. Provider routes, prompt bytes and credentials are never imported by the UI. */
 export const SERVICE_FAMILIES = Object.freeze([

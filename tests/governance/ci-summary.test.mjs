@@ -62,3 +62,13 @@ test("isolated preview skipped, failed or flaky results cannot produce public ac
 test("missing or empty preview evidence fails closed when the new schema is requested", () => {
   const input=evidence();input.preview={};assert.throws(()=>createPublicSummary(input),/Preview evidence/);input.preview={stats:{expected:0,skipped:0,unexpected:0,flaky:0}};assert.throws(()=>createPublicSummary(input),/Preview evidence/);
 });
+
+
+test("V01 evidence contains counts only, never permits, keys, payloads or media URLs", () => {
+  const input=evidence(); input.v01={stats:{expected:2,skipped:0,unexpected:0,flaky:0},permit:'PRIVATE BUSINESS TEXT',headers:'PRIVATE BUSINESS TEXT'};
+  const output=createPublicSummary(input); assert.deepEqual(output.v01Browser,input.v01.stats); assert.equal(JSON.stringify(output).includes('PRIVATE BUSINESS TEXT'),false);
+});
+test("V01 missing, skipped, failed and flaky evidence each prevents acceptance", () => {
+  for(const k of ['skipped','unexpected','flaky']){const input=evidence();input.v01={stats:{expected:2,skipped:0,unexpected:0,flaky:0}};input.v01.stats[k]=1;assert.throws(()=>createPublicSummary(input),/V01 browser evidence/);}
+  const input=evidence();input.v01={};assert.throws(()=>createPublicSummary(input),/V01 browser evidence/);
+});

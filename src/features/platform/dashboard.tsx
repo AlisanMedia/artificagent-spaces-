@@ -929,7 +929,11 @@ export function ManagementDashboard({
                                   src={preview}
                                   controls
                                   preload="metadata"
-                                  aria-label="Gerçek yerel video çıktısı"
+                                  aria-label={
+                                    reviewJob.execution_kind === "fal-v01"
+                                      ? "V01 özel sağlayıcı video adayı"
+                                      : "Gerçek yerel video çıktısı"
+                                  }
                                 />
                               ) : (
                                 <Viewer
@@ -1158,6 +1162,14 @@ export function ManagementDashboard({
                                               {
                                                 decision,
                                                 ...checks,
+                                                ...(reviewJob.execution_kind ===
+                                                "fal-v01"
+                                                  ? {
+                                                      outputSha256:
+                                                        reviewJob.output
+                                                          ?.sha256,
+                                                    }
+                                                  : {}),
                                                 ...(reviewJob.output
                                                   ?.photoComposition
                                                   ? {

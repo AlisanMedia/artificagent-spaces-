@@ -1,3 +1,7 @@
+# V5.8 V01 önceliği — 30 Ekim 2026
+
+Latest owner directive narrows work to V01 only: connect existing production request → durable provider submit/poll/result → bounded1080p byte validation/private artifact → existing project/reviewer/download. No new service/catalog/dashboard/design or V5.7 report regeneration. Preserve earlier branch/history/reports/main/PR2–4/protections and all non-V01 locks. A scoped signed server test permit is required before any future external transfer/inference; a key or flag is never permission. Current spendUSD0, no real provider call/customer data/deploy/purchase. Offline application integration is authorized and must be distinguished from a real provider run. Existing parent review restriction/no PR5/merge/force/rebase/squash/deletion remains. Final Turkish V5.8 report must separate A offline integration from B unrun real inference and consolidate only essential external decisions.
+
 # ArtificAgent Spaces — V2.0 çalışma yetkisi
 
 ## V5.7 Premium Production Service Engine — 30 October 2026

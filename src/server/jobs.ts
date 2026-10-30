@@ -18,12 +18,27 @@ import {
   discardFencedComposition,
 } from "./video-composition";
 
+export interface V01JobCommand {
+  propertyId: string;
+  revision: number;
+  mode: "pov";
+  durationSeconds: 4 | 8;
+  aspectRatio: "16:9" | "9:16";
+  idempotencyKey: string;
+  captions: false;
+  localSource: "provider-image-to-video";
+  sourceAssetIds: string[];
+  template: "modern";
+  branding: false;
+  photoComposition?: undefined;
+}
 export interface JobRecord {
+  execution_kind?: "local" | "fal-v01";
   id: string;
   organization_id: string;
   property_id: string;
   revision: number;
-  command: z.infer<typeof GenerationInput>;
+  command: z.infer<typeof GenerationInput> | V01JobCommand;
   command_hash: string;
   state:
     | "queued"
@@ -43,6 +58,9 @@ export interface JobRecord {
   created_by: string;
   source_snapshot: unknown;
 }
+type LocalJobRecord = Omit<JobRecord, "command"> & {
+  command: z.infer<typeof GenerationInput>;
+};
 export class JobService {
   private readonly ledger = new Ledger();
   private running = false;
@@ -207,7 +225,12 @@ export class JobService {
   }
   async cancel(actor: Actor, id: string) {
     await authorize(this.db, actor, "edit");
-    await this.get(actor, id);
+    const checked = await this.get(actor, id);
+    invariant(
+      checked.execution_kind !== "fal-v01",
+      "V01_CANCEL_PATH_REQUIRED",
+      409,
+    );
     await this.db.pg.transaction(async (tx) => {
       const row = (
         await tx.query<JobRecord>(
@@ -237,7 +260,7 @@ export class JobService {
   async recoverLeases() {
     await this.db.pg.transaction(async (tx) => {
       const expired = await tx.query<JobRecord>(
-        "update jobs set state=case when attempt<2 then 'queued' else 'failed' end,fence=null,epoch=epoch+1,error_code='LEASE_EXPIRED' where state='processing' and lease_until<now() returning *",
+        "update jobs set state=case when attempt<2 then 'queued' else 'failed' end,fence=null,epoch=epoch+1,error_code='LEASE_EXPIRED' where state='processing' and execution_kind='local' and lease_until<now() returning *",
       );
       for (const job of expired.rows) {
         await tx.query(
@@ -256,8 +279,8 @@ export class JobService {
       await this.recoverLeases();
       const job = await this.db.pg.transaction(async (tx) => {
         const row = (
-          await tx.query<JobRecord>(
-            "select * from jobs where state='queued' and attempt<2 order by created_at for update skip locked limit 1",
+          await tx.query<LocalJobRecord>(
+            "select * from jobs where state='queued' and execution_kind='local' and attempt<2 order by created_at for update skip locked limit 1",
           )
         ).rows[0];
         if (!row) return null;

@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
   push:
-    branches: [main, build/v5-4-api-first-studio, build/v5-5-customer-experience, build/v5-5-service-media, build/v5-6-simple-services, build/v5-7-production-engine, build/v5-7-production-engine-reviewed]
+    branches: [main, build/v5-4-api-first-studio, build/v5-5-customer-experience, build/v5-5-service-media, build/v5-6-simple-services, build/v5-7-production-engine, build/v5-7-production-engine-reviewed, build/v5-8-v01-provider-path]
 
 permissions:
   contents: read
@@ -85,6 +85,8 @@ jobs:
         run: npx --no-install playwright install --with-deps chromium
       - name: Browser, accessibility and local-only network checks
         run: npm run test:e2e
+      - name: V01 scoped offline application,1080p and independent reviewer flow
+        run: npm run test:v01
       - name: Verify synthetic Golden Property and isolated static product preview
         run: |
           npm run golden:verify

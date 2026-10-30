@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { resolve } from "node:path";
+import { verifyV01HumanReview } from "./v01/review-proof";
 import { invariant, validateScene, type Scene } from "@/domain/platform";
 import type { OutputEvidence } from "@/contracts/platform-ports";
 import type { Actor, Database } from "./database";
@@ -36,6 +38,10 @@ export class ReleaseService {
     const request = z
       .object({
         decision: z.enum(["approved", "rejected", "retake"]),
+        outputSha256: z
+          .string()
+          .regex(/^[a-f0-9]{64}$/)
+          .optional(),
         rights: z.boolean(),
         evidence: z.boolean(),
         continuity: z.boolean(),
@@ -79,6 +85,31 @@ export class ReleaseService {
       "STALE_OR_INVALID_REVIEW",
       409,
     );
+    const humanProof =
+      job.output.providerVideo?.mode === "fal-live-test" &&
+      request.decision === "approved"
+        ? await verifyV01HumanReview(
+            resolve(this.jobs.storage.root, ".."),
+            {
+              jobId,
+              organizationId: actor.organizationId,
+              propertyId: job.property_id,
+              revision: job.revision,
+              reviewerId: actor.userId,
+              creatorId: job.created_by,
+              sourceSha256: job.output.sourceHashes[0]!,
+              outputSha256: job.output.sha256,
+            },
+            process.env["SPACES_V01_REVIEWER_PUBLIC_KEY"],
+            process.env["SPACES_V01_APPROVER_PUBLIC_KEY"],
+          )
+        : null;
+    if (job.execution_kind === "fal-v01")
+      invariant(
+        request.outputSha256 === job.output.sha256,
+        "V01_EXACT_OUTPUT_REVIEW_REQUIRED",
+        409,
+      );
     if (request.decision === "approved" && job.output.photoComposition) {
       const clips = job.output.photoComposition.clips,
         approvals = request.clipApprovals ?? [];
@@ -99,6 +130,28 @@ export class ReleaseService {
       );
     }
     return this.db.pg.transaction(async (tx) => {
+      if (job.execution_kind === "fal-v01") {
+        const current = (
+          await tx.query<{ revision: number; archived: boolean }>(
+            "select revision,archived from properties where organization_id=$1 and id=$2 for update",
+            [actor.organizationId, job.property_id],
+          )
+        ).rows[0];
+        const candidate = (
+          await tx.query<{ sha: string }>(
+            "select output->>'sha256' as sha from jobs where organization_id=$1 and id=$2 and state='awaiting-review' for update",
+            [actor.organizationId, jobId],
+          )
+        ).rows[0];
+        invariant(
+          current &&
+            !current.archived &&
+            current.revision === job.revision &&
+            candidate?.sha === request.outputSha256,
+          "V01_REVIEW_SOURCE_OR_OUTPUT_CHANGED",
+          409,
+        );
+      }
       const id = newId();
       const result = await tx.query(
         "update jobs set state=$3,updated_at=now() where organization_id=$1 and id=$2 and state='awaiting-review' returning id",
@@ -119,9 +172,21 @@ export class ReleaseService {
           job.revision,
           request.decision,
           actor.userId,
-          JSON.stringify(request),
+          JSON.stringify({
+            ...request,
+            ...(humanProof ? { independentHumanProofSha256: humanProof } : {}),
+          }),
         ],
       );
+      if (job.execution_kind === "fal-v01")
+        await tx.query(
+          "update production_requests set state=$3 where organization_id=$1 and id=(select request_id from v01_runs where organization_id=$1 and job_id=$2)",
+          [
+            actor.organizationId,
+            jobId,
+            request.decision === "approved" ? "approved" : "rejected",
+          ],
+        );
       await audit(tx, actor, "review." + request.decision, jobId);
       return { id, decision: request.decision };
     });
@@ -136,6 +201,11 @@ export class ReleaseService {
         job.revision === property.revision,
       "APPROVED_CURRENT_OUTPUT_REQUIRED",
       409,
+    );
+    invariant(
+      job.execution_kind !== "fal-v01",
+      "V01_PUBLICATION_NOT_AUTHORIZED",
+      403,
     );
     const review = (
       await this.db.pg.query<{ id: string }>(
@@ -240,6 +310,20 @@ export class ReleaseService {
       "APPROVED_CURRENT_OUTPUT_REQUIRED",
       403,
     );
+    const outputHash = job.output.sha256;
+    if (job.execution_kind === "fal-v01") {
+      const review = await this.db.as(actor, (tx) =>
+        tx.query(
+          "select id from reviews where organization_id=$1 and job_id=$2 and decision='approved' and reviewer_id<>$3 and checks->>'outputSha256'=$4",
+          [actor.organizationId, jobId, job.created_by, outputHash],
+        ),
+      );
+      invariant(
+        review.rows.length > 0,
+        "V01_INDEPENDENT_EXACT_REVIEW_REQUIRED",
+        403,
+      );
+    }
     return this.secrets.sign({
       purpose: "output",
       organizationId: actor.organizationId,
@@ -247,7 +331,10 @@ export class ReleaseService {
       revision: job.revision,
       resourceId: jobId,
       sessionId: actor.sessionId,
-      nonce: newId(),
+      nonce:
+        job.execution_kind === "fal-v01"
+          ? "v01-approved:" + outputHash
+          : newId(),
       expiresAt: Date.now() + 60_000,
     });
   }

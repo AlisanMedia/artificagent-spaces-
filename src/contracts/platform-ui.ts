@@ -39,6 +39,16 @@ export interface AssetView {
   position?: number;
 }
 export interface JobView {
+  execution_kind?: "local" | "fal-v01";
+  providerRun?: {
+    jobId: string;
+    productionRequestId: string;
+    mode: "offline-fixture" | "fal-live-test";
+    phase: string;
+    sourceAssetId: string;
+    canAdvance: boolean;
+    actualMicroUsd: number | null;
+  };
   id: string;
   property_id: string;
   revision: number;

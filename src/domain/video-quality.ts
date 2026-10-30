@@ -17,7 +17,8 @@ export interface ShotProvenance {
   readonly operation:
     | "still-pan-zoom"
     | "footage-loop-cut"
-    | "still-letterbox-motion";
+    | "still-letterbox-motion"
+    | "provider-image-to-video";
 }
 export function renderProfile(
   aspect: "16:9" | "9:16",

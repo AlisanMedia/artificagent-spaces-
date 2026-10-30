@@ -97,7 +97,17 @@ export interface OutputEvidence {
   readonly manifestSha256?: string;
   readonly colorSpace?: "bt709-sdr";
   readonly cameraPlan?: ShotPlan | null;
-  readonly kind: "image-motion-demo" | "parametric-mesh";
+  readonly kind:
+    | "image-motion-demo"
+    | "parametric-mesh"
+    | "provider-video"
+    | "provider-contract-fixture";
+  readonly providerVideo?: {
+    readonly profile: "v01-provider-1080p-v1";
+    readonly mode: "offline-fixture" | "fal-live-test";
+    readonly productionRequestId: string;
+    readonly nativeDetailVerified: false;
+  };
   readonly mime: "video/mp4" | "model/gltf-binary";
   readonly extension: "mp4" | "glb";
   readonly durationSeconds: number | null;
@@ -107,7 +117,7 @@ export interface OutputEvidence {
   readonly bytes: number;
   readonly sha256: string;
   readonly wallTimeMs: number;
-  readonly actualExternalCostMicroUsd: 0;
+  readonly actualExternalCostMicroUsd: number | null;
   readonly sourceHashes: readonly string[];
   readonly manifestRevision: number;
   readonly qa: {

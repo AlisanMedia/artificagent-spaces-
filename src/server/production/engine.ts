@@ -217,6 +217,23 @@ export class ProductionServiceEngine {
       "REQUEST_SOURCE_DRIFT",
       409,
     );
+    const linked =
+      row.service_id === "V01"
+        ? (
+            await this.db.as(actor, (tx) =>
+              tx.query<{
+                job_id: string;
+                mode: string;
+                phase: string;
+                actual_micro_usd: number | null;
+                job_state: string;
+              }>(
+                "select r.job_id,r.mode,r.phase,r.actual_micro_usd,j.state as job_state from v01_runs r join jobs j on j.organization_id=r.organization_id and j.id=r.job_id where r.organization_id=$1 and r.request_id=$2",
+                [actor.organizationId, id],
+              ),
+            )
+          ).rows[0]
+        : undefined;
     return {
       id,
       serviceLabel: productionService(row.service_id).labelTR,
@@ -225,19 +242,28 @@ export class ProductionServiceEngine {
       sourceCount: sources.length,
       options: row.options,
       state: row.state,
-      message:
-        row.state === "cancelled"
+      ...(linked ? { jobId: linked.job_id } : {}),
+      message: linked
+        ? linked.mode === "offline-fixture"
+          ? "Sentetik offline V01 akışı kayıtlı; gerçek fal üretimi değildir. Sonuç ve inceleme proje ekranındadır."
+          : "İzinli V01 sağlayıcı testi kayıtlı; sonuç ve inceleme proje ekranındadır."
+        : row.state === "cancelled"
           ? "İstek iptal edildi. Kaynak fotoğrafın saklandı."
           : "Kaynakların ve tercihin kaydedildi. Canlı üretim açılmadığı için işlem başlamadı; ücret alınmadı.",
       futurePriceMicroUsd: null,
-      actualExternalCostMicroUsd: 0,
-      downloadAllowed: false,
-      liveEnabled: false,
+      actualExternalCostMicroUsd: linked
+        ? linked.mode === "offline-fixture"
+          ? 0
+          : linked.actual_micro_usd
+        : 0,
+      downloadAllowed: linked?.job_state === "approved",
+      liveEnabled: linked?.mode === "fal-live-test",
     };
   }
   async cancel(actor: Actor, id: string) {
     const currentActor = await authorize(this.db, actor, "edit");
-    await this.get(actor, id);
+    const current = await this.get(actor, id);
+    invariant(!current.jobId, "V01_CANCEL_PATH_REQUIRED", 409);
     await this.db.pg.transaction(async (tx) => {
       const row = (
         await tx.query<RequestRow>(

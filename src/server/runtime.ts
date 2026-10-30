@@ -12,6 +12,10 @@ import { VoiceService } from "./voice";
 import { BrandService } from "./brands";
 import { seedIdentity } from "./seed";
 import { ProductionServiceEngine } from "./production/engine";
+import { FileV01Authority } from "./v01/authorization";
+import { FalV01Gateway } from "./v01/fal-http";
+import { OfflineV01Gateway } from "./v01/offline-fixture";
+import { V01Service } from "./v01/service";
 import { ProductionArtifactDelivery } from "./production/delivery";
 
 export class PlatformRuntime {
@@ -23,6 +27,7 @@ export class PlatformRuntime {
   readonly voice: VoiceService;
   readonly brands: BrandService;
   readonly production: ProductionServiceEngine;
+  readonly v01: V01Service;
   readonly productionDelivery: ProductionArtifactDelivery;
   constructor(
     readonly db: Database,
@@ -37,6 +42,28 @@ export class PlatformRuntime {
     this.voice = new VoiceService(db, this.releases, this.analytics, secrets);
     this.brands = new BrandService(db);
     this.production = new ProductionServiceEngine(db, this.properties);
+    const privateRoot = resolve(storage.root, "..");
+    const authority = new FileV01Authority(
+      privateRoot,
+      () => process.env["SPACES_V01_APPROVER_PUBLIC_KEY"],
+    );
+    this.v01 = new V01Service(
+      db,
+      this.properties,
+      this.production,
+      storage,
+      authority,
+      (permit, hash, id, routes) =>
+        permit.mode === "offline-fixture"
+          ? new OfflineV01Gateway(privateRoot, permit)
+          : new FalV01Gateway(
+              authority,
+              hash,
+              async () => process.env["FAL_KEY"] ?? "",
+              id,
+              routes,
+            ),
+    );
     this.productionDelivery = new ProductionArtifactDelivery(
       db,
       this.properties,
@@ -88,7 +115,7 @@ export function getRuntime() {
   globalRuntime.spacesRuntimeV2 ??= PlatformRuntime.create(
     resolve(
       /* turbopackIgnore: true */ process.env["SPACES_LOCAL_DATA_DIR"] ??
-        join(process.cwd(), ".spaces-local"),
+        /* turbopackIgnore: true */ join(process.cwd(), ".spaces-local"),
     ),
   );
   return globalRuntime.spacesRuntimeV2;

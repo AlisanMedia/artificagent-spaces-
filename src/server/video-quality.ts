@@ -9,6 +9,7 @@ import {
 } from "@/domain/video-quality";
 import type { OutputEvidence } from "@/contracts/platform-ports";
 import { digest } from "./crypto";
+import { invariant } from "@/domain/platform";
 import { isolatedWorkerEnvironment } from "./media";
 const run = promisify(execFile);
 export interface QualityExpectation {
@@ -70,7 +71,19 @@ export async function inspectVideo(
     if (size <= 0 || size > 52_428_800) throw new Error("OUTPUT_SIZE_LIMIT");
     const p = await run(
       "ffprobe",
-      ["-v", "error", "-show_streams", "-show_format", "-of", "json", path],
+      [
+        "-v",
+        "error",
+        "-protocol_whitelist",
+        "file,pipe",
+        "-max_alloc",
+        "67108864",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        path,
+      ],
       { timeout: 10000, maxBuffer: 262144, env: isolatedWorkerEnvironment() },
     );
     report.ffprobeExit = 0;
@@ -213,6 +226,8 @@ export async function inspectVideo(
         "-v",
         "error",
         "-nostdin",
+        "-protocol_whitelist",
+        "file,pipe",
         "-threads",
         "1",
         "-max_alloc",
@@ -279,6 +294,8 @@ export async function extractInspectionFrames(
         "-v",
         "error",
         "-nostdin",
+        "-protocol_whitelist",
+        "file,pipe",
         "-y",
         "-ss",
         String(time),
@@ -300,4 +317,173 @@ export async function extractInspectionFrames(
       ],
       { timeout: 15000, maxBuffer: 65536, env: isolatedWorkerEnvironment() },
     );
+}
+
+/** V01 has its OWN exact1080p profile. It never invokes local360p/720p resizing or encodes invented detail. */
+export async function validateV01Video(
+  rawPath: string,
+  cleanPath: string,
+  expected: {
+    durationSeconds: 4 | 8;
+    aspectRatio: "16:9" | "9:16";
+    maxBytes: number;
+    sourceId: string;
+    sourceSha256: string;
+    revision: number;
+    manifestSha256: string;
+    requestId: string;
+    mode: "offline-fixture" | "fal-live-test";
+  },
+) {
+  const started = performance.now();
+  const raw = await readFile(rawPath);
+  invariant(
+    raw.length > 32 &&
+      raw.length <= expected.maxBytes &&
+      raw.subarray(4, 8).toString() === "ftyp",
+    "V01_MP4_BYTES_REQUIRED",
+    422,
+  );
+  const info = await run(
+    "ffprobe",
+    [
+      "-v",
+      "error",
+      "-protocol_whitelist",
+      "file,pipe",
+      "-max_alloc",
+      "67108864",
+      "-show_streams",
+      "-show_format",
+      "-of",
+      "json",
+      rawPath,
+    ],
+    { timeout: 10_000, maxBuffer: 262_144, env: isolatedWorkerEnvironment() },
+  );
+  const m = JSON.parse(info.stdout) as {
+    streams: {
+      codec_type: string;
+      codec_name: string;
+      width: number;
+      height: number;
+      pix_fmt: string;
+      sample_aspect_ratio?: string;
+      avg_frame_rate: string;
+      color_transfer?: string;
+    }[];
+    format: { duration: string };
+  };
+  const [width, height] =
+    expected.aspectRatio === "16:9" ? [1920, 1080] : [1080, 1920];
+  const v = m.streams[0],
+    duration = Number(m.format.duration);
+  const [n, d] = (v?.avg_frame_rate ?? "0/1").split("/").map(Number),
+    fps = n! / d!;
+  invariant(
+    m.streams.length === 1 &&
+      v?.codec_type === "video" &&
+      v.codec_name === "h264" &&
+      v.pix_fmt === "yuv420p" &&
+      v.width === width &&
+      v.height === height &&
+      [undefined, "N/A", "1:1"].includes(v.sample_aspect_ratio) &&
+      Number.isFinite(fps) &&
+      fps > 0 &&
+      fps <= 60 &&
+      Number.isFinite(duration) &&
+      Math.abs(duration - expected.durationSeconds) < 0.15 &&
+      !["smpte2084", "arib-std-b67"].includes(v.color_transfer ?? ""),
+    "V01_1080P_PROFILE_MISMATCH",
+    422,
+  );
+  // Copy only: remove metadata, no scaling, frame interpolation, cropping, audio substitution or local render fallback.
+  await run(
+    "ffmpeg",
+    [
+      "-v",
+      "error",
+      "-nostdin",
+      "-protocol_whitelist",
+      "file,pipe",
+      "-threads",
+      "1",
+      "-max_alloc",
+      "67108864",
+      "-max_pixels",
+      "2073600",
+      "-i",
+      rawPath,
+      "-map",
+      "0:v:0",
+      "-c:v",
+      "copy",
+      "-map_metadata",
+      "-1",
+      "-an",
+      "-movflags",
+      "+faststart",
+      "-fs",
+      String(expected.maxBytes),
+      "-n",
+      cleanPath,
+    ],
+    { timeout: 30_000, maxBuffer: 65_536, env: isolatedWorkerEnvironment() },
+  );
+  const clean = await readFile(cleanPath);
+  const evidence: OutputEvidence = {
+    kind:
+      expected.mode === "fal-live-test"
+        ? "provider-video"
+        : "provider-contract-fixture",
+    providerVideo: {
+      profile: "v01-provider-1080p-v1",
+      mode: expected.mode,
+      productionRequestId: expected.requestId,
+      nativeDetailVerified: false,
+    },
+    mime: "video/mp4",
+    extension: "mp4",
+    durationSeconds: duration,
+    width,
+    height,
+    codec: "h264",
+    bytes: clean.length,
+    sha256: digest(clean),
+    wallTimeMs: Math.round(performance.now() - started),
+    actualExternalCostMicroUsd: expected.mode === "offline-fixture" ? 0 : null,
+    sourceHashes: [expected.sourceSha256],
+    manifestRevision: expected.revision,
+    manifestSha256: expected.manifestSha256,
+    shotProvenance: [
+      {
+        sourceId: expected.sourceId,
+        sourceSha256: expected.sourceSha256,
+        startSeconds: 0,
+        endSeconds: expected.durationSeconds,
+        operation: "provider-image-to-video",
+      },
+    ],
+    qa: {
+      integrity: true,
+      architecturalFidelity: "HUMAN_REVIEW_REQUIRED",
+      disclosure:
+        expected.mode === "offline-fixture"
+          ? "Hazır sentetik offline fixture video; yüklediğin fotoğraftan AI ile üretilmedi, fal üretimi değildir. 1080p dosya ölçülmüştür; doğal kaynak ayrıntısı veya ticari kalite kanıtlanmadı."
+          : "Gerçek V01 sağlayıcı test çıktısı; bağımsız kaynak/mimari inceleme gerekir. Ölçülen1080p, native kaynak ayrıntısı garantisi değildir.",
+    },
+  };
+  const qa = await inspectVideo(cleanPath, {
+    width,
+    height,
+    durationSeconds: expected.durationSeconds,
+    revision: expected.revision,
+    manifestSha256: expected.manifestSha256,
+    sourceHashes: [expected.sourceSha256],
+    sourceIds: [expected.sourceId],
+    captionsRequired: false,
+    evidence,
+  });
+  invariant(qa.status === "PASS", "V01_VIDEO_QA_HOLD", 422);
+  return { evidence, qa, rawSha256: digest(raw) };
 }

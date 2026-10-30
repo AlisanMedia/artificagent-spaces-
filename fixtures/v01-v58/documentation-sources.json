@@ -1,0 +1,67 @@
+{
+  "checkedAt": "2026-10-30",
+  "inferenceCalls": 0,
+  "records": [
+    {
+      "id": "queue",
+      "url": "https://docs.fal.ai/model-apis/model-endpoints/queue",
+      "finalUrl": "https://fal.ai/docs/documentation/model-apis/inference/queue",
+      "status": 200,
+      "bytes": 841737,
+      "sha256": "d5228ff8b135868c25458d8df9ae689ca174b50b2baddf6fa137c0964ac76551",
+      "retrievedAtUtc": "2026-10-30T18:38:11.611257+00:00"
+    },
+    {
+      "id": "files",
+      "url": "https://docs.fal.ai/model-apis/model-endpoints/handling-files",
+      "errorType": "HTTPError"
+    },
+    {
+      "id": "kling",
+      "url": "https://fal.ai/models/kling/v4/image-to-video/api",
+      "finalUrl": "https://fal.ai/models/kling/v4/image-to-video/api",
+      "status": 200,
+      "bytes": 344859,
+      "sha256": "6c4102dc56771bcdce4405d1c9be4fe4e3e67a1628dfd8780d5491974186b73f",
+      "retrievedAtUtc": "2026-10-30T18:38:13.082325+00:00"
+    },
+    {
+      "id": "fal-openapi",
+      "url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=kling/v4/image-to-video",
+      "finalUrl": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=kling/v4/image-to-video",
+      "status": 200,
+      "bytes": 7125,
+      "sha256": "7a458d092d0250e156f53104bf9c8023947d1b6303f33148997f076b622699e8",
+      "retrievedAtUtc": "2026-10-30T18:38:13.739815+00:00"
+    },
+    {
+      "id": "fal-llms",
+      "url": "https://docs.fal.ai/llms.txt",
+      "finalUrl": "https://fal.ai/docs/llms.txt",
+      "status": 200,
+      "bytes": 42103,
+      "sha256": "937b278f4a334d8594063426756619898910a88030099d6a426156397cb1af5c",
+      "retrievedAtUtc": "2026-10-30T18:38:14.130555+00:00"
+    },
+    {
+      "id": "kling-pricing-page",
+      "url": "https://fal.ai/models/kling/v4/image-to-video",
+      "status": 200,
+      "retrievedAtUtc": "2026-10-30T19:19:40.692598+00:00",
+      "bytes": 356973,
+      "sha256": "0bdd4600fdb185c6403a60225256444666a6ab2bf0f9fae4c68b98b8cb2cf15c",
+      "note": "Public listing only; account entitlement, taxes, overage and hard cap not verified"
+    }
+  ],
+  "decisions": {
+    "inlineBase64": "VERIFIED_ON_SELECTED_KLING_ENDPOINT_DOCUMENTATION",
+    "queueRoot": "VERIFIED_OWNER_APP_ONLY_kling/v4",
+    "webhook": "NOT_REQUIRED_FOR_BOUNDED_POLLING",
+    "unretrievedGenericFilePage": "404_NOT_USED_AS_EVIDENCE",
+    "retentionTerms": "OWNER_APPROVAL_REQUIRED_NOT_INFERRED_FROM_INLINE_TRANSFER",
+    "accountSpecificPrice": "NOT_VERIFIED_NO_ACCOUNT_CREDENTIAL_OR_BOUND_OVERAGE_PROOF",
+    "public1080pListPrice": "VERIFIED_PUBLIC_LIST_USD_0.235_PER_SECOND_NOT_ACCOUNT_QUOTE",
+    "endpointOpenApiQueuePath": "FULL_ENDPOINT_PATH_IN_OPENAPI_DIFFERS_FROM_GENERIC_GUIDE; VALIDATED_SUBMIT_RECEIPT_PAIR_IS_PERSISTED",
+    "receiptStatus": "OPTIONAL_ON_SUBMIT; REQUIRED_ON_STATUS_RESPONSE"
+  }
+}

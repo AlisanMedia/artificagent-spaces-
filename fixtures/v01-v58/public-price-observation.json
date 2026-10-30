@@ -1,0 +1,18 @@
+{
+  "observedAtUtc": "2026-10-30T19:19:40.692598+00:00",
+  "url": "https://fal.ai/models/kling/v4/image-to-video",
+  "sourceSha256": "0bdd4600fdb185c6403a60225256444666a6ab2bf0f9fae4c68b98b8cb2cf15c",
+  "model": "kling/v4/image-to-video",
+  "resolution": "1080p",
+  "currency": "USD",
+  "unit": "output_second",
+  "listedUnitPriceMicroUsd": 235000,
+  "proposedInitialSeconds": 4,
+  "modelOnlyListedChargeMicroUsd": 940000,
+  "taxesOrAccountDiscounts": "NOT_VERIFIED",
+  "failureAndMinimumCharges": "NOT_VERIFIED",
+  "providerEnforcedAccountCap": "NOT_VERIFIED",
+  "maximumTotalFinancialExposureMicroUsd": null,
+  "authorizedSpendMicroUsd": 0,
+  "inferenceCalls": 0
+}

@@ -62,6 +62,7 @@ import { CustomerSteps, OrderSummary } from "./customer-journey";
 import { ProductionFamilyCards } from "../services/production-families";
 import { ProductionRequestPanel } from "../services/production-request-panel";
 import { LocalSupportTools } from "../services/local-support-tools";
+import { V01Action } from "./v01-action";
 import { ProductionServiceId } from "@/domain/production-services";
 
 type Draft = { property: PropertyView; assets: AssetView[] };
@@ -1285,6 +1286,16 @@ export function CreationStudio() {
                         onContinue={() => setStep(4)}
                         onCreateLocal={() => void generatePhotoEdit()}
                       />
+                      {product === "video" &&
+                        cameraStyle === "natural" &&
+                        draft && (
+                          <V01Action
+                            key={`${draft.property.id}:${draft.property.revision}:${productionSource?.id ?? "none"}`}
+                            property={draft.property}
+                            source={productionSource}
+                            disabled={busy || !canEdit}
+                          />
+                        )}
                       <details className="v54-legacy">
                         <summary>
                           Önceki yerel kurgu ve ölçülü 3D seçenekleri

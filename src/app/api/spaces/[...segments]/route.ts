@@ -506,6 +506,19 @@ async function handler(request: Request, context: RouteContext) {
       });
       return responseJson({ scheduled: true, externalSpendMicroUsd: 0 }, 202);
     }
+    if (path === "v01/readiness" && method === "GET")
+      return responseJson(
+        await platform.v01.readiness(
+          actor,
+          Id.parse(url.searchParams.get("propertyId")),
+          z.coerce
+            .number()
+            .int()
+            .positive()
+            .parse(url.searchParams.get("revision")),
+          Id.parse(url.searchParams.get("assetId")),
+        ),
+      );
     if (path === "production/readiness" && method === "GET") {
       await authorize(platform.db, actor, "admin");
       return responseJson({
@@ -538,14 +551,30 @@ async function handler(request: Request, context: RouteContext) {
       segments[2]
     ) {
       const requestId = Id.parse(segments[2]);
+      if (
+        segments.length === 4 &&
+        segments[3] === "v01-start" &&
+        method === "POST"
+      ) {
+        z.object({})
+          .strict()
+          .parse(await jsonBody(request));
+        return responseJson(await platform.v01.start(actor, requestId), 202);
+      }
       if (segments.length === 3 && method === "GET")
         return responseJson(await platform.production.get(actor, requestId));
       if (
         segments.length === 4 &&
         segments[3] === "cancel" &&
         method === "POST"
-      )
-        return responseJson(await platform.production.cancel(actor, requestId));
+      ) {
+        const current = await platform.production.get(actor, requestId);
+        return responseJson(
+          current.jobId
+            ? await platform.v01.cancel(actor, current.jobId)
+            : await platform.production.cancel(actor, requestId),
+        );
+      }
       if (
         segments.length === 4 &&
         segments[3] === "review" &&
@@ -626,10 +655,51 @@ async function handler(request: Request, context: RouteContext) {
     }
     if (segments[0] === "jobs" && segments[1]) {
       const id = Id.parse(segments[1]);
-      if (segments.length === 2 && method === "GET")
-        return responseJson(await platform.jobs.get(actor, id));
+      if (segments.length === 2 && method === "GET") {
+        const job = await platform.jobs.get(actor, id);
+        if (job.execution_kind !== "fal-v01") return responseJson(job);
+        const run = await platform.v01.get(actor, id);
+        const source = (
+          await platform.db.as(actor, (tx) =>
+            tx.query<{ asset_id: string }>(
+              "select asset_id from production_sources where organization_id=$1 and request_id=$2",
+              [actor.organizationId, run.request_id],
+            ),
+          )
+        ).rows[0]!;
+        return responseJson({
+          ...job,
+          providerRun: {
+            ...platform.v01.view(run),
+            sourceAssetId: source.asset_id,
+            canAdvance:
+              platform.v01.view(run).canAdvance &&
+              (job.created_by === actor.userId || actor.role === "admin") &&
+              ["admin", "editor"].includes(actor.role),
+          },
+        });
+      }
+      if (segments[2] === "v01-poll" && method === "POST") {
+        z.object({})
+          .strict()
+          .parse(await jsonBody(request));
+        return responseJson(await platform.v01.advance(actor, id));
+      }
+      if (segments[2] === "v01-reconcile" && method === "POST") {
+        const data = z
+          .object({
+            providerRequestId: z.string().regex(/^[A-Za-z0-9_-]{1,120}$/),
+          })
+          .strict()
+          .parse(await jsonBody(request));
+        return responseJson(
+          await platform.v01.reconcile(actor, id, data.providerRequestId),
+        );
+      }
       if (segments[2] === "cancel" && method === "POST") {
-        await platform.jobs.cancel(actor, id);
+        if ((await platform.jobs.get(actor, id)).execution_kind === "fal-v01")
+          await platform.v01.cancel(actor, id);
+        else await platform.jobs.cancel(actor, id);
         return responseJson({ cancelled: true });
       }
       if (segments[2] === "review" && method === "POST")
@@ -661,7 +731,10 @@ async function handler(request: Request, context: RouteContext) {
             revision: job.revision,
             resourceId: id,
             sessionId: actor.sessionId,
-            nonce: "author-preview",
+            nonce:
+              job.execution_kind === "fal-v01"
+                ? "v01-author-preview:" + job.output!.sha256
+                : "author-preview",
             expiresAt:
               Date.now() + MEDIA_CAPABILITIES.uploadGrantSeconds * 1000,
           }),
@@ -686,7 +759,10 @@ async function handler(request: Request, context: RouteContext) {
             revision: job.revision,
             resourceId: id,
             sessionId: actor.sessionId,
-            nonce: "review-candidate",
+            nonce:
+              job.execution_kind === "fal-v01"
+                ? "v01-review-candidate:" + job.output!.sha256
+                : "review-candidate",
             expiresAt:
               Date.now() + MEDIA_CAPABILITIES.uploadGrantSeconds * 1000,
           }),
@@ -714,14 +790,20 @@ async function handler(request: Request, context: RouteContext) {
           "OUTPUT_GRANT_SCOPE_DENIED",
           403,
         );
-        if (grant.nonce === "author-preview") {
+        if (
+          grant.nonce === "author-preview" ||
+          grant.nonce.startsWith("v01-author-preview:")
+        ) {
           await authorize(platform.db, actor, "edit");
           invariant(
             job.state === "awaiting-review" && job.created_by === actor.userId,
             "PREVIEW_SCOPE_DENIED",
             403,
           );
-        } else if (grant.nonce === "review-candidate") {
+        } else if (
+          grant.nonce === "review-candidate" ||
+          grant.nonce.startsWith("v01-review-candidate:")
+        ) {
           await authorize(platform.db, actor, "review");
           invariant(
             job.state === "awaiting-review",
@@ -730,6 +812,16 @@ async function handler(request: Request, context: RouteContext) {
           );
         } else
           invariant(job.state === "approved", "APPROVED_OUTPUT_REQUIRED", 403);
+        if (job.execution_kind === "fal-v01")
+          invariant(
+            [
+              "v01-author-preview:",
+              "v01-review-candidate:",
+              "v01-approved:",
+            ].some((prefix) => grant.nonce === prefix + job.output!.sha256),
+            "V01_OUTPUT_HASH_GRANT_DENIED",
+            403,
+          );
         const clip =
           segments[2] === "clips"
             ? job.output.photoComposition?.clips.find(

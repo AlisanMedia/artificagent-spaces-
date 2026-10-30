@@ -22,6 +22,8 @@ const config: NextConfig = {
   devIndicators: false,
   images: { remotePatterns: [] },
   serverExternalPackages: ["@electric-sql/pglite", "sharp"],
+  // Runtime databases, scoped permits and private media must never enter a deployment trace.
+  outputFileTracingExcludes: { "/*": ["./.spaces-local/**/*"] },
   experimental: { cpus: 2 },
   async headers() {
     return [{
