@@ -153,6 +153,17 @@ export class FalV01Gateway implements V01Gateway {
           timeout: 20_000,
           headers: {
             ...(credential ? { authorization: "Key " + key } : {}),
+            ...(method === "POST"
+              ? {
+                  // App retries and fal queue/model fallbacks are separate policies.
+                  "X-Fal-No-Retry": "1",
+                  "x-app-fal-disable-fallback": "true",
+                  "X-Fal-Store-IO": "0",
+                  "X-Fal-Object-Lifecycle-Preference": JSON.stringify({
+                    expiration_duration_seconds: 3600,
+                  }),
+                }
+              : {}),
             ...(body
               ? {
                   "content-type": "application/json",

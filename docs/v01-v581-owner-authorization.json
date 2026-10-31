@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "v01-v581-owner-authorization-record-v1",
+  "recordedAtUtc": "2026-10-31T00:58:18.782330+00:00",
+  "recordType": "OWNER_DIRECTIVE_RECORD_NOT_A_RUNTIME_PERMIT",
+  "authorizationSource": "Current explicit V5.8.1 owner directive; previous Devam authorization recognized without re-requesting budget",
+  "OWNER_AUTHORIZATION": {
+    "status": "APPROVED_CONDITIONAL",
+    "serviceId": "V01",
+    "provider": "fal.ai",
+    "model": "kling/v4/image-to-video",
+    "promptProfile": "video.natural.v1",
+    "promptSha256": "73c2b37a81eeb066afd5f521b1e46eaceef4bc0d59a0f92c8bae34bdfe6e1fd1",
+    "profileSha256": "566e1035fa33655bb652f49ab055c7c12b7a736c62de5eb93a2a8d00465c985f",
+    "outputProfile": "v01-provider-1080p-v1",
+    "durationSeconds": 4,
+    "aspectRatio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "maxBillableSubmits": 1,
+    "maxIncrementalCostMicroUsd": 10000000,
+    "automaticSecondSubmit": false,
+    "paidModelFallback": false,
+    "source": {
+      "kind": "project-authored-synthetic-golden-property",
+      "originalPath": "public/golden-v5/living.png",
+      "originalSha256": "ce5e3861625e0ed33499526626db6360719c4af0d206ed574067f7710a0c4791",
+      "providerInputSha256": "2c5829296c7453dbb1f28a5f3765bf868328e3b2fb5dd4fd2f15d0d38f81cfe0"
+    },
+    "conditions": [
+      "Exact account endpoint access verified without inference probe",
+      "Operational authorized signer and source-scoped runtime permit",
+      "Applicable source-processing and retention terms checked",
+      "All additional costs including internal retries/taxes/minimum purchase bounded within USD10"
+    ],
+    "otherServicesAuthorized": false,
+    "hostingAuthorized": false,
+    "customerBetaAuthorized": false,
+    "livePaymentsAuthorized": false
+  },
+  "MODEL_ACCESS": {
+    "status": "NOT_VERIFIED",
+    "publicSchema": "VERIFIED_PUBLIC_ONLY_NOT_ACCOUNT_ENTITLEMENT",
+    "officialLaunchStatement": "API access coming soon",
+    "accountAuthenticatedReadPerformed": false,
+    "reason": "No FAL_KEY or connected account reader in this runtime",
+    "knownAccessReport": "GET https://api.fal.ai/v1/account/model-access-controls; enterprise model-access-controls accounts only; does not by itself settle an early-access exception"
+  },
+  "RUNTIME_PERMIT": {
+    "status": "MISSING",
+    "FAL_KEY": "MISSING",
+    "trustedApproverPublicKey": "MISSING",
+    "authorizedOperationalSigner": "MISSING",
+    "signedLivePermit": "MISSING",
+    "historicalOfflinePermits": 14,
+    "historicalOfflinePermitsAreOperationalApproval": false,
+    "reviewerKey": "MISSING",
+    "reviewerBlocksGeneration": false,
+    "reviewerBlocksFinalRelease": true
+  },
+  "ACTUAL_SPEND": {
+    "currentExecutionConfirmedMicroUsd": 0,
+    "basis": "Zero inference submits and zero purchases in this execution",
+    "providerAccountTotal": "UNKNOWN",
+    "authorizedIncrementalMaximumMicroUsd": 10000000,
+    "maximumAccountSpecificLiabilityVerified": false,
+    "publicModelOnlyEstimateMicroUsd": 940000,
+    "estimateIsTotalCapGuarantee": false
+  },
+  "PROVIDER_EXECUTION": {
+    "status": "NOT_EXECUTED",
+    "realSubmitCountThisExecution": 0,
+    "providerRequestId": null,
+    "realMp4": "NOT_GENERATED",
+    "realMp4Sha256": null,
+    "resolutionDurationQa": "NOT_RUN",
+    "humanReview": "NOT_REVIEWED_NO_REAL_OUTPUT",
+    "finalDownloadEnabled": false,
+    "publicShareEnabled": false
+  },
+  "BLOCKER": {
+    "code": "BLOCKED_ACCOUNT_VERIFICATION",
+    "meaning": "Account-specific API entitlement cannot be established; not a claim of DENIED",
+    "immediateCause": "Operational fal account/secret/signer configuration absent",
+    "minimumOwnerAction": "Verify this existing account has Kling4 endpoint API access (not only playground); bind existing server FAL_KEY and trusted operational approver signer via secure secret management. No new budget approval requested. No Enterprise upgrade or production probe."
+  },
+  "officialSources": [
+    {
+      "id": "model-page",
+      "url": "https://fal.ai/models/kling/v4/image-to-video",
+      "finalUrl": "https://fal.ai/models/kling/v4/image-to-video",
+      "status": 200,
+      "bytes": 357639,
+      "sha256": "d84d31ed8ebf7dd043979ace4b495f2fd03f395c677a48a171da38c9b8d6a57b",
+      "retrievedAtUtc": "2026-10-31T00:52:52.450437+00:00"
+    },
+    {
+      "id": "model-api",
+      "url": "https://fal.ai/models/kling/v4/image-to-video/api",
+      "finalUrl": "https://fal.ai/models/kling/v4/image-to-video/api",
+      "status": 200,
+      "bytes": 345721,
+      "sha256": "6633fe38ac9fb4913edd2630a1e6246fe26d490440b2174cd8fcdcddad8a144c",
+      "retrievedAtUtc": "2026-10-31T00:52:54.010657+00:00"
+    },
+    {
+      "id": "openapi",
+      "url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=kling/v4/image-to-video",
+      "finalUrl": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=kling/v4/image-to-video",
+      "status": 200,
+      "bytes": 7125,
+      "sha256": "7a458d092d0250e156f53104bf9c8023947d1b6303f33148997f076b622699e8",
+      "retrievedAtUtc": "2026-10-31T00:52:53.798385+00:00"
+    },
+    {
+      "id": "docs-index",
+      "url": "https://docs.fal.ai/llms.txt",
+      "finalUrl": "https://fal.ai/docs/llms.txt",
+      "status": 200,
+      "bytes": 42316,
+      "sha256": "6ab855919981755ef3a567d102beadd21bb55ce475e113e62aaa8a6c8f1b22f6",
+      "retrievedAtUtc": "2026-10-31T00:52:56.259500+00:00"
+    },
+    {
+      "id": "terms",
+      "url": "https://fal.ai/legal/terms-of-service",
+      "finalUrl": "https://fal.ai/legal/terms-of-service",
+      "status": 200,
+      "bytes": 217777,
+      "sha256": "04f642f0b7c85811d61625bd90ad2d189c1a07e1e51f6bb17eff540f4a301ce0",
+      "retrievedAtUtc": "2026-10-31T00:52:57.083009+00:00"
+    },
+    {
+      "id": "api-terms",
+      "url": "https://fal.ai/legal/api-services",
+      "finalUrl": "https://fal.ai/legal/api-services",
+      "status": 200,
+      "bytes": 164497,
+      "sha256": "03f87ed82904828d2c30c293e05f0631cdc29b3abd93768aad411d6877dfec97",
+      "retrievedAtUtc": "2026-10-31T00:52:57.263591+00:00"
+    },
+    {
+      "id": "kling-launch",
+      "url": "https://fal.ai/kling-4",
+      "finalUrl": "https://fal.ai/kling-4",
+      "status": 200,
+      "bytes": 380382,
+      "sha256": "b671dd5effce2431a880f2205124265cc10d994649b5927adc248d4ec7fca98f",
+      "retrievedAtUtc": "2026-10-31T00:54:54.360775+00:00"
+    },
+    {
+      "id": "account-access-doc",
+      "url": "https://fal.ai/docs/platform-apis/v1/account/model-access-controls.md",
+      "finalUrl": "https://fal.ai/docs/platform-apis/v1/account/model-access-controls.md",
+      "status": 200,
+      "bytes": 11345,
+      "sha256": "1db8023ea71dd228f5a09c0e84426e16fe2d445a2fb41ce15fc4efdb8b22cc5f",
+      "retrievedAtUtc": "2026-10-31T00:54:54.269228+00:00"
+    },
+    {
+      "id": "account-billing-doc",
+      "url": "https://fal.ai/docs/platform-apis/v1/account/billing.md",
+      "finalUrl": "https://fal.ai/docs/platform-apis/v1/account/billing.md",
+      "status": 200,
+      "bytes": 14367,
+      "sha256": "51e01776f4cc58a2b10dce4362d15a86e39220ef4579c41f6e0d763c1bef81c7",
+      "retrievedAtUtc": "2026-10-31T00:54:53.914824+00:00"
+    },
+    {
+      "id": "model-pricing-doc",
+      "url": "https://fal.ai/docs/platform-apis/v1/models/pricing.md",
+      "finalUrl": "https://fal.ai/docs/platform-apis/v1/models/pricing.md",
+      "status": 200,
+      "bytes": 15353,
+      "sha256": "ad96ee8ded65dc6953e640f0aaabaf2c3213a487ecbd32022b68d71b47a482a9",
+      "retrievedAtUtc": "2026-10-31T00:54:53.922973+00:00"
+    },
+    {
+      "id": "auth-doc",
+      "url": "https://fal.ai/docs/api-reference/platform-apis/authentication.md",
+      "finalUrl": "https://fal.ai/docs/api-reference/platform-apis/authentication.md",
+      "status": 200,
+      "bytes": 5580,
+      "sha256": "3a4db21dcf71cfa9ab2ba87c599ead23b3bd1fa2a575e80e31408eba1e96d48d",
+      "retrievedAtUtc": "2026-10-31T00:54:54.039197+00:00"
+    },
+    {
+      "id": "queue-doc",
+      "url": "https://fal.ai/docs/documentation/model-apis/inference/queue.md",
+      "finalUrl": "https://fal.ai/docs/documentation/model-apis/inference/queue.md",
+      "status": 200,
+      "bytes": 26257,
+      "sha256": "fe5913afeb693e6e97b966be1ba21e5b8174e5480018c8761c9e20a149c94dcd",
+      "retrievedAtUtc": "2026-10-31T00:54:54.053670+00:00"
+    },
+    {
+      "id": "queue-submit-doc",
+      "url": "https://fal.ai/docs/api-reference/inference-api/queue/submit.md",
+      "finalUrl": "https://fal.ai/docs/api-reference/inference-api/queue/submit.md",
+      "status": 200,
+      "bytes": 15917,
+      "sha256": "7b2f896f624f244ff90d4f675e04607fe858ab32f1df887fd728ca038e3ced6a",
+      "retrievedAtUtc": "2026-10-31T00:54:54.372097+00:00"
+    },
+    {
+      "id": "common-parameters",
+      "url": "https://fal.ai/docs/documentation/model-apis/common-parameters.md",
+      "finalUrl": "https://fal.ai/docs/documentation/model-apis/common-parameters.md",
+      "status": 200,
+      "bytes": 19158,
+      "sha256": "a689fb1c343f12f14c1ec31a0fdef4b2263d489e3b159bb1313328f065aff05b",
+      "retrievedAtUtc": "2026-10-31T00:55:50.504696+00:00"
+    },
+    {
+      "id": "reliability",
+      "url": "https://fal.ai/docs/documentation/model-apis/inference/reliability.md",
+      "finalUrl": "https://fal.ai/docs/documentation/model-apis/inference/reliability.md",
+      "status": 200,
+      "bytes": 7830,
+      "sha256": "a9e4002a4f82429d7bf0ab7e2a65d3db71f2c7943cb0721ab0d3fa807229743c",
+      "retrievedAtUtc": "2026-10-31T00:55:50.482683+00:00"
+    },
+    {
+      "id": "media-expiration",
+      "url": "https://fal.ai/docs/documentation/model-apis/media-expiration.md",
+      "finalUrl": "https://fal.ai/docs/documentation/model-apis/media-expiration.md",
+      "status": 200,
+      "bytes": 9676,
+      "sha256": "d8671f63aac1f72e12bef7d2d77eae3bed650dd9d1eefc532cbe3cec5fcc9a75",
+      "retrievedAtUtc": "2026-10-31T00:55:50.525846+00:00"
+    }
+  ]
+}

@@ -138,6 +138,21 @@ describe("real V01 HTTP serializer/parsers with completely intercepted network",
         (x) => x.options.headers["authorization"] === "Key offline-placeholder",
       ),
     ).toBe(true);
+    expect(calls.requests[0]!.options.headers).toMatchObject({
+      "X-Fal-No-Retry": "1",
+      "x-app-fal-disable-fallback": "true",
+      "X-Fal-Store-IO": "0",
+      "X-Fal-Object-Lifecycle-Preference":
+        '{"expiration_duration_seconds":3600}',
+    });
+    for (const get of calls.requests.slice(1)) {
+      expect(get.options.headers["X-Fal-No-Retry"]).toBeUndefined();
+      expect(get.options.headers["x-app-fal-disable-fallback"]).toBeUndefined();
+      expect(get.options.headers["X-Fal-Store-IO"]).toBeUndefined();
+      expect(
+        get.options.headers["X-Fal-Object-Lifecycle-Preference"],
+      ).toBeUndefined();
+    }
   });
   it("does not forward provider credentials to CDN outputs or follow redirects", async () => {
     const { g } = gateway();
@@ -145,6 +160,9 @@ describe("real V01 HTTP serializer/parsers with completely intercepted network",
     calls.response = Buffer.from("intercepted synthetic bytes");
     await g.download("https://v3.fal.media/owned-fixture.mp4", 1000);
     expect(calls.requests[0]!.options.headers["authorization"]).toBeUndefined();
+    expect(
+      calls.requests[0]!.options.headers["X-Fal-No-Retry"],
+    ).toBeUndefined();
     calls.responseStatus = 302;
     await expect(
       g.download("https://v3.fal.media/owned-fixture.mp4", 1000),
