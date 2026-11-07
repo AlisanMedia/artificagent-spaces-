@@ -14,6 +14,8 @@ import {
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { generateKeyPairSync } from "node:crypto";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { digest } from "@/server/crypto";
 import { FileV01Authority } from "@/server/v01/authorization";
 import {
@@ -109,6 +111,54 @@ async function evidence(cfg: OperatorConfig) {
   };
 }
 describe("same-runtime secret/public trust bindings", () => {
+  it("masks immediate pasted TTY input and restores/cancels without creating an operational signer", async () => {
+    // Eight real PTY attempts, synthetic text only; ESC happens BEFORE setupOperator.
+    // No secret, public trust, permit, runtime DB or inference is configured.
+    const python = `
+import os,pty,subprocess,select,time,json,pathlib
+results=[]
+for attempt in range(8):
+ home=pathlib.Path(__import__('sys').argv[1])/('tty-abort-'+str(attempt))
+ master,slave=pty.openpty()
+ env=dict(os.environ,SPACES_V01_OPERATOR_HOME=str(home),FAL_KEY='',FAL_KEY_FILE='',SPACES_V01_APPROVER_PUBLIC_KEY='',SPACES_V01_APPROVER_PUBLIC_KEY_FILE='')
+ p=subprocess.Popen(['node_modules/.bin/tsx','scripts/v01-operator.ts','setup'],stdin=slave,stdout=slave,stderr=slave,env=env)
+ os.close(slave);out=bytearray()
+ def until(marker):
+  deadline=time.monotonic()+8
+  while marker.encode() not in out:
+   if time.monotonic()>deadline:raise RuntimeError('TEST_PROMPT_TIMEOUT')
+   if select.select([master],[],[],.05)[0]:
+    try:out.extend(os.read(master,8192))
+    except OSError:raise RuntimeError('TEST_PREMATURE_EXIT')
+ try:
+  until('operatör kimliği');os.write(master,b'TEST-ONLY-TTY-OPERATOR\\n')
+  until('kurulum yetkisi referans');os.write(master,b'TEST-ONLY-ABORT-BEFORE-SETUP\\n')
+  until('KURULUMU ONAYLIYORUM');os.write(master,'KURULUMU ONAYLIYORUM\\n'.encode())
+  until('FAL_KEY (gizli');dummy=b'SYNTHETIC-NO-ACCESS-TTY-TEST';os.write(master,dummy+b'\\x1b')
+  p.wait(timeout=8)
+  while select.select([master],[],[],.05)[0]:
+   try:out.extend(os.read(master,8192))
+   except OSError:break
+  results.append({'masked':dummy not in out,'aborted':p.returncode!=0,'noSetup':not home.exists()})
+ finally:
+  if p.poll() is None:p.kill();p.wait()
+  os.close(master)
+print(json.dumps(results))
+`;
+    const { stdout } = await promisify(execFile)(
+      "python3",
+      ["-c", python, root],
+      { timeout: 25000, maxBuffer: 8192 },
+    );
+    const results = JSON.parse(stdout) as {
+      masked: boolean;
+      aborted: boolean;
+      noSetup: boolean;
+    }[];
+    expect(results).toHaveLength(8);
+    for (const result of results)
+      expect(result).toEqual({ masked: true, aborted: true, noSetup: true });
+  }, 30000);
   it("reads an inherited proxy placeholder or private file without returning its value as status", async () => {
     const file = join(root, "fixture.key");
     await writeFile(file, fixtureSecret, { mode: 0o600 });

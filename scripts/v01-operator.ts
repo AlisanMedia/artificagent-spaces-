@@ -45,15 +45,13 @@ async function hiddenSecret() {
     "V01_OPERATOR_TTY_REQUIRED",
     403,
   );
-  process.stdout.write("FAL_KEY (gizli giriş; ekranda gösterilmez): ");
-  process.stdin.setRawMode(true);
-  process.stdin.resume();
+  const previousRaw = Boolean(process.stdin.isRaw);
   return new Promise<string>((resolveSecret, reject) => {
     let text = "";
     const clean = () => {
       process.stdin.off("data", onData);
-      process.stdin.setRawMode(false);
       process.stdin.pause();
+      process.stdin.setRawMode(previousRaw);
       process.stdout.write("\n");
     };
     const onData = (bytes: Buffer) => {
@@ -78,6 +76,11 @@ async function hiddenSecret() {
       }
     };
     process.stdin.on("data", onData);
+    // Arm no-echo mode and the listener BEFORE showing the prompt. Immediate
+    // paste must never race the terminal's old canonical/echo configuration.
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdout.write("FAL_KEY (gizli giriş; ekranda gösterilmez): ");
   });
 }
 function print(value: unknown) {
