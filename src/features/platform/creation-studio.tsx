@@ -727,17 +727,9 @@ export function CreationStudio() {
         <>
           <div className={`ux-studio-heading ${step > 1 ? "is-compact" : ""}`}>
             <div>
-              <span className="ux-kicker">EMLAK STÜDYOSU</span>
-              <h1>
-                Bir fotoğraftan
-                <br />
-                <em>daha fazlası.</em>
-              </h1>
+              <h1>Bir fotoğraftan daha fazlası.</h1>
               <p>Mekânınızı anlatan bir içerik hazırlayın.</p>
             </div>
-            <span className="ux-studio-caption">
-              Bir mekân. Size ait bir anlatım.
-            </span>
           </div>
           {step !== 1 && !productionService && (
             <StudioProductSelector
@@ -813,9 +805,7 @@ export function CreationStudio() {
                   <>
                     <div className="v55-service-heading">
                       <div>
-                        <h2>
-                          Nasıl bir çalışma <em>istersin?</em>
-                        </h2>
+                        <h2>Nasıl bir çalışma istersin?</h2>
                         <p>Örneğine bak, ihtiyacına uygun hizmeti seç.</p>
                       </div>
                     </div>

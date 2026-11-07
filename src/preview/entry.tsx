@@ -34,6 +34,7 @@ import { useLocalMedia, type LocalMedia } from "./use-local-media";
 import "../app/studio-visual.css";
 import "./preview.css";
 import "../app/customer-experience.css";
+import "../app/impeccable-studio.css";
 import { CustomerShowcase } from "../features/showcase/customer-showcase";
 declare const SPACES_PREVIEW_BUILD_ID: string;
 // This immutable fixture is hash/schema validated by build-owner-preview.ts. No client-supplied scene.

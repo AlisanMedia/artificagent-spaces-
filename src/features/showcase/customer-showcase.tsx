@@ -319,10 +319,7 @@ export function CustomerShowcase({
 
         <section className="sc-hero">
           <div>
-            <span className="sc-overline">GAYRİMENKULÜNÜZE YENİ BİR BAKIŞ</span>
-            <h1>
-              Gayrimenkullerinizi <em>profesyonel içeriklerle</em> tanıtın.
-            </h1>
+            <h1>Gayrimenkullerinizi profesyonel içeriklerle tanıtın.</h1>
             <p>
               Fotoğraflarınızı yükleyin, tarzınızı seçin, video veya sanal tur
               deneyiminizi oluşturun.
@@ -340,17 +337,11 @@ export function CustomerShowcase({
           </div>
           <div className="sc-hero-media">
             <VideoExample style="premium" compact />
-            <span className="sc-editorial-note">
-              Bir mekân. Üç farklı deneyim.
-            </span>
           </div>
         </section>
         <section id="hizmetler" className="sc-section">
           <div className="sc-section-heading">
-            <span className="sc-overline">HİZMETLER</span>
-            <h2>
-              İlanınız için <em>doğru anlatım.</em>
-            </h2>
+            <h2>İlanınız için doğru anlatım.</h2>
             <p>
               Video, serbest 3D veya panoramik tur. Her birinin kaynağı ve
               sonucu farklıdır.
@@ -388,10 +379,7 @@ export function CustomerShowcase({
           tabIndex={-1}
         >
           <div className="sc-section-heading">
-            <span className="sc-overline">ÖRNEK ÇALIŞMALAR</span>
-            <h2>
-              Önce görün. <em>Sonra karar verin.</em>
-            </h2>
+            <h2>Önce görün. Sonra karar verin.</h2>
             <p>
               Lisanslı fotoğraflardan gerçek kurgu, açılabilen 3D tasarım ve
               gerçek panorama örnekleri. Kendi dosyanızdan üretilmiş sonuç
@@ -402,10 +390,7 @@ export function CustomerShowcase({
         </section>
         <section id="nasil" className="sc-section sc-process">
           <div className="sc-section-heading">
-            <span className="sc-overline">NASIL ÇALIŞIR</span>
-            <h2>
-              Dört adımda <em>kendi çalışmanız.</em>
-            </h2>
+            <h2>Dört adımda kendi çalışmanız.</h2>
           </div>
           <ol>
             {[
@@ -433,10 +418,7 @@ export function CustomerShowcase({
         </section>
         <section id="foto-ornek" className="sc-section sc-comparison-section">
           <div>
-            <span className="sc-overline">AYNI KAYNAK, AYNI KADRAJ</span>
-            <h2>
-              Küçük bir <em>görsel karşılaştırma.</em>
-            </h2>
+            <h2>Küçük bir görsel karşılaştırma.</h2>
             <p>
               Üç hizmetten ayrı bir fotoğraf düzenleme örneği. Kaynak salon
               karesine dosya düzeyinde ton ve netlik düzenlemesi uygulanmıştır;
@@ -458,10 +440,7 @@ export function CustomerShowcase({
         </section>
         <section className="sc-section sc-faq">
           <div className="sc-section-heading">
-            <span className="sc-overline">MERAK ETTİKLERİNİZ</span>
-            <h2>
-              Açık ve <em>dürüst cevaplar.</em>
-            </h2>
+            <h2>Açık ve dürüst cevaplar.</h2>
           </div>
           {[
             [
