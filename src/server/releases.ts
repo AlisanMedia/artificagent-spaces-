@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { resolve } from "node:path";
 import { verifyV01HumanReview } from "./v01/review-proof";
+import { readApproverPublicKey } from "./v01/configuration";
 import { invariant, validateScene, type Scene } from "@/domain/platform";
 import type { OutputEvidence } from "@/contracts/platform-ports";
 import type { Actor, Database } from "./database";
@@ -101,7 +102,7 @@ export class ReleaseService {
               outputSha256: job.output.sha256,
             },
             process.env["SPACES_V01_REVIEWER_PUBLIC_KEY"],
-            process.env["SPACES_V01_APPROVER_PUBLIC_KEY"],
+            readApproverPublicKey(),
           )
         : null;
     if (job.execution_kind === "fal-v01")

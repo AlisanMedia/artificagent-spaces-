@@ -46,7 +46,8 @@
     "production:verify": "tsx scripts/verify-production-services.ts",
     "showcase:build": "tsx scripts/build-showcase-v55.ts",
     "test:v01": "playwright test -c playwright.v01.config.ts",
-    "v01:offline": "tsx scripts/v01-offline-demo.ts"
+    "v01:offline": "tsx scripts/v01-offline-demo.ts",
+    "v01:operator": "tsx scripts/v01-operator.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.11",

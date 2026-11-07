@@ -14,9 +14,13 @@ const calls = vi.hoisted(() => ({
   responseStatus: 200,
   responseType: "application/json",
   response: Buffer.from("{}"),
+  agents: [] as unknown[],
 }));
 vi.mock("node:https", () => ({
   Agent: class {
+    constructor(options: unknown) {
+      calls.agents.push(options);
+    }
     destroy() {}
   },
   request: (
@@ -101,6 +105,7 @@ beforeEach(() => {
   calls.responseStatus = 200;
   calls.responseType = "application/json";
   calls.response = Buffer.from("{}");
+  calls.agents.length = 0;
 });
 function gateway() {
   const readKey = vi.fn(async () => "offline-placeholder");
@@ -133,6 +138,10 @@ describe("real V01 HTTP serializer/parsers with completely intercepted network",
       ["GET", "https://queue.fal.run/kling/v4/requests/known-task"],
     ]);
     expect(JSON.parse(calls.requests[0]!.body!)).toEqual(body);
+    // Same managed HTTP proxy and trusted CA defaults; no raw socket/TLS bypass.
+    expect(calls.agents).toHaveLength(3);
+    for (const options of calls.agents)
+      expect(options).toEqual({ proxyEnv: process.env, keepAlive: false });
     expect(
       calls.requests.every(
         (x) => x.options.headers["authorization"] === "Key offline-placeholder",

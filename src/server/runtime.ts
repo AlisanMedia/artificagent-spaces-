@@ -17,6 +17,7 @@ import { FalV01Gateway } from "./v01/fal-http";
 import { OfflineV01Gateway } from "./v01/offline-fixture";
 import { V01Service } from "./v01/service";
 import { ProductionArtifactDelivery } from "./production/delivery";
+import { readApproverPublicKey, readFalSecret } from "./v01/configuration";
 
 export class PlatformRuntime {
   readonly identity: IdentityService;
@@ -43,10 +44,7 @@ export class PlatformRuntime {
     this.brands = new BrandService(db);
     this.production = new ProductionServiceEngine(db, this.properties);
     const privateRoot = resolve(storage.root, "..");
-    const authority = new FileV01Authority(
-      privateRoot,
-      () => process.env["SPACES_V01_APPROVER_PUBLIC_KEY"],
-    );
+    const authority = new FileV01Authority(privateRoot, readApproverPublicKey);
     this.v01 = new V01Service(
       db,
       this.properties,
@@ -59,7 +57,7 @@ export class PlatformRuntime {
           : new FalV01Gateway(
               authority,
               hash,
-              async () => process.env["FAL_KEY"] ?? "",
+              async () => readFalSecret(),
               id,
               routes,
             ),
