@@ -1,6 +1,6 @@
-# Impeccable ile stüdyo düzenlemesi
+# Impeccable ile bütün görsel sistem
 
-Owner'ın 7 Kasım 2026 tarihli “Ekle ve kullan bizim projede tasarımı değişsin bunu kullanarak” talimatı mevcut arayüze uygulanır. Yeni uygulama, hizmet kataloğu veya sağlayıcı motoru kurulmaz.
+Owner'ın 7 Kasım 2026 tarihli son talimatı önceki küçük düzenlemeyi reddeder ve bütün grafik tasarımı Impeccable yaklaşımına devreder. Mevcut uygulamanın görsel dünyası değiştirilir; yeni uygulama, hizmet kataloğu veya sağlayıcı motoru kurulmaz. İlk düzenlemenin kaynak ve kanıtları önceki Git commit'lerinde/owner tesliminde korunur.
 
 ## Sabit kaynak ve çalışma biçimi
 
@@ -13,15 +13,17 @@ Owner'ın 7 Kasım 2026 tarihli “Ekle ve kullan bizim projede tasarımı deği
 
 ## Uygulanan tasarım kararları
 
-`layout`, `distill`, `operate` ve `craft-floor` yönergeleri mevcut ürüne göre uygulanır:
+`new-work`, `operate`, `craft-floor` ve son tasarım inceleme/dokümantasyon akışı mevcut ürüne göre uygulanır. Kod odaklı yön sözleşmesi `.impeccable/briefs/spaces-redesign.md` içindedir; kurulu olmayan resmî concept-seed/comp-diff çalışmış sayılmaz:
 
-1. `/spaces` görev ekranıdır: kısa başlık, tek bir ilk-ekran yükleme eylemi, okunur adımlar ve daha az çevre kutusu. Hak onayı, özel upload, revision ve üretim durumları aynı kalır.
-2. `/spaces/showcase` örnek alanıdır: gerçek MP4 daha büyük görünür; video çerçevesindeki ikinci dekoratif koyu kutu kaldırılır. Lisans, kaynak ve yerel kurgu açıklaması görünür kalır.
-3. Tekrarlanan aynı boy kartlar yerine video için belirgin medya alanı, diğer hizmetler için sade gruplar kullanılır. Doğrulanmış örneği olmayan hizmete hayalî medya eklenmez.
+1. `/spaces` görev ekranıdır: masaüstünde koyu sol gezinim, yükleme çalışma alanı ve gerçek medya sahnesi yan yanadır. Mobilde gezinim üstte toplanır, tek dosya seçici ilk ekranda kalır. Ayrıntılı hizmetler ilk yükleme/önizleme alanının ardından gelir. Hak onayı, özel upload, revision ve üretim durumları aynı kalır.
+2. `/spaces/showcase` açılışı artık çalışan galeridir: dekoratif hero videosu yerine tek gerçek MP4 oynatıcısı, ona bağlı kaynak fotoğraf ve video/3D/panorama seçimi vardır. Lisans, kaynak ve yerel kurgu açıklaması görünür kalır.
+3. Üç doğrulanmış örnek medya alanı olarak gösterilir. Örneği olmayan hizmetler kompakt katalog satırlarıdır; hayalî medya veya başarı durumu eklenmez.
 4. Unicode/emoji hizmet simgeleri mevcut Lucide çizgi sistemiyle değiştirilir. Yeni bağımlılık kurulmaz.
 5. Dekoratif üst etiketler, rastgele italik başlık parçaları ve tekrar eden sloganlar kaldırılır; ürünün gerçek bilgileri ve işlem adları korunur.
-6. Mevcut fildişi/orman yeşili/Manrope kimliği korunur. Newsreader mevcut editoryal alanlarda kullanılmaya devam eder. Gövde harf aralıkları, başlık ölçüsü, yatay/dikey boşluk ve klavye odağı birlikte ele alınır.
+6. Önceki fildişi/orman yeşili genel tema yerine mineral `#eef2f7`, mürekkep `#142433`, kobalt `#2849ce` ve mevcut lisanslı Manrope kullanılır. Tenant'ın yetkili `--ux-accent`/`--ux-accent-text` marka renkleri kendi eylemlerinde geçerlidir; örnek tenant'ın yeşil düğmesi bu yüzden korunabilir. Newsreader dosyaları uyumluluk için kalır, baskın başlık sesi değildir.
 7. Örnekler sayfasının skip bağlantısı yalnız klavye odağında görünür. Native picker, player, range slider ve mevcut 3D/360 kontrolleri korunur.
+8. Yönetim, eski çalışma alanı ve inceleme bekleyen sonuç aynı yüzey/renk/tipografi sistemini kullanır. İzole statik önizlemede de aynı CSS yüklenir; yeni backend veya dış bağlantı eklenmez.
+9. Yeni dünya, önceki konuşmayı devralmayan ayrı tasarım incelemecisine gerçek ekranlarla gönderilir. Bu ajan incelemesi GitHub bağımsız insan approval'ı veya emlakçı kullanılabilirlik kabulü değildir. Sonuç ve düzeltmeler ayrı owner kanıtında kaydedilir. `DESIGN.md` ve `.impeccable/design.json` çalışan kaynaklardan güncellenir.
 
 ## Tekrar kullanma
 

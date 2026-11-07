@@ -318,7 +318,7 @@ export function CustomerShowcase({
         </div>
 
         <section className="sc-hero">
-          <div>
+          <div className="ad-showcase-intro">
             <h1>Gayrimenkullerinizi profesyonel içeriklerle tanıtın.</h1>
             <p>
               Fotoğraflarınızı yükleyin, tarzınızı seçin, video veya sanal tur
@@ -335,9 +335,19 @@ export function CustomerShowcase({
               yüklemeyin.
             </small>
           </div>
-          <div className="sc-hero-media">
-            <VideoExample style="premium" compact />
+        </section>
+        <section
+          id="ornekler"
+          className="ad-exhibition"
+          ref={gallery}
+          tabIndex={-1}
+          aria-label="Gerçek örnekleri incele"
+        >
+          <div className="ad-exhibition-heading">
+            <h2>Önce görün. Sonra karar verin.</h2>
+            <p>Hazır örnekler · Kendi dosyanızdan üretilmiş sonuç değildir.</p>
           </div>
+          <ShowcaseGallery key={galleryKey} initialProduct={selected} />
         </section>
         <section id="hizmetler" className="sc-section">
           <div className="sc-section-heading">
@@ -347,7 +357,7 @@ export function CustomerShowcase({
               sonucu farklıdır.
             </p>
           </div>
-          <ProductionFamilyCards isolated={isolated} />
+          <ProductionFamilyCards isolated={isolated} mediaMode="cover" />
           <details className="v54-legacy">
             <summary>Video, 3D ve panorama örneklerini karşılaştır</summary>
             <ServiceCards
@@ -371,22 +381,6 @@ export function CustomerShowcase({
               {isolatedNotice}
             </p>
           )}
-        </section>
-        <section
-          id="ornekler"
-          className="sc-section"
-          ref={gallery}
-          tabIndex={-1}
-        >
-          <div className="sc-section-heading">
-            <h2>Önce görün. Sonra karar verin.</h2>
-            <p>
-              Lisanslı fotoğraflardan gerçek kurgu, açılabilen 3D tasarım ve
-              gerçek panorama örnekleri. Kendi dosyanızdan üretilmiş sonuç
-              değildir.
-            </p>
-          </div>
-          <ShowcaseGallery key={galleryKey} initialProduct={selected} />
         </section>
         <section id="nasil" className="sc-section sc-process">
           <div className="sc-section-heading">

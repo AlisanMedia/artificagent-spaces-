@@ -24,8 +24,7 @@ const NAVIGATION = [
 
 function Brand() {
   return <Link href="/" className="brand" aria-label="ArtificAgent Spaces ana sayfa">
-    <span className="brand-mark" aria-hidden="true"><svg viewBox="0 0 30 30" fill="none"><path d="m7 22 8-15 8 15M11 17h8" stroke="currentColor" strokeWidth="2.4" /><path d="m20 7 4 7" stroke="currentColor" strokeWidth="1.5" /></svg></span>
-    <span><strong>ArtificAgent</strong><span className="brand-spaces">SPACES</span></span>
+    <StudioWordmark />
   </Link>;
 }
 
@@ -60,8 +59,7 @@ function SidebarContent({ onNavigate }: { readonly onNavigate?: () => void }) {
     </Link>
     <div className="sidebar-bottom">
       <div className="sidebar-note">
-        <span className="note-symbol" aria-hidden="true">⌑</span>
-        <p>Bir mekân.<br /><strong>Dört farklı bakış.</strong></p>
+        <p>Medyadan sonuca, tek çalışma alanı.</p>
         <Link href="/studio" onClick={() => onNavigate?.()}>Stüdyoyu keşfet<ArrowUpRight size={15} aria-hidden="true" /></Link>
       </div>
       <Link href="/settings" onClick={() => onNavigate?.()} className={pathname === "/settings" ? "nav-item active" : "nav-item"}><Settings2 size={18} aria-hidden="true" />Tercihler</Link>
@@ -88,7 +86,7 @@ export function AppShell({ children }: { readonly children: ReactNode }) {
 
   if (pathname === "/spaces" || pathname.startsWith("/spaces/projects/")) return <div className="spaces-shell studio-theme"><a href="#main-content" className="skip-link">İçeriğe geç</a><header className="spaces-header"><Link href="/spaces" className="ux-brand" aria-label="ArtificAgent Spaces ana sayfa"><StudioWordmark /></Link><nav aria-label="Müşteri gezinme"><Link href="/spaces/showcase" aria-label="Hizmetler ve örnekler"><span className="spaces-link-desktop">Hizmetler ve örnekler</span><span className="spaces-link-mobile">Örnekler</span></Link><Link href="/spaces/manage" className="ux-account-link">Hesap</Link></nav></header><main id="main-content" tabIndex={-1}>{children}</main><footer className="spaces-footer">ARTIFICAGENT SPACES <span>Yerel örnek çalışma · Canlı servisler ve ödeme kapalı</span></footer></div>;
 
-  if (pathname.startsWith("/spaces") || pathname.startsWith("/tour/")) return <div className="spaces-shell"><a href="#main-content" className="skip-link">İçeriğe geç</a><header className="spaces-header"><Link href="/spaces" className="spaces-wordmark"><span aria-hidden="true">A↗</span> ArtificAgent <em>SPACES</em></Link><nav aria-label="Platform gezinme"><Link href="/spaces">Stüdyo</Link><Link href="/spaces/manage">Hesap ve yönetim</Link></nav><span className="spaces-pill">YEREL · SENTETİK · 0 USD</span></header><main id="main-content" tabIndex={-1}>{children}</main><footer className="spaces-footer">ARTIFICAGENT SPACES <span>Yerel örnek çalışma · İnternet yayını ve ödeme kapalı</span></footer></div>;
+  if (pathname.startsWith("/spaces") || pathname.startsWith("/tour/")) return <div className="spaces-shell studio-theme ad-administration"><a href="#main-content" className="skip-link">İçeriğe geç</a><header className="spaces-header"><Link href="/spaces" className="spaces-wordmark" aria-label="ArtificAgent Spaces ana sayfa"><StudioWordmark /></Link><nav aria-label="Platform gezinme"><Link href="/spaces">Stüdyo</Link><Link href="/spaces/manage">Hesap ve yönetim</Link></nav><span className="spaces-pill">Yerel çalışma · Canlı servisler kapalı</span></header><main id="main-content" tabIndex={-1}>{children}</main><footer className="spaces-footer">ARTIFICAGENT SPACES <span>Yerel örnek çalışma · İnternet yayını ve ödeme kapalı</span></footer></div>;
 
   return <div className="app-layout">
     <a href="#main-content" className="skip-link">İçeriğe geç</a>

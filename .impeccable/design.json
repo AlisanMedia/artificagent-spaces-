@@ -1,0 +1,662 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-07T20:06:47.508988Z",
+  "title": "Design System: ArtificAgent Spaces",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Kobalt",
+        "tonalRamp": [
+          "oklch(15% 0.05198 266.81)",
+          "oklch(26% 0.10397 266.81)",
+          "oklch(38% 0.16635 266.81)",
+          "oklch(50% 0.20794 266.81)",
+          "oklch(62% 0.20794 266.81)",
+          "oklch(74% 0.18714 266.81)",
+          "oklch(86% 0.12476 266.81)",
+          "oklch(95% 0.04159 266.81)"
+        ]
+      },
+      "cobalt-wash": {
+        "role": "primary",
+        "displayName": "Kobalt yıkama",
+        "tonalRamp": [
+          "oklch(15% 0.00628 271.14)",
+          "oklch(26% 0.01255 271.14)",
+          "oklch(38% 0.02009 271.14)",
+          "oklch(50% 0.02511 271.14)",
+          "oklch(62% 0.02511 271.14)",
+          "oklch(74% 0.02260 271.14)",
+          "oklch(86% 0.01507 271.14)",
+          "oklch(95% 0.00502 271.14)"
+        ]
+      },
+      "mineral-canvas": {
+        "role": "neutral",
+        "displayName": "Mineral zemin",
+        "tonalRamp": [
+          "oklch(15% 0.00199 253.85)",
+          "oklch(26% 0.00398 253.85)",
+          "oklch(38% 0.00637 253.85)",
+          "oklch(50% 0.00796 253.85)",
+          "oklch(62% 0.00796 253.85)",
+          "oklch(74% 0.00716 253.85)",
+          "oklch(86% 0.00478 253.85)",
+          "oklch(95% 0.00159 253.85)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Beyaz yüzey",
+        "tonalRamp": [
+          "oklch(15% 0.00000 0.00)",
+          "oklch(26% 0.00000 0.00)",
+          "oklch(38% 0.00000 0.00)",
+          "oklch(50% 0.00000 0.00)",
+          "oklch(62% 0.00000 0.00)",
+          "oklch(74% 0.00000 0.00)",
+          "oklch(86% 0.00000 0.00)",
+          "oklch(95% 0.00000 0.00)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Metin mürekkebi",
+        "tonalRamp": [
+          "oklch(15% 0.00926 249.37)",
+          "oklch(26% 0.01853 249.37)",
+          "oklch(38% 0.02965 249.37)",
+          "oklch(50% 0.03706 249.37)",
+          "oklch(62% 0.03706 249.37)",
+          "oklch(74% 0.03335 249.37)",
+          "oklch(86% 0.02224 249.37)",
+          "oklch(95% 0.00741 249.37)"
+        ]
+      },
+      "slate": {
+        "role": "neutral",
+        "displayName": "Arduvaz metin",
+        "tonalRamp": [
+          "oklch(15% 0.00876 251.56)",
+          "oklch(26% 0.01751 251.56)",
+          "oklch(38% 0.02802 251.56)",
+          "oklch(50% 0.03502 251.56)",
+          "oklch(62% 0.03502 251.56)",
+          "oklch(74% 0.03152 251.56)",
+          "oklch(86% 0.02101 251.56)",
+          "oklch(95% 0.00700 251.56)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Mineral çizgi",
+        "tonalRamp": [
+          "oklch(15% 0.00421 250.86)",
+          "oklch(26% 0.00842 250.86)",
+          "oklch(38% 0.01347 250.86)",
+          "oklch(50% 0.01684 250.86)",
+          "oklch(62% 0.01684 250.86)",
+          "oklch(74% 0.01516 250.86)",
+          "oklch(86% 0.01011 250.86)",
+          "oklch(95% 0.00337 250.86)"
+        ]
+      },
+      "ink-shell": {
+        "role": "neutral",
+        "displayName": "Mürekkep kabuk",
+        "tonalRamp": [
+          "oklch(15% 0.00896 247.87)",
+          "oklch(26% 0.01793 247.87)",
+          "oklch(38% 0.02869 247.87)",
+          "oklch(50% 0.03586 247.87)",
+          "oklch(62% 0.03586 247.87)",
+          "oklch(74% 0.03227 247.87)",
+          "oklch(86% 0.02151 247.87)",
+          "oklch(95% 0.00717 247.87)"
+        ]
+      },
+      "shell-paper": {
+        "role": "neutral",
+        "displayName": "Kabuk beyazı",
+        "tonalRamp": [
+          "oklch(15% 0.00227 258.34)",
+          "oklch(26% 0.00455 258.34)",
+          "oklch(38% 0.00727 258.34)",
+          "oklch(50% 0.00909 258.34)",
+          "oklch(62% 0.00909 258.34)",
+          "oklch(74% 0.00818 258.34)",
+          "oklch(86% 0.00546 258.34)",
+          "oklch(95% 0.00182 258.34)"
+        ]
+      },
+      "shell-muted": {
+        "role": "neutral",
+        "displayName": "Kabuk destek metni",
+        "tonalRamp": [
+          "oklch(15% 0.00723 251.49)",
+          "oklch(26% 0.01446 251.49)",
+          "oklch(38% 0.02313 251.49)",
+          "oklch(50% 0.02891 251.49)",
+          "oklch(62% 0.02891 251.49)",
+          "oklch(74% 0.02602 251.49)",
+          "oklch(86% 0.01735 251.49)",
+          "oklch(95% 0.00578 251.49)"
+        ]
+      },
+      "ink-raised": {
+        "role": "neutral",
+        "displayName": "Yükseltilmiş mürekkep",
+        "tonalRamp": [
+          "oklch(15% 0.01172 248.35)",
+          "oklch(26% 0.02344 248.35)",
+          "oklch(38% 0.03750 248.35)",
+          "oklch(50% 0.04688 248.35)",
+          "oklch(62% 0.04688 248.35)",
+          "oklch(74% 0.04219 248.35)",
+          "oklch(86% 0.02813 248.35)",
+          "oklch(95% 0.00938 248.35)"
+        ]
+      },
+      "field-line": {
+        "role": "neutral",
+        "displayName": "Alan çizgisi",
+        "tonalRamp": [
+          "oklch(15% 0.00639 251.94)",
+          "oklch(26% 0.01278 251.94)",
+          "oklch(38% 0.02044 251.94)",
+          "oklch(50% 0.02555 251.94)",
+          "oklch(62% 0.02555 251.94)",
+          "oklch(74% 0.02300 251.94)",
+          "oklch(86% 0.01533 251.94)",
+          "oklch(95% 0.00511 251.94)"
+        ]
+      },
+      "upload-fill": {
+        "role": "neutral",
+        "displayName": "Yükleme yüzeyi",
+        "tonalRamp": [
+          "oklch(15% 0.00175 268.55)",
+          "oklch(26% 0.00350 268.55)",
+          "oklch(38% 0.00559 268.55)",
+          "oklch(50% 0.00699 268.55)",
+          "oklch(62% 0.00699 268.55)",
+          "oklch(74% 0.00629 268.55)",
+          "oklch(86% 0.00419 268.55)",
+          "oklch(95% 0.00140 268.55)"
+        ]
+      },
+      "upload-line": {
+        "role": "neutral",
+        "displayName": "Yükleme çizgisi",
+        "tonalRamp": [
+          "oklch(15% 0.01271 263.66)",
+          "oklch(26% 0.02542 263.66)",
+          "oklch(38% 0.04067 263.66)",
+          "oklch(50% 0.05084 263.66)",
+          "oklch(62% 0.05084 263.66)",
+          "oklch(74% 0.04575 263.66)",
+          "oklch(86% 0.03050 263.66)",
+          "oklch(95% 0.01017 263.66)"
+        ]
+      },
+      "hold-fill": {
+        "role": "semantic",
+        "displayName": "Durdurma zemini",
+        "tonalRamp": [
+          "oklch(15% 0.00385 27.28)",
+          "oklch(26% 0.00770 27.28)",
+          "oklch(38% 0.01233 27.28)",
+          "oklch(50% 0.01541 27.28)",
+          "oklch(62% 0.01541 27.28)",
+          "oklch(74% 0.01387 27.28)",
+          "oklch(86% 0.00925 27.28)",
+          "oklch(95% 0.00308 27.28)"
+        ]
+      },
+      "hold-ink": {
+        "role": "semantic",
+        "displayName": "Durdurma metni",
+        "tonalRamp": [
+          "oklch(15% 0.03454 30.24)",
+          "oklch(26% 0.06909 30.24)",
+          "oklch(38% 0.11054 30.24)",
+          "oklch(50% 0.13818 30.24)",
+          "oklch(62% 0.13818 30.24)",
+          "oklch(74% 0.12436 30.24)",
+          "oklch(86% 0.08291 30.24)",
+          "oklch(95% 0.02764 30.24)"
+        ]
+      },
+      "hold-line": {
+        "role": "semantic",
+        "displayName": "Durdurma sınırı",
+        "tonalRamp": [
+          "oklch(15% 0.01365 29.69)",
+          "oklch(26% 0.02730 29.69)",
+          "oklch(38% 0.04367 29.69)",
+          "oklch(50% 0.05459 29.69)",
+          "oklch(62% 0.05459 29.69)",
+          "oklch(74% 0.04913 29.69)",
+          "oklch(86% 0.03276 29.69)",
+          "oklch(95% 0.01092 29.69)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Vitrin ana başlığı",
+        "purpose": "Akışkan Manrope vitrin başlığı; dar ekran ölçüleri responsive uzantısında."
+      },
+      "headline": {
+        "displayName": "Stüdyo ana başlığı",
+        "purpose": "Müşteri stüdyosunun 650 ağırlıklı Manrope başlığı."
+      },
+      "title": {
+        "displayName": "Medya paneli başlığı",
+        "purpose": "Statik medya yardımcısının açıkça tanımlanmış başlık rolü."
+      },
+      "body": {
+        "displayName": "Arayüz gövdesi",
+        "purpose": "Stüdyo ortak font, satır ve harf aralığı tabanı; fontWeight kaynakta ayrıca tanımlanmadığı için önbilgide yok."
+      },
+      "supporting": {
+        "displayName": "Destek açıklaması",
+        "purpose": "Hizmet ailesi kopyasında kullanılan küçük gövde rolü."
+      },
+      "label": {
+        "displayName": "Birincil eylem etiketi",
+        "purpose": "Ortak birincil eylemin boyutu ve ağırlığı; tüm yardımcı etiketleri eşitlemez."
+      },
+      "caption": {
+        "displayName": "Medya açıklaması",
+        "purpose": "Önizleme medyasının tür ve kaynak açıklaması."
+      }
+    },
+    "shadows": [
+      {
+        "name": "opening-flat",
+        "value": "none",
+        "purpose": "İlk stüdyo adımı, birincil eylem ve seçili stil gölgesizdir."
+      },
+      {
+        "name": "workbench",
+        "value": "0 10px 32px #14243307",
+        "purpose": "İlk adım dışındaki mevcut çalışma panelinin hafif ayrımı."
+      },
+      {
+        "name": "legacy-property-hover",
+        "value": "0 5px 22px #1e1e1e0a",
+        "purpose": "globals.css'ten devralınan eski mülk kartı hover gölgesi."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "150ms",
+        "purpose": "Ortak arka plan, metin, sınır ve transform geçişi; CSS varsayılan easing'i kullanılır."
+      },
+      {
+        "name": "button-press",
+        "value": "translateY(1px)",
+        "purpose": "studio-visual.css'ten devralınan, etkin düğmenin basılı durumu."
+      },
+      {
+        "name": "style-selection",
+        "value": "200ms",
+        "purpose": "Mevcut tarz kartının sınır ve gölge geçişi."
+      },
+      {
+        "name": "workbench-entry",
+        "value": "240ms ease-out",
+        "purpose": "platform.css'te kalan studio-enter adım animasyonu; kaynak --motion-step değişkeni."
+      },
+      {
+        "name": "media-card-entry",
+        "value": "200ms ease-out",
+        "purpose": "platform.css'te kalan medya kartı animasyonu."
+      },
+      {
+        "name": "reduced-duration",
+        "value": "0s",
+        "purpose": "prefers-reduced-motion: reduce altında stüdyo ve eski çalışma alanı geçiş/animasyon süresi."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "evaluation-stack-max",
+        "value": "600px"
+      },
+      {
+        "name": "phone-max",
+        "value": "767px"
+      },
+      {
+        "name": "tablet-opening-min",
+        "value": "768px"
+      },
+      {
+        "name": "workspace-stack-max",
+        "value": "899px"
+      },
+      {
+        "name": "top-navigation-max",
+        "value": "1099px"
+      },
+      {
+        "name": "side-rail-min",
+        "value": "1100px"
+      },
+      {
+        "name": "catalog-two-column-max",
+        "value": "1199px"
+      }
+    ],
+    "semantic": {
+      "tenant-action": {
+        "css": "var(--ux-accent, var(--brand-primary))",
+        "textCss": "var(--ux-accent-text, #fff)",
+        "purpose": "Müşteri eylemi workspace.brand üzerinden gelir; tenant rengi ortak kobalttan farklı olabilir.",
+        "source": "src/features/platform/creation-studio.tsx"
+      },
+      "identity-selection": {
+        "css": "var(--ex-primary)",
+        "purpose": "Ortak kimlikte gezinme ve stil seçimi; sunucu tenant verisini yeniden tanımlamaz.",
+        "source": "src/app/architectural-exhibition.css"
+      },
+      "upload-caret-and-native-choice": {
+        "css": "var(--ux-accent, var(--brand-primary))",
+        "purpose": "İmleç ve native checkbox/radio için mevcut tenant eylem rengi.",
+        "source": "src/app/architectural-exhibition.css"
+      },
+      "media-surface": {
+        "css": "var(--ex-shell)",
+        "purpose": "Gerçek medya ve koyu gezinme yüzeyi.",
+        "source": "src/app/architectural-exhibition.css"
+      },
+      "disabled-button": {
+        "css": "opacity: 0.55; cursor: not-allowed",
+        "purpose": "Düğme durumu; yetki veya provider açılışı anlamına gelmez.",
+        "source": "src/app/architectural-exhibition.css"
+      },
+      "dialog-backdrop": {
+        "css": "#0e20357a",
+        "purpose": "Mevcut native dialog arka perdesi.",
+        "source": "src/app/architectural-exhibition.css"
+      }
+    },
+    "focus": [
+      {
+        "name": "studio-light-controls",
+        "value": "3px solid #2849ce",
+        "offset": "4px",
+        "purpose": "Stüdyo, vitrin ve statik açık yüzeyde etkileşimli kontroller."
+      },
+      {
+        "name": "preview-and-public-header",
+        "value": "3px solid #a7c2ff",
+        "offset": "4px",
+        "purpose": "Koyu önizleme ve vitrin üst başlığı."
+      },
+      {
+        "name": "exhibition-controls",
+        "value": "3px solid #b3caff",
+        "offset": "4px",
+        "purpose": "Vitrin medya sergisi."
+      },
+      {
+        "name": "studio-desktop-navigation",
+        "value": "3px solid #b1c9ff",
+        "offset": "4px",
+        "purpose": "Müşteri stüdyosunun koyu masaüstü yan gezinmesi."
+      },
+      {
+        "name": "legacy-light-controls",
+        "value": "2px solid #2849ce",
+        "offset": "4px",
+        "purpose": "Eski çalışma alanı; çizgi kalınlığı globals.css'ten gelir."
+      },
+      {
+        "name": "legacy-dark-controls",
+        "value": "2px solid #afc8ff",
+        "offset": "4px",
+        "purpose": "Eski çalışma alanı yan rayı ve mobil menüsü."
+      }
+    ],
+    "responsive": [
+      {
+        "name": "studio-rail",
+        "query": "(min-width: 1100px)",
+        "value": "shell padding-left: 240px; header width: 240px; navigation width: 208px",
+        "purpose": "Kaynakta tanımlanan sabit müşteri yan rayı."
+      },
+      {
+        "name": "studio-tablet-opening",
+        "query": "(min-width: 768px) and (max-width: 899px)",
+        "value": "grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr); gap: 20px",
+        "purpose": "Açılış yükleme ve gerçek medya alanı tablette yan yana kalır."
+      },
+      {
+        "name": "general-workspace-stack",
+        "query": "(max-width: 899px)",
+        "value": "grid-template-columns: 1fr",
+        "purpose": "Genel stüdyo/statik çalışma sütunları tek akışa geçer; tablet açılış istisnası üstte tanımlıdır."
+      },
+      {
+        "name": "phone-studio",
+        "query": "(max-width: 767px)",
+        "value": "main padding: 18px 18px 40px; headline: 1.8rem/1.2; workbench radius: 14px",
+        "purpose": "Telefon çalışma alanı ölçüleri."
+      },
+      {
+        "name": "phone-showcase",
+        "query": "(max-width: 767px)",
+        "value": "hero padding: 22px 20px 18px; headline: 1.85rem/1.18; video source row: 88px minmax(0, 1fr)",
+        "purpose": "Video üstte; küçük kaynak ve açıklama alt sırada."
+      },
+      {
+        "name": "catalog-reflow",
+        "query": "(max-width: 1199px) / (max-width: 767px)",
+        "value": "repeat(2, minmax(0, 1fr)) / 1fr",
+        "purpose": "Örnekli hizmetler iki ve tek sütuna; örneksiz hizmetler kompakt satırlara dönüşür."
+      },
+      {
+        "name": "evaluation-reflow",
+        "query": "(max-width: 600px)",
+        "value": "grid-template-columns: 1fr; fieldset padding: 18px 16px",
+        "purpose": "İzole değerlendirme formunun kendi mevcut kırılması."
+      },
+      {
+        "name": "reduced-motion",
+        "query": "(prefers-reduced-motion: reduce)",
+        "value": "animation-duration: 0s; transition-duration: 0s; scroll-behavior: auto",
+        "purpose": "Ortak hareket azaltma davranışı."
+      }
+    ],
+    "provenance": {
+      "mode": "scan",
+      "method": "Manual CSS declaration/cascade and component scan; actual local rendered screenshots inspected. No computed-style measurements are claimed by this document pass.",
+      "authority": "AGENTS.md first section: 7 November 2026 full visual-system replacement and DESIGN.md refresh delegated by owner.",
+      "sources": [
+        "src/app/architectural-exhibition.css",
+        "src/app/layout.tsx",
+        "src/app/studio-visual.css",
+        "src/app/platform.css",
+        "src/app/globals.css",
+        "src/preview/preview.css",
+        "src/preview/evaluation.css",
+        "src/preview/entry.tsx",
+        "src/preview/evaluation-entry.tsx",
+        "src/features/platform/creation-studio.tsx",
+        "src/features/platform/studio-presentation.tsx",
+        "public/studio-assets-v52/manifest.json",
+        ".impeccable/briefs/spaces-redesign.md"
+      ],
+      "sourceSha256": {
+        "src/app/architectural-exhibition.css": "7805a139d0436c33e5c40bd198ab547209c47ae78dddfef0acb071bae3e618be",
+        "src/app/layout.tsx": "bebd743c34f09e87fd82a0e1c825e6f312c04d515b44d714c30aeb0084d674bc",
+        "src/app/studio-visual.css": "d6a3b59cb55a3c26e7564c89b4e84cffb07b2e05be22cc8a0d3632220246ecce",
+        "src/app/platform.css": "e15e61778ba884898bd9c604b8cb654b64f55bcab6825c5aa190495b396d6ab6",
+        "src/app/globals.css": "32998dd2511277a0b253171465bc1c2c4326ceac6965bb3963066696be0dcc88",
+        "src/preview/preview.css": "c98aac1b1e27f2fced2cbe12ae33904614f147f23d815ea28bf1eef4ec6d9c4e",
+        "src/preview/evaluation.css": "b9af6e4c3b9f08a91e7108b59dac5674aa5015e5b4c617584488af0a4bffcc29",
+        "src/preview/entry.tsx": "c466e885220750d596c5bb086a1e192150d4fcbddb0d8bfec1146b3749779dd6",
+        "src/preview/evaluation-entry.tsx": "476ca1377c46d911423be2c9e06dfb6bdb7e09875e2c4e009b80736441e6362f",
+        "src/features/platform/creation-studio.tsx": "b41d4226ca0ea5ebce69fd69a6f16a85855a570d727c7a5043d8abcbdde38a33",
+        "src/features/platform/studio-presentation.tsx": "f643e9d115c87ec6f8166b5270ad3208b29ec0455774cc0a2a0d5a6823dc0fd8",
+        "public/studio-assets-v52/manifest.json": "48a2c1936716e17783cde9c85ae163ca3065b69c6e71bca9679b9751b0ed7560",
+        ".impeccable/briefs/spaces-redesign.md": "fc120b4a7cc0ce926fc919398f0d00272b66677440964a4dce41ebed1eca246a"
+      },
+      "artifactScope": "Current local customer studio, showcase, management, result, legacy workspace, isolated static preview and evaluation presentation.",
+      "screenshotEvidence": "Local delivery captures retained outside the repository; no public screenshot path is asserted.",
+      "officialSeed": "NOT_RUN",
+      "officialDetector": "NOT_RUN",
+      "approvedComp": null,
+      "officialCompDiff": "NOT_RUN",
+      "tonalRamps": "Required by document reference. Synthesized OKLCH strips from each source hex hue/chroma at 15–95% lightness with reduced endpoint chroma. Panel-only, non-shipping, non-normative derived data; not actual CSS tokens.",
+      "componentSnippets": "Framework-free panel excerpts of existing controls. CSS custom-property bindings are preserved with source-value fallbacks for shadow DOM. Display snippets do not execute uploads, backend jobs, navigation or release review.",
+      "verificationLimits": "Documentation scan does not prove deployment, live provider inference, human usability acceptance, legal clearance, or GitHub review approval."
+    }
+  },
+  "components": [
+    {
+      "name": "Tenant primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Dosya ekleme eyleminin kobalt tabanı; yetkili tenant eylem ve metin değişkenlerini canlı devralır.",
+      "html": "<button type=\"button\" class=\"ds-primary\">Fotoğraf veya video ekle</button>",
+      "css": ".ds-primary { display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:12px 20px;border:1px solid transparent;border-radius:12px;background:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));color:var(--ux-accent-text,#fff);font-family:Manrope,system-ui,sans-serif;font-size:14px;font-weight:650;box-shadow:none;cursor:pointer;transition:background-color 150ms,color 150ms,border-color 150ms,transform 150ms; } .ds-primary:hover:not(:disabled) { background:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));border-color:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));color:var(--ux-accent-text,#fff);filter:brightness(.94); } .ds-primary:active:not(:disabled) { transform:translateY(1px); } .ds-primary:focus-visible { outline:3px solid var(--ex-primary,#2849ce);outline-offset:4px; } .ds-primary:disabled { opacity:.55;cursor:not-allowed; } @media(prefers-reduced-motion:reduce) { .ds-primary { transition-duration:0s; } }"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Müşteri stüdyosundaki sessiz, sınırlandırılmış ikincil düğme.",
+      "html": "<button type=\"button\" class=\"ds-secondary\">Geri</button>",
+      "css": ".ds-secondary { display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border:1px solid var(--border,var(--ex-border,#d3dce6));border-radius:10px;background:var(--surface,#fff);color:var(--ink,#172737);font-family:Manrope,system-ui,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background-color 150ms,color 150ms,border-color 150ms,transform 150ms; } .ds-secondary:hover:not(:disabled) { filter:brightness(.9); } .ds-secondary:active:not(:disabled) { transform:translateY(1px); } .ds-secondary:focus-visible { outline:3px solid var(--ex-primary,#2849ce);outline-offset:4px; } .ds-secondary:disabled { opacity:.55;cursor:not-allowed; } @media(prefers-reduced-motion:reduce) { .ds-secondary { transition-duration:0s; } }"
+    },
+    {
+      "name": "Inverse showcase action",
+      "kind": "button",
+      "refersTo": "button-inverse",
+      "description": "Mürekkep vitrin yüzeyindeki beyaz ana eylem; kendi kaynak renk atamasını korur.",
+      "html": "<a class=\"ds-inverse\" href=\"#studio\">Yeni Çalışma Oluştur</a>",
+      "css": ".ds-inverse { display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:12px 20px;border:1px solid transparent;border-radius:12px;background:var(--surface,#fff);color:#1b364e;font-family:Manrope,system-ui,sans-serif;font-size:14px;font-weight:650;text-decoration:none;transition:background-color 150ms,color 150ms,border-color 150ms,transform 150ms; } .ds-inverse:hover { background:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));border-color:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));color:var(--ux-accent-text,#fff);filter:brightness(.94); } .ds-inverse:focus-visible { outline:3px solid #a7c2ff;outline-offset:4px; } @media(prefers-reduced-motion:reduce) { .ds-inverse { transition-duration:0s; } }"
+    },
+    {
+      "name": "Sample action",
+      "kind": "button",
+      "refersTo": "button-sample",
+      "description": "Dosya eyleminin altındaki kobalt metinli mevcut örnek seçeneği.",
+      "html": "<button type=\"button\" class=\"ds-sample\">Örnek mülkle dene</button>",
+      "css": ".ds-sample { display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;padding:12px;border:0;border-radius:10px;background:transparent;color:var(--brand-primary,var(--ex-primary,#2849ce));font-family:Manrope,system-ui,sans-serif;font-size:14px;cursor:pointer;transition:background-color 150ms,color 150ms,border-color 150ms,transform 150ms; } .ds-sample:hover:not(:disabled) { filter:brightness(.9); } .ds-sample:active:not(:disabled) { transform:translateY(1px); } .ds-sample:focus-visible { outline:3px solid var(--ex-primary,#2849ce);outline-offset:4px; } .ds-sample:disabled { opacity:.55;cursor:not-allowed; } @media(prefers-reduced-motion:reduce) { .ds-sample { transition-duration:0s; } }"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Müşteri kabuğunun açık yüzeyli alanı; native alan ve görünür klavye odağı korunur.",
+      "html": "<label class=\"ds-field-label\" for=\"ds-property-name\">Mülk adı</label><input class=\"ds-field\" id=\"ds-property-name\" type=\"text\" placeholder=\"Mülk adı\">",
+      "css": ".ds-field-label { display:block;margin:12px 0;color:var(--ink,#172737);font-family:Manrope,system-ui,sans-serif;font-size:12px; } .ds-field { width:100%;min-width:0;min-height:44px;padding:10px 12px;border:1px solid #b6c3d2;border-radius:9px;background:var(--surface,#fff);color:var(--ink,#172737);caret-color:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));font-family:Manrope,system-ui,sans-serif;font-size:14px; } .ds-field::placeholder { color:#596b7d;opacity:1; } .ds-field:focus-visible { outline:3px solid var(--ex-primary,#2849ce);outline-offset:4px; }"
+    },
+    {
+      "name": "Desktop studio navigation",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "Mürekkep yan rayın mevcut etkin, hover ve klavye durumları; mobil kabuk ayrı yeniden akar.",
+      "html": "<nav class=\"ds-navigation\" aria-label=\"Stüdyo bölümleri\"><button type=\"button\" aria-current=\"page\">Yeni Çalışma</button><button type=\"button\">Projelerim</button><button type=\"button\">Medya Arşivi</button></nav>",
+      "css": ".ds-navigation { display:flex;flex-direction:column;gap:8px;width:208px;padding:8px 0 0;background:var(--ex-shell,#142433); } .ds-navigation button { display:flex;align-items:center;justify-content:flex-start;width:100%;min-height:48px;padding:12px 16px;border:0;border-radius:10px;background:transparent;color:#c7d6e8;font-family:Manrope,system-ui,sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background-color 150ms,color 150ms,transform 150ms; } .ds-navigation button[aria-current=page] { background:var(--ex-primary,#2849ce);color:#fff; } .ds-navigation button:hover:not([aria-current=page]) { background:#243e56;color:#fff; } .ds-navigation button:active { transform:translateY(1px); } .ds-navigation button:focus-visible { outline:3px solid #b1c9ff;outline-offset:4px; } @media(prefers-reduced-motion:reduce) { .ds-navigation button { transition-duration:0s; } }"
+    },
+    {
+      "name": "Local mode chip",
+      "kind": "chip",
+      "refersTo": "chip-mode",
+      "description": "Mevcut yerel çalışma bağlamı rozeti; masaüstü yan raydaki köşe farkı kaynakta korunur.",
+      "html": "<span class=\"ds-mode-chip\">Yerel çalışma · Canlı servisler kapalı</span>",
+      "css": ".ds-mode-chip { display:inline-block;padding:5px 10px;border:0;border-radius:30px;background:#23394d;color:#e3edf8;font-family:Manrope,system-ui,sans-serif;font-size:11px;letter-spacing:.08em;white-space:nowrap; } @media(min-width:1100px) { .ds-mode-chip { padding:10px;border-radius:8px;white-space:normal; } }"
+    },
+    {
+      "name": "Opening workbench",
+      "kind": "card",
+      "refersTo": "workbench",
+      "description": "İlk adımın beyaz ve gölgesiz çalışma yüzeyi; içeriği etkileşimle karıştırmayan sakin konteyner.",
+      "html": "<section class=\"ds-workbench\" aria-label=\"İçerik stüdyosu\"><h2>Medyanızla başlayın.</h2><p>Fotoğraflarınız, tanıtımınızın ilk sahnesi.</p></section>",
+      "css": ".ds-workbench { padding:24px;border:0;border-radius:16px;background:var(--surface,#fff);color:var(--ink,#172737);box-shadow:none;font-family:Manrope,system-ui,sans-serif; } .ds-workbench h2 { margin:0 0 8px;font-size:21px;font-weight:650;letter-spacing:-.035em;text-wrap:balance; } .ds-workbench p { margin:0;font-size:14px;line-height:1.6; } @media(max-width:767px) { .ds-workbench { padding:18px;border-radius:14px; } }"
+    },
+    {
+      "name": "Upload workspace",
+      "kind": "custom",
+      "refersTo": "upload-panel",
+      "description": "Mevcut açılış dosya eyleminin kesikli yüzeyi; panel örneği gerçek dosya işlemi yürütmez.",
+      "html": "<div class=\"ds-upload\"><span>Fotoğraf veya desteklenen videolarınızı seçin. Kaynaklar, hak onayınızdan sonra özel alana kaydedilir.</span><button type=\"button\" class=\"ds-upload-action\">Fotoğraf veya video ekle</button></div>",
+      "css": ".ds-upload { display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:22px;border:1px dashed #a7b8d9;border-radius:12px;background:#f5f7fc;color:var(--subtle-text,var(--muted,#526274));font-family:Manrope,system-ui,sans-serif; } .ds-upload>span { display:block;max-width:42ch;font-size:14px;line-height:1.65; } .ds-upload-action { width:100%;min-height:48px;padding:12px 20px;border:1px solid transparent;border-radius:12px;background:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));color:var(--ux-accent-text,#fff);font-family:inherit;font-size:14px;font-weight:650;cursor:pointer;transition:background-color 150ms,color 150ms,border-color 150ms,transform 150ms; } .ds-upload-action:hover:not(:disabled) { background:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));border-color:var(--ux-accent,var(--brand-primary,var(--ex-primary,#2849ce)));color:var(--ux-accent-text,#fff);filter:brightness(.94); } .ds-upload-action:active:not(:disabled) { transform:translateY(1px); } .ds-upload-action:focus-visible { outline:3px solid var(--ex-primary,#2849ce);outline-offset:4px; } .ds-upload-action:disabled { opacity:.55;cursor:not-allowed; } @media(max-width:767px) { .ds-upload { gap:12px;padding:16px; } .ds-upload>span { font-size:12px;line-height:1.6; } .ds-upload-action { padding-inline:10px;font-size:13px; } } @media(prefers-reduced-motion:reduce) { .ds-upload-action { transition-duration:0s; } }"
+    },
+    {
+      "name": "Selected style card",
+      "kind": "card",
+      "refersTo": "style-card-selected",
+      "description": "Mevcut tarz kartının seçili kenar ve metin bölümü; gerçek kaynak posterini panelde çoğaltmaz.",
+      "html": "<article class=\"ds-style-card\"><label class=\"ds-style-label\"><input class=\"ds-style-radio\" type=\"radio\" name=\"ds-style\" checked aria-label=\"Doğal\"><span class=\"ds-style-copy\"><strong>Doğal</strong><span>Sentetik örnek kare</span></span></label></article>",
+      "css": ".ds-style-card { position:relative;border:1px solid var(--ex-primary,#2849ce);border-radius:12px;background:var(--surface,#fff);color:var(--ink,#172737);box-shadow:none;outline:2px solid var(--ex-primary,#2849ce);outline-offset:-2px;font-family:Manrope,system-ui,sans-serif;transition:border-color 200ms,box-shadow 200ms; } .ds-style-label { display:block;position:relative;cursor:pointer; } .ds-style-radio { position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;opacity:0;cursor:pointer; } .ds-style-copy { display:block;padding:18px; } .ds-style-copy strong { display:block;font-size:18px;font-weight:650; } .ds-style-copy>span { display:block;font-size:12px; } .ds-style-card:focus-within { outline:3px solid var(--ex-primary,#2849ce);outline-offset:4px; } @media(prefers-reduced-motion:reduce) { .ds-style-card { transition-duration:0s; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Mimari Sergi",
+    "overview": "Mimari Sergi, mülk medyasına açık ve ölçülü bir sergileme alanı verir. Mineral zemin çalışma alanını taşır; mürekkep paneller gezinmeyi ve gerçek medya sahnesini tanımlar. Kobalt, ortak kimlikte seçim ve eylemi görünür kılar. Düz yüzeyler, belirgin yazı hiyerarşisi ve dengeli boşluklar aynı dili müşteri stüdyosu, vitrin, yönetim, sonuçlar, eski çalışma alanı ve izole statik sunumda sürdürür.\n\nManrope hem başlığı hem arayüzü taşır. Medya kendi kaynak ve çıktı açıklamasıyla birlikte görünür; görsel alanın ağırlığı eldeki gerçek örnekten gelir. Çalışma kontrolleri hafif yüzeylerde, izleme kontrolleri koyu yüzeylerde kalır. Beyaz etiketli eylemler tenant rengini korur; bu değişkenlik ortak malzeme ve tipografi dilinin parçasıdır.",
+    "keyCharacteristics": [
+      "Mineral zemin üzerinde beyaz çalışma yüzeyleri.",
+      "Mürekkep gezinme ve medya panelleri.",
+      "Kobalt ortak kimlik; yetkili tenant rengine açık eylemler.",
+      "Manrope ile sıkı başlıklar ve rahat okunan açıklamalar.",
+      "Gerçek medya, görünür kaynak açıklaması ve ölçülü durum geri bildirimi."
+    ],
+    "rules": [
+      {
+        "name": "The Tenant Accent Rule",
+        "body": "Tenant eylemlerinde sunucudan gelen eylem ve metin renklerini koru; kobaltı eşitlemek için marka verisini değiştirme.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sans Hierarchy Rule",
+        "body": "Ana başlıkları Manrope ile kur; başlık içindeki vurgu aynı yazı ailesi ve karakteri devralır.",
+        "section": "typography"
+      },
+      {
+        "name": "The Reflow Rule",
+        "body": "Dar ekranda çalışma alanlarını yeniden sırala ve satırlara böl; masaüstü tuvalini küçülterek sıkıştırma.",
+        "section": "layout"
+      },
+      {
+        "name": "The Tonal Depth Rule",
+        "body": "Büyük yüzeyleri öncelikle ton, dolgu ve boşlukla ayır; gölgeyi yeni bir dekoratif katmana dönüştürme.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Media Truth Rule",
+        "body": "Örnek medyanın kaynak, tür ve hazır örnek açıklamasını medya ile birlikte tut; stil veya durum rengi üretim ve inceleme kanıtı değildir.",
+        "section": "components"
+      },
+      {
+        "name": "The Focus Rule",
+        "body": "Klavye odağını seçim durumundan ayırt et; koyu panelde açık odak rengini, açık panelde kobalt odağı koru.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do mineral zemin, beyaz çalışma yüzeyi ve mürekkep medya yüzeyinin görevlerini koru.",
+      "Do seçimi kobalt kenar veya tonla, klavye odağını ayrıca görünür çizgiyle göster.",
+      "Do tenant eylem ve metin renklerini mevcut yetkili değişkenlerden al.",
+      "Do Türkçe metni, medya açıklamalarını ve gerçek örneğin oranını okunur tut.",
+      "Do mobil ve tablet yerleşimlerini kaynakta tanımlanan yapısal kırılmalarla kur.",
+      "Do hareket azaltma tercihinde animasyon ve geçiş sürelerini sıfırla."
+    ],
+    "donts": [
+      "Don't ana başlıklara eski dekoratif serif veya ayrı italik parça dilini geri taşı.",
+      "Don't her bilgi grubunu aynı ağırlıkta iç içe kartlara veya süslü ikon kutularına dönüştür.",
+      "Don't örneği bulunmayan hizmete ilgisiz bir sonuç görseli ekle.",
+      "Don't kaynak veya inceleme durumunu gizleyerek hazır örneği müşterinin üretilmiş sonucu gibi sun.",
+      "Don't ortak kobalt görünümü uğruna tenant marka verisini veya yetki akışını değiştir.",
+      "Don't renk rampalarını, ekran görüntülerini veya yerel kontrolleri canlı üretim, insan kabulü ya da dağıtım kanıtı say."
+    ]
+  }
+}

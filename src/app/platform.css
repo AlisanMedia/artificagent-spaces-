@@ -346,9 +346,9 @@
   display: block;
 }
 .spaces-property.active {
-  border-color: #606b50 !important;
-  background: #22271d !important;
-  padding: 12px 8px !important;
+  border-color: #606b50;
+  background: #22271d;
+  padding: 12px 8px;
 }
 .property-art {
   display: grid;

@@ -7,7 +7,7 @@ import "./platform.css";
 import "./studio-visual.css";
 import "./api-first-studio.css";
 import "./customer-experience.css";
-import "./impeccable-studio.css";
+import "./architectural-exhibition.css";
 
 export const metadata: Metadata = {
   title: {

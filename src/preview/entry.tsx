@@ -34,7 +34,7 @@ import { useLocalMedia, type LocalMedia } from "./use-local-media";
 import "../app/studio-visual.css";
 import "./preview.css";
 import "../app/customer-experience.css";
-import "../app/impeccable-studio.css";
+import "../app/architectural-exhibition.css";
 import { CustomerShowcase } from "../features/showcase/customer-showcase";
 declare const SPACES_PREVIEW_BUILD_ID: string;
 // This immutable fixture is hash/schema validated by build-owner-preview.ts. No client-supplied scene.
@@ -124,7 +124,6 @@ function Preview() {
         >
           <StudioWordmark />
         </a>
-        <span className="pv52-edition">EMLAK STÜDYOSU</span>
       </header>
       <div className="pv52-topline">
         <nav className="pv52-nav" aria-label="Ana gezinme">
@@ -186,22 +185,9 @@ function Preview() {
               className={`pv52-studio-heading ${step > 1 ? "is-compact" : ""}`}
             >
               <div>
-                <p className="studio-eyebrow">SİZİN İÇİN BİR BAŞLANGIÇ</p>
-                <h1 className="studio-title">
-                  Mülkünüz,
-                  <br />
-                  <em>sizin imzanız.</em>
-                </h1>
+                <h1 className="studio-title">Mülkünüz, sizin imzanız.</h1>
                 <p className="pv52-lead">
                   Fotoğraf ve videolarınızla başlayın.
-                </p>
-              </div>
-              <div className="pv52-intro-note">
-                <span>01 — 03</span>
-                <p>
-                  Önce mekân.
-                  <br />
-                  Sonra anlatım.
                 </p>
               </div>
             </div>
@@ -275,33 +261,31 @@ function Preview() {
                   )}
                 </div>
                 <aside className="pv52-studio-aside">
-                  <div className="pv52-architectural-rule" aria-hidden="true" />
-                  <p className="studio-eyebrow">BİR MEKÂN. ÜÇ ANLATIM.</p>
-                  <h2>
-                    Her detayın
-                    <br />
-                    <em>bir hikâyesi var.</em>
-                  </h2>
+                  <h2>Önce örneği görün.</h2>
+                  <img
+                    className="ad-preview-poster"
+                    src="/studio-assets-v52/cinematic-landscape.webp"
+                    width={640}
+                    height={360}
+                    alt="Açılabilen sentetik yerel video örneğinin gerçek posteri"
+                    loading="lazy"
+                  />
                   <p>
                     Sakin bir keşif, sinematik bir tanıtım ya da ikisinin
                     dengesi. Önce tarzı seçin, sonra gerçek örnek videoya göz
                     atın.
                   </p>
-                  <ol>
-                    <li>
-                      <span>01</span>Medyanızı ekleyin
-                    </li>
-                    <li>
-                      <span>02</span>Anlatımınızı seçin
-                    </li>
-                    <li>
-                      <span>03</span>Hazır örneği inceleyin
-                    </li>
-                  </ol>
+                  <button
+                    type="button"
+                    className="studio-text-button"
+                    onClick={() => navigate("results")}
+                  >
+                    Örnek videoları aç <Play size={16} aria-hidden="true" />
+                  </button>
                   <p className="pv52-aside-truth">
                     <ShieldCheck size={16} aria-hidden="true" />
-                    Bu önizlemede yeni video üretilmez. Örneklerimiz sentetik
-                    kaynaklardan hazırlanmış gerçek MP4 dosyalarıdır.
+                    Hazır sentetik MP4 örnekleri; bu önizlemede yeni video
+                    üretilmez.
                   </p>
                 </aside>
               </section>

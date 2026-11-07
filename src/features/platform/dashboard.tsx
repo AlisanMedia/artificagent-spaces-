@@ -255,9 +255,6 @@ export function ManagementDashboard({
     : undefined;
   return (
     <div className="spaces-page" style={style}>
-      <div className="spaces-eyebrow">
-        AI PROPERTY EXPERIENCE PLATFORM / LOCAL LAB
-      </div>
       <div className="spaces-title-row">
         <div>
           <h1>{workspace?.brand.displayName ?? "Mekânın bir sonraki hâli."}</h1>
@@ -265,9 +262,6 @@ export function ManagementDashboard({
             Dört üretim biçimi. Kanıta dayalı bir mülk deneyimi.
           </p>
         </div>
-        <span className="spaces-orbit" aria-hidden="true">
-          ⌑
-        </span>
       </div>
       <div className="spaces-safety">
         <ShieldCheck size={19} aria-hidden="true" />
@@ -437,9 +431,6 @@ export function ManagementDashboard({
           {(tab === "properties" || tab === "studio" || tab === "review") && (
             <div className="spaces-two-column">
               <aside className="spaces-panel spaces-property-list">
-                <div className="spaces-section-label">
-                  PORTFÖY / {workspace.actor.organizationId}
-                </div>
                 <h2>Bir mekân seçin</h2>
                 {workspace.properties.map((property) => (
                   <button

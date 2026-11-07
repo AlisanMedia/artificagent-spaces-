@@ -35,7 +35,7 @@ export function StudioPreviewRail({
   return (
     <aside className="v54-preview-rail" aria-label="Medya ve sahne özeti">
       <div className="v54-preview-heading">
-        <span className="ux-kicker">MEDYA ALANI</span>
+        <strong>Önizleme</strong>
         <span>{hasActual ? "Özel yerel çıktı" : "Hazır örnek"}</span>
       </div>
       <div

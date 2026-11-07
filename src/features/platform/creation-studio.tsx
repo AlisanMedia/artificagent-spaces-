@@ -688,6 +688,15 @@ export function CreationStudio() {
         "--ux-accent-text": workspace.brand.accentText,
       } as CSSProperties)
     : undefined;
+  function selectService(id: ProductionServiceId) {
+    setProductionService(id.startsWith("P") ? id : null);
+    setProduct(id === "T01" ? "tour-360" : id === "T02" ? "ai-3d" : "video");
+    setStudioPlan(null);
+    setPanoramaConfirmed(false);
+    setJob(null);
+    setPreview("");
+    setStep(2);
+  }
   return (
     <div
       className={`ux-studio v54-studio v55-studio ${step === 1 ? "v55-step-one" : ""}`}
@@ -805,14 +814,15 @@ export function CreationStudio() {
                   <>
                     <div className="v55-service-heading">
                       <div>
-                        <h2>Nasıl bir çalışma istersin?</h2>
-                        <p>Örneğine bak, ihtiyacına uygun hizmeti seç.</p>
+                        <h2>Medyanızla başlayın.</h2>
+                        <p>Fotoğraflarınız, tanıtımınızın ilk sahnesi.</p>
                       </div>
                     </div>
                     <div className="v55-quick-start">
+                      <Upload size={30} strokeWidth={1.5} aria-hidden="true" />
                       <span>
-                        Video ile hemen başla. Yalnız sentetik dosyalarla yerel
-                        deneme.
+                        Fotoğraf veya desteklenen videolarınızı seçin.
+                        Kaynaklar, hak onayınızdan sonra özel alana kaydedilir.
                       </span>
                       <button
                         type="button"
@@ -830,24 +840,6 @@ export function CreationStudio() {
                         Fotoğraf veya video ekle
                       </button>
                     </div>
-                    <ProductionFamilyCards
-                      disabled={!bootstrap || busy || !canEdit}
-                      onSelect={(id) => {
-                        setProductionService(id.startsWith("P") ? id : null);
-                        setProduct(
-                          id === "T01"
-                            ? "tour-360"
-                            : id === "T02"
-                              ? "ai-3d"
-                              : "video",
-                        );
-                        setStudioPlan(null);
-                        setPanoramaConfirmed(false);
-                        setJob(null);
-                        setPreview("");
-                        setStep(2);
-                      }}
-                    />
                     <button
                       type="button"
                       className="ux-sample"
@@ -876,21 +868,6 @@ export function CreationStudio() {
                       Örnek mülkle dene{" "}
                       <ArrowRight size={16} aria-hidden="true" />
                     </button>
-                    <LocalSupportTools />
-                    <details className="v54-legacy">
-                      <summary>
-                        Video, 3D ve panorama örneklerini karşılaştır
-                      </summary>
-                      <ServiceCards
-                        compact
-                        onSelect={(p) => {
-                          setProductionService(null);
-                          setProduct(p);
-                          setStep(2);
-                        }}
-                        disabled={!bootstrap || busy || !canEdit}
-                      />
-                    </details>
                   </>
                 )}
                 {step === 2 && (
@@ -1637,6 +1614,38 @@ export function CreationStudio() {
               />
             )}
           </div>
+          {step === 1 && (
+            <section
+              className="ad-service-library"
+              aria-labelledby="ad-services-title"
+            >
+              <div className="ad-section-heading">
+                <h2 id="ad-services-title">Mülkünüz için farklı anlatımlar.</h2>
+                <p>
+                  Örnekleri inceleyin veya hizmet tercihlerini hazırlayın. Canlı
+                  üretim kapalıdır.
+                </p>
+              </div>
+              <ProductionFamilyCards
+                mediaMode="cover"
+                disabled={!bootstrap || busy || !canEdit}
+                onSelect={selectService}
+              />
+              <LocalSupportTools />
+              <details className="v54-legacy">
+                <summary>Video, 3D ve panorama örneklerini karşılaştır</summary>
+                <ServiceCards
+                  compact
+                  onSelect={(p) => {
+                    setProductionService(null);
+                    setProduct(p);
+                    setStep(2);
+                  }}
+                  disabled={!bootstrap || busy || !canEdit}
+                />
+              </details>
+            </section>
+          )}
         </>
       ) : (
         <section className="ux-workbench">

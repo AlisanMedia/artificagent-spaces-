@@ -16,10 +16,9 @@ export function Dashboard() {
     { label: "İncelemeye hazır", value: String(properties.filter((property) => property.status === "review-ready").length).padStart(2, "0"), icon: ShieldCheck, detail: "Örnek çalışma" },
   ];
   return <>
-    <div className="page-topline"><span className="eyebrow">MEKÂNLARIN POTANSİYELİNİ KEŞFEDİN</span><DemoNotice compact /></div>
     <section className="dashboard-intro" aria-labelledby="dashboard-heading">
-      <div><h1 id="dashboard-heading">Her mekânın<br />bir hikâyesi var<span className="title-dot">.</span></h1><p>Mülklerinizi yeni bir bakışla anlatın.<br className="desktop-break" /> Bir çalışma alanı, dört farklı deneyim.</p></div>
-      <div className="intro-actions"><span className="intro-edition">SİZİN PORTFÖYÜNÜZ. YENİ BİR PERSPEKTİF.</span><StudioLink /><p>Bir örnek seçin. Hikâyeyi siz yönetin.</p></div>
+      <div><h1 id="dashboard-heading">Her mekânın<br />bir hikâyesi var<span className="title-dot">.</span></h1><p>Mülklerinizi yeni bir bakışla anlatın.<br className="desktop-break" /> Bir çalışma alanı, dört farklı deneyim.</p><DemoNotice compact /></div>
+      <div className="intro-actions"><StudioLink /><p>Bir örnek seçin. Hikâyeyi siz yönetin.</p></div>
     </section>
     <section className="stats-grid" aria-label="Örnek portföy özeti">
       {stats.map(({ label, value, icon: Icon, detail }) => <div className="stat-card" key={label}>

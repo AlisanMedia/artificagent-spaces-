@@ -1,5 +1,6 @@
 import { StrictMode, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { ArrowUpRight } from "lucide-react";
 import { StudioWordmark } from "../features/platform/studio-presentation";
 import {
   emptyEvaluation,
@@ -13,6 +14,7 @@ import {
 } from "../domain/usability-evaluation";
 import "../app/studio-visual.css";
 import "./evaluation.css";
+import "../app/architectural-exhibition.css";
 declare const SPACES_PREVIEW_BUILD_ID: string;
 const sourceHead = SPACES_PREVIEW_BUILD_ID.slice(0, 40);
 const dirty = SPACES_PREVIEW_BUILD_ID.includes(" · ");
@@ -108,7 +110,8 @@ function EvaluationForm() {
         </aside>
         <div className="evaluation-links">
           <a href="/spaces/" target="_blank" rel="noreferrer">
-            Stüdyoyu ayrı sekmede aç ↗
+            Stüdyoyu ayrı sekmede aç{" "}
+            <ArrowUpRight size={16} aria-hidden="true" />
           </a>
           <a href="/golden-v5/living.png" download="sentetik-ornek-salon.png">
             Sentetik deneme fotoğrafını indir

@@ -15,3 +15,5 @@ test-results/
 .spaces-local/
 *.local-backup
 supabase/.temp/
+.impeccable/review/
+.impeccable/mocks/
